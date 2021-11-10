@@ -5,32 +5,50 @@ using UnityEngine.UI;
 
 public class HeroState : MonoBehaviour
 {
-    public List<Button> heroBtnList = new List<Button>();
+    Button button;
+    GameObject statePannel;
 
-    private void Awake()
-    {
-        for (int i = 0; i < heroBtnList.Count; i++)
-        {
-            int idx = i;
-            heroBtnList[i].onClick.AddListener(() =>
-            {
-                HeroStateBtn(idx);
-            });
-        }
-    }
-
-    void HeroStateBtn(int _idx)
-    {
-        //print(_idx);
-    }
+    bool isSlide;
+    float slideLength;
+    Vector2 slideVec;
 
     void Start()
     {
-        
+        Setup();
     }
 
-    void Update()
+    void Setup()
     {
-        
+        button = this.transform.GetChild(0).GetComponent<Button>();
+        statePannel = this.transform.GetChild(1).gameObject;
+
+        isSlide = false;
+        slideLength = statePannel.GetComponent<RectTransform>().rect.width * Screen.width / 1920f;
+        slideVec = this.transform.position;
+
+        button.onClick.AddListener(() => { Slide(); });
+    }
+
+    void Slide()
+    {
+        if (isSlide)
+            slideVec = new Vector2(slideVec.x + slideLength, slideVec.y);
+        else
+            slideVec = new Vector2(slideVec.x - slideLength, slideVec.y);
+
+        StopCoroutine("SlideCo");
+        StartCoroutine("SlideCo");
+
+        isSlide = !isSlide;
+    }
+
+    IEnumerator SlideCo()
+    {
+        while (Vector2.Distance(this.transform.position, slideVec) >= 0.1f)
+        {
+            this.transform.position = Vector2.Lerp(this.transform.position, slideVec, Time.deltaTime * 3f);
+
+            yield return null;
+        }
     }
 }

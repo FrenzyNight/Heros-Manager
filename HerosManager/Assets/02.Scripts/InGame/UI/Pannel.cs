@@ -17,10 +17,10 @@ public class Pannel : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (InGameMgr.Instance.state == InGameMgr.State.Pannel)
+            if (InGameMgr.Instance.state == State.Pannel)
             {
                 CloseCollectPannel();
-                InGameMgr.Instance.state = InGameMgr.State.Camp;
+                InGameMgr.Instance.state = State.Camp;
             }
         }
     }

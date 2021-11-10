@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum State
+{
+    Camp,
+    Pannel,
+    Game1,
+    Game2,
+    Game3,
+}
+
 public class InGameMgr : Singleton<InGameMgr>
 {
-    public enum State
-    {
-        Camp,
-        Pannel,
-        Game1,
-        Game2,
-        Game3,
-    }
     public State state = State.Camp;
 
     public float nowTime;
     public float maxTime;
+    public int day;
 
     void Start()
     {
@@ -26,6 +28,7 @@ public class InGameMgr : Singleton<InGameMgr>
     {
         nowTime = 0f;
         maxTime = 360f;
+        day = 1;
     }
 
     void Update()

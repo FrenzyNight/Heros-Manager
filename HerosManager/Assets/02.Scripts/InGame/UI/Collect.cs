@@ -11,7 +11,7 @@ public class Collect : MonoBehaviour
     {
         CollectBtn.onClick.AddListener(() =>
         {
-            InGameMgr.Instance.state = InGameMgr.State.Pannel;
+            InGameMgr.Instance.state = State.Pannel;
         });
     }
 

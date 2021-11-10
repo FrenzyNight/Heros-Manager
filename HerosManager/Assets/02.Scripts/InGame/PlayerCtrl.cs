@@ -21,14 +21,14 @@ public class PlayerCtrl : MonoBehaviour
     {
         switch (InGameMgr.Instance.state)
         {
-            case InGameMgr.State.Camp:
+            case State.Camp:
                 Move_MouseClick();
                 break;
-            case InGameMgr.State.Game1:
+            case State.Game1:
                 break;
-            case InGameMgr.State.Game2:
+            case State.Game2:
                 break;
-            case InGameMgr.State.Game3:
+            case State.Game3:
                 break;
         }
     }
