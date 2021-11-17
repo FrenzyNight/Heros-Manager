@@ -5,14 +5,16 @@ using UnityEngine;
 public class AmuletPannel : MonoBehaviour
 {
     public GameObject AmuletNotice;
-    RectTransform AmuletNoticeRect;
+    Vector3 NoticePos;
 
     //temp
     public GameObject tempObj;
 
     void Start()
     {
-        AmuletNoticeRect = AmuletNotice.GetComponent<RectTransform>();
+        float width = AmuletNotice.GetComponent<RectTransform>().rect.width * Screen.width / 1920f / 2f;
+        float height = AmuletNotice.GetComponent<RectTransform>().rect.height * Screen.height / 1080f / 2f;
+        NoticePos = new Vector3(width, -height);
     }
 
     void Update()
@@ -31,10 +33,6 @@ public class AmuletPannel : MonoBehaviour
 
     public void AmuletNoticePosition()
     {
-        float width = AmuletNoticeRect.rect.width * Screen.width / 1920f / 2f;
-        float height = AmuletNoticeRect.rect.height * Screen.height / 1080f / 2f;
-        Vector3 vec = new Vector3(width, -height);
-
-        AmuletNotice.transform.position = Input.mousePosition + vec;
+        AmuletNotice.transform.position = Input.mousePosition + NoticePos;
     }
 }
