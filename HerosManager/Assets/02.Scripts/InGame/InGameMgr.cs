@@ -19,6 +19,8 @@ public class InGameMgr : Singleton<InGameMgr>
     public float maxTime;
     public int day;
 
+    Dictionary<string, MiniGameData> miniGameData = new Dictionary<string, MiniGameData>();
+
     void Start()
     {
         Setup();
@@ -39,5 +41,20 @@ public class InGameMgr : Singleton<InGameMgr>
     void Timer()
     {
         nowTime += Time.deltaTime;
+    }
+
+    public void EnterMiniGame(string _stageCode)
+    {
+        miniGameData.Clear();
+        string key = LoadGameData.Instance.miniGameDic[_stageCode].code;
+        MiniGameData mData = LoadGameData.Instance.miniGameDic[_stageCode];
+        miniGameData.Add(key, mData);
+
+        switch (_stageCode)
+        {
+            case "":
+                state = State.Game1;
+                break;
+        }
     }
 }
