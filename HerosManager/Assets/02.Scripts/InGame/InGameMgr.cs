@@ -46,9 +46,12 @@ public class InGameMgr : Singleton<InGameMgr>
     public void EnterMiniGame(string _stageCode)
     {
         miniGameData.Clear();
-        string key = LoadGameData.Instance.miniGameDic[_stageCode].code;
-        MiniGameData mData = LoadGameData.Instance.miniGameDic[_stageCode];
-        miniGameData.Add(key, mData);
+        for (int i = 0; i < LoadGameData.Instance.miniGameDatas.Count; i++)
+        {
+            MiniGameData mData = LoadGameData.Instance.miniGameDatas[i];
+            if (mData.stageCode == _stageCode)
+                miniGameData.Add(mData.code, mData);
+        }
 
         switch (_stageCode)
         {
@@ -56,5 +59,14 @@ public class InGameMgr : Singleton<InGameMgr>
                 state = State.Game1;
                 break;
         }
+    }
+
+    //temp
+    public void GetItems(MiniGameData _mData)
+    {
+        if (_mData.type != 1)
+            return;
+
+        //플레이어 보유 아이템(목재) += _mData.wood;
     }
 }
