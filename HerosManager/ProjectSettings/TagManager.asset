@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Map
+  - Land
+  - Block
+  - Jem
   layers:
   - Default
   - TransparentFX
@@ -47,4 +50,7 @@ TagManager:
     locked: 0
   - name: Block
     uniqueID: 3354076797
+    locked: 0
+  - name: Player
+    uniqueID: 4122272607
     locked: 0
