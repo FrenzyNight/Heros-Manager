@@ -8,10 +8,10 @@ public class CaveCharMove : MonoBehaviour
     public GameObject RunIdle;
     public GameObject SlideIdle;
     public GameObject StunIdle;
-    public float jump;
-    public float jump2;
+    //public float jump;
+    //public float jump2;
 
-    private int jumpCount = 0;
+    private bool isJump;
 
     private Rigidbody2D rigid;
 
@@ -29,6 +29,7 @@ public class CaveCharMove : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.UpArrow))
             {
+                
                 Jump();
             }
 
@@ -46,23 +47,26 @@ public class CaveCharMove : MonoBehaviour
 
     private void Jump()
     {
-        if(jumpCount == 0) // 바닥에서 1단점프
+        if(!isJump) // 바닥에서 1단점프
         {
+            
+            rigid.velocity = new Vector3(0, CM.realCharJump, 0);
+            isJump = true;
             EndSlide();
-            rigid.velocity = new Vector3(0, jump, 0);
-            jumpCount += 1;
         }
 
+        /*  2단점프 삭제
         else if(jumpCount == 1) // 공중에서 2단점프
         {
             rigid.velocity = new Vector3(0,jump2,0);
             jumpCount += 1;
         }
+        */
     }
 
     private void Slide()
     {
-        if(jumpCount == 0)
+        if(!isJump)
         {
             RunIdle.SetActive(false);
             SlideIdle.SetActive(true);
@@ -91,14 +95,15 @@ public class CaveCharMove : MonoBehaviour
 
     void Jem()
     {
-
+        //보석획득
+        Debug.Log("Get Jem");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Land"))
         {
-            jumpCount = 0;
+            isJump = false;
         }
     }
 
