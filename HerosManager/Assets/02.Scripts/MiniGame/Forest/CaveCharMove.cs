@@ -5,9 +5,9 @@ using UnityEngine;
 public class CaveCharMove : MonoBehaviour
 {
     private CaveManager CM;
-    public GameObject RunIdle;
-    public GameObject SlideIdle;
-    public GameObject StunIdle;
+    public GameObject RunStat;
+    public GameObject SlideStat;
+    public GameObject StunStat;
     //public float jump;
     //public float jump2;
 
@@ -68,27 +68,27 @@ public class CaveCharMove : MonoBehaviour
     {
         if(!isJump)
         {
-            RunIdle.SetActive(false);
-            SlideIdle.SetActive(true);
+            RunStat.SetActive(false);
+            SlideStat.SetActive(true);
         }
     }
 
     private void EndSlide()
     {
-        SlideIdle.SetActive(false);
-        RunIdle.SetActive(true);
+        SlideStat.SetActive(false);
+        RunStat.SetActive(true);
     }
 
     IEnumerator Stun()
     {
-        RunIdle.SetActive(false);
-        SlideIdle.SetActive(false);
-        StunIdle.SetActive(true);
+        RunStat.SetActive(false);
+        SlideStat.SetActive(false);
+        StunStat.SetActive(true);
         CM.isRun = false;
         yield return new WaitForSeconds(CM.realStunTime);
 
-        StunIdle.SetActive(false);
-        RunIdle.SetActive(true);
+        StunStat.SetActive(false);
+        RunStat.SetActive(true);
         CM.isRun = true;
         yield return null;
     }

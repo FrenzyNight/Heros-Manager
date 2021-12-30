@@ -24,6 +24,26 @@ public class GrasslandCSVReader : MonoBehaviour
     public float huntArrowSpeed;
     public float huntArrowCoolTime;
 
+    public float huntMonsterCoolTime;
+    public float huntMonsterMaxNum;
+    public float huntMonsterMinMoveTime;
+    public float huntMonsterMaxMoveTime;
+    public float huntMonsterIdleTime;
+
+    public float huntFoxSpeed;
+    public float huntFoxRes;
+    public float huntFoxPer;
+    public float huntFoxHP;
+
+    public float huntBearSpeed;
+    public float huntBearRes;
+    public float huntBearPer;
+    public float huntBearHP;
+    public float huntBearAngrySpeed;
+
+
+
+
     void Awake()
     {
         CSVRead();
@@ -58,6 +78,29 @@ public class GrasslandCSVReader : MonoBehaviour
             {
                 huntArrowSpeed = float.Parse(data_values[11]);
                 huntArrowCoolTime = float.Parse(data_values[12]);
+            }
+            
+            else if(row == 9) // 몬스터(동물) 관련 변수 , 여우 변수
+            {
+                huntMonsterCoolTime = float.Parse(data_values[12]);
+                huntMonsterIdleTime = float.Parse(data_values[16]);
+                huntMonsterMinMoveTime = float.Parse(data_values[17]);
+                huntMonsterMinMoveTime = float.Parse(data_values[18]);
+                huntMonsterMaxNum = float.Parse(data_values[19]);
+
+                huntFoxHP = float.Parse(data_values[14]);
+                huntFoxPer = float.Parse(data_values[8]) * 100;
+                huntFoxRes = float.Parse(data_values[5]);
+                huntFoxSpeed = float.Parse(data_values[11]);
+            }
+
+            else if(row == 10)
+            {
+                huntBearAngrySpeed = float.Parse(data_values[15]);
+                huntBearHP = float.Parse(data_values[14]);
+                huntBearPer = float.Parse(data_values[8]) * 100;
+                huntBearRes = float.Parse(data_values[5]);
+                huntBearSpeed = float.Parse(data_values[11]);
             }
 
             else if(row == 11) // 허브 환경변수

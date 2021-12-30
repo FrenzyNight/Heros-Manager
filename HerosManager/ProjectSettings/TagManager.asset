@@ -8,6 +8,8 @@ TagManager:
   - Land
   - Block
   - Jem
+  - Monster
+  - Arrow
   layers:
   - Default
   - TransparentFX

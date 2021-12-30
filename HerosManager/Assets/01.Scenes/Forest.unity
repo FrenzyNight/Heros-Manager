@@ -379,9 +379,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1408532a6937f439e4b4cac1c4bdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunIdle: {fileID: 1554725691}
-  SlideIdle: {fileID: 567753117}
-  StunIdle: {fileID: 800080405}
+  RunStat: {fileID: 1554725691}
+  SlideStat: {fileID: 567753117}
+  StunStat: {fileID: 800080405}
 --- !u!1 &766617688
 GameObject:
   m_ObjectHideFlags: 0

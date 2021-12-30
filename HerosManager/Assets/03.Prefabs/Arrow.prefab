@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3167088597322650340}
   - component: {fileID: 3330805940024107367}
-  - component: {fileID: 5994781853812841125}
   - component: {fileID: 8328973782386560074}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,27 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f0656029b6c2044929673df984d6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!50 &5994781853812841125
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3958941673234888300}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!70 &8328973782386560074
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
