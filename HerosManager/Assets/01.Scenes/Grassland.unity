@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hub: {fileID: 8518182739121397709, guid: c1202abe11e2bee46b72cd270e343f8a, type: 3}
+  GoldHub: {fileID: 5106972221814121983, guid: 8c5b2b3b7bef55441be9750ff31013be, type: 3}
   StartPoint: {x: -4, y: 19.5}
   EndPoint: {x: 4, y: 10.5}
 --- !u!4 &562918172

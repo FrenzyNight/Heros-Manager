@@ -17,7 +17,8 @@ public class BlockMove : MonoBehaviour
     {
         if(CM.isRun)
         {
-            transform.Translate(-CM.realSpeed * Time.deltaTime, 0, 0);
+            transform.Translate( - CM.realSpeed * Time.deltaTime, 0, 0);
         }
+    
     }
 }

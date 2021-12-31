@@ -85,7 +85,7 @@ public class CaveCharMove : MonoBehaviour
         SlideStat.SetActive(false);
         StunStat.SetActive(true);
         CM.isRun = false;
-        yield return new WaitForSeconds(CM.realStunTime);
+        yield return new WaitForSeconds(CM.stunTime);
 
         StunStat.SetActive(false);
         RunStat.SetActive(true);

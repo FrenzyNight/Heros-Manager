@@ -24,16 +24,15 @@ public class BackgroundMove : MonoBehaviour {
 	{
 			if(CM.isRun)
 			{
-			x = transform.position.x;
-			x += speed * Time.deltaTime;
-			transform.position = new Vector3 (x, transform.position.y, transform.position.z);
+				x = transform.position.x;
+				x += speed * Time.deltaTime;
+				transform.position = new Vector3 (x, transform.position.y, transform.position.z);
 
-			if (x <= ResetPoint){
-
-				//Debug.Log ("hhhh");
+				if (x <= ResetPoint)
+				{
 				x = OriginalPoint;
 				transform.position = new Vector3 (x, transform.position.y, transform.position.z);
-			}
+				}
 
 		}
 	}

@@ -19,7 +19,7 @@ public class InGameMgr : Singleton<InGameMgr>
     public float maxTime;
     public int day;
 
-    Dictionary<string, MiniGameData> miniGameData = new Dictionary<string, MiniGameData>();
+    public Dictionary<string, MiniGameData> miniGameData = new Dictionary<string, MiniGameData>();
 
     void Start()
     {

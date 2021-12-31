@@ -43,8 +43,9 @@ public class Hub : MonoBehaviour
         if(HubTime >= GrassCSV.hubGetTime)
         {
 
-            Debug.Log("Get Hub");
+            //Debug.Log("Get Hub");
             //허브 획득
+            //GrassCSV.hubNormalRes
             Destroy(Gage);
             Destroy(gameObject);
             
@@ -63,8 +64,6 @@ public class Hub : MonoBehaviour
         {
             isTouch = true;
             hubSpan = 0;
-            //Debug.Log("OnTrigger Test");
-            //
         }
     }
 
@@ -73,7 +72,6 @@ public class Hub : MonoBehaviour
         if(collision.gameObject.CompareTag("Player"))
         {
             isTouch = false;
-            //Debug.Log("OnTrigger Test");
         }
     }
 }

@@ -1,5 +1,5 @@
 ObjectCode,StageCode,Object_type,Wood,Water,Meat,Hub,Jem,Probability,Stun,Invincibility,Velocity,CoolTime,GameEnvironment,value1,value2,value3,value4,value5,value6
-game1cage_normal,Stage_1_Forest,0,-1,-1,-1,-1,-1,0.8,-1,-1,1,1,0,1.2,-1,-1,-1,-1,-1
+game1cage_normal,Stage_1_Forest,0,-1,-1,-1,-1,-1,0.8,-1,-1,1,1,0,1,-1,-1,-1,-1,-1
 game1cage_stone,Stage_1_Forest,0,-1,-1,-1,-1,-1,0.09,0.7,0.4,1,1,0,-1,-1,-1,-1,-1,-1
 game1cage_upstone,Stage_1_Forest,0,-1,-1,-1,-1,-1,0.09,0.7,0.4,1,1,0,-1,-1,-1,-1,-1,-1
 game1cage_jem,Stage_1_Forest,1,0,0,0,0,1,0.02,-1,-1,1,1,0,-1,-1,-1,-1,-1,-1
