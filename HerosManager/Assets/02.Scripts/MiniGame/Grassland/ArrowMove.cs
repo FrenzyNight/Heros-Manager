@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class ArrowMove : MonoBehaviour
 {
-    private GrasslandCSVReader GrassCSV;
+    private HuntManager HM;
 
     private float realArrowSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        GrassCSV = GameObject.Find("GrasslandCSVReader").GetComponent<GrasslandCSVReader>();
-        realArrowSpeed = GrassCSV.standardHuntSpeed * GrassCSV.huntArrowSpeed;
-        Destroy(gameObject, 0.4f);
+        HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
+        Destroy(gameObject, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(realArrowSpeed * Time.deltaTime,0,0);
+        transform.Translate(HM.realArrowSpeed * Time.deltaTime,0,0);
     }
 }

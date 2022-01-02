@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Hub : MonoBehaviour
 {
-    private GrasslandCSVReader GrassCSV;
+    private HubManager HM;
     public GameObject GageImg;
     private GameObject Gage;
     private Camera hubcamera;
@@ -19,18 +19,16 @@ public class Hub : MonoBehaviour
     
     void Start()
     {
-        GrassCSV = GameObject.Find("GrasslandCSVReader").GetComponent<GrasslandCSVReader>();
-        hubcamera = GameObject.Find("HubCamera").GetComponent<Camera>();
+        HM = GameObject.Find("HubManager").GetComponent<HubManager>();
         tr = GetComponent<Transform>();
-        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("HubPanel").transform);
-        Gage.transform.position = hubcamera.WorldToScreenPoint(tr.position);
+        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("Hub").transform);
         Gage.GetComponent<Image>().fillAmount = 0;
         
     }
 
     void Update()
     {
-        Gage.GetComponent<Image>().fillAmount = HubTime / 2f;
+        Gage.GetComponent<Image>().fillAmount = HubTime / HM.hubGetTime;
         if(isTouch)
         {
             HubTime += Time.deltaTime;
@@ -40,18 +38,18 @@ public class Hub : MonoBehaviour
             hubSpan += Time.deltaTime;
         }
 
-        if(HubTime >= GrassCSV.hubGetTime)
+        if(HubTime >= HM.hubGetTime)
         {
 
-            //Debug.Log("Get Hub");
+            Debug.Log("Get Hub");
             //허브 획득
-            //GrassCSV.hubNormalRes
+            //HM.hubNormalRes
             Destroy(Gage);
             Destroy(gameObject);
             
         }
 
-        if(hubSpan >= GrassCSV.hubSpanTime) //허브사라짐
+        if(hubSpan >= HM.hubSpanTime) //허브사라짐
         {
             Destroy(Gage);
             Destroy(gameObject);

@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class GoldHub : MonoBehaviour
 {
-    private GrasslandCSVReader GrassCSV;
+    private HubManager HM;
     public GameObject GageImg;
     private GameObject Gage;
-    private Camera hubcamera;
 
     private Transform tr;
 
@@ -19,18 +18,16 @@ public class GoldHub : MonoBehaviour
     
     void Start()
     {
-        GrassCSV = GameObject.Find("GrasslandCSVReader").GetComponent<GrasslandCSVReader>();
-        hubcamera = GameObject.Find("HubCamera").GetComponent<Camera>();
+        HM = GameObject.Find("HubManager").GetComponent<HubManager>();
         tr = GetComponent<Transform>();
-        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("HubPanel").transform);
-        Gage.transform.position = hubcamera.WorldToScreenPoint(tr.position);
+        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("Hub").transform);
         Gage.GetComponent<Image>().fillAmount = 0;
         
     }
 
     void Update()
     {
-        Gage.GetComponent<Image>().fillAmount = HubTime / 2f;
+        Gage.GetComponent<Image>().fillAmount = HubTime / HM.hubGetTime;
         if(isTouch)
         {
             HubTime += Time.deltaTime;
@@ -40,19 +37,18 @@ public class GoldHub : MonoBehaviour
             hubSpan += Time.deltaTime;
         }
 
-        if(HubTime >= GrassCSV.hubGetTime)
+        if(HubTime >= HM.hubGetTime)
         {
 
-            //Debug.Log("Get Hub");
-            //허브 획득
-            
-            //GrassCSV.hubGoldRes
+            Debug.Log("Get GoldHub");
+            //골드허브 획득
+            //HM.hubGoldRes;
             Destroy(Gage);
             Destroy(gameObject);
             
         }
 
-        if(hubSpan >= GrassCSV.hubSpanTime) //허브사라짐
+        if(hubSpan >= HM.hubSpanTime) //허브사라짐
         {
             Destroy(Gage);
             Destroy(gameObject);
@@ -65,6 +61,7 @@ public class GoldHub : MonoBehaviour
         {
             isTouch = true;
             hubSpan = 0;
+            //Debug.Log("접촉");
         }
     }
 

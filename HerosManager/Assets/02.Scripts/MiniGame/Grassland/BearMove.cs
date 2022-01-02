@@ -6,7 +6,6 @@ public class BearMove : MonoBehaviour
 {
     private HuntManager HM;
     public GameObject AngryEffect;
-    private GrasslandCSVReader GrassCSV;
     private Rigidbody2D rb;
     private int direction;
     private float x, y;
@@ -22,9 +21,8 @@ public class BearMove : MonoBehaviour
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
         rb = GetComponent<Rigidbody2D>();
         isIdle = false;
-        GrassCSV = GameObject.Find("GrasslandCSVReader").GetComponent<GrasslandCSVReader>();
-        bearHP = GrassCSV.huntBearHP;
-        realBearSpeed = GrassCSV.standardHuntSpeed * GrassCSV.huntBearSpeed;
+        bearHP = HM.huntBearHP;
+        realBearSpeed = HM.standardHuntSpeed * HM.huntBearSpeed;
         SetMoveTime();
         SetDirection();
     }
@@ -48,7 +46,7 @@ public class BearMove : MonoBehaviour
     IEnumerator SetIdle()
     {
         isIdle = true;
-        yield return new WaitForSeconds(GrassCSV.huntMonsterIdleTime);
+        yield return new WaitForSeconds(HM.huntMonsterIdleTime);
         SetDirection();
         SetMoveTime();
         isIdle = false;
@@ -58,7 +56,7 @@ public class BearMove : MonoBehaviour
     void SetMoveTime()
     {
         moveCheck = 0;
-        moveTime = Random.Range(GrassCSV.huntMonsterMinMoveTime,GrassCSV.huntMonsterMaxMoveTime);
+        moveTime = Random.Range(HM.huntMonsterMinMoveTime,HM.huntMonsterMaxMoveTime);
     }
 
     void SetDirection()
@@ -68,28 +66,30 @@ public class BearMove : MonoBehaviour
         x = realBearSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
         y = realBearSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
 
+
         if(x >= 0)
         {
-            transform.localScale = new Vector3(10,4,1);
+            transform.localScale = new Vector3(1,1,1);
         }
         else
         {
-            transform.localScale = new Vector3(-10,4,1);
+            transform.localScale = new Vector3(-1,1,1);
         }
+        
     }
 
     void Angry()
     {
         AngryEffect.SetActive(true);
-        realBearSpeed = realBearSpeed * GrassCSV.huntBearAngrySpeed;
+        realBearSpeed = realBearSpeed * HM.huntBearAngrySpeed;
         SetDirection();
     }
 
     void Death()
     {
         // 곰 사망
-        //GrassCSV.huntBearRes 만큼 고기 획득
-        Debug.Log("Get Meat " + GrassCSV.huntBearRes.ToString());
+        //HM.huntBearRes 만큼 고기 획득
+        Debug.Log("Get Meat " + HM.huntBearRes.ToString());
         HM.bearNum -= 1;
         Destroy(gameObject);
     }  

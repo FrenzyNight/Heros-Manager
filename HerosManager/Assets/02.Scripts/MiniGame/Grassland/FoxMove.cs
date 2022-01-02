@@ -5,7 +5,6 @@ using UnityEngine;
 public class FoxMove : MonoBehaviour
 {
     private HuntManager HM;
-    private GrasslandCSVReader GrassCSV;
     private Rigidbody2D rb;
     private int direction;
     private float x, y;
@@ -20,8 +19,7 @@ public class FoxMove : MonoBehaviour
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
         rb = GetComponent<Rigidbody2D>();
         isIdle = false;
-        GrassCSV = GameObject.Find("GrasslandCSVReader").GetComponent<GrasslandCSVReader>();
-        foxHP = GrassCSV.huntFoxHP;
+        foxHP = HM.huntFoxHP;
         SetMoveTime();
         SetDirection();
         
@@ -46,7 +44,7 @@ public class FoxMove : MonoBehaviour
     IEnumerator SetIdle()
     {
         isIdle = true;
-        yield return new WaitForSeconds(GrassCSV.huntMonsterIdleTime);
+        yield return new WaitForSeconds(HM.huntMonsterIdleTime);
         SetDirection();
         SetMoveTime();
         isIdle = false;
@@ -56,31 +54,33 @@ public class FoxMove : MonoBehaviour
     void SetMoveTime()
     {
         moveCheck = 0;
-        moveTime = Random.Range(GrassCSV.huntMonsterMinMoveTime,GrassCSV.huntMonsterMaxMoveTime);
+        moveTime = Random.Range(HM.huntMonsterMinMoveTime,HM.huntMonsterMaxMoveTime);
     }
 
     void SetDirection()
     {
         direction = Random.Range(0,360);
         
-        x = GrassCSV.standardHuntSpeed * GrassCSV.huntFoxSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
-        y = GrassCSV.standardHuntSpeed * GrassCSV.huntFoxSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
+        x = HM.standardHuntSpeed * HM.huntFoxSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
+        y = HM.standardHuntSpeed * HM.huntFoxSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
+
 
         if(x >= 0)
         {
-            transform.localScale = new Vector3(10,4,1);
+            transform.localScale = new Vector3(1,1,1);
         }
         else
         {
-            transform.localScale = new Vector3(-10,4,1);
+            transform.localScale = new Vector3(-1,1,1);
         }
+
     }
 
     void Death()
     {
         // 여우 사망
-        //GrassCSV.huntFoxRes 만큼 고기 획득
-        Debug.Log("Get Meat " + GrassCSV.huntFoxRes.ToString());
+        //HM.huntFoxRes 만큼 고기 획득
+        Debug.Log("Get Meat " + HM.huntFoxRes.ToString());
         HM.foxNum -= 1;
         Destroy(gameObject);
     }   

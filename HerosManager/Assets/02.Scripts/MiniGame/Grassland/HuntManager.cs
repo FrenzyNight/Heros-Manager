@@ -6,7 +6,6 @@ using System.IO;
 
 public class HuntManager : MonoBehaviour
 {
-    private GrasslandCSVReader GrassCSV;
     public GameObject FoxPrefab, BearPrefab;
     public Vector2 StartPoint, EndPoint;
     public Vector2 StartPoint2, EndPoint2;
@@ -15,12 +14,40 @@ public class HuntManager : MonoBehaviour
     public int bearNum;
     private int rnd;
 
+    //read
+    public float standardHuntSpeed = 100f;
+    public float huntArrowSpeed;
+    public float huntArrowCoolTime;
+
+    public float huntMonsterCoolTime;
+    public float huntMonsterMaxNum;
+    public float huntMonsterMinMoveTime;
+    public float huntMonsterMaxMoveTime;
+    public float huntMonsterIdleTime;
+
+    public float huntFoxSpeed;
+    public float huntFoxRes;
+    public float huntFoxPer;
+    public float huntFoxHP;
+
+    public float huntBearSpeed;
+    public float huntBearRes;
+    public float huntBearPer;
+    public float huntBearHP;
+    public float huntBearAngrySpeed;
+
+    //real
+    public float realArrowSpeed;
+    public float realFoxSpeed;
+    public float realBearSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
         foxNum = 0;
         bearNum = 0;
-        GrassCSV = GameObject.Find("GrasslandCSVReader").GetComponent<GrasslandCSVReader>();
+        InGameMgr.Instance.EnterMiniGame("Stage_1_Grassland");
+        SetUp();
         StartCoroutine(SpawnMonster());
     }
 
@@ -30,6 +57,34 @@ public class HuntManager : MonoBehaviour
         
     }
 
+    void SetUp()
+    {
+        huntArrowSpeed = InGameMgr.Instance.miniGameData["game1arrow"].speed;
+        huntArrowCoolTime = InGameMgr.Instance.miniGameData["game1arrow"].cooltime;
+
+        huntMonsterCoolTime = InGameMgr.Instance.miniGameData["game1monster_fox"].cooltime;
+        huntMonsterMaxNum = InGameMgr.Instance.miniGameData["game1monster_fox"].value6;
+        huntMonsterMinMoveTime = InGameMgr.Instance.miniGameData["game1monster_fox"].value4;
+        huntMonsterMaxMoveTime = InGameMgr.Instance.miniGameData["game1monster_fox"].value5;
+        huntMonsterIdleTime= InGameMgr.Instance.miniGameData["game1monster_fox"].value3;
+
+        huntFoxSpeed = InGameMgr.Instance.miniGameData["game1monster_fox"].speed;
+        huntFoxRes = InGameMgr.Instance.miniGameData["game1monster_fox"].meat;
+        huntFoxPer = InGameMgr.Instance.miniGameData["game1monster_fox"].probability * 100;
+        huntFoxHP = InGameMgr.Instance.miniGameData["game1monster_fox"].value1;
+
+        huntBearSpeed = InGameMgr.Instance.miniGameData["game1monster_bear"].speed;
+        huntBearRes = InGameMgr.Instance.miniGameData["game1monster_bear"].meat;
+        huntBearPer = InGameMgr.Instance.miniGameData["game1monster_bear"].probability * 100;
+        huntBearHP = InGameMgr.Instance.miniGameData["game1monster_bear"].value1;
+        huntBearAngrySpeed = InGameMgr.Instance.miniGameData["game1monster_bear"].value2;
+
+        realArrowSpeed = huntArrowSpeed * standardHuntSpeed;
+        realFoxSpeed = huntFoxSpeed * standardHuntSpeed;
+        realBearSpeed = huntBearSpeed * standardHuntSpeed;
+    }
+
+    
     IEnumerator SpawnMonster()
     {
         while(true)
@@ -48,46 +103,47 @@ public class HuntManager : MonoBehaviour
 
             rnd = Random.Range(1,101);
 
-            if(foxNum < GrassCSV.huntMonsterMaxNum && bearNum < GrassCSV.huntMonsterMaxNum)
+            if(foxNum < huntMonsterMaxNum && bearNum < huntMonsterMaxNum)
             {
-                if(rnd <= GrassCSV.huntFoxPer)
+                if(rnd <= huntFoxPer)
                 {
                     //fox Spawn
-                    Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity);
+                    Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt").transform);
                     foxNum++;
                 }
                 else
                 {
                     //bearSpawn
-                    Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity);
+                    Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt").transform);
                     bearNum++;
                 }
             }
-            else if(foxNum < GrassCSV.huntMonsterMaxNum && bearNum == GrassCSV.huntMonsterMaxNum)
+            else if(foxNum < huntMonsterMaxNum && bearNum == huntMonsterMaxNum)
             {
                 //fox
-                Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity);
+                Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt").transform);
                 foxNum++;
             }
 
-            else if(foxNum == GrassCSV.huntMonsterMaxNum && bearNum < GrassCSV.huntMonsterMaxNum)
+            else if(foxNum == huntMonsterMaxNum && bearNum < huntMonsterMaxNum)
             {
                 //bear
-                Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity);
+                Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt").transform);
                 bearNum++;
             }
 
-            yield return new WaitForSeconds(GrassCSV.huntMonsterCoolTime);
+            yield return new WaitForSeconds(huntMonsterCoolTime);
         }
     }
+    
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(StartPoint, 0.1f);
-        Gizmos.DrawSphere(EndPoint, 0.1f);
-        Gizmos.DrawSphere(StartPoint2, 0.1f);
-        Gizmos.DrawSphere(EndPoint2, 0.1f);
+        Gizmos.DrawSphere(StartPoint, 4f);
+        Gizmos.DrawSphere(EndPoint, 4f);
+        Gizmos.DrawSphere(StartPoint2, 4f);
+        Gizmos.DrawSphere(EndPoint2, 4f);
     }
 
 }
