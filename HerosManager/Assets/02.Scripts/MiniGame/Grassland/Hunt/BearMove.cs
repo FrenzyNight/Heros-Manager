@@ -2,27 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoxMove : MonoBehaviour
+public class BearMove : MonoBehaviour
 {
     private HuntManager HM;
-    private Rigidbody2D rb;
+    private RectTransform rt;
+    public GameObject AngryEffect;
     private int direction;
     private float x, y;
     private bool isIdle;
     private float moveTime;
     private float moveCheck;
-    private float foxHP;
+    private float bearHP;
 
+    private float realBearSpeed;
     // Start is called before the first frame update
     void Start()
     {
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
-        rb = GetComponent<Rigidbody2D>();
+        rt = gameObject.GetComponent<RectTransform>();
         isIdle = false;
-        foxHP = HM.huntFoxHP;
+        bearHP = HM.huntBearHP;
+        realBearSpeed = HM.standardHuntSpeed * HM.huntBearSpeed;
         SetMoveTime();
         SetDirection();
-        
     }
 
     // Update is called once per frame
@@ -31,7 +33,8 @@ public class FoxMove : MonoBehaviour
         if(!isIdle)
         {
             //rb.MovePosition(new Vector3(x,y,0) * Time.deltaTime);
-            transform.Translate(x * Time.deltaTime,y * Time.deltaTime,0);
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (x * Time.deltaTime) , rt.anchoredPosition.y + (y * Time.deltaTime));
+            //transform.Translate(x * Time.deltaTime,y * Time.deltaTime,0);
             moveCheck += Time.deltaTime;
         }
 
@@ -50,7 +53,7 @@ public class FoxMove : MonoBehaviour
         isIdle = false;
 
     }
-    
+
     void SetMoveTime()
     {
         moveCheck = 0;
@@ -61,8 +64,8 @@ public class FoxMove : MonoBehaviour
     {
         direction = Random.Range(0,360);
         
-        x = HM.standardHuntSpeed * HM.huntFoxSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
-        y = HM.standardHuntSpeed * HM.huntFoxSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
+        x = realBearSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
+        y = realBearSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
 
 
         if(x >= 0)
@@ -73,17 +76,24 @@ public class FoxMove : MonoBehaviour
         {
             transform.localScale = new Vector3(-1,1,1);
         }
+        
+    }
 
+    void Angry()
+    {
+        AngryEffect.SetActive(true);
+        realBearSpeed = realBearSpeed * HM.huntBearAngrySpeed;
+        SetDirection();
     }
 
     void Death()
     {
-        // 여우 사망
-        //HM.huntFoxRes 만큼 고기 획득
-        Debug.Log("Get Meat " + HM.huntFoxRes.ToString());
-        HM.foxNum -= 1;
+        // 곰 사망
+        //HM.huntBearRes 만큼 고기 획득
+        Debug.Log("Get Meat " + HM.huntBearRes.ToString());
+        HM.bearNum -= 1;
         Destroy(gameObject);
-    }   
+    }  
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -98,15 +108,18 @@ public class FoxMove : MonoBehaviour
         if(coll.gameObject.tag == "Arrow")
         {
             Destroy(coll.gameObject);
-            //Debug.Log("Fox Arrow");
+            
         
-            foxHP -= 1;
+            bearHP -= 1;
 
-            if(foxHP <= 0)
+            if(bearHP <= 0)
             {
                 Death();
             }
+            else if(bearHP <= 1)
+            {
+                Angry();
+            }
         }
     }
-
 }

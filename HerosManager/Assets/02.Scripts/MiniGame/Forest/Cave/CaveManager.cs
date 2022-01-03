@@ -8,10 +8,11 @@ public class CaveManager : MonoBehaviour
 {
     public GameObject JemPrefab, DownStonePrefab, UpStonePrefab;
     public Vector2 BlockSpawnPoint;
+    private Vector2 RealSpawnPoint;
     public bool isRun;
 
-    private float standardSpeed = 150f;
-    private float standardJump = 450f;
+    private float standardSpeed = 500f;
+    private float standardJump = 1700f;
 
     private int rnd;
 
@@ -31,13 +32,17 @@ public class CaveManager : MonoBehaviour
     public float jemPer;
 
     public float charJump;
+
+    //UI
+
+    public float resolutionScale;
+    public float heightScale;
     
 
     // Start is called before the first frame update
     void Start()
     {
         isRun = true;
-        //LoadGameData.Instance.LoadCSVDatas();
         InGameMgr.Instance.EnterMiniGame("Stage_1_Forest");
         Debug.Log("Test : " + InGameMgr.Instance.miniGameData["game1cage_normal"].speed);
         
@@ -59,6 +64,10 @@ public class CaveManager : MonoBehaviour
 
         realCharJump = charJump * standardJump;
         realSpeed = varSpeed * standardSpeed;
+
+        resolutionScale = Screen.width / 1920f;
+        heightScale = Screen.height / 1080f;
+        RealSpawnPoint = new Vector2(BlockSpawnPoint.x * resolutionScale + transform.position.x , BlockSpawnPoint.y * heightScale + transform.position.y);
     }
 
     void Update()
@@ -77,17 +86,17 @@ public class CaveManager : MonoBehaviour
                 if(rnd <= jemPer)
                 {
                     //JemSpawn
-                    Instantiate(JemPrefab, BlockSpawnPoint, Quaternion.identity,GameObject.Find("Cave").transform);
+                    Instantiate(JemPrefab, RealSpawnPoint, Quaternion.identity,GameObject.Find("Cave").transform);
                 }
                 else if(jemPer < rnd && rnd <= jemPer + downStonePer)
                 {
                     // DownStoneSpawn
-                    Instantiate(DownStonePrefab, BlockSpawnPoint, Quaternion.identity, GameObject.Find("Cave").transform);
+                    Instantiate(DownStonePrefab, RealSpawnPoint, Quaternion.identity, GameObject.Find("Cave").transform);
                 }
                 else if(jemPer + downStonePer < rnd && rnd <= jemPer + downStonePer + upStonePer)
                 {
                     //UpStoneSpawn;
-                    Instantiate(UpStonePrefab, new Vector2(BlockSpawnPoint.x, BlockSpawnPoint.y + 55f), Quaternion.identity, GameObject.Find("Cave").transform);
+                    Instantiate(UpStonePrefab, RealSpawnPoint, Quaternion.identity, GameObject.Find("Cave").transform);
                 }
                 else
                 {
@@ -103,7 +112,7 @@ public class CaveManager : MonoBehaviour
     
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(BlockSpawnPoint ,5f);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(RealSpawnPoint ,5f);
     }
 }

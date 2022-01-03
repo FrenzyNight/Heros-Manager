@@ -14,12 +14,20 @@ public class CaveCharMove : MonoBehaviour
     private bool isJump;
 
     private Rigidbody2D rigid;
+    private float scale;
 
     // Start is called before the first frame update
     void Start()
     {
         CM = GameObject.Find("CaveManager").GetComponent<CaveManager>();
         rigid = gameObject.GetComponent<Rigidbody2D>();
+        scale = Screen.height / 1080f;
+        SetUp();
+    }
+
+    void SetUp()
+    {
+        rigid.gravityScale = rigid.gravityScale * scale;
     }
 
     // Update is called once per frame
@@ -50,7 +58,7 @@ public class CaveCharMove : MonoBehaviour
         if(!isJump) // 바닥에서 1단점프
         {
             
-            rigid.velocity = new Vector3(0, CM.realCharJump, 0);
+            rigid.velocity = new Vector3(0, CM.realCharJump * scale, 0);
             isJump = true;
             EndSlide();
         }

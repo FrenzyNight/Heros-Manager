@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArrowMove : MonoBehaviour
 {
     private HuntManager HM;
+    private RectTransform rt;
 
     private float realArrowSpeed;
 
@@ -12,12 +13,14 @@ public class ArrowMove : MonoBehaviour
     void Start()
     {
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
+        rt = gameObject.GetComponent<RectTransform>();
         Destroy(gameObject, 1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(HM.realArrowSpeed * Time.deltaTime,0,0);
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (HM.realArrowSpeed * Time.deltaTime) , rt.anchoredPosition.y);
+        //transform.Translate(HM.realArrowSpeed * Time.deltaTime,0,0);
     }
 }

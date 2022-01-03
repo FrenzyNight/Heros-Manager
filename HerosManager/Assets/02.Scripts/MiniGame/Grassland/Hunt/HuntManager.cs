@@ -7,15 +7,17 @@ using System.IO;
 public class HuntManager : MonoBehaviour
 {
     public GameObject FoxPrefab, BearPrefab;
-    public Vector2 StartPoint, EndPoint;
-    public Vector2 StartPoint2, EndPoint2;
+    public Vector2 StartP, EndP;
+    public Vector2 StartP2, EndP2;
+    private Vector2 StartPoint, EndPoint;
+    private Vector2 StartPoint2, EndPoint2;
     private float x, y;
     public int foxNum;
     public int bearNum;
     private int rnd;
 
     //read
-    public float standardHuntSpeed = 100f;
+    public float standardHuntSpeed = 1000f;
     public float huntArrowSpeed;
     public float huntArrowCoolTime;
 
@@ -41,11 +43,11 @@ public class HuntManager : MonoBehaviour
     public float realFoxSpeed;
     public float realBearSpeed;
 
+    public float resolutionScale;
+
     // Start is called before the first frame update
     void Start()
     {
-        foxNum = 0;
-        bearNum = 0;
         InGameMgr.Instance.EnterMiniGame("Stage_1_Grassland");
         SetUp();
         StartCoroutine(SpawnMonster());
@@ -59,6 +61,8 @@ public class HuntManager : MonoBehaviour
 
     void SetUp()
     {
+        foxNum = 0;
+        bearNum = 0;
         huntArrowSpeed = InGameMgr.Instance.miniGameData["game1arrow"].speed;
         huntArrowCoolTime = InGameMgr.Instance.miniGameData["game1arrow"].cooltime;
 
@@ -82,6 +86,12 @@ public class HuntManager : MonoBehaviour
         realArrowSpeed = huntArrowSpeed * standardHuntSpeed;
         realFoxSpeed = huntFoxSpeed * standardHuntSpeed;
         realBearSpeed = huntBearSpeed * standardHuntSpeed;
+
+        resolutionScale = Screen.width / 1920f;
+        StartPoint = new Vector2(StartP.x * resolutionScale + transform.position.x , StartP.y * resolutionScale + transform.position.y);
+        EndPoint = new Vector2(EndP.x * resolutionScale + transform.position.x , EndP.y * resolutionScale + transform.position.y);
+        StartPoint2 = new Vector2(StartP2.x * resolutionScale + transform.position.x , StartP2.y * resolutionScale + transform.position.y);
+        EndPoint2 = new Vector2(EndP2.x * resolutionScale + transform.position.x , EndP2.y * resolutionScale + transform.position.y);
     }
 
     

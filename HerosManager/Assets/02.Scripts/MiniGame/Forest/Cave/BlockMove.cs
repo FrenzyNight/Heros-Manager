@@ -5,10 +5,13 @@ using UnityEngine;
 public class BlockMove : MonoBehaviour
 {
     private CaveManager CM;
+    private RectTransform rt;
+
     // Start is called before the first frame update
     void Start()
     {
         CM = GameObject.Find("CaveManager").GetComponent<CaveManager>();
+        rt = gameObject.GetComponent<RectTransform>();
         Destroy(gameObject, 5f);
     }
 
@@ -17,7 +20,8 @@ public class BlockMove : MonoBehaviour
     {
         if(CM.isRun)
         {
-            transform.Translate( - CM.realSpeed * Time.deltaTime, 0, 0);
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (CM.realSpeed * Time.deltaTime) , rt.anchoredPosition.y);
+            //transform.Translate( - CM.realSpeed * Time.deltaTime, 0, 0);
         }
     
     }

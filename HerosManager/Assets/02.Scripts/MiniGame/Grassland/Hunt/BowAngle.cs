@@ -20,14 +20,12 @@ public class BowAngle : MonoBehaviour
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
         isShoot = false;
         target = transform.position;
-        //cam = MainCam.GetComponent<Camera>();
     }
 
     // Update is called once per frame
     void Update()
     {
         mouse = Input.mousePosition;
-        //mouse = cam.ScreenToWorldPoint(Input.mousePosition);
         angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
         
         this.transform.rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);

@@ -5,12 +5,14 @@ using UnityEngine;
 public class HubManager : MonoBehaviour
 {
     public GameObject Hub,GoldHub;
-    public Vector2 StartPoint, EndPoint;
+    public Vector2 StartP, EndP;
+    private Vector2 StartPoint, EndPoint;
+    
     private float x, y;
     private int rnd;
 
     // load
-    private float standardHubSpeed = 100f;
+    private float standardHubSpeed = 500f;
     public float hubCoolTime;
     public float hubSpanTime;
     public float hubGetTime;
@@ -24,6 +26,8 @@ public class HubManager : MonoBehaviour
 
     //real
     public float realHubCharSpeed;
+
+    public float resolutionScale;
 
     void Start()
     {
@@ -45,6 +49,11 @@ public class HubManager : MonoBehaviour
         hubSpanTime = InGameMgr.Instance.miniGameData["game1hub_normal"].value2;
 
         realHubCharSpeed = standardHubSpeed * hubCharSpeed;
+
+        resolutionScale = Screen.width / 1920f;
+        StartPoint = new Vector2(StartP.x * resolutionScale + transform.position.x , StartP.y * resolutionScale + transform.position.y);
+        EndPoint = new Vector2(EndP.x * resolutionScale + transform.position.x , EndP.y * resolutionScale + transform.position.y);
+
     }
 
     IEnumerator SpawnHub()
