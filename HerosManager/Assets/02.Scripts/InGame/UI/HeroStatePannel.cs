@@ -9,6 +9,8 @@ public class HeroStatePannel : MonoBehaviour
     void Start()
     {
         heroStateList = this.GetComponentsInChildren<HeroState>();
+        for (int i = 0; i < heroStateList.Length; i++)
+            heroStateList[i].SetState(InGameMgr.Instance.heroInfos[i]);
     }
 
     //void Update()

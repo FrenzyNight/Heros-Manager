@@ -19,6 +19,8 @@ public class InGameMgr : Singleton<InGameMgr>
     public float maxTime;
     public int day;
 
+    public HeroInfo[] heroInfos = new HeroInfo[4];
+
     public Dictionary<string, MiniGameData> miniGameData = new Dictionary<string, MiniGameData>();
 
     void Start()
@@ -31,6 +33,12 @@ public class InGameMgr : Singleton<InGameMgr>
         nowTime = 0f;
         maxTime = 360f;
         day = 1;
+
+        for (int i = 0; i < heroInfos.Length; i++)
+        {
+            HeroInfo hInfo = new HeroInfo(100f, 100f, 0f, 0f);
+            heroInfos[i] = hInfo;
+        }
     }
 
     void Update()

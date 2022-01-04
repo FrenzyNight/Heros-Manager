@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Notice : MonoBehaviour
 {
     public Button NoticeBtn;
-    public GameObject NoticePannel;
 
-    bool isSlide;
-    float slideLength;
-    Vector2 slideVec;
+    //bool isSlide;
+    //float slideLength;
+    //Vector2 slideVec;
 
     [Header("Scroll View")]
-    public Text NoticeText;
+    public TextMeshProUGUI NoticeText;
     public Transform Content;
 
     //temp
@@ -23,56 +23,57 @@ public class Notice : MonoBehaviour
     {
         NoticeBtn.onClick.AddListener(() =>
         {
-            Slide();
+            //Slide();
         });
     }
 
-    void Start()
-    {
-        Setup();
-    }
+    //void Start()
+    //{
+    //    Setup();
+    //}
 
-    void Setup()
-    {
-        isSlide = false;
-        slideLength = NoticePannel.GetComponent<RectTransform>().rect.height * Screen.height / 1080f;
-        slideVec = this.transform.position;
-    }
+    //void Setup()
+    //{
+    //    isSlide = false;
+    //    slideLength = NoticePannel.GetComponent<RectTransform>().rect.height * Screen.height / 1080f;
+    //    slideVec = this.transform.position;
+    //}
 
     void Update()
     {
+        //temp
         if (Input.GetKeyDown(KeyCode.S))
         {
             InstantiateNoticeText();
         }
     }
 
-    void Slide()
-    {
-        if (isSlide)
-            slideVec = new Vector2(slideVec.x, slideVec.y - slideLength);
-        else
-            slideVec = new Vector2(slideVec.x, slideVec.y + slideLength);
+    //void Slide()
+    //{
+    //    if (isSlide)
+    //        slideVec = new Vector2(slideVec.x, slideVec.y - slideLength);
+    //    else
+    //        slideVec = new Vector2(slideVec.x, slideVec.y + slideLength);
 
-        StopCoroutine("SlideCo");
-        StartCoroutine("SlideCo");
+    //    StopCoroutine("SlideCo");
+    //    StartCoroutine("SlideCo");
 
-        isSlide = !isSlide;
-    }
+    //    isSlide = !isSlide;
+    //}
 
-    IEnumerator SlideCo()
-    {
-        while (Vector2.Distance(this.transform.position, slideVec) >= 0.1f)
-        {
-            this.transform.position = Vector2.Lerp(this.transform.position, slideVec, Time.deltaTime * 3f);
+    //IEnumerator SlideCo()
+    //{
+    //    while (Vector2.Distance(this.transform.position, slideVec) >= 0.1f)
+    //    {
+    //        this.transform.position = Vector2.Lerp(this.transform.position, slideVec, Time.deltaTime * 3f);
 
-            yield return null;
-        }
-    }
+    //        yield return null;
+    //    }
+    //}
 
     void InstantiateNoticeText()
     {
-        Text text = Instantiate(NoticeText, Content);
+        TextMeshProUGUI text = Instantiate(NoticeText, Content);
         text.text = idx.ToString();
         idx++;
         //text.transform.SetSiblingIndex(0);
