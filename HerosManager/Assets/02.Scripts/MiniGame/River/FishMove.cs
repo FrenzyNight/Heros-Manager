@@ -4,26 +4,27 @@ using UnityEngine;
 
 public class FishMove : MonoBehaviour
 {
-    private RiverCSVReader RiverCSV;
-    private float realFishSpeed;
+    private FishManager FM;
+    private RectTransform rt;
 
     // Start is called before the first frame update
     void Start()
     {
-        RiverCSV = GameObject.Find("RiverCSVReader").GetComponent<RiverCSVReader>();
-        realFishSpeed = RiverCSV.fishVarSpeed * RiverCSV.standardFishSpeed;
+        FM = GameObject.Find("FishManager").GetComponent<FishManager>();
+        rt = gameObject.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-realFishSpeed * Time.deltaTime, 0, 0);
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (FM.realFishSpeed * Time.deltaTime), rt.anchoredPosition.y);
+        //transform.Translate(-realFishSpeed * Time.deltaTime, 0, 0);
     }
 
     void GetFish()
     {
        // get RiverCSV.fishNormalRes
-       Debug.Log("Get Fish : " + RiverCSV.fishNormalRes.ToString());
+       Debug.Log("Get Fish : " + FM.fishNormalRes.ToString());
        Destroy(gameObject);
     }
 

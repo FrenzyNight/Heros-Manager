@@ -4,27 +4,10 @@ using UnityEngine;
 
 public class WaterMananger : MonoBehaviour
 {
-    private RiverCSVReader RiverCSV;
 
-    public Vector2 SpawnPoint1, SpawnPoint2, SpawnPoint3;
-    public GameObject RockPrefab;
-    private bool isFirst, isSecond, isThird;
-
-    private int max;
-    private int rnd;
-
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        RiverCSV = GameObject.Find("RiverCSVReader").GetComponent<RiverCSVReader>();
-        isFirst = false;
-        isSecond = false;
-        isThird = false;
-        max = (int)RiverCSV.waterRockMaxNum;
-        //StartCoroutine(SpawnRock());
+       
     }
 
     // Update is called once per frame
@@ -80,11 +63,4 @@ public class WaterMananger : MonoBehaviour
 
     */
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(SpawnPoint1, 0.1f);
-        Gizmos.DrawSphere(SpawnPoint2, 0.1f);
-        Gizmos.DrawSphere(SpawnPoint3, 0.1f);
-    }
 }

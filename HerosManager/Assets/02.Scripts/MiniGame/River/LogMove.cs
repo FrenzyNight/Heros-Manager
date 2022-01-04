@@ -4,43 +4,36 @@ using UnityEngine;
 
 public class LogMove : MonoBehaviour
 {
-    private RiverCSVReader RiverCSV;
-    private float realLogSpeed;
+    private FishManager FM;
+    private RectTransform rt;
     public float direction;
 
     //public Vector2 limitUp, limitDown;
     // Start is called before the first frame update
     void Start()
     {
-        RiverCSV = GameObject.Find("RiverCSVReader").GetComponent<RiverCSVReader>();
-        realLogSpeed = RiverCSV.standardFishSpeed * RiverCSV.fishLogSpeed;
+        FM = GameObject.Find("FishManager").GetComponent<FishManager>();
+        rt = gameObject.GetComponent<RectTransform>();
         direction = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(0,realLogSpeed * direction * Time.deltaTime,0);
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y + (FM.realLogSpeed * direction * Time.deltaTime));
+        //transform.Translate(0,realLogSpeed * direction * Time.deltaTime,0);
 
         //Debug.Log("position y = " + transform.position.y.ToString());
         
         
-        if(transform.position.y >= 18)
+        if(rt.anchoredPosition.y >= FM.topP)
         {
             direction = -1;
         }
-        else if(transform.position.y <= 12)
+        else if(rt.anchoredPosition.y <= FM.botP)
         {
             direction = 1;
         }
         
     }
-    /*
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(limitUp, 0.1f);
-        Gizmos.DrawSphere(limitDown, 0.1f);
-    }
-    */
 }

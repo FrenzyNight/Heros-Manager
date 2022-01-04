@@ -5,14 +5,12 @@ using UnityEngine;
 public class HubCharMove : MonoBehaviour
 {
     private HubManager HM;
-
-    private Transform tr;
+    
     private RectTransform rt;
     // Start is called before the first frame update
     void Start()
     {
         HM = GameObject.Find("HubManager").GetComponent<HubManager>();
-        tr = GetComponent<Transform>();
         rt = gameObject.GetComponent<RectTransform>();
     }
 

@@ -44,6 +44,7 @@ public class HuntManager : MonoBehaviour
     public float realBearSpeed;
 
     public float resolutionScale;
+    public float heightScale;
 
     // Start is called before the first frame update
     void Start()
@@ -88,10 +89,11 @@ public class HuntManager : MonoBehaviour
         realBearSpeed = huntBearSpeed * standardHuntSpeed;
 
         resolutionScale = Screen.width / 1920f;
-        StartPoint = new Vector2(StartP.x * resolutionScale + transform.position.x , StartP.y * resolutionScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * resolutionScale + transform.position.x , EndP.y * resolutionScale + transform.position.y);
-        StartPoint2 = new Vector2(StartP2.x * resolutionScale + transform.position.x , StartP2.y * resolutionScale + transform.position.y);
-        EndPoint2 = new Vector2(EndP2.x * resolutionScale + transform.position.x , EndP2.y * resolutionScale + transform.position.y);
+        heightScale = Screen.height / 1080f;
+        StartPoint = new Vector2(StartP.x * resolutionScale + transform.position.x , StartP.y * heightScale + transform.position.y);
+        EndPoint = new Vector2(EndP.x * resolutionScale + transform.position.x , EndP.y * heightScale + transform.position.y);
+        StartPoint2 = new Vector2(StartP2.x * resolutionScale + transform.position.x , StartP2.y * heightScale + transform.position.y);
+        EndPoint2 = new Vector2(EndP2.x * resolutionScale + transform.position.x , EndP2.y * heightScale + transform.position.y);
     }
 
     
