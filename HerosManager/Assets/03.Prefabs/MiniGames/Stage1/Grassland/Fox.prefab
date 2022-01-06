@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2499871224497498754}
   - component: {fileID: 6221335448373766482}
   - component: {fileID: 4331332930631624249}
+  - component: {fileID: 4757356736916357009}
   m_Layer: 5
   m_Name: Fox
   m_TagString: Monster
@@ -38,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -123.4, y: -133.2}
-  m_SizeDelta: {x: 150, y: 75}
+  m_SizeDelta: {x: 192, y: 192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2499871224497498764
 CanvasRenderer:
@@ -61,13 +62,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.754717, g: 0.3814161, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 14e66c8ae61074144b9a66b0a7b5ef00, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -112,7 +113,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 125, y: 60}
+  m_Size: {x: 130, y: 80}
   m_Direction: 1
 --- !u!114 &4331332930631624249
 MonoBehaviour:
@@ -126,3 +127,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ddba72c961d094d922507d11d9919c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &4757356736916357009
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2499871224497498752}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4418d6f00405b43449a3c60ee72bd4b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

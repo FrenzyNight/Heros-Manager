@@ -64,13 +64,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6885277063250001150}
-  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6488827329760144657}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 605f06f7c93000f48835f84f002f1a3d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7bca5cad88e02ac469954e36df53db78, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -171,17 +171,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 40.769035, y: 28.154705}
-      - {x: 45.342674, y: 45.190323}
-      - {x: 27.382504, y: 40.463394}
-      - {x: 10.03055, y: 31.902933}
-      - {x: 19.71986, y: 25.604303}
-      - {x: -14.732045, y: -8.951774}
-      - {x: -28.664276, y: -8.653485}
-      - {x: -49.894863, y: -30.449986}
-      - {x: -31.506865, y: -31.90627}
-      - {x: -29.874743, y: -49.00367}
-      - {x: -8.683227, y: -28.245728}
-      - {x: -8.803873, y: -14.770582}
-      - {x: 25.895563, y: 19.639843}
-      - {x: 31.831186, y: 10.427098}
+    - - {x: 7.914008, y: 26.343203}
+      - {x: 7.962286, y: 34.691772}
+      - {x: -0.35936958, y: 46.926514}
+      - {x: -7.796501, y: 34.27368}
+      - {x: -7.7902746, y: 26.519104}
+      - {x: -2.5649438, y: 25.676144}
+      - {x: -2.586185, y: -23.308167}
+      - {x: -10.522411, y: -32.178276}
+      - {x: -10.55882, y: -45.892265}
+      - {x: 0.3405917, y: -38.716972}
+      - {x: 10.514664, y: -46.2152}
+      - {x: 10.448439, y: -31.74834}
+      - {x: 2.331074, y: -23.507683}
+      - {x: 2.1873817, y: 25.696344}

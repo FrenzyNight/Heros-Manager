@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 5165164910398136318}
   - component: {fileID: 3695650017280662574}
   - component: {fileID: 4372063625955301468}
+  - component: {fileID: 7375900887137058681}
   m_Layer: 5
   m_Name: Bear
   m_TagString: Monster
@@ -113,7 +114,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -123.4, y: -133.2}
-  m_SizeDelta: {x: 150, y: 75}
+  m_SizeDelta: {x: 192, y: 192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5165164910398136304
 CanvasRenderer:
@@ -136,13 +137,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3773585, g: 0.19723837, b: 0.012459958, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 2a57f57ccdb6d774ea469f917dce1439, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -187,7 +188,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 125, y: 60}
+  m_Size: {x: 130, y: 85}
   m_Direction: 1
 --- !u!114 &4372063625955301468
 MonoBehaviour:
@@ -202,3 +203,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AngryEffect: {fileID: 495572580074049727}
+--- !u!95 &7375900887137058681
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5165164910398136316}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 26c3f737f8dd2b444abe2179c1e8a678, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

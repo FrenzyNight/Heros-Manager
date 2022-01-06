@@ -6,6 +6,7 @@ public class FoxMove : MonoBehaviour
 {
     private HuntManager HM;
     private RectTransform rt;
+    private Animator ani;
     private int direction;
     private float x, y;
     private bool isIdle;
@@ -18,6 +19,7 @@ public class FoxMove : MonoBehaviour
     {
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
         rt = gameObject.GetComponent<RectTransform>();
+        ani = GetComponent<Animator>();
         isIdle = false;
         foxHP = HM.huntFoxHP;
         SetMoveTime();
@@ -45,10 +47,12 @@ public class FoxMove : MonoBehaviour
     IEnumerator SetIdle()
     {
         isIdle = true;
+        ani.SetBool("isIdle", true);
         yield return new WaitForSeconds(HM.huntMonsterIdleTime);
         SetDirection();
         SetMoveTime();
         isIdle = false;
+        ani.SetBool("isIdle", false);
 
     }
     

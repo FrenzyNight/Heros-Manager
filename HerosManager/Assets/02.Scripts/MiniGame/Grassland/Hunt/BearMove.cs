@@ -6,6 +6,7 @@ public class BearMove : MonoBehaviour
 {
     private HuntManager HM;
     private RectTransform rt;
+    private Animator ani;
     public GameObject AngryEffect;
     private int direction;
     private float x, y;
@@ -20,6 +21,7 @@ public class BearMove : MonoBehaviour
     {
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
         rt = gameObject.GetComponent<RectTransform>();
+        ani = GetComponent<Animator>();
         isIdle = false;
         bearHP = HM.huntBearHP;
         realBearSpeed = HM.standardHuntSpeed * HM.huntBearSpeed;
@@ -47,10 +49,12 @@ public class BearMove : MonoBehaviour
     IEnumerator SetIdle()
     {
         isIdle = true;
+        ani.SetBool("isIdle", true);
         yield return new WaitForSeconds(HM.huntMonsterIdleTime);
         SetDirection();
         SetMoveTime();
         isIdle = false;
+        ani.SetBool("isIdle", false);
 
     }
 
