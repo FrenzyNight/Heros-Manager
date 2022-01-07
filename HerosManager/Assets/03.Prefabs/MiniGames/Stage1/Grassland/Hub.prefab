@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8392230084966993997}
   - component: {fileID: 6506137396844437076}
   - component: {fileID: 2745223079463851799}
-  - component: {fileID: 7571549840190753779}
+  - component: {fileID: 4924084608936414979}
   m_Layer: 5
   m_Name: Hub
   m_TagString: Untagged
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 34, y: -240}
-  m_SizeDelta: {x: 43, y: 43}
+  m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &576918566325376646
 CanvasRenderer:
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5836d02ad30a00746a22744e6a33ff5a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8785cb1f1bd253f4388dc2f4bd81fbf5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GageImg: {fileID: 5463485822341330499, guid: dfd9861f24d10c449bccbfb600e7fc85, type: 3}
---- !u!95 &7571549840190753779
+--- !u!95 &4924084608936414979
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

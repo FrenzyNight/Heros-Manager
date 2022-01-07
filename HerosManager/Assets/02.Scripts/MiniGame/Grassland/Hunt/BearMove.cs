@@ -32,6 +32,7 @@ public class BearMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(!isIdle)
         {
             //rb.MovePosition(new Vector3(x,y,0) * Time.deltaTime);
@@ -39,10 +40,22 @@ public class BearMove : MonoBehaviour
             //transform.Translate(x * Time.deltaTime,y * Time.deltaTime,0);
             moveCheck += Time.deltaTime;
         }
+        */
 
         if(!isIdle && moveCheck >= moveTime)
         {
             StartCoroutine(SetIdle());
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if(!isIdle)
+        {
+            //rb.MovePosition(new Vector3(x,y,0) * Time.deltaTime);
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (x * Time.deltaTime) , rt.anchoredPosition.y + (y * Time.deltaTime));
+            //transform.Translate(x * Time.deltaTime,y * Time.deltaTime,0);
+            moveCheck += Time.deltaTime;
         }
     }
 

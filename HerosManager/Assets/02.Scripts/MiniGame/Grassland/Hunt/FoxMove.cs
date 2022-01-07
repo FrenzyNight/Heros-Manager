@@ -30,6 +30,7 @@ public class FoxMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(!isIdle)
         {
             //rb.MovePosition(new Vector3(x,y,0) * Time.deltaTime);
@@ -37,10 +38,20 @@ public class FoxMove : MonoBehaviour
             //transform.Translate(x * Time.deltaTime,y * Time.deltaTime,0);
             moveCheck += Time.deltaTime;
         }
+        */
 
         if(!isIdle && moveCheck >= moveTime)
         {
             StartCoroutine(SetIdle());
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if(!isIdle)
+        {
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (x * Time.deltaTime) , rt.anchoredPosition.y + (y * Time.deltaTime)); 
+            moveCheck += Time.deltaTime;
         }
     }
 
@@ -66,8 +77,8 @@ public class FoxMove : MonoBehaviour
     {
         direction = Random.Range(0,360);
         
-        x = HM.standardHuntSpeed * HM.huntFoxSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
-        y = HM.standardHuntSpeed * HM.huntFoxSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
+        x = HM.realFoxSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
+        y = HM.realFoxSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
 
 
         if(x >= 0)

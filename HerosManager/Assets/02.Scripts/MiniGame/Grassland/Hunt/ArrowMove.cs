@@ -14,7 +14,7 @@ public class ArrowMove : MonoBehaviour
     {
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
         rt = gameObject.GetComponent<RectTransform>();
-        Destroy(gameObject, 1f);
+        Destroy(gameObject.transform.parent.gameObject, 1f);
     }
 
     // Update is called once per frame
