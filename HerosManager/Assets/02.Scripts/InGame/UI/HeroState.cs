@@ -6,16 +6,14 @@ using TMPro;
 
 public class HeroState : MonoBehaviour
 {
-    public Image ProfileImg;
-    public Image BraveryFill;
-
-    public Text NameText;
     public TextMeshProUGUI StateText;
+    public Image BraveryFill;
     public Button button;
 
     RectTransform rectTrans;
     bool isSlide;
-    float slideLength;
+    Vector2 closeSlideVec;
+    Vector2 openSlideVec;
     Vector2 slideVec;
 
     void Start()
@@ -27,15 +25,15 @@ public class HeroState : MonoBehaviour
     {
         rectTrans = this.GetComponent<RectTransform>();
         isSlide = false;
-        slideLength = 200f * Screen.width / 1920f;
-        slideVec = rectTrans.position;
+        closeSlideVec = rectTrans.anchoredPosition;
+        openSlideVec = new Vector2(-rectTrans.rect.width / 2, rectTrans.anchoredPosition.y);
 
         button.onClick.AddListener(() => { Slide(); });
     }
 
     public void SetState(HeroInfo _heroInfo)
     {
-        //BraveryFill.fillAmount = _heroInfo.bravery / 100f;
+        BraveryFill.fillAmount = _heroInfo.bravery / 100f;
 
         string str = "스트레스:";
         if (_heroInfo.stress < 30f)
@@ -52,9 +50,9 @@ public class HeroState : MonoBehaviour
     void Slide()
     {
         if (isSlide)
-            slideVec = new Vector2(slideVec.x + slideLength, slideVec.y);
+            slideVec = closeSlideVec;
         else
-            slideVec = new Vector2(slideVec.x - slideLength, slideVec.y);
+            slideVec = openSlideVec;
 
         StopCoroutine("SlideCo");
         StartCoroutine("SlideCo");
@@ -64,27 +62,11 @@ public class HeroState : MonoBehaviour
 
     IEnumerator SlideCo()
     {
-        while (Vector2.Distance(rectTrans.position, slideVec) >= 0.1f)
+        while (Vector2.Distance(rectTrans.anchoredPosition, slideVec) >= 0.1f)
         {
-            rectTrans.position = Vector2.Lerp(rectTrans.position, slideVec, Time.deltaTime * 3f);
+            rectTrans.anchoredPosition = Vector2.Lerp(rectTrans.anchoredPosition, slideVec, Time.deltaTime * 3f);
 
             yield return null;
         }
-    }
-}
-
-public class HeroInfo
-{
-    public float hp;
-    public float power;
-    public float stress;
-    public float bravery;
-
-    public HeroInfo(float _hp, float _power, float _stress, float _bravery)
-    {
-        this.hp = _hp;
-        this.power = _power;
-        this.stress = _stress;
-        this.bravery = _bravery;
     }
 }

@@ -6,76 +6,73 @@ using TMPro;
 
 public class Notice : MonoBehaviour
 {
-    public Button NoticeBtn;
-
-    //bool isSlide;
-    //float slideLength;
-    //Vector2 slideVec;
-
-    [Header("Scroll View")]
     public TextMeshProUGUI NoticeText;
     public Transform Content;
 
-    //temp
-    int idx = 0;
+    public Button NoticeBtn;
 
-    private void Awake()
+    RectTransform rectTrans;
+    bool isSlide;
+    Vector2 openSz;
+    Vector2 closeSz;
+    Vector2 szVec;
+
+    //temp
+    public string tempStr = "";
+
+    void Awake()
     {
-        NoticeBtn.onClick.AddListener(() =>
-        {
-            //Slide();
-        });
+        NoticeBtn.onClick.AddListener(() => Slide());
     }
 
-    //void Start()
-    //{
-    //    Setup();
-    //}
+    void Start()
+    {
+        Setup();
+    }
 
-    //void Setup()
-    //{
-    //    isSlide = false;
-    //    slideLength = NoticePannel.GetComponent<RectTransform>().rect.height * Screen.height / 1080f;
-    //    slideVec = this.transform.position;
-    //}
+    void Setup()
+    {
+        rectTrans = this.GetComponent<RectTransform>();
+        isSlide = false;
+        openSz = new Vector2(582f, 264f);
+        closeSz = new Vector2(582f, 88f);
+    }
 
     void Update()
     {
-        //temp
         if (Input.GetKeyDown(KeyCode.S))
         {
-            InstantiateNoticeText();
+            InstNoticeText(tempStr);
         }
     }
 
-    //void Slide()
-    //{
-    //    if (isSlide)
-    //        slideVec = new Vector2(slideVec.x, slideVec.y - slideLength);
-    //    else
-    //        slideVec = new Vector2(slideVec.x, slideVec.y + slideLength);
-
-    //    StopCoroutine("SlideCo");
-    //    StartCoroutine("SlideCo");
-
-    //    isSlide = !isSlide;
-    //}
-
-    //IEnumerator SlideCo()
-    //{
-    //    while (Vector2.Distance(this.transform.position, slideVec) >= 0.1f)
-    //    {
-    //        this.transform.position = Vector2.Lerp(this.transform.position, slideVec, Time.deltaTime * 3f);
-
-    //        yield return null;
-    //    }
-    //}
-
-    void InstantiateNoticeText()
+    void InstNoticeText(string _msg)
     {
         TextMeshProUGUI text = Instantiate(NoticeText, Content);
-        text.text = idx.ToString();
-        idx++;
-        //text.transform.SetSiblingIndex(0);
+        text.text = _msg;
+    }
+
+    void Slide()
+    {
+        if (isSlide)
+            szVec = closeSz;
+        else
+            szVec = openSz;
+
+        StopCoroutine("SlideCo");
+        StartCoroutine("SlideCo");
+
+        isSlide = !isSlide;
+    }
+
+    IEnumerator SlideCo()
+    {
+        while (Vector2.Distance(rectTrans.sizeDelta, szVec) >= 0.1f)
+        {
+            rectTrans.sizeDelta = Vector2.Lerp(rectTrans.sizeDelta, szVec, Time.deltaTime * 3f);
+            rectTrans.anchoredPosition = new Vector2(rectTrans.anchoredPosition.x, rectTrans.sizeDelta.y / 2);
+
+            yield return null;
+        }
     }
 }

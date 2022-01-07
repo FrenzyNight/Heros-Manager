@@ -8,24 +8,42 @@ public class Clock : MonoBehaviour
     public Text DayText;
     public Image ClockFillImg;
 
+    public float nowTime;
+    public float maxTime;
+    public int day;
+
     void Start()
     {
+        Setup();
         DayDesplay();
+    }
+
+    void Setup()
+    {
+        nowTime = 0f;
+        maxTime = 360f;
+        day = 1;
     }
 
     void Update()
     {
-        ClockFillImg.fillAmount = InGameMgr.Instance.nowTime / InGameMgr.Instance.maxTime;
-        if (InGameMgr.Instance.nowTime >= InGameMgr.Instance.maxTime)
+        Timer();
+    }
+
+    void Timer()
+    {
+        nowTime += Time.deltaTime;
+        ClockFillImg.fillAmount = nowTime / maxTime;
+        if (nowTime >= maxTime)
         {
-            InGameMgr.Instance.nowTime = 0f;
-            InGameMgr.Instance.day++;
+            nowTime = 0f;
+            day++;
             DayDesplay();
         }
     }
 
     void DayDesplay()
     {
-        DayText.text = string.Format("{0:D2}", InGameMgr.Instance.day) + "일";
+        DayText.text = string.Format("{0:D2}", day) + "일";
     }
 }
