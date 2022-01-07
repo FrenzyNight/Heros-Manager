@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9033853968039653239}
-  - component: {fileID: 9033853968039653130}
   - component: {fileID: 9033853968039653237}
   - component: {fileID: 9033853968039653236}
+  - component: {fileID: 929454106097591414}
   m_Layer: 5
   m_Name: GoldFish
   m_TagString: Untagged
@@ -39,18 +39,6 @@ RectTransform:
   m_AnchoredPosition: {x: 251, y: 15}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9033853968039653130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9033853968039653238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684a4f0175d0d9b40be3a999c11e10c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &9033853968039653237
 Rigidbody2D:
   serializedVersion: 4
@@ -88,6 +76,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 100, y: 30}
   m_Direction: 1
+--- !u!114 &929454106097591414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9033853968039653238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf259c79bbe1f24089beb72b865223f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9033853969910271138
 GameObject:
   m_ObjectHideFlags: 0
