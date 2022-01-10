@@ -25,23 +25,23 @@ public class Item : Singleton<Item>
         {
             case "Wood":
                 wood += _num;
-                items[0].GetComponentInChildren<Text>().text = "X" + wood;
+                items[0].GetComponentInChildren<Text>().text = wood.ToString();
                 break;
             case "Water":
                 water += _num;
-                items[1].GetComponentInChildren<Text>().text = "X" + water;
+                items[1].GetComponentInChildren<Text>().text = water.ToString();
                 break;
             case "Meat":
                 meat += _num;
-                items[2].GetComponentInChildren<Text>().text = "X" + meat;
+                items[2].GetComponentInChildren<Text>().text = meat.ToString();
                 break;
             case "Hub":
                 hub += _num;
-                items[3].GetComponentInChildren<Text>().text = "X" + hub;
+                items[3].GetComponentInChildren<Text>().text = hub.ToString();
                 break;
             case "Jem":
                 jem += _num;
-                items[4].GetComponentInChildren<Text>().text = "X" + jem;
+                items[4].GetComponentInChildren<Text>().text = jem.ToString();
                 break;
         }
     }
