@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hub2CharMove : MonoBehaviour
+public class Hub2Manager : MonoBehaviour
 {
+    
+
+
     // Start is called before the first frame update
     void Start()
     {
