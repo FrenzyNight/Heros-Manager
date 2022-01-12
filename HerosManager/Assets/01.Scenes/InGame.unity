@@ -8750,12 +8750,14 @@ MonoBehaviour:
   NormalTree: {fileID: 8459736026735668998, guid: 1e36e38a8027c804c9271dc924aad065,
     type: 3}
   BugTree: {fileID: 6359201041979626709, guid: 893aecb57d4e3ab4ab1d7631fa042210, type: 3}
+  treeInputDelay: 0
   treeNormalRes: 0
   treeNormalPer: 0
   treeGoldRes: 0
   treeGoldPer: 0
   treeBugLoss: 0
   treeBugPer: 0
+  treeBugStun: 0
   widthScale: 0
   heightScale: 0
 --- !u!1 &1184285808

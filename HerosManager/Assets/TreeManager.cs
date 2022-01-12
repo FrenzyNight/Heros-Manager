@@ -14,7 +14,7 @@ public class TreeManager : MonoBehaviour
     List<GameObject> treeList = new List<GameObject>();
 
     //load
-
+    public float treeInputDelay;
     public float treeNormalRes;
     public float treeNormalPer;
 
@@ -23,11 +23,14 @@ public class TreeManager : MonoBehaviour
     
     public float treeBugLoss;
     public float treeBugPer;
+    public float treeBugStun;
 
     //real
     private int rnd;
     //scale
     public float widthScale, heightScale;
+
+    private bool isStun;
 
     void Start()
     {
@@ -40,6 +43,8 @@ public class TreeManager : MonoBehaviour
         widthScale = Screen.width / 1920f;
         heightScale = Screen.height / 1080f;
 
+        treeInputDelay = InGameMgr.Instance.miniGameData["game2tree_norm"].stun;
+
         treeNormalPer = InGameMgr.Instance.miniGameData["game2tree_norm"].probability * 100;
         treeNormalRes = InGameMgr.Instance.miniGameData["game2tree_norm"].wood;
 
@@ -48,6 +53,7 @@ public class TreeManager : MonoBehaviour
 
         treeBugLoss = InGameMgr.Instance.miniGameData["game2tree_insect"].value1;
         treeBugPer = InGameMgr.Instance.miniGameData["game2tree_insect"].probability * 100;
+        treeBugStun = InGameMgr.Instance.miniGameData["game2tree_insect"].stun;
 
         //SpawnPoint = new Vector2(point.x * widthScale + transform.position.x, point.y * heightScale + transform.position.y);
 
@@ -70,12 +76,12 @@ public class TreeManager : MonoBehaviour
 
             GameObject tree = Instantiate(SelectedObject, transform.position, Quaternion.identity, GameObject.Find("Tree").transform);
             tree.transform.SetAsFirstSibling();
-            tree.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
+            //tree.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
             treeList.Add(tree);
 
             for(int j=0;j<=i-1;j++)
             {
-                treeList[j].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, treeList[j].GetComponent<RectTransform>().anchoredPosition.y - 128); 
+                treeList[j].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, treeList[j].GetComponent<RectTransform>().anchoredPosition.y - 64); 
             }
 
         }
@@ -84,27 +90,30 @@ public class TreeManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.A) && !isStun)
         {
-            ButtonA();
+           StartCoroutine(ButtonA());
         }
 
-        if(Input.GetKeyDown(KeyCode.D))
+        if(Input.GetKeyDown(KeyCode.D) && !isStun)
         {
-            ButtonD();
+            StartCoroutine(ButtonD());
         }
     }
 
-    void ButtonA()
+    IEnumerator ButtonA()
     {
         GameObject tree = treeList[0];
         treeList.RemoveAt(0);
         Destroy(tree);
 
         SpanwNewTree();
+        isStun = true;
+        yield return new WaitForSeconds(treeInputDelay);
+        isStun = false;
     }
 
-    void ButtonD()
+    IEnumerator ButtonD()
     {
         GameObject tree = treeList[0];
 
@@ -118,7 +127,10 @@ public class TreeManager : MonoBehaviour
         }
         else if(tree.CompareTag("BugTree"))
         {
-            Debug.Log("Loss tree : " + treeBugLoss.ToString());
+            Debug.Log("Loss tree : " + treeBugLoss.ToString() + "and Stun");
+            isStun = true;
+            yield return new WaitForSeconds(treeBugStun);
+            isStun = false;
         }
         else
         {
@@ -129,6 +141,10 @@ public class TreeManager : MonoBehaviour
         Destroy(tree);
 
         SpanwNewTree();
+
+        isStun = true;
+        yield return new WaitForSeconds(treeInputDelay);
+        isStun = false;
     }
 
     void SpanwNewTree()
@@ -150,12 +166,12 @@ public class TreeManager : MonoBehaviour
 
         GameObject tree = Instantiate(SelectedObject, transform.position, Quaternion.identity, GameObject.Find("Tree").transform);
         tree.transform.SetAsFirstSibling();
-        tree.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
+        //tree.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
         treeList.Add(tree);
 
         for(int j=0;j<3;j++)
         {
-            treeList[j].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, treeList[j].GetComponent<RectTransform>().anchoredPosition.y - 128); 
+            treeList[j].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, treeList[j].GetComponent<RectTransform>().anchoredPosition.y - 64); 
         }
     }
 /*

@@ -155,9 +155,29 @@ public class MazeManager : MonoBehaviour
         
     }
 
+    void ResetMaze()
+    {
+        System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
+        for(int i=0;i<mazesize;i++)
+        {
+            for(int j=0;j<mazesize;j++)
+            {
+                Destroy(maze[i,j]);
+            }
+        }
+
+        MakeMaze();
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds + "ms");
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+           ResetMaze();
+        }
     }
 }
