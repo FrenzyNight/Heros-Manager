@@ -3,46 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Item : Singleton<Item>
+public class Item : MonoBehaviour
 {
-    public int wood = 0;
-    public int water = 0;
-    public int meat = 0;
-    public int hub = 0;
-    public int jem = 0;
+    public Text NumText;
+    public Text EffNum;
 
-    Transform[] items = new Transform[5];
+    Coroutine runningCo;
 
-    void Start()
+    public void AddNum(int _num, int _addNum)
     {
-        for (int i = 0; i < this.transform.childCount; i++)
-            items[i] = this.transform.GetChild(i);
+        if (_addNum <= 0)
+            return;
+
+        NumText.text = _num.ToString();
+
+        if (runningCo != null)
+            StopCoroutine(runningCo);
+        runningCo = StartCoroutine(AddNumEffCo(_addNum));
     }
 
-    public void AddItem(string _code, int _num)
+    IEnumerator AddNumEffCo(int _addNum)
     {
-        switch (_code)
+        RectTransform rectTrans = EffNum.GetComponent<RectTransform>();
+
+        EffNum.text = "+" + _addNum;
+        rectTrans.anchoredPosition = Vector2.zero;
+        EffNum.color = Color.white;
+        EffNum.gameObject.SetActive(true);
+
+        Color tempColor = EffNum.color;
+        Vector2 tempVec = rectTrans.anchoredPosition;
+        while (tempColor.a > 0f)
         {
-            case "Wood":
-                wood += _num;
-                items[0].GetComponentInChildren<Text>().text = wood.ToString();
-                break;
-            case "Water":
-                water += _num;
-                items[1].GetComponentInChildren<Text>().text = water.ToString();
-                break;
-            case "Meat":
-                meat += _num;
-                items[2].GetComponentInChildren<Text>().text = meat.ToString();
-                break;
-            case "Hub":
-                hub += _num;
-                items[3].GetComponentInChildren<Text>().text = hub.ToString();
-                break;
-            case "Jem":
-                jem += _num;
-                items[4].GetComponentInChildren<Text>().text = jem.ToString();
-                break;
+            tempColor.a -= Time.deltaTime / 1.5f;
+            EffNum.color = tempColor;
+
+            tempVec.y += Time.deltaTime * 20f;
+            rectTrans.anchoredPosition = tempVec;
+
+            yield return null;
         }
+
+        EffNum.gameObject.SetActive(false);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Notice : MonoBehaviour
+public class Notice : Singleton<Notice>
 {
     public TextMeshProUGUI NoticeText;
     public Transform Content;
@@ -16,6 +16,8 @@ public class Notice : MonoBehaviour
     Vector2 openSz;
     Vector2 closeSz;
     Vector2 szVec;
+
+    public bool isLock;
 
     //temp
     public string tempStr = "";
@@ -36,6 +38,8 @@ public class Notice : MonoBehaviour
         isSlide = false;
         openSz = new Vector2(582f, 264f);
         closeSz = new Vector2(582f, 88f);
+
+        isLock = false;
     }
 
     void Update()
@@ -54,6 +58,9 @@ public class Notice : MonoBehaviour
 
     void Slide()
     {
+        if (isLock)
+            return;
+
         if (isSlide)
             szVec = closeSz;
         else

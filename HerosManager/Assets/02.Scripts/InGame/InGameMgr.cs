@@ -17,6 +17,15 @@ public class InGameMgr : Singleton<InGameMgr>
 
     public Dictionary<string, MiniGameData> miniGameData = new Dictionary<string, MiniGameData>();
 
+    public MiniGameMgr miniGameMgr;
+    public Pause pause;
+
+    void Awake()
+    {
+        //temp
+        LoadGameData.Instance.LoadCSVDatas();
+    }
+
     void Start()
     {
 
@@ -24,7 +33,21 @@ public class InGameMgr : Singleton<InGameMgr>
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (state == State.Camp)
+            {
+                pause.PauseBtn();
+            }
+            else if (state == State.Pannel)
+            {
+                Gathering.Instance.CloseGatheringPannel();
+            }
+            else if (state == State.Game1 || state == State.Game2 || state == State.Game3)
+            {
+                miniGameMgr.CloseCurrentGame();
+            }
+        }
     }
 
     public void EnterMiniGame(string _stageCode)
@@ -37,11 +60,6 @@ public class InGameMgr : Singleton<InGameMgr>
                 miniGameData.Add(mData.code, mData);
         }
 
-        switch (_stageCode)
-        {
-            case "":
-                state = State.Game1;
-                break;
-        }
+        miniGameMgr.StartMiniGame(_stageCode);
     }
 }
