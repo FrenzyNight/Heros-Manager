@@ -20,10 +20,7 @@ public class ItemManager : Singleton<ItemManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            AddItem(1, 2, 3, 0, 5);
-        }
+        
     }
 
     public void AddItem(int _wood, int _water, int _meat, int _hub, int _jem)
