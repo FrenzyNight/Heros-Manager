@@ -103,6 +103,7 @@ public class FishManager : MonoBehaviour
     {
         yield return new WaitForSeconds(MGM.firstTime);
         GuidPanel.SetActive(false);
+        isFisrt = false;
 
         while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
         {
@@ -111,14 +112,31 @@ public class FishManager : MonoBehaviour
             yield return null;
         }
 
-        isFisrt = false;
+        
         StartCoroutine(FishSpawn());
     }
 
     public void StartGame()
     {
         if(!isFisrt)
-            StartCoroutine(FishSpawn());
+            StartCoroutine(ReStart());
+    }
+
+    IEnumerator ReStart()
+    {
+        GuidPanel.SetActive(true);
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+        yield return new WaitForSeconds(MGM.firstTime);
+        GuidPanel.SetActive(false);
+
+        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
+        {
+            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
+
+            yield return null;
+        }
+
+        StartCoroutine(FishSpawn());
     }
     IEnumerator FishSpawn()
     {

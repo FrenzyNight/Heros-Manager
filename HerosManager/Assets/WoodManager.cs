@@ -10,6 +10,7 @@ public class WoodManager : MonoBehaviour
     //UI
     public float resolutionScale;
     public float heightScale;
+    private bool isFirst = true;
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +36,16 @@ public class WoodManager : MonoBehaviour
         TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
     }
 
-    IEnumerator FirstStart()
+    public void StartGame()
     {
+        if(!isFirst)
+            StartCoroutine(ReStart());
+    }
+
+    IEnumerator ReStart()
+    {
+        GuidPanel.SetActive(true);
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
         yield return new WaitForSeconds(MGM.firstTime);
         GuidPanel.SetActive(false);
 
@@ -47,5 +56,24 @@ public class WoodManager : MonoBehaviour
             yield return null;
         }
 
+        //StartCoroutine(SpawnObject());
+    }
+    IEnumerator FirstStart()
+    {
+        GuidPanel.SetActive(true);
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+        
+        yield return new WaitForSeconds(MGM.firstTime);
+        GuidPanel.SetActive(false);
+        isFirst = false;
+
+        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
+        {
+            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
+
+            yield return null;
+        }
+
+        
     }
 }

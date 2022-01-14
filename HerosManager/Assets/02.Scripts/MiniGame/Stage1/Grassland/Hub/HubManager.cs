@@ -67,11 +67,13 @@ public class HubManager : MonoBehaviour
     public void StartGame()
     {
         if(!isFirst)
-            StartCoroutine(SpawnHub());
+            StartCoroutine(ReStart());
     }
 
-    IEnumerator FirstStart()
+    IEnumerator ReStart()
     {
+        GuidPanel.SetActive(true);
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
         yield return new WaitForSeconds(MGM.firstTime);
         GuidPanel.SetActive(false);
 
@@ -82,7 +84,23 @@ public class HubManager : MonoBehaviour
             yield return null;
         }
 
+        StartCoroutine(SpawnHub());
+    }
+
+    IEnumerator FirstStart()
+    {
+        yield return new WaitForSeconds(MGM.firstTime);
+        GuidPanel.SetActive(false);
         isFirst = false;
+
+        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
+        {
+            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
+
+            yield return null;
+        }
+
+        
         StartCoroutine(SpawnHub());
     }
 

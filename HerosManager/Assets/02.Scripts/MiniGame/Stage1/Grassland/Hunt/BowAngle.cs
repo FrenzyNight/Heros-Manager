@@ -11,14 +11,14 @@ public class BowAngle : MonoBehaviour
     private Vector2 target, mouse;
     //private Camera cam;
 
-    private bool isShoot;
+    //private bool isShoot;
 
 
     // Start is called before the first frame update
     void Start()
     {
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
-        isShoot = false;
+        //isShoot = false;
         target = transform.position;
     }
 
@@ -30,7 +30,7 @@ public class BowAngle : MonoBehaviour
         
         this.transform.rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);
         //this.transform.rotation = Quaternion.Euler(0,0,angle-45);
-        if(Input.GetMouseButtonDown(0) && !isShoot)
+        if(Input.GetMouseButtonDown(0) && !HM.isShoot)
         {
             StartCoroutine("ShootArrow");
         }
@@ -38,11 +38,11 @@ public class BowAngle : MonoBehaviour
 
     IEnumerator ShootArrow()
     {
-        isShoot = true;
+        HM.isShoot = true;
         Instantiate(ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward), GameObject.Find("Hunt").transform);
 
         yield return new WaitForSeconds(HM.huntArrowCoolTime);
-        isShoot = false;
+        HM.isShoot = false;
 
         yield return null;
 

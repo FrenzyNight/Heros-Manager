@@ -9,6 +9,7 @@ public class CaveManager : MonoBehaviour
     public MiniGameMgr MGM;
     public GameObject GuidText, GuidPanel;
     private Vector2 TextTarget;
+    
     public GameObject JemPrefab, DownStonePrefab, UpStonePrefab;
     public Vector2 BlockSpawnPoint;
     private Vector2 RealSpawnPoint;
@@ -80,17 +81,17 @@ public class CaveManager : MonoBehaviour
     public void StartGame()
     {
         if(!isFirst)
-            StartCoroutine(SpawnObject());
-        
+            StartCoroutine(ReStart());
     }
 
     void Update()
     {
 
     }
-
-    IEnumerator FirstStart()
+    IEnumerator ReStart()
     {
+        GuidPanel.SetActive(true);
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
         yield return new WaitForSeconds(MGM.firstTime);
         GuidPanel.SetActive(false);
 
@@ -101,8 +102,26 @@ public class CaveManager : MonoBehaviour
             yield return null;
         }
 
-        isRun = true;
+        StartCoroutine(SpawnObject());
+    }
+
+    IEnumerator FirstStart()
+    {
+        //GuidPanel.SetActive(true);
+        //GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+        yield return new WaitForSeconds(MGM.firstTime);
+        GuidPanel.SetActive(false);
+
         isFirst = false;
+        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
+        {
+            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
+
+            yield return null;
+        }
+
+        isRun = true;
+        
         StartCoroutine(SpawnObject());
     }
 

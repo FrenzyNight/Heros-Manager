@@ -48,6 +48,8 @@ public class HuntManager : MonoBehaviour
     public float realFoxSpeed;
     public float realBearSpeed;
 
+    public bool isShoot;
+
     public float resolutionScale;
     public float heightScale;
 
@@ -70,6 +72,7 @@ public class HuntManager : MonoBehaviour
     {
         foxNum = 0;
         bearNum = 0;
+        isShoot = false;
         huntArrowSpeed = InGameMgr.Instance.miniGameData["game1arrow"].speed;
         huntArrowCoolTime = InGameMgr.Instance.miniGameData["game1arrow"].cooltime;
 
@@ -159,10 +162,14 @@ public class HuntManager : MonoBehaviour
     public void StartGame()
     {
         if(!isFisrt)
-            StartCoroutine(SpawnMonster());
+            StartCoroutine(ReStart());
     }
-    IEnumerator FirstStart()
+
+    IEnumerator ReStart()
     {
+        GuidPanel.SetActive(true);
+        isShoot = false;
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
         yield return new WaitForSeconds(MGM.firstTime);
         GuidPanel.SetActive(false);
 
@@ -173,8 +180,23 @@ public class HuntManager : MonoBehaviour
             yield return null;
         }
 
-
+        StartCoroutine(SpawnMonster());
+    }
+    IEnumerator FirstStart()
+    {
+        yield return new WaitForSeconds(MGM.firstTime);
+        GuidPanel.SetActive(false);
         isFisrt = false;
+
+        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
+        {
+            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
+
+            yield return null;
+        }
+
+
+        
 
         StartCoroutine(SpawnMonster());
     }

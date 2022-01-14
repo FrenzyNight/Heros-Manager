@@ -73,6 +73,7 @@ public class WaterManager : MonoBehaviour
     {
         yield return new WaitForSeconds(MGM.firstTime);
         GuidPanel.SetActive(false);
+        isFirst = false;
 
         while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
         {
@@ -81,14 +82,31 @@ public class WaterManager : MonoBehaviour
             yield return null;
         }
 
-        isFirst = false;
+        
         StartCoroutine(SpawnRock());
     }
 
     public void StartGame()
     {
         if(!isFirst)
-            StartCoroutine(SpawnRock());
+            StartCoroutine(ReStart());
+    }
+
+    IEnumerator ReStart()
+    {
+        GuidPanel.SetActive(true);
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+        yield return new WaitForSeconds(MGM.firstTime);
+        GuidPanel.SetActive(false);
+
+        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
+        {
+            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
+
+            yield return null;
+        }
+
+        StartCoroutine(SpawnRock());
     }
     IEnumerator SpawnRock()
     {

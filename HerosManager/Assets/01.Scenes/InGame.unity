@@ -5856,7 +5856,7 @@ GameObject:
   - component: {fileID: 655565558}
   - component: {fileID: 655565559}
   m_Layer: 5
-  m_Name: WoodMananger
+  m_Name: WoodManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

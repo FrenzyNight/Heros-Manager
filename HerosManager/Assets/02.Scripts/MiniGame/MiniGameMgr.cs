@@ -45,6 +45,7 @@ public class MiniGameMgr : MonoBehaviour
                 InGameMgr.Instance.state = State.Game1;
                 obj.SetActive(true);
 
+                obj.transform.Find("Wood/WoodManager").GetComponent<WoodManager>().StartGame();
                 obj.transform.Find("Cave/CaveManager").GetComponent<CaveManager>().StartGame();
                 
                 break;
