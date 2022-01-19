@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TreeManager : MonoBehaviour
 {
+    public MiniGameMgr MGM;
+    public GameObject GuidText, GuidPanel;
+    private Vector2 TextTarget;
+
     public GameObject GoldTree, NormalTree, BugTree;
 
     //private Vector2 SpawnPoint;
@@ -32,10 +36,16 @@ public class TreeManager : MonoBehaviour
 
     private bool isStun;
 
+    //UI
+    private bool isFirst = true;
+
     void Start()
     {
+        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
         InGameMgr.Instance.EnterMiniGame("Stage_2_ruins");
+        
         SetUp();
+        StartCoroutine(FirstStart());
     }
 
     void SetUp()
@@ -55,6 +65,7 @@ public class TreeManager : MonoBehaviour
         treeBugPer = InGameMgr.Instance.miniGameData["game2tree_insect"].probability * 100;
         treeBugStun = InGameMgr.Instance.miniGameData["game2tree_insect"].stun;
 
+        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
         //SpawnPoint = new Vector2(point.x * widthScale + transform.position.x, point.y * heightScale + transform.position.y);
 
         for(int i=0;i<4;i++)
@@ -174,11 +185,45 @@ public class TreeManager : MonoBehaviour
             treeList[j].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, treeList[j].GetComponent<RectTransform>().anchoredPosition.y - 64); 
         }
     }
-/*
-    void OnDrawGizmos()
+
+    public void StartGame()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(SpawnPoint, 3f);
+        if(!isFirst)
+            StartCoroutine(ReStart());
     }
-    */
+
+    IEnumerator ReStart()
+    {
+        GuidPanel.SetActive(true);
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+        yield return new WaitForSeconds(MGM.firstTime);
+        GuidPanel.SetActive(false);
+
+        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
+        {
+            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
+
+            yield return null;
+        }
+
+        //StartCoroutine(SpawnObject());
+    }
+    IEnumerator FirstStart()
+    {
+        GuidPanel.SetActive(true);
+        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
+        
+        yield return new WaitForSeconds(MGM.firstTime);
+        GuidPanel.SetActive(false);
+        isFirst = false;
+
+        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
+        {
+            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
+
+            yield return null;
+        }
+
+        
+    }
 }
