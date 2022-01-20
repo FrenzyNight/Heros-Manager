@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Hub : MonoBehaviour
+public class Hub2 : MonoBehaviour
 {
-    private HubManager HM;
+    private Hub2Manager HM;
     public GameObject GageImg;
     private GameObject Gage;
 
@@ -18,9 +18,9 @@ public class Hub : MonoBehaviour
     
     void Start()
     {
-        HM = GameObject.Find("HubManager").GetComponent<HubManager>();
+        HM = GameObject.Find("Hub2Manager").GetComponent<Hub2Manager>();
         tr = GetComponent<Transform>();
-        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("Hub").transform);
+        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("Hub2").transform);
         Gage.GetComponent<Image>().fillAmount = 0;
         
     }

@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HubCharMove : MonoBehaviour
+public class Hub2CharMove : MonoBehaviour
 {
-    private HubManager HM;
+    private Hub2Manager HM;
     
     private RectTransform rt;
     private float x, y;
     private int direction;
     private bool isMove;
     private bool isW, isA, isS, isD;
+    private bool isInv, isStun;
 
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("HubManager").GetComponent<HubManager>();
+        HM = GameObject.Find("Hub2Manager").GetComponent<Hub2Manager>();
         rt = gameObject.GetComponent<RectTransform>();
         
         isMove = false;
@@ -23,12 +24,15 @@ public class HubCharMove : MonoBehaviour
         isA = false;
         isS = false;
         isD = false;
+
+        isInv = false;
+        isStun = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
         if(Input.GetKey(KeyCode.W))
         {
             isW = true;
@@ -52,7 +56,7 @@ public class HubCharMove : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.W))
         {
-           SetDirection();
+        SetDirection();
         }
         if(Input.GetKeyDown(KeyCode.A))
         {
@@ -60,7 +64,7 @@ public class HubCharMove : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.S))
         {
-           SetDirection();
+            SetDirection();
         }
         if(Input.GetKeyDown(KeyCode.D))
         {
@@ -91,12 +95,12 @@ public class HubCharMove : MonoBehaviour
             isMove = false;
             SetDirection();
         }
-
+        
     }
 
     void FixedUpdate()
     {
-        if(isMove)
+        if(isMove && !isStun)
         {
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (x * Time.deltaTime) , rt.anchoredPosition.y + (y * Time.deltaTime));
         }
@@ -152,7 +156,34 @@ public class HubCharMove : MonoBehaviour
         {
             transform.localScale = new Vector3(-1,1,1);
         }
+    }
 
+    public void StartStun()
+    {
+        StartCoroutine(Stun());
+    }
+
+    IEnumerator Stun()
+    {
+        if(!isInv)
+        {
+            //스턴 
+            isStun = true;
+            Debug.Log("Stun");
+            isW = false;
+            isA = false;
+            isS = false; 
+            isD = false;
+            isMove = false;
+            yield return new WaitForSeconds(HM.hubCactusStun);
+            isStun = false;
+            //isMove = true;
+
+            //무적
+            isInv = true;
+            yield return new WaitForSeconds(HM.hubCactusInv);
+            isInv = false;
+        }
     }
 
     void OnCollisionEnter(Collision c)
