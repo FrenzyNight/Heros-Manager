@@ -12,7 +12,7 @@ public class Item : MonoBehaviour
 
     public void AddNum(int _num, int _addNum)
     {
-        if (_addNum <= 0)
+        if (_addNum == 0)
             return;
 
         NumText.text = _num.ToString();
@@ -26,7 +26,12 @@ public class Item : MonoBehaviour
     {
         RectTransform rectTrans = EffNum.GetComponent<RectTransform>();
 
-        EffNum.text = "+" + _addNum;
+        string str = "";
+        if (_addNum < 0)
+            str = "-";
+        else
+            str = "+";
+        EffNum.text = str + _addNum;
         rectTrans.anchoredPosition = Vector2.zero;
         EffNum.color = Color.white;
         EffNum.gameObject.SetActive(true);

@@ -50,7 +50,7 @@ public class Notice : Singleton<Notice>
         }
     }
 
-    void InstNoticeText(string _msg)
+    public void InstNoticeText(string _msg)
     {
         TextMeshProUGUI text = Instantiate(NoticeText, Content);
         text.text = _msg;

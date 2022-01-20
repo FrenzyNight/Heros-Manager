@@ -13,6 +13,8 @@ public enum State
 
 public class InGameMgr : Singleton<InGameMgr>
 {
+    public int stage = 1;
+
     public State state = State.Camp;
 
     public Dictionary<string, MiniGameData> miniGameData = new Dictionary<string, MiniGameData>();

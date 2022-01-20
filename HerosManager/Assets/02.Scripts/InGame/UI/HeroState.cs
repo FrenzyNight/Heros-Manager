@@ -11,10 +11,12 @@ public class HeroState : MonoBehaviour
     public Button button;
 
     RectTransform rectTrans;
-    bool isSlide;
+    public bool isSlide;
     Vector2 closeSlideVec;
     Vector2 openSlideVec;
     Vector2 slideVec;
+
+    Coroutine slideCo;
 
     void Start()
     {
@@ -33,7 +35,7 @@ public class HeroState : MonoBehaviour
 
     public void SetState(HeroInfo _heroInfo)
     {
-        BraveryFill.fillAmount = _heroInfo.bravery / 100f;
+        BraveryFill.fillAmount = _heroInfo.exp / 100f;
 
         string str = "스트레스:";
         if (_heroInfo.stress < 30f)
@@ -47,15 +49,16 @@ public class HeroState : MonoBehaviour
         StateText.text = str;
     }
 
-    void Slide()
+    public void Slide()
     {
         if (isSlide)
             slideVec = closeSlideVec;
         else
             slideVec = openSlideVec;
 
-        StopCoroutine("SlideCo");
-        StartCoroutine("SlideCo");
+        if (slideCo != null)
+            StopCoroutine(slideCo);
+        slideCo = StartCoroutine(SlideCo());
 
         isSlide = !isSlide;
     }
