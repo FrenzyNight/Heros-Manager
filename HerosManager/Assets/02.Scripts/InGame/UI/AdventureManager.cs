@@ -146,7 +146,7 @@ public class AdventureManager : MonoBehaviour
         }
 
         string str = "대성공 확률 : " + (int)(perfect * 100f) + "%\n성공 확률 : " + (int)(success * 100f)
-            + "\n실패 확률 : " + (int)(fail * 100f) + "%";
+            + "%\n실패 확률 : " + (int)(fail * 100f) + "%";
         RateTxt.text = str;
     }
 
