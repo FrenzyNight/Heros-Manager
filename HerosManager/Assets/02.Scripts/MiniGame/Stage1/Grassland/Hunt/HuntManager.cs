@@ -62,11 +62,6 @@ public class HuntManager : MonoBehaviour
         StartCoroutine(FirstStart());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void SetUp()
     {

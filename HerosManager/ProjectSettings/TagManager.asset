@@ -13,6 +13,7 @@ TagManager:
   - BugTree
   - GoldTree
   - NormalTree
+  - Cactus
   layers:
   - Default
   - TransparentFX

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BowAngle : MonoBehaviour
+public class Bow2Angle : MonoBehaviour
 {
-    private HuntManager HM;
+    private Hunt2Manager HM;
     public GameObject ArrowPrefab;
     private float angle;
     private Vector2 target, mouse;
@@ -14,7 +14,7 @@ public class BowAngle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
+        HM = GameObject.Find("Hunt2Manager").GetComponent<Hunt2Manager>();
         target = transform.position;
     }
 
@@ -35,7 +35,7 @@ public class BowAngle : MonoBehaviour
     IEnumerator ShootArrow()
     {
         HM.isShoot = true;
-        Instantiate(ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward), GameObject.Find("Hunt").transform);
+        Instantiate(ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward), GameObject.Find("Hunt2").transform);
 
         yield return new WaitForSeconds(HM.huntArrowCoolTime);
         HM.isShoot = false;

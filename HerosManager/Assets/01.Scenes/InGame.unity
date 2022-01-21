@@ -8072,6 +8072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d26fa6cefd353449211cb2bdef3177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ArrowPrefab: {fileID: 3535892959668595160, guid: 42fbee301e3d30e468644057caf9b2e4,
+    type: 3}
 --- !u!114 &687994530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12608,22 +12610,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MGM: {fileID: 0}
-  GuidText: {fileID: 0}
-  GuidPanel: {fileID: 0}
-  FoxPrefab: {fileID: 0}
-  GoldFoxPrefab: {fileID: 0}
-  WeaselPrefab: {fileID: 0}
-  StartP: {x: 0, y: 0}
-  EndP: {x: 0, y: 0}
-  StartP2: {x: 0, y: 0}
-  EndP2: {x: 0, y: 0}
+  GuidText: {fileID: 1750526964}
+  GuidPanel: {fileID: 20516096}
+  FoxPrefab: {fileID: 2537414466453017109, guid: ecad0658b666b4348aefa9f2aec3924d,
+    type: 3}
+  GoldFoxPrefab: {fileID: 578358059918110083, guid: bae906b4de32986419ff7aa6e93ce045,
+    type: 3}
+  WeaselPrefab: {fileID: 6651250996442011929, guid: 1b14e08af75654546826c9722f263709,
+    type: 3}
+  Cactus: {fileID: 7228338839023537443, guid: 7fa0a75973ab1704e9e7ec98899a9a74, type: 3}
+  StartP: {x: -280, y: -280}
+  EndP: {x: 280, y: -30}
+  StartP2: {x: -280, y: 30}
+  EndP2: {x: 280, y: 280}
   foxNum: 0
   weaselNum: 0
-  standardHuntSpeed: 1000
+  goldFoxNum: 0
+  quater: 167.5
+  plusmin: 112.5
+  standardHuntSpeed: 200
   huntArrowSpeed: 0
   huntArrowCoolTime: 0
+  huntCactusNum: 0
   huntMonsterCoolTime: 0
-  huntMonsterMaxNum: 0
   huntMonsterMinMoveTime: 0
   huntMonsterMaxMoveTime: 0
   huntMonsterIdleTime: 0
@@ -12631,13 +12640,23 @@ MonoBehaviour:
   huntFoxRes: 0
   huntFoxPer: 0
   huntFoxHP: 0
+  huntFoxAngrySpeed: 0
+  huntFoxMaxNum: 0
+  huntGoldFoxSpeed: 0
+  huntGoldFoxRes: 0
+  huntGoldFoxPer: 0
+  huntGoldFoxHP: 0
+  huntGoldFoxAngrySpeed: 0
+  huntGoldFoxMaxNum: 0
   huntWeaselSpeed: 0
   huntWeaselRes: 0
   huntWeaselPer: 0
   huntWeaselHP: 0
-  huntWeaselAngrySpeed: 0
+  huntWeasel: 0
+  huntWeaselMaxNum: 0
   realArrowSpeed: 0
   realFoxSpeed: 0
+  realGoldFoxSpeed: 0
   realWeaselSpeed: 0
   isShoot: 0
   resolutionScale: 0
@@ -14421,7 +14440,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1261467127
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23032,7 +23051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2135341226
 RectTransform:
   m_ObjectHideFlags: 0

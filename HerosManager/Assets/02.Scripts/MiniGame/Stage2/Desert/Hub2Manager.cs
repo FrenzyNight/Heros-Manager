@@ -12,6 +12,7 @@ public class Hub2Manager : MonoBehaviour
 
     public GameObject Hub,GoldHub;
     public GameObject Cactus;
+    private List<GameObject> CacList = new List<GameObject>();
     public Vector2 StartP, EndP;
     private Vector2 StartPoint, EndPoint;
 
@@ -26,6 +27,7 @@ public class Hub2Manager : MonoBehaviour
     public float hubCactusStun;
     public float hubCactusInv;
     public float hubCactusNum;
+
     public float hubCoolTime;
     public float hubSpanTime;
     public float hubGetTime;
@@ -88,30 +90,39 @@ public class Hub2Manager : MonoBehaviour
             x = Random.Range(transform.position.x + quater-plusmin, transform.position.x + quater+plusmin);
             y = Random.Range(transform.position.y + quater-plusmin, transform.position.y + quater+plusmin);
 
-            Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform);
+            CacList.Add(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // +-
         {
             x = Random.Range(transform.position.x + quater-plusmin, transform.position.x + quater+plusmin);
             y = Random.Range(transform.position.y -quater-plusmin, transform.position.y-quater+plusmin);
 
-            Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform);
+            CacList.Add(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // --
         {
             x = Random.Range(transform.position.x-quater-plusmin, transform.position.x-quater+plusmin);
             y = Random.Range(transform.position.y-quater-plusmin, transform.position.y-quater+plusmin);
 
-            Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform);
+            CacList.Add(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // -+
         {
             x = Random.Range(transform.position.x-quater-plusmin, transform.position.x-quater+plusmin);
             y = Random.Range(transform.position.y+ quater-plusmin, transform.position.y+ quater+plusmin);
 
-            Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform);
+            CacList.Add(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform));
         }
         
+    }
+
+    void RemoveCactus()
+    {
+        foreach(GameObject cac in CacList)
+        {
+            Destroy(cac);
+        }
+        CacList.Clear();
     }
 
     public void StartGame()
@@ -133,7 +144,9 @@ public class Hub2Manager : MonoBehaviour
 
             yield return null;
         }
-
+        
+        RemoveCactus();
+        SpawnCactus();
         StartCoroutine(SpawnHub());
     }
 
