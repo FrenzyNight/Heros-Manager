@@ -35,6 +35,26 @@ public class HeroState : MonoBehaviour
 
     public void SetState(HeroInfo _heroInfo)
     {
+        //예외처리
+        if (_heroInfo.hp <= 0f)
+        {
+            _heroInfo.hp = 0f;
+            //Die
+            return;
+        }
+
+        if (_heroInfo.exp < 0f)
+            _heroInfo.exp = 0f;
+        if (_heroInfo.exp > 100f)
+            _heroInfo.exp = 100f;
+
+        if (_heroInfo.power < 0f)
+            _heroInfo.power = 0f;
+
+        if (_heroInfo.stress > 100f)
+            _heroInfo.stress = 100f;
+
+        //Set
         BraveryFill.fillAmount = _heroInfo.exp / 100f;
 
         string str = "스트레스:";
