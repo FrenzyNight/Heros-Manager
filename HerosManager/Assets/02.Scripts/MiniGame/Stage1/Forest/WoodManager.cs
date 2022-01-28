@@ -35,7 +35,6 @@ public class WoodManager : MonoBehaviour
         InGameMgr.Instance.EnterMiniGame("Stage_1_Forest");
 
         SetUp();
-        
         StartCoroutine(FirstStart());
     }
 
@@ -122,8 +121,6 @@ public class WoodManager : MonoBehaviour
             StartCoroutine(Stun());
         }
     }
-
-
 
     IEnumerator Stun()
     {
