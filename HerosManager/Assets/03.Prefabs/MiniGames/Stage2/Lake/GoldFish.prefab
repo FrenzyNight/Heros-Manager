@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 2190588139933792539}
   - component: {fileID: 2190588139933792536}
   - component: {fileID: 2190588139933792537}
+  - component: {fileID: -7829694780477929640}
+  - component: {fileID: 2376298150844116364}
   m_Layer: 5
   m_Name: GoldFish
-  m_TagString: Untagged
+  m_TagString: GoldFish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,3 +113,37 @@ CapsuleCollider2D:
   m_Offset: {x: -5, y: 0}
   m_Size: {x: 100, y: 25}
   m_Direction: 1
+--- !u!114 &-7829694780477929640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190588139933792519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b893321b36864d14986aea2e340f56fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dir: 0
+--- !u!50 &2376298150844116364
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190588139933792519}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
