@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2752490166569419631}
   - component: {fileID: 6481819751305656322}
   - component: {fileID: 7149545536775236527}
-  - component: {fileID: 4392093639464937220}
   - component: {fileID: 6643998010141291602}
   - component: {fileID: 8845032813181728905}
+  - component: {fileID: 2536359629471569912}
   m_Layer: 5
   m_Name: Hub2Gold
   m_TagString: Untagged
@@ -61,13 +61,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9342736, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3396698e61e8e4d43b2b58af28c96c25, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c93ce27e2794ca343b893508e79f66f7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -77,25 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &4392093639464937220
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4599634804358760963}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b0ce82aa5d4bcfb4f9ea432f4aa75549, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!58 &6643998010141291602
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -125,3 +106,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GageImg: {fileID: 5463485822341330499, guid: dfd9861f24d10c449bccbfb600e7fc85, type: 3}
+--- !u!95 &2536359629471569912
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4599634804358760963}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6f124e83690dd8c41af6a708c4f95681, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

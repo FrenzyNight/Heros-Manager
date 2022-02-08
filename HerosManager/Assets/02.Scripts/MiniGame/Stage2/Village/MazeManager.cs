@@ -18,6 +18,12 @@ public class MazeManager : MonoBehaviour
     public float resolutionScale;
     public float heightScale;
     private bool isFirst = true;
+
+    private float mazeStandardSpeed = 300f;
+    //road
+
+    public float mazeCharSpeed;
+    public float realMazeCharSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +41,10 @@ public class MazeManager : MonoBehaviour
     {
         resolutionScale = Screen.width / 1920f;
         heightScale = Screen.height / 1080f;
+
+        mazeCharSpeed = InGameMgr.Instance.miniGameData["game2maze"].speed;
+
+        realMazeCharSpeed = mazeStandardSpeed * mazeCharSpeed;
     
         TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
     }
@@ -177,7 +187,7 @@ public class MazeManager : MonoBehaviour
         
     }
 
-    void ResetMaze()
+    public void ResetMaze()
     {
         System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
         watch.Start();

@@ -19,6 +19,7 @@ public class FoxMove : MonoBehaviour
     {
         HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
         rt = gameObject.GetComponent<RectTransform>();
+        rt.SetAsLastSibling();
         ani = GetComponent<Animator>();
         isIdle = false;
         foxHP = HM.huntFoxHP;

@@ -2,110 +2,107 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hub2CharMove : MonoBehaviour
+public class MazeCharMove : MonoBehaviour
 {
-    private Hub2Manager HM;
-    
+    private MazeManager MM;
     private RectTransform rt;
+
+    private bool isMove;
     private float x, y;
     private int direction;
-    private bool isMove;
     private bool isW, isA, isS, isD;
-    private bool isInv, isStun;
+    public Vector2 firstPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("Hub2Manager").GetComponent<Hub2Manager>();
+        MM = GameObject.Find("MazeManager").GetComponent<MazeManager>();
+
         rt = gameObject.GetComponent<RectTransform>();
         
+        firstPoint = rt.anchoredPosition;
         isMove = false;
         isW = false;
         isA = false;
         isS = false;
         isD = false;
 
-        isInv = false;
-        isStun = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if(Input.GetKey(KeyCode.W))
+        if(Input.GetKey(KeyCode.UpArrow))
         {
             isW = true;
             isMove = true;
         }
-        if(Input.GetKey(KeyCode.A))
+        if(Input.GetKey(KeyCode.LeftArrow))
         {
             isA = true;
             isMove = true;
         }
-        if(Input.GetKey(KeyCode.S))
+        if(Input.GetKey(KeyCode.DownArrow))
         {
             isS = true;
             isMove = true;
         }
-        if(Input.GetKey(KeyCode.D))
+        if(Input.GetKey(KeyCode.RightArrow))
         {
             isD = true;
             isMove = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.UpArrow))
         {
             SetDirection();
         }
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             SetDirection();
         }
-        if(Input.GetKeyDown(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.DownArrow))
         {
             SetDirection();
         }
-        if(Input.GetKeyDown(KeyCode.D))
+        if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             SetDirection();
         }
 
-        if(Input.GetKeyUp(KeyCode.W))
+        if(Input.GetKeyUp(KeyCode.UpArrow))
         {
             isW =false;
             isMove = false;
             SetDirection();
         }
-        if(Input.GetKeyUp(KeyCode.A))
+        if(Input.GetKeyUp(KeyCode.LeftArrow))
         {
             isA = false;
             isMove = false;
             SetDirection();
         }
-        if(Input.GetKeyUp(KeyCode.S))
+        if(Input.GetKeyUp(KeyCode.DownArrow))
         {
             isS = false;
             isMove = false;
             SetDirection();
         }
-        if(Input.GetKeyUp(KeyCode.D))
+        if(Input.GetKeyUp(KeyCode.RightArrow))
         {
             isD = false;
             isMove = false;
             SetDirection();
         }
-        
     }
 
     void FixedUpdate()
     {
-        if(isMove && !isStun)
+        if(isMove)
         {
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (x * Time.deltaTime) , rt.anchoredPosition.y + (y * Time.deltaTime));
         }
     }
-
 
     void SetDirection()
     {
@@ -144,8 +141,8 @@ public class Hub2CharMove : MonoBehaviour
         }
 
 
-        x = HM.realHubCharSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
-        y = HM.realHubCharSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
+        x = MM.realMazeCharSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
+        y = MM.realMazeCharSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
 
 
         if(x >= 0)
@@ -158,39 +155,19 @@ public class Hub2CharMove : MonoBehaviour
         }
     }
 
-    public void StartStun()
+    void OnTriggerEnter2D(Collider2D c)
     {
-        StartCoroutine(Stun());
-    }
-
-    IEnumerator Stun()
-    {
-        if(!isInv)
+        if(c.CompareTag("Treasure"))
         {
-            //스턴 
-            isStun = true;
-            Debug.Log("Stun");
-            isW = false;
-            isA = false;
-            isS = false; 
-            isD = false;
-            isMove = false;
-            yield return new WaitForSeconds(HM.hubCactusStun);
-            isStun = false;
-            //isMove = true;
-
-            //무적
-            isInv = true;
-            yield return new WaitForSeconds(HM.hubCactusInv);
-            isInv = false;
+            Debug.Log("Get Treasure");
+            GetTreasure();
         }
     }
 
-    void OnCollisionEnter(Collision c)
+    void GetTreasure()
     {
-        if(c.gameObject.CompareTag("Block"))
-        {
-            isMove = false;
-        }
+        rt.anchoredPosition = firstPoint;
+        MM.ResetMaze();
+
     }
 }
