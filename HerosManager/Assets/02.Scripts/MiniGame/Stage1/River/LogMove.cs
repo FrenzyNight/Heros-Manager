@@ -20,12 +20,6 @@ public class LogMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y + (FM.realLogSpeed * direction * Time.deltaTime));
-        //transform.Translate(0,realLogSpeed * direction * Time.deltaTime,0);
-
-        //Debug.Log("position y = " + transform.position.y.ToString());
-        
-        
         if(rt.anchoredPosition.y >= FM.topP)
         {
             direction = -1;
@@ -34,6 +28,10 @@ public class LogMove : MonoBehaviour
         {
             direction = 1;
         }
-        
+    }
+
+    void FixedUpdate()
+    {
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y + (FM.realLogSpeed * direction * Time.deltaTime));
     }
 }
