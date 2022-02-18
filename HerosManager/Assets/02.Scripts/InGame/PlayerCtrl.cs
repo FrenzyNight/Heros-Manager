@@ -14,6 +14,7 @@ public class PlayerCtrl : MonoBehaviour
 
     void Setup()
     {
+        movePosVec = this.transform.position;
         moveSpeed = 2f;
     }
 
