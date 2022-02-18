@@ -24,7 +24,7 @@ public class BowAngle : MonoBehaviour
         mouse = Input.mousePosition;
         angle = Mathf.Atan2(mouse.y - target.y, mouse.x - target.x) * Mathf.Rad2Deg;
         
-        this.transform.rotation = Quaternion.AngleAxis(angle - 45, Vector3.forward);
+        this.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
         //this.transform.rotation = Quaternion.Euler(0,0,angle-45);
         if(Input.GetMouseButtonDown(0) && !HM.isShoot)
         {
@@ -37,6 +37,7 @@ public class BowAngle : MonoBehaviour
         HM.isShoot = true;
         Instantiate(ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward), GameObject.Find("Hunt").transform);
 
+        gameObject.GetComponent<Animator>().Play("Bow_ani", -1, 0f);
         yield return new WaitForSeconds(HM.huntArrowCoolTime);
         HM.isShoot = false;
 

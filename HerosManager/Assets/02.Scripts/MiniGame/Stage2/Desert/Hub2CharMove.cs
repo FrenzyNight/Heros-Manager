@@ -103,6 +103,11 @@ public class Hub2CharMove : MonoBehaviour
         if(isMove && !isStun)
         {
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (x * Time.deltaTime) , rt.anchoredPosition.y + (y * Time.deltaTime));
+            gameObject.GetComponent<Animator>().speed = 1.0f;
+        }
+        else
+        {
+            gameObject.GetComponent<Animator>().speed = 0.0f;
         }
     }
 
