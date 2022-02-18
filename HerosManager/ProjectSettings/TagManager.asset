@@ -19,6 +19,9 @@ TagManager:
   - GoldFish
   - Hook
   - Treasure
+  - Tree
+  - Water
+  - Meat
   layers:
   - Default
   - TransparentFX

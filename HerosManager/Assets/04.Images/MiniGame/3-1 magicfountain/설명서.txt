@@ -1,0 +1,21 @@
+1. altar
+altar_1 활성화 안된 상태
+altar_2~altar_7 활성화되는 과정
+altar_6~altar_7 활성화되었을 때 IDLE 
+altar_8~altar_11 비활성화되는 과정
+
+2. fountain
+fountain_00 활성화 안된 상태
+fountain_01~fountain_07 활성화되는 과정
+foutanin_06~fountain_07 활성화되었을 때 IDLE 
+fountain 비활성화되는 과정은 수찬님한테 여쭤봐야할 것 같습니다.
+
+3. magic altar
+magic altar_00 활성화 안된 상태
+magic altar_01~magic altar_07 활성화되는 과정
+magic altar_07 활성화 된 상태
+magic altar 비활성화되는 과정은 수찬님한테 여쭤봐야할 것 같습니다.
+
+4. 방향키, wasd
+일단 임의로 작업해두었습니다. 
+방향키는 저거 하나 돌리면 되지 않을까 해서 하나만 두었습니다.

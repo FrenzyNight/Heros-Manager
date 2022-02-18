@@ -3659,7 +3659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 18175517c7317634390dba0269ae1869, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b764795923e425449a11e9a9e12c5a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7118,7 +7118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 43.5}
+  m_AnchoredPosition: {x: 0, y: 165}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &583077301
@@ -9919,7 +9919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &728424801
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12572,8 +12572,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 944226946}
+  - component: {fileID: 944226947}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: OasisChar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12586,19 +12587,34 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944226945}
-  m_LocalRotation: {x: 0, y: 0, z: 0.35004377, w: 0.93673337}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1951583363}
   m_Father: {fileID: 651837093}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 40.98}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &944226947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944226945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996cf04267c1da64db5696c3f220fec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charObj: {fileID: 1951583362}
+  NetPrefab: {fileID: 3450115230765579882, guid: 6dc0434ba3fff3d45984fe9413141d69,
+    type: 3}
 --- !u!1 &947581156
 GameObject:
   m_ObjectHideFlags: 0
@@ -15339,7 +15355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db8b3e6f2b88c0547a47b1e1a2de49c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e68ff2fcf33ae594cb444c26434c2d41, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16101,7 +16117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1248540776}
   m_Layer: 5
-  m_Name: Oasis
+  m_Name: Extra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16320,7 +16336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1261467127
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18399,8 +18415,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8, y: 90}
-  m_SizeDelta: {x: 128, y: 128}
+  m_AnchoredPosition: {x: 8, y: 150}
+  m_SizeDelta: {x: 128, y: 256}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1446015892
 MonoBehaviour:
@@ -18586,8 +18602,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -200}
-  m_SizeDelta: {x: 100, y: 300}
+  m_AnchoredPosition: {x: 0, y: -247.6}
+  m_SizeDelta: {x: 100, y: 395.11633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1461975390
 MonoBehaviour:
@@ -23213,9 +23229,10 @@ GameObject:
   - component: {fileID: 1869789577}
   - component: {fileID: 1869789579}
   - component: {fileID: 1869789578}
+  - component: {fileID: 1869789580}
   m_Layer: 5
   m_Name: ground
-  m_TagString: Untagged
+  m_TagString: Land
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23276,6 +23293,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869789576}
   m_CullTransparentMesh: 0
+--- !u!58 &1869789580
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869789576}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 180
 --- !u!1 &1881818546
 GameObject:
   m_ObjectHideFlags: 0
@@ -23770,7 +23803,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db8b3e6f2b88c0547a47b1e1a2de49c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e68ff2fcf33ae594cb444c26434c2d41, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25888,6 +25921,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3834f7c6e4a029c40bea4054eb5ef34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MGM: {fileID: 0}
+  GuidText: {fileID: 673634510}
+  GuidPanel: {fileID: 1514720173}
+  MeatPrefab: {fileID: 1140092222600195474, guid: 0f7d31b567d083d438abeafb9160ad5b,
+    type: 3}
+  TreePrefab: {fileID: 8811654158261455455, guid: c1c2f7906cab6014392f0b037ef93bc6,
+    type: 3}
+  WaterPrefab: {fileID: 850938229114182301, guid: fea484af1d2ff2d48b37b13479d69b60,
+    type: 3}
+  widthScale: 0
+  heightScale: 0
+  oasisCharSpeed: 0
+  oasisMeatRes: 0
+  oasisWaterRes: 0
+  oasisTreeRes: 0
+  oasisNetSpeed: 0
+  oasisMeatMaxNum: 0
+  oasisWaterMaxNum: 0
+  oasisTreeMaxNum: 0
+  realOasisNetSpeed: 0
+  realOasisCharSpeed: 0
 --- !u!1 &2129136490
 GameObject:
   m_ObjectHideFlags: 0
@@ -26434,7 +26488,7 @@ MonoBehaviour:
   fishGoldSpeed: 0
   fishLineSpeed: 0
   fishLineCatchSpeedVar: 0
-  StartP: {x: -300, y: -250}
+  StartP: {x: -300, y: -150}
   EndP: {x: 300, y: -250}
   realFishSpeed: 0
   realGoldFishSpeed: 0
