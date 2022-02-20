@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerCtrl : MonoBehaviour
 {
     Vector3 movePosVec;
-    float moveSpeed;
+
+    NavMeshAgent navAgent;
+
+    private void Awake()
+    {
+        navAgent = this.GetComponent<NavMeshAgent>();
+    }
 
     void Start()
     {
@@ -15,7 +22,10 @@ public class PlayerCtrl : MonoBehaviour
     void Setup()
     {
         movePosVec = this.transform.position;
-        moveSpeed = 2f;
+
+        navAgent.speed = 5f;
+        navAgent.angularSpeed = 720f;
+        navAgent.acceleration = 20f;
     }
 
     void Update()
@@ -39,14 +49,35 @@ public class PlayerCtrl : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity);
+            for (int i = 0; i < hits.Length; i++)
             {
-                if (hit.transform.tag == "Map")
-                    movePosVec = hit.point;
+                if (hits[i].transform.tag == "Land")
+                {
+                    movePosVec = hits[i].point;
+                    break;
+                }
             }
         }
 
-        this.transform.position = Vector3.MoveTowards(this.transform.position, movePosVec, moveSpeed * Time.deltaTime);
+        navAgent.SetDestination(movePosVec);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "CampObject")
+        {
+            other.GetComponentInParent<CampObjectMgr>().OpenUI();
+            print(1);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "CampObject")
+        {
+            other.GetComponentInParent<CampObjectMgr>().CloseUI();
+            print(2);
+        }
     }
 }
