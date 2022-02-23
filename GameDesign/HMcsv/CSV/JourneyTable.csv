@@ -1,0 +1,13 @@
+﻿JourneyID,StageDayID,Item1Min,Item2Min,StageTitleStringID,JVwithObjectID,JVCutID,JRwithHeroID
+J_1,Stage1_1,5,5,Stage_title_1,JV_1_1,JVC_1_1,JR_1_1
+J_2,Stage1_2,6,6,Stage_title_1,JV_1_2,JVC_1_2,JR_1_2
+J_3,Stage1_3,7,7,Stage_title_1,JV_1_3,JVC_1_3,JR_1_3
+J_4,Stage1_4,8,8,Stage_title_1,JV_1_4,JVC_1_4,JR_1_4
+J_5,Stage2_1,9,9,Stage_title_2,JV_2_1,JVC_2_1,JR_2_1
+J_6,Stage2_2,10,10,Stage_title_2,JV_2_2,JVC_2_2,JR_2_2
+J_7,Stage2_3,11,11,Stage_title_2,JV_2_3,JVC_2_3,JR_2_3
+J_8,Stage2_4,12,12,Stage_title_2,JV_2_4,JVC_2_4,JR_2_4
+J_9,Stage3_1,13,13,Stage_title_3,JV_3_1,JVC_3_1,JR_3_1
+J_10,Stage3_2,14,14,Stage_title_3,JV_3_2,JVC_3_2,JR_3_2
+J_11,Stage3_3,15,15,Stage_title_3,JV_3_3,JVC_3_3,JR_3_3
+J_12,Stage3_4,16,16,Stage_title_3,JV_3_4,JVC_3_4,JR_3_4
