@@ -13,13 +13,15 @@ public class LakeCharMove : MonoBehaviour
     private bool isStun;
     private bool isHook;
 
+    private Animator ani;
+
 
     // Start is called before the first frame update
     void Start()
     {
         FM = GameObject.Find("LakeFishManager").GetComponent<LakeFishManager>();
         rt = gameObject.GetComponent<RectTransform>();
-
+        ani = gameObject.GetComponent<Animator>();
         isStun = false;
         isHook = false;
     }
@@ -65,6 +67,7 @@ public class LakeCharMove : MonoBehaviour
     void HookDown()
     {
        isHook = true;
+       ani.SetBool("isHook", true);
        hook.GetComponent<LakeHookMove>().HookDown();
     }
 
@@ -80,11 +83,14 @@ public class LakeCharMove : MonoBehaviour
 
     IEnumerator Stun()
     {
+        ani.SetBool("isStun", true);
         isStun = true;
         Debug.Log("Stun");
 
         yield return new WaitForSeconds(FM.fishStunTime);
 
+        ani.SetBool("isHook", false);
+        ani.SetBool("isStun", false);
         isStun = false;
         isHook = false;
     }
@@ -100,12 +106,14 @@ public class LakeCharMove : MonoBehaviour
         {
             FM.GetFish();
             isHook = false;
+            ani.SetBool("isHook", false);
             Destroy(coll.gameObject);
         }
         if(coll.gameObject.CompareTag("GoldFish"))
         {
             FM.GetGoldFish();
             isHook = false;
+            ani.SetBool("isHook", false);
             Destroy(coll.gameObject);
         }
     }

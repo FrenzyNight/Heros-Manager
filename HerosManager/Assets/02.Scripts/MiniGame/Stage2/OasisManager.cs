@@ -155,6 +155,7 @@ public class OasisManager : MonoBehaviour
     }
     IEnumerator FirstStart()
     {
+        
         GuidPanel.SetActive(true);
         GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
         

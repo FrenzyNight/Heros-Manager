@@ -8,6 +8,7 @@ altar_8~altar_11 비활성화되는 과정
 fountain_00 활성화 안된 상태
 fountain_01~fountain_07 활성화되는 과정
 foutanin_06~fountain_07 활성화되었을 때 IDLE 
+(IDLE 상태에서 보석 쪽에 sparke_1~sparkle_15 돌리면 됩니다)
 fountain 비활성화되는 과정은 수찬님한테 여쭤봐야할 것 같습니다.
 
 3. magic altar
