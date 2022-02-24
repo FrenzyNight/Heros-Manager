@@ -5,13 +5,16 @@ using UnityEngine.AI;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    Vector3 movePosVec;
+    public MovePosMgr movePosMgr;
 
     NavMeshAgent navAgent;
+
+    Animator anim;
 
     private void Awake()
     {
         navAgent = this.GetComponent<NavMeshAgent>();
+        anim = this.GetComponentInChildren<Animator>();
     }
 
     void Start()
@@ -21,8 +24,6 @@ public class PlayerCtrl : MonoBehaviour
 
     void Setup()
     {
-        movePosVec = this.transform.position;
-
         navAgent.speed = 5f;
         navAgent.angularSpeed = 720f;
         navAgent.acceleration = 20f;
@@ -54,13 +55,43 @@ public class PlayerCtrl : MonoBehaviour
             {
                 if (hits[i].transform.tag == "Land")
                 {
-                    movePosVec = hits[i].point;
+                    MoveTo(hits[i].point);
                     break;
                 }
             }
         }
+    }
 
-        navAgent.SetDestination(movePosVec);
+    void MoveTo(Vector3 _pos)
+    {
+        StopCoroutine("OnMoveCo");
+
+        movePosMgr.MovePosEff(_pos);
+        anim.SetBool("isMove", true);
+        navAgent.SetDestination(_pos);
+
+        StartCoroutine("OnMoveCo");
+    }
+
+    IEnumerator OnMoveCo()
+    {
+        while (true)
+        {
+            if (Vector3.Distance(navAgent.destination, this.transform.position) < 0.1f)
+            {
+                this.transform.position = navAgent.destination;
+
+                navAgent.ResetPath();
+
+                anim.SetBool("isMove", false);
+
+                movePosMgr.gameObject.SetActive(false);
+
+                break;
+            }
+
+            yield return null;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
