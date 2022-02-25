@@ -19,6 +19,7 @@ public class MagicSpringStat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(Input.GetKeyDown(KeyCode.A))
         {
             ActiveSpring();
@@ -26,6 +27,11 @@ public class MagicSpringStat : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.D))
         {
             DeActiveSpring();
+        }
+        */
+        if(SM.isAltar[0] &&SM.isAltar[1] &&SM.isAltar[2] &&SM.isAltar[3])
+        {
+            ActiveSpring();
         }
 
         if(isActive)

@@ -23,6 +23,7 @@ TagManager:
   - Water
   - Meat
   - CampObject
+  - Altar
   layers:
   - Default
   - TransparentFX

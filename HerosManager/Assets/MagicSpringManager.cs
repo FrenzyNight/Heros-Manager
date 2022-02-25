@@ -7,6 +7,8 @@ public class MagicSpringManager : MonoBehaviour
     public MiniGameMgr MGM;
 
     public GameObject GuidText, GuidPanel;
+    public GameObject Command;
+    public GameObject[] Altars;
     private Vector2 TextTarget;
     
     private float widthScale;
@@ -25,6 +27,10 @@ public class MagicSpringManager : MonoBehaviour
 
     public float msKeyPadNum;
     public float msKeyPadStun;
+
+    //check
+    public bool[] isAltar;
+    public bool isSpring;
 
     // Start is called before the first frame update
     void Start()
@@ -96,5 +102,17 @@ public class MagicSpringManager : MonoBehaviour
     public void GetWater()
     {
         MGM.water += (int)msSpringRes;
+    }
+
+    public void CommandActive(int n)
+    {
+        Command.SetActive(true);
+        Command.GetComponent<MagicSpringCommand>().SetUp(n);
+    }
+
+    public void AltarActive(int n)
+    {
+        isAltar[n] = true;
+        Altars[n].GetComponent<MagicSpringAltar>().Active();
     }
 }
