@@ -8,7 +8,7 @@ public class MovePosMgr : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         this.transform.localScale = new Vector3(7, 7, 7);
-        _pos.y = 1;
+        _pos.y += 0.3f;
         this.transform.position = _pos;
 
         this.transform.DOKill();
