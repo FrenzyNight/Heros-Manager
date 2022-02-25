@@ -1,0 +1,17 @@
+﻿HeroStateID,FirstGive,Min,Max
+Hero1Stress,0,0,100
+Hero1Power,100,0,9999
+Hero1HP,100,0,100
+Hero1Exp,0,0,100
+Hero2Stress,0,0,100
+Hero2Power,100,0,9999
+Hero2HP,100,0,100
+Hero2Exp,0,0,100
+Hero3Stress,0,0,100
+Hero3Power,100,0,9999
+Hero3HP,100,0,100
+Hero3Exp,0,0,100
+Hero4Stress,0,0,100
+Hero4Power,100,0,9999
+Hero4HP,100,0,100
+Hero4Exp,0,0,100

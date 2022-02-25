@@ -1,0 +1,13 @@
+﻿StageDayID,StageID,StageDayStringID,Time,HeroBackTime
+Stage1_1,Stage_Grassland,Stage_day_1,6,4
+Stage1_2,Stage_Grassland,Stage_day_2,6,4
+Stage1_3,Stage_Grassland,Stage_day_3,6,4
+Stage1_4,Stage_Grassland,Stage_day_4,6,4
+Stage2_1,Stage_Desert,Stage_day_1,6,4
+Stage2_2,Stage_Desert,Stage_day_2,6,4
+Stage2_3,Stage_Desert,Stage_day_3,6,4
+Stage2_4,Stage_Desert,Stage_day_4,6,4
+Stage3_1,Stage_Forest,Stage_day_1,6,4
+Stage3_2,Stage_Forest,Stage_day_2,6,4
+Stage3_3,Stage_Forest,Stage_day_3,6,4
+Stage3_4,Stage_Forest,Stage_day_4,6,4
