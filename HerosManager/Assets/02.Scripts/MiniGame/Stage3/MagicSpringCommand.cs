@@ -15,24 +15,39 @@ public class MagicSpringCommand : MonoBehaviour
     private bool isActive;
     private int altarNum;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         SM = GameObject.Find("MagicSpringManager").GetComponent<MagicSpringManager>();
-        now = 0;
-        isStun = false;
-        isActive = false;
-        //SetUp();     
+    }
+    
+    void Start()
+    {
+        //SM = GameObject.Find("MagicSpringManager").GetComponent<MagicSpringManager>();
+        //now = 0;
+        //isStun = false;
+        //isActive = false;
+        //SetUp(1);     
     }
 
  
     public void SetUp(int num)
     {
+        now = 0;
         altarNum = num;
+
+        Debug.Log("Setup num : " + altarNum.ToString());
+
+        isStun = false;
         isActive = true;
         for(int i=0;i<7;i++)
         {
             keycode[i] = Random.Range(0,8);
             keypads[i].GetComponent<Image>().sprite = keyImg[keycode[i]];
+        }
+
+        for(int  i=0;i<7;i++)
+        {
+            keypads[i].GetComponent<Image>().color = new Color(255,255,255);
         }
     }
 
@@ -97,7 +112,7 @@ public class MagicSpringCommand : MonoBehaviour
             now = 0;
         }
 
-        if(now == 8)
+        if(now == 7)
         {
             //complite
             

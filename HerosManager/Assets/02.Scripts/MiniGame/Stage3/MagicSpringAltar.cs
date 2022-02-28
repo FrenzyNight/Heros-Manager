@@ -8,6 +8,7 @@ public class MagicSpringAltar : MonoBehaviour
     public GameObject Fire, Circle;
     public bool isActive;
     private float activeTime;
+    private float rndTime;
     public int AltarNum;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,15 @@ public class MagicSpringAltar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(isActive)
+        {
+            activeTime += Time.deltaTime;
+        }
+
+        if(isActive && activeTime > rndTime)
+        {
+            DeActive();
+        }
     }
 
     public void Active()
@@ -29,6 +38,9 @@ public class MagicSpringAltar : MonoBehaviour
         isActive =true;
         Fire.GetComponent<Animator>().SetBool("isActive", true);
         Circle.GetComponent<Animator>().SetBool("isActive", true);
+
+        activeTime = 0;
+        rndTime = Random.Range(SM.msAlterMinTime, SM.msAlterMaxTime);
     }
 
     void DeActive()
@@ -36,5 +48,7 @@ public class MagicSpringAltar : MonoBehaviour
         isActive =false;
         Fire.GetComponent<Animator>().SetBool("isActive", false);
         Circle.GetComponent<Animator>().SetBool("isActive", false);
+
+        SM.AltarDeActive(AltarNum);
     }
 }

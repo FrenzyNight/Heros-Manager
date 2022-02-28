@@ -9,20 +9,20 @@ public class MagicSpringCharMove : MonoBehaviour
     private RectTransform rt;
 
     public float moveVar;
-    private bool isCommand;
+    //private bool isCommand;
 
     // Start is called before the first frame update
     void Start()
     {
         SM = GameObject.Find("MagicSpringManager").GetComponent<MagicSpringManager>();
         rt = gameObject.GetComponent<RectTransform>();
-        isCommand = false;
+        //isCommand = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isCommand)
+        if(!SM.isCommand)
         {
             if(Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -80,11 +80,11 @@ public class MagicSpringCharMove : MonoBehaviour
     {
         if(c.gameObject.CompareTag("Altar"))
         {
-            Debug.Log("coll test");
             if(!c.gameObject.GetComponent<MagicSpringAltar>().isActive)
             {
-                Debug.Log("command test");
-                isCommand = true;
+                //Debug.Log("command test");
+                //SM.isCommand = true;
+                Debug.Log("altarNum : " + c.gameObject.GetComponent<MagicSpringAltar>().AltarNum.ToString());
                 SM.CommandActive(c.gameObject.GetComponent<MagicSpringAltar>().AltarNum);
             }
         }

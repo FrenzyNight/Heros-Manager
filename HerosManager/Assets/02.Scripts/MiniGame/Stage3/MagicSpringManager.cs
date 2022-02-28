@@ -31,6 +31,7 @@ public class MagicSpringManager : MonoBehaviour
     //check
     public bool[] isAltar;
     public bool isSpring;
+    public bool isCommand;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class MagicSpringManager : MonoBehaviour
         InGameMgr.Instance.EnterMiniGame("Stage_3_Magicspring");
 
         SetUp();
+        isCommand = false;
         StartCoroutine(FirstStart());
     }
 
@@ -52,8 +54,8 @@ public class MagicSpringManager : MonoBehaviour
         msSpringGraceTime = InGameMgr.Instance.miniGameData["game3MagicWell"].value3;
         msSpringJewelTime = InGameMgr.Instance.miniGameData["game3MagicWell"].value2;
 
-        msAlterMinTime = InGameMgr.Instance.miniGameData["game3Altar1"].value2;
-        msAlterMaxTime = InGameMgr.Instance.miniGameData["game3Altar1"].value3;
+        msAlterMinTime = InGameMgr.Instance.miniGameData["game3Altar1"].value1;
+        msAlterMaxTime = InGameMgr.Instance.miniGameData["game3Altar1"].value2;
 
         msKeyPadNum = InGameMgr.Instance.miniGameData["game3KeyPad"].value3;
         msKeyPadStun = InGameMgr.Instance.miniGameData["game3KeyPad"].stun;
@@ -106,13 +108,20 @@ public class MagicSpringManager : MonoBehaviour
 
     public void CommandActive(int n)
     {
+        isCommand = true;
         Command.SetActive(true);
         Command.GetComponent<MagicSpringCommand>().SetUp(n);
     }
 
     public void AltarActive(int n)
     {
+        isCommand = false;
         isAltar[n] = true;
         Altars[n].GetComponent<MagicSpringAltar>().Active();
+    }
+
+    public void AltarDeActive(int n)
+    {
+        isAltar[n] = false;
     }
 }
