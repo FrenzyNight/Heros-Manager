@@ -24,7 +24,7 @@ public class PlayerCtrl : MonoBehaviour
 
     void Setup()
     {
-        navAgent.speed = 5f;
+        navAgent.speed = 7f;
         navAgent.angularSpeed = 720f;
         navAgent.acceleration = 20f;
     }
