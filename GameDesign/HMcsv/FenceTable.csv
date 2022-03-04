@@ -1,0 +1,16 @@
+﻿FenceID,StageID,FenceLevel,InvadeProb,NeedItemID,Amount,NeedTime
+Fence1_0,Stage_Grassland,0,40,Item_Wood,35,10
+Fence1_1,Stage_Grassland,1,20,Item_Wood,40,12
+Fence1_2,Stage_Grassland,2,10,Item_Wood,45,14
+Fence1_3,Stage_Grassland,3,5,Item_Wood,50,16
+Fence1_4,Stage_Grassland,4,0,Item_Wood,55,18
+Fence2_0,Stage_Desert,0,40,Item_Wood,40,10
+Fence2_1,Stage_Desert,1,20,Item_Wood,45,12
+Fence2_2,Stage_Desert,2,10,Item_Wood,50,14
+Fence2_3,Stage_Desert,3,5,Item_Wood,55,16
+Fence2_4,Stage_Desert,4,0,Item_Wood,60,18
+Fence3_0,Stage_Forest,0,40,Item_Wood,45,10
+Fence3_1,Stage_Forest,1,20,Item_Wood,50,12
+Fence3_2,Stage_Forest,2,10,Item_Wood,55,14
+Fence3_3,Stage_Forest,3,5,Item_Wood,60,16
+Fence3_4,Stage_Forest,4,0,Item_Wood,65,18

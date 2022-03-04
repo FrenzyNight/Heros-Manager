@@ -1,0 +1,4 @@
+﻿BonfireID,StageID,NeedItemID,NeedAmount,Time1,Time2,Time3,Hero1_Stress,Hero2_Stress,Hero3_Stress,Hero4_Stress
+Bonfire_1,Stage_Grassland,Item_Wood,15,50,10,5,2,2,2,2
+Bonfire_2,Stage_Desert,Item_Wood,15,50,10,5,2,2,2,2
+Bonfire_3,Stage_Forest,Item_Wood,15,50,10,5,2,2,2,2
