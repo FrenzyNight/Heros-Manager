@@ -160,7 +160,7 @@ public class HubCharMove : MonoBehaviour
 
     }
 
-    void OnCollisionEnter(Collision c)
+    void OnCollisionEnter2D(Collision2D c)
     {
         if(c.gameObject.CompareTag("Block"))
         {
