@@ -159,4 +159,12 @@ public class FairyCharMove : MonoBehaviour
         }
 
     }
+
+    void OnCollisionEnter2D(Collision2D c)
+    {
+        if(c.gameObject.CompareTag("Block"))
+        {
+            isMove = false;
+        }
+    }
 }
