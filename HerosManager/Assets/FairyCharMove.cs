@@ -5,7 +5,6 @@ using UnityEngine;
 public class FairyCharMove : MonoBehaviour
 {
     private FairyWarehouseManager FM;
-    // Start is called before the first frame update
     private RectTransform rt;
     private float x, y;
     private int direction;
