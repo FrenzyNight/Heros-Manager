@@ -24,6 +24,7 @@ TagManager:
   - Meat
   - CampObject
   - Altar
+  - Observer
   layers:
   - Default
   - TransparentFX

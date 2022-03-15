@@ -6,6 +6,8 @@ public class FairyWarehouseManager : MonoBehaviour
 {
     //기본
     public MiniGameMgr MGM;
+    public GameObject Treasure1Prefab, Treasure2Prefab, Treasure3Prefab;
+    public Vector2 tp1, tp2, tp3;
 
     public GameObject GuidText, GuidPanel;
     private Vector2 TextTarget;
@@ -21,14 +23,17 @@ public class FairyWarehouseManager : MonoBehaviour
     public float fwTreasure1ResMeat;
     public float fwTreasure1ResHub;
     public float fwTreasure1CoolTime;
+    public float fwTreasure1GetTime;
 
     public float fwTreasure2ResMeat;
     public float fwTreasure2ResHub;
     public float fwTreasure2CoolTime;
+    public float fwTreasure2GetTime;
 
     public float fwTreasure3ResMeat;
     public float fwTreasure3ResHub;
     public float fwTreasure3CoolTime;
+    public float fwTreasure3GetTime;
 
     public float fwLaySpeed;
 
@@ -49,7 +54,8 @@ public class FairyWarehouseManager : MonoBehaviour
     public float fwFairy2RealSpeed;
     public float fwFairy3RealSpeed;
 
-    // Start is called before the first frame update
+    //treasure check
+    private bool isTreasure1, isTreasure2, isTreasure3;
     void Start()
     {
         MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
@@ -67,14 +73,17 @@ public class FairyWarehouseManager : MonoBehaviour
         fwTreasure1ResMeat = InGameMgr.Instance.miniGameData["game3treasure1"].meat;
         fwTreasure1ResHub = InGameMgr.Instance.miniGameData["game3treasure1"].hub;
         fwTreasure1CoolTime = InGameMgr.Instance.miniGameData["game3treasure1"].cooltime;
+        fwTreasure1GetTime = InGameMgr.Instance.miniGameData["game3treasure1"].value1;
 
         fwTreasure2ResMeat= InGameMgr.Instance.miniGameData["game3treasure2"].meat;
         fwTreasure2ResHub= InGameMgr.Instance.miniGameData["game3treasure2"].hub;
         fwTreasure2CoolTime= InGameMgr.Instance.miniGameData["game3treasure2"].cooltime;
+        fwTreasure2GetTime = InGameMgr.Instance.miniGameData["game3treasure2"].value1;
 
         fwTreasure3ResMeat= InGameMgr.Instance.miniGameData["game3treasure3"].meat;
         fwTreasure3ResHub= InGameMgr.Instance.miniGameData["game3treasure3"].hub;
         fwTreasure3CoolTime= InGameMgr.Instance.miniGameData["game3treasure3"].cooltime;
+        fwTreasure3GetTime = InGameMgr.Instance.miniGameData["game3treasure3"].value1;
 
         fwLaySpeed= InGameMgr.Instance.miniGameData["game3Lay"].speed;
 
@@ -94,8 +103,76 @@ public class FairyWarehouseManager : MonoBehaviour
         fwFairy1RealSpeed = fwStandardSpeed * fwFairy1Speed;
         fwFairy2RealSpeed = fwStandardSpeed * fwFairy2Speed;;
         fwFairy3RealSpeed = fwStandardSpeed * fwFairy3Speed;
+
+        isTreasure1 = true;
+        isTreasure2 = true;
+        isTreasure3 = true;
+
+        Instantiate(Treasure1Prefab, new Vector2(tp1.x * widthScale, tp1.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+        Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+        Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
             
         TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
+    }
+
+    void Update()
+    {
+        if(!isTreasure1)
+        {
+            StartCoroutine(SpawnTreasure(1));
+        }
+        else if(!isTreasure2)
+        {
+            StartCoroutine(SpawnTreasure(2));
+        }
+        else if(!isTreasure3)
+        {
+            StartCoroutine(SpawnTreasure(3));
+        }
+    }
+
+    public void GetTreasure(int boxNum)
+    {
+        if(boxNum == 1)
+        {
+            MGM.meat += (int)fwTreasure1ResMeat;
+            MGM.hub += (int)fwTreasure1ResHub;
+            isTreasure1 = false;
+        }
+        else if(boxNum == 2)
+        {
+            MGM.meat += (int)fwTreasure2ResMeat;
+            MGM.hub += (int)fwTreasure2ResHub;
+            isTreasure2 = false;
+        }
+        else if(boxNum == 3)
+        {
+            MGM.meat += (int)fwTreasure3ResMeat;
+            MGM.hub += (int)fwTreasure3ResHub;
+            isTreasure3 = false;
+        }
+    }
+
+    IEnumerator SpawnTreasure(int boxNum)
+    {
+        if(boxNum == 1)
+        {
+            isTreasure1 = true;
+            yield return new WaitForSeconds(fwTreasure1CoolTime);
+            Instantiate(Treasure1Prefab, new Vector2(tp1.x * widthScale, tp1.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+        }
+        else if(boxNum == 2)
+        {
+            isTreasure2 = true;
+            yield return new WaitForSeconds(fwTreasure2CoolTime);
+            Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+        }
+        else if(boxNum == 3)
+        {
+            isTreasure3 = true;
+            yield return new WaitForSeconds(fwTreasure3CoolTime);
+            Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+        }
     }
 
     public void StartGame()

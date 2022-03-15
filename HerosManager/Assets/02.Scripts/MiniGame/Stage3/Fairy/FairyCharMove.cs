@@ -166,4 +166,12 @@ public class FairyCharMove : MonoBehaviour
             isMove = false;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if(coll.gameObject.CompareTag("Observer"))
+        {
+            Debug.Log("observer");
+        }
+    }
 }

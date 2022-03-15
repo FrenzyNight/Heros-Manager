@@ -22,7 +22,6 @@ public class Hub : MonoBehaviour
         tr = GetComponent<Transform>();
         Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("Hub").transform);
         Gage.GetComponent<Image>().fillAmount = 0;
-        
     }
 
     void Update()
