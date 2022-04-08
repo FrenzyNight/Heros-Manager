@@ -99,7 +99,6 @@ public class PlayerCtrl : MonoBehaviour
         if (other.tag == "CampObject")
         {
             other.GetComponentInParent<CampObjectMgr>().OpenUI();
-            print(1);
         }
     }
 
@@ -108,7 +107,6 @@ public class PlayerCtrl : MonoBehaviour
         if (other.tag == "CampObject")
         {
             other.GetComponentInParent<CampObjectMgr>().CloseUI();
-            print(2);
         }
     }
 }

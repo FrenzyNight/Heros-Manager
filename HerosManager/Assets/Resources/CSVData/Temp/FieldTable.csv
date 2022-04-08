@@ -1,0 +1,4 @@
+﻿FieldID,StageID,NeedItemID,NeedAmount,Time1,Time2,Repeat,GetItemID,GetAmount
+Field_1,Stage_Grassland,Item_Water,5,50,10,3,Item_Hub,20
+Field_2,Stage_Desert,Item_Water,5,50,10,3,Item_Hub,20
+Field_3,Stage_Forest,Item_Water,5,50,10,3,Item_Hub,20

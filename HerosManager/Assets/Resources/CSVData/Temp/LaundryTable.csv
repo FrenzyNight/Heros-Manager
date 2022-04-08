@@ -1,0 +1,4 @@
+﻿LaundryID,StageID,NeedItemID,NeedAmount,StressAdd,StringID,L1_GermCount,L2_RinseCount,L3_MinTime,L3_MaxTime,L3_TotalTime
+Laundry_1,Stage_Grassland,Item_Water,2,5,Laundry_fail,15,30,1,3,10
+Laundry_2,Stage_Desert,Item_Water,3,5,Laundry_fail,20,40,2,4,15
+Laundry_3,Stage_Forest,Item_Water,4,5,Laundry_fail,25,50,3,5,20

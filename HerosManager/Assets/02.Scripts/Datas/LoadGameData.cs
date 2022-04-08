@@ -5,13 +5,19 @@ using System.Text.RegularExpressions;
 
 public class LoadGameData : Singleton<LoadGameData>
 {
+    //public Dictionary<string, BonfireData> bonfireDatas = new Dictionary<string, BonfireData>();
+    //public Dictionary<string, FenceData> fenceDatas = new Dictionary<string, FenceData>();
+    //public Dictionary<string, FieldData> fieldDatas = new Dictionary<string, FieldData>();
     //public Dictionary<string, HeroStateData> heroStateDatas = new Dictionary<string, HeroStateData>();
+    //public Dictionary<string, HeroData> heroDatas = new Dictionary<string, HeroData>();
+    //public Dictionary<string, InvadeData> invadeDatas = new Dictionary<string, InvadeData>();
     //public Dictionary<string, ItemData> itemDatas = new Dictionary<string, ItemData>();
     //public Dictionary<string, JourneyData> journeyDatas = new Dictionary<string, JourneyData>();
     //public Dictionary<string, JRwithHeroData> jRwithHeroDatas = new Dictionary<string, JRwithHeroData>();
     //public Dictionary<string, JStateData> jStateDatas = new Dictionary<string, JStateData>();
     //public Dictionary<string, JVCutData> jVCutDatas = new Dictionary<string, JVCutData>();
     //public Dictionary<string, JVwithObjectData> jVwithObjectDatas = new Dictionary<string, JVwithObjectData>();
+    //public Dictionary<string, LaundryData> laundryDatas = new Dictionary<string, LaundryData>();
     //public Dictionary<string, StageDayData> stageDayDatas = new Dictionary<string, StageDayData>();
     //public Dictionary<string, StageData> stageDatas = new Dictionary<string, StageData>();
     //public Dictionary<string, StringData> stringDatas = new Dictionary<string, StringData>();
@@ -25,13 +31,19 @@ public class LoadGameData : Singleton<LoadGameData>
 
     public void LoadCSVDatas()
     {
+        //LoadBonfireData("CSVData/BonfireTable");
+        //LoadFenceData("CSVData/FenceTable");
+        //LoadFieldData("CSVData/FieldTable");
         //LoadHeroStateData("CSVData/HeroStateTable");
+        //LoadHeroData("CSVData/HeroTable");
+        //LoadInvadeData("CSVData/InvadeTable");
         //LoadItemData("CSVData/ItemTable");
         //LoadJourneyData("CSVData/JourneyTable");
         //LoadJRwithHeroData("CSVData/JRwithHeroTable");
         //LoadJStateData("CSVData/JStateTable");
         //LoadJVCutData("CSVData/JVCutTable");
         //LoadJVwithObjectData("CSVData/JVwithObjectTable");
+        //LoadLaundryData("CSVData/LaundryTable");
         //LoadStageDayData("CSVData/StageDayTable");
         //LoadStageData("CSVData/StageTable");
         //LoadStringData("CSVData/StringTable");
@@ -42,6 +54,70 @@ public class LoadGameData : Singleton<LoadGameData>
         LoadItemData("CSVData/ItemData");
         LoadHeroData("CSVData/HerosData");
     }
+
+    //void LoadBonfireData(string _path)
+    //{
+    //    bonfireDatas.Clear();
+    //    List<Dictionary<string, object>> data = CSVReader.Read(_path);
+    //    for (int i = 0; i < data.Count; i++)
+    //    {
+    //        BonfireData bonfireData = new BonfireData();
+    //        bonfireData.BonfireID = CSVConvert.ToString(data[i]["BonfireID"]);
+    //        bonfireData.StageID = CSVConvert.ToString(data[i]["StageID"]);
+    //        bonfireData.NeedItemID = CSVConvert.ToString(data[i]["NeedItemID"]);
+    //        bonfireData.NeedAmount = CSVConvert.ToInt(data[i]["NeedAmount"]);
+    //        bonfireData.Time1 = CSVConvert.ToFloat(data[i]["Time1"]);
+    //        bonfireData.Time2 = CSVConvert.ToFloat(data[i]["Time2"]);
+    //        bonfireData.Time3 = CSVConvert.ToFloat(data[i]["Time3"]);
+    //        bonfireData.Hero1_Stress = CSVConvert.ToFloat(data[i]["Hero1_Stress"]);
+    //        bonfireData.Hero2_Stress = CSVConvert.ToFloat(data[i]["Hero2_Stress"]);
+    //        bonfireData.Hero3_Stress = CSVConvert.ToFloat(data[i]["Hero3_Stress"]);
+    //        bonfireData.Hero4_Stress = CSVConvert.ToFloat(data[i]["Hero4_Stress"]);
+
+    //        bonfireDatas.Add(bonfireData.BonfireID, bonfireData);
+    //    }
+    //}
+
+    //void LoadFenceData(string _path)
+    //{
+    //    fenceDatas.Clear();
+    //    List<Dictionary<string, object>> data = CSVReader.Read(_path);
+    //    for (int i = 0; i < data.Count; i++)
+    //    {
+    //        FenceData fenceData = new FenceData();
+    //        fenceData.FenceID = CSVConvert.ToString(data[i]["FenceID"]);
+    //        fenceData.StageID = CSVConvert.ToString(data[i]["StageID"]);
+    //        fenceData.FenceLevel = CSVConvert.ToInt(data[i]["FenceLevel"]);
+    //        fenceData.InvadeProb = CSVConvert.ToFloat(data[i]["InvadeProb"]);
+    //        fenceData.NeedItemID = CSVConvert.ToString(data[i]["NeedItemID"]);
+    //        fenceData.Amount = CSVConvert.ToInt(data[i]["Amount"]);
+    //        fenceData.NeedTime = CSVConvert.ToFloat(data[i]["NeedTime"]);
+
+    //        fenceDatas.Add(fenceData.FenceID, fenceData);
+    //    }
+    //}
+
+    //void LoadFieldData(string _path)
+    //{
+    //    fieldDatas.Clear();
+    //    List<Dictionary<string, object>> data = CSVReader.Read(_path);
+    //    for (int i = 0; i < data.Count; i++)
+    //    {
+    //        FieldData fieldData = new FieldData();
+    //        fieldData.FieldID = CSVConvert.ToString(data[i]["FieldID"]);
+    //        fieldData.StageID = CSVConvert.ToString(data[i]["StageID"]);
+    //        fieldData.NeedItemID = CSVConvert.ToString(data[i]["NeedItemID"]);
+    //        fieldData.NeedAmount = CSVConvert.ToInt(data[i]["NeedAmount"]);
+    //        fieldData.Time1 = CSVConvert.ToFloat(data[i]["Time1"]);
+    //        fieldData.Time2 = CSVConvert.ToFloat(data[i]["Time2"]);
+    //        fieldData.Repeat = CSVConvert.ToInt(data[i]["Repeat"]);
+    //        fieldData.GetItemID = CSVConvert.ToString(data[i]["GetItemID"]);
+    //        fieldData.GetAmount = CSVConvert.ToInt(data[i]["GetAmount"]);
+
+
+    //        fieldDatas.Add(fieldData.FieldID, fieldData);
+    //    }
+    //}
 
     //void LoadHeroStateData(string _path)
     //{
@@ -56,6 +132,46 @@ public class LoadGameData : Singleton<LoadGameData>
     //        heroStateData.Max = CSVConvert.ToFloat(data[i]["Max"]);
 
     //        heroStateDatas.Add(heroStateData.HeroStateID, heroStateData);
+    //    }
+    //}
+
+    //void LoadHeroData(string _path)
+    //{
+    //    heroDatas.Clear();
+    //    List<Dictionary<string, object>> data = CSVReader.Read(_path);
+    //    for (int i = 0; i < data.Count; i++)
+    //    {
+    //        HeroData heroData = new HeroData();
+    //        heroData.HeroID = CSVConvert.ToString(data[i]["HeroID"]);
+    //        heroData.HeroStringID = CSVConvert.ToString(data[i]["HeroStringID"]);
+    //        heroData.StressID = CSVConvert.ToString(data[i]["StressID"]);
+    //        heroData.StressStringID = CSVConvert.ToString(data[i]["StressStringID"]);
+    //        heroData.PowerID = CSVConvert.ToString(data[i]["PowerID"]);
+    //        heroData.PowerStringID = CSVConvert.ToString(data[i]["PowerStringID"]);
+    //        heroData.HpID = CSVConvert.ToString(data[i]["HpID"]);
+    //        heroData.HpStringID = CSVConvert.ToString(data[i]["HpStringID"]);
+    //        heroData.ExpID = CSVConvert.ToString(data[i]["ExpID"]);
+    //        heroData.ExpStringID = CSVConvert.ToString(data[i]["ExpStringID"]);
+
+    //        heroDatas.Add(heroData.HeroID, heroData);
+    //    }
+    //}
+
+    //void LoadInvadeData(string _path)
+    //{
+    //    invadeDatas.Clear();
+    //    List<Dictionary<string, object>> data = CSVReader.Read(_path);
+    //    for (int i = 0; i < data.Count; i++)
+    //    {
+    //        InvadeData invadeData = new InvadeData();
+    //        invadeData.InvadeID = CSVConvert.ToString(data[i]["InvadeID"]);
+    //        invadeData.StageDayID = CSVConvert.ToString(data[i]["StageDayID"]);
+    //        invadeData.InvadeStringID = CSVConvert.ToString(data[i]["InvadeStringID"]);
+    //        invadeData.StealObject = CSVConvert.ToInt(data[i]["StealObject"]);
+    //        invadeData.RandMin = CSVConvert.ToInt(data[i]["RandMin"]);
+    //        invadeData.RandMax = CSVConvert.ToInt(data[i]["RandMax"]);
+
+    //        invadeDatas.Add(invadeData.InvadeID, invadeData);
     //    }
     //}
 
@@ -179,6 +295,29 @@ public class LoadGameData : Singleton<LoadGameData>
     //        jVwithObjectData.HPowerValue = CSVConvert.ToFloat(data[i]["HPowerValue"]);
 
     //        jVwithObjectDatas.Add(jVwithObjectData.JVwithObjectID, jVwithObjectData);
+    //    }
+    //}
+
+    //void LoadLaundryData(string _path)
+    //{
+    //    laundryDatas.Clear();
+    //    List<Dictionary<string, object>> data = CSVReader.Read(_path);
+    //    for (int i = 0; i < data.Count; i++)
+    //    {
+    //        LaundryData laundryData = new LaundryData();
+    //        laundryData.LaundryID = CSVConvert.ToString(data[i]["LaundryID"]);
+    //        laundryData.StageID = CSVConvert.ToString(data[i]["StageID"]);
+    //        laundryData.NeedItemID = CSVConvert.ToString(data[i]["NeedItemID"]);
+    //        laundryData.NeedAmount = CSVConvert.ToInt(data[i]["NeedAmount"]);
+    //        laundryData.StressAdd = CSVConvert.ToFloat(data[i]["StressAdd"]);
+    //        laundryData.StringID = CSVConvert.ToString(data[i]["StringID"]);
+    //        laundryData.L1_GermCount = CSVConvert.ToInt(data[i]["L1_GermCount"]);
+    //        laundryData.L2_RinseCount = CSVConvert.ToInt(data[i]["L2_RinseCount"]);
+    //        laundryData.L3_MinTime = CSVConvert.ToFloat(data[i]["L3_MinTime"]);
+    //        laundryData.L3_MaxTime = CSVConvert.ToFloat(data[i]["L3_MaxTime"]);
+    //        laundryData.L3_TotalTime = CSVConvert.ToFloat(data[i]["L3_TotalTime"]);
+
+    //        laundryDatas.Add(laundryData.LaundryID, laundryData);
     //    }
     //}
 
@@ -339,12 +478,80 @@ public class LoadGameData : Singleton<LoadGameData>
 }
 
 //[System.Serializable]
+//public class BonfireData
+//{
+//    public string BonfireID;
+//    public string StageID;
+//    public string NeedItemID;
+//    public int NeedAmount;
+//    public float Time1;
+//    public float Time2;
+//    public float Time3;
+//    public float Hero1_Stress;
+//    public float Hero2_Stress;
+//    public float Hero3_Stress;
+//    public float Hero4_Stress;
+//}
+
+//[System.Serializable]
+//public class FenceData
+//{
+//    public string FenceID;
+//    public string StageID;
+//    public int FenceLevel;
+//    public float InvadeProb;
+//    public string NeedItemID;
+//    public int Amount;
+//    public float NeedTime;
+//}
+
+//[System.Serializable]
+//public class FieldData
+//{
+//    public string FieldID;
+//    public string StageID;
+//    public string NeedItemID;
+//    public int NeedAmount;
+//    public float Time1;
+//    public float Time2;
+//    public int Repeat;
+//    public string GetItemID;
+//    public int GetAmount;
+//}
+
+//[System.Serializable]
 //public class HeroStateData
 //{
 //    public string HeroStateID;
 //    public float FirstGive;
 //    public float Min;
 //    public float Max;
+//}
+
+//[System.Serializable]
+//public class HeroData
+//{
+//    public string HeroID;
+//    public string HeroStringID;
+//    public string StressID;
+//    public string StressStringID;
+//    public string PowerID;
+//    public string PowerStringID;
+//    public string HpID;
+//    public string HpStringID;
+//    public string ExpID;
+//    public string ExpStringID;
+//}
+
+//[System.Serializable]
+//public class InvadeData
+//{
+//    public string InvadeID;
+//    public string StageDayID;
+//    public string InvadeStringID;
+//    public int StealObject;
+//    public int RandMin;
+//    public int RandMax;
 //}
 
 //[System.Serializable]
@@ -422,6 +629,22 @@ public class LoadGameData : Singleton<LoadGameData>
 //    public float FoodValue;
 //    public float HStressValue;
 //    public float HPowerValue;
+//}
+
+//[System.Serializable]
+//public class LaundryData
+//{
+//    public string LaundryID;
+//    public string StageID;
+//    public string NeedItemID;
+//    public int NeedAmount;
+//    public float StressAdd;
+//    public string StringID;
+//    public int L1_GermCount;
+//    public int L2_RinseCount;
+//    public float L3_MinTime;
+//    public float L3_MaxTime;
+//    public float L3_TotalTime;
 //}
 
 //[System.Serializable]

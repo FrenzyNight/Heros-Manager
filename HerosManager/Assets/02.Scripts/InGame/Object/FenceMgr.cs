@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-public class FenceMgr : CampObjectMgr
+public class FenceMgr : MonoBehaviour
 {
     public GameObject fenceLv1;
     public GameObject fenceLv2;
     public GameObject fenceLv3;
+    public GameObject fenceLv4;
 
     [ContextMenu("FenceLv1")]
     void FenceLv1()
