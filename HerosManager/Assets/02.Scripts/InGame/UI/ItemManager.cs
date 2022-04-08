@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ItemManager : Singleton<ItemManager>
 {
@@ -22,11 +21,11 @@ public class ItemManager : Singleton<ItemManager>
 
     void Setup()
     {
-        wood = LoadGameData.Instance.itemDatas["wood"].startNum;
-        water = LoadGameData.Instance.itemDatas["water"].startNum;
-        meat = LoadGameData.Instance.itemDatas["meat"].startNum;
-        hub = LoadGameData.Instance.itemDatas["hub"].startNum;
-        food = LoadGameData.Instance.itemDatas["food"].startNum;
+        wood = LoadGameData.Instance.itemDatas["Item_Wood"].FirstGive;
+        water = LoadGameData.Instance.itemDatas["Item_Water"].FirstGive;
+        meat = LoadGameData.Instance.itemDatas["Item_Meat"].FirstGive;
+        hub = LoadGameData.Instance.itemDatas["Item_Hub"].FirstGive;
+        food = LoadGameData.Instance.itemDatas["Item_Food"].FirstGive;
 
         items[0].NumText.text = wood.ToString();
         items[1].NumText.text = water.ToString();
@@ -35,18 +34,30 @@ public class ItemManager : Singleton<ItemManager>
         items[4].NumText.text = food.ToString();
     }
 
-    public void AddItem(int _wood, int _water, int _meat, int _hub, int _food)
+    public void AddItem(string _code, int _cnt)
     {
-        wood += _wood;
-        water += _water;
-        meat += _meat;
-        hub += _hub;
-        food += _food;
-
-        items[0].AddNum(wood, _wood);
-        items[1].AddNum(water, _water);
-        items[2].AddNum(meat, _meat);
-        items[3].AddNum(hub, _hub);
-        items[4].AddNum(food, _food);
+        switch (_code)
+        {
+            case "Item_Wood":
+                wood += _cnt;
+                items[0].AddNum(wood, _cnt);
+                break;
+            case "Item_Water":
+                water += _cnt;
+                items[1].AddNum(water, _cnt);
+                break;
+            case "Item_Meat":
+                meat += _cnt;
+                items[2].AddNum(meat, _cnt);
+                break;
+            case "Item_Hub":
+                hub += _cnt;
+                items[3].AddNum(hub, _cnt);
+                break;
+            case "Item_Food":
+                food += _cnt;
+                items[4].AddNum(food, _cnt);
+                break;
+        }
     }
 }

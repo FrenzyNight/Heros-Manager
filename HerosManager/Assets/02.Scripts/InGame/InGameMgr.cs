@@ -13,7 +13,8 @@ public enum State
 
 public class InGameMgr : Singleton<InGameMgr>
 {
-    public int stage = 1;
+    public StageData stageData;
+    int stage = 1;
 
     public State state = State.Camp;
 
@@ -26,11 +27,47 @@ public class InGameMgr : Singleton<InGameMgr>
     {
         //temp
         LoadGameData.Instance.LoadCSVDatas();
+
+        LoadStageData();
     }
 
-    void Start()
+    void LoadStageData()
     {
+        string code = "";
+        switch (stage)
+        {
+            case 1:
+                code = "Stage_Grassland";
+                break;
+            case 2:
+                code = "Stage_Desert";
+                break;
+            case 3:
+                code = "Stage_Forest";
+                break;
+        }
 
+        if (code == "")
+        {
+            Debug.LogError("StageData is Null");
+            return;
+        }
+
+        stageData = LoadGameData.Instance.stageDatas[code];
+    }
+
+    public void NextStage()
+    {
+        stage++;
+
+        //게임 End
+        if (stage > LoadGameData.Instance.stageDatas.Count)
+        {
+            Debug.LogError("Game End");
+            return;
+        }
+
+        LoadStageData();
     }
 
     void Update()
@@ -55,12 +92,7 @@ public class InGameMgr : Singleton<InGameMgr>
     public void EnterMiniGame(string _stageCode)
     {
         miniGameData.Clear();
-        for (int i = 0; i < LoadGameData.Instance.miniGameDatas.Count; i++)
-        {
-            MiniGameData mData = LoadGameData.Instance.miniGameDatas[i];
-            if (mData.stageCode == _stageCode)
-                miniGameData.Add(mData.code, mData);
-        }
+
 
         miniGameMgr.StartMiniGame(_stageCode);
     }
