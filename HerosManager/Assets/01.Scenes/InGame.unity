@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_Fog: 1
+  m_FogColor: {r: 0.627451, g: 0.73333335, b: 0.972549, a: 1}
+  m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 0
-  m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_LinearFogStart: 50
+  m_LinearFogEnd: 250
+  m_AmbientSkyColor: {r: 0.8, g: 0.6039216, b: 0.3529412, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.16090426, g: 0.3808277, b: 0.96323544, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -72,7 +72,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
-    m_BakeBackend: 1
+    m_BakeBackend: 2
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 512
@@ -13309,30 +13309,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MGM: {fileID: 0}
-  Treasure1Prefab: {fileID: 6653928522118456075, guid: 3e21de23cdeac314f9c74d10f173b8da,
-    type: 3}
-  Treasure2Prefab: {fileID: 6163050689186539330, guid: 964a7c42db1e15341978a84e6a5a291d,
-    type: 3}
-  Treasure3Prefab: {fileID: 8907928284885497012, guid: 3ba3fede447e2ec48a57a3b6d61feb43,
-    type: 3}
-  tp1: {x: 480, y: 540}
-  tp2: {x: 960, y: 540}
-  tp3: {x: 1440, y: 540}
   GuidText: {fileID: 1276890704}
   GuidPanel: {fileID: 1596725708}
   fwStandardSpeed: 300
   fwTreasure1ResMeat: 0
   fwTreasure1ResHub: 0
   fwTreasure1CoolTime: 0
-  fwTreasure1GetTime: 0
   fwTreasure2ResMeat: 0
   fwTreasure2ResHub: 0
   fwTreasure2CoolTime: 0
-  fwTreasure2GetTime: 0
   fwTreasure3ResMeat: 0
   fwTreasure3ResHub: 0
   fwTreasure3CoolTime: 0
-  fwTreasure3GetTime: 0
   fwLaySpeed: 0
   fwFairy1Speed: 0
   fwFairy2Speed: 0
@@ -20668,10 +20656,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca8181cabb7e7440aa23ed437c2142e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectUI: {fileID: 0}
   fenceLv1: {fileID: 1017812333}
   fenceLv2: {fileID: 963942311}
   fenceLv3: {fileID: 1974016827}
-  fenceLv4: {fileID: 340456574}
 --- !u!1 &846556248
 GameObject:
   m_ObjectHideFlags: 0
@@ -26027,16 +26015,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Back: {fileID: 900429598}
-  Front: {fileID: 684013239}
-  Left: {fileID: 1413810978}
-  Right: {fileID: 346655648}
-  fairySpeed: 0
   direction: -1
   topP: 215
   botP: -215
-  observePoint1: 100
-  observePoint2: -100
   fairyNum: 1
 --- !u!58 &1161247997
 CircleCollider2D:
@@ -27246,8 +27227,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241267764}
-  m_LocalRotation: {x: 0.12471932, y: 0.8580324, z: -0.43241397, w: 0.24747452}
-  m_LocalPosition: {x: -31.35672, y: 65.54236, z: 68.154236}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -36597,16 +36578,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Back: {fileID: 387164747}
-  Front: {fileID: 772778048}
-  Left: {fileID: 726855671}
-  Right: {fileID: 2002977061}
-  fairySpeed: 0
   direction: -1
   topP: 215
   botP: -215
-  observePoint1: 100
-  observePoint2: -100
   fairyNum: 2
 --- !u!1 &1797239218
 GameObject:
@@ -38860,16 +38834,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Back: {fileID: 1551313115}
-  Front: {fileID: 253206851}
-  Left: {fileID: 1342549155}
-  Right: {fileID: 691372447}
-  fairySpeed: 0
   direction: -1
   topP: 215
   botP: -215
-  observePoint1: 100
-  observePoint2: -100
   fairyNum: 3
 --- !u!1 &1951583362
 GameObject:
@@ -40380,6 +40347,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: ray_re
       objectReference: {fileID: 0}
+    - target: {fileID: 923738084009964109, guid: 0b8760cfead9c1c41a8eb785f6e7ac35,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b74721d5b86be624c945f7bec23d1f0e, type: 2}
+    - target: {fileID: 923738084009964109, guid: 0b8760cfead9c1c41a8eb785f6e7ac35,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b74721d5b86be624c945f7bec23d1f0e, type: 2}
+    - target: {fileID: 8936953353766394220, guid: 0b8760cfead9c1c41a8eb785f6e7ac35,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b74721d5b86be624c945f7bec23d1f0e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b8760cfead9c1c41a8eb785f6e7ac35, type: 3}
 --- !u!4 &2056176947 stripped
