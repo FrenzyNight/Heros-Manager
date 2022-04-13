@@ -6,8 +6,28 @@ using TMPro;
 
 public class HeroState : MonoBehaviour
 {
+    public float stress;
+    public float power;
+    public float hp;
+    public float exp;
+
+    float minStress;
+    float maxStress;
+    float minPower;
+    float maxPower;
+    float minHp;
+    float maxHp;
+    float minExp;
+    float maxExp;
+
+    public Text NameText;
+    public Text JobText;
     public TextMeshProUGUI StateText;
-    public Image BraveryFill;
+    public Text ExpText;
+    public Image ExpFill;
+
+    string statStr;
+
     public Button button;
 
     RectTransform rectTrans;
@@ -20,11 +40,6 @@ public class HeroState : MonoBehaviour
 
     void Start()
     {
-        Setup();
-    }
-
-    void Setup()
-    {
         rectTrans = this.GetComponent<RectTransform>();
         isSlide = false;
         closeSlideVec = rectTrans.anchoredPosition;
@@ -33,40 +48,64 @@ public class HeroState : MonoBehaviour
         button.onClick.AddListener(() => { Slide(); });
     }
 
-    public void SetState(HeroInfo _heroInfo)
+    public void Setup(HeroData _heroData)
     {
-        //예외처리
-        if (_heroInfo.hp <= 0f)
-        {
-            _heroInfo.hp = 0f;
-            //Die
-            return;
-        }
+        NameText.text = LoadGameData.Instance.GetString(_heroData.HeroStringID);
+        //JobText.text = LoadGameData.Instance.GetString(_heroData.HeroStringID);
 
-        if (_heroInfo.exp < 0f)
-            _heroInfo.exp = 0f;
-        if (_heroInfo.exp > 100f)
-            _heroInfo.exp = 100f;
+        stress = LoadGameData.Instance.heroStateDatas[_heroData.StressID].FirstGive;
+        power = LoadGameData.Instance.heroStateDatas[_heroData.PowerID].FirstGive;
+        hp = LoadGameData.Instance.heroStateDatas[_heroData.HpID].FirstGive;
+        exp = LoadGameData.Instance.heroStateDatas[_heroData.ExpID].FirstGive;
 
-        if (_heroInfo.power < 0f)
-            _heroInfo.power = 0f;
+        minStress = LoadGameData.Instance.heroStateDatas[_heroData.StressID].Min;
+        maxStress = LoadGameData.Instance.heroStateDatas[_heroData.StressID].Max;
+        minPower = LoadGameData.Instance.heroStateDatas[_heroData.PowerID].Min;
+        maxPower = LoadGameData.Instance.heroStateDatas[_heroData.PowerID].Max;
+        minHp = LoadGameData.Instance.heroStateDatas[_heroData.HpID].Min;
+        maxHp = LoadGameData.Instance.heroStateDatas[_heroData.HpID].Max;
+        minExp = LoadGameData.Instance.heroStateDatas[_heroData.ExpID].Min;
+        maxExp = LoadGameData.Instance.heroStateDatas[_heroData.ExpID].Max;
 
-        if (_heroInfo.stress > 100f)
-            _heroInfo.stress = 100f;
+        statStr = LoadGameData.Instance.GetString(_heroData.StressStringID) + ":{0}\n" +
+            LoadGameData.Instance.GetString(_heroData.PowerStringID) + ":{1}\n" +
+            LoadGameData.Instance.GetString(_heroData.HpStringID) + ":{2}/" + LoadGameData.Instance.heroStateDatas[_heroData.HpID].Max;
+        StateText.text = string.Format(statStr, stress, power, hp);
 
-        //Set
-        BraveryFill.fillAmount = _heroInfo.exp / 100f;
+        ExpText.text = LoadGameData.Instance.GetString(_heroData.ExpStringID);
 
-        string str = "스트레스:";
-        if (_heroInfo.stress < 30f)
-            str += "낮음";
-        else if (_heroInfo.stress < 70f)
-            str += "보통";
-        else
-            str += "분노";
-        str += "\n전투력:" + _heroInfo.power + "\n체력:" + _heroInfo.hp + "/100";
+        ExpFill.fillAmount = exp / maxExp;
+    }
 
-        StateText.text = str;
+    public void SetStat(float _stress, float _power, float _hp, float _exp)
+    {
+        stress += _stress;
+        if (stress > maxStress)
+            stress = maxStress;
+        if (stress < minStress)
+            stress = minStress;
+
+        power += _power;
+        if (power > maxPower)
+            power = maxPower;
+        if (power < minPower)
+            power = minPower;
+
+        hp += _hp;
+        if (hp > maxHp)
+            hp = maxHp;
+        if (hp < minHp)
+            hp = minHp;
+
+        exp += _exp;
+        if (exp > maxExp)
+            exp = maxExp;
+        if (exp < minExp)
+            exp = minExp;
+
+
+        StateText.text = string.Format(statStr, stress, power, hp);
+        ExpFill.fillAmount = exp / maxExp;
     }
 
     public void Slide()

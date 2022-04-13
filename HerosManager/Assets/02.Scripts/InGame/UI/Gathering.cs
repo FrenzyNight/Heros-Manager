@@ -3,41 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Gathering : Singleton<Gathering>
+public class Gathering : MonoBehaviour
 {
-    public GameObject GatheringPannel;
+    public Image MiniGameImg;
+    public Text MiniGameText;
 
-    public Button[] StageBtns;
+    public Transform ItemImgTrans;
 
-    private void Awake()
+    public void Setup()
     {
-        this.GetComponent<Button>().onClick.AddListener(() => OpenGatheringPannel());
+        //MiniGameImg.sprite = ;
+        MiniGameText.text = "";
 
-        StageBtns[0].onClick.AddListener(() =>
-        {
-            InGameMgr.Instance.EnterMiniGame("Stage_1_Forest");
-        });
-        StageBtns[1].onClick.AddListener(() =>
-        {
-            InGameMgr.Instance.EnterMiniGame("Stage_1_Grassland");
-        });
-        StageBtns[2].onClick.AddListener(() =>
-        {
-            InGameMgr.Instance.EnterMiniGame("Stage_1_river");
-        });
+
+
+        this.GetComponent<Button>().onClick.AddListener(StartMiniGame);
     }
 
-    public void OpenGatheringPannel()
+    public void StartMiniGame()
     {
-        GatheringPannel.SetActive(true);
-        InGameMgr.Instance.state = State.Pannel;
-        Notice.Instance.isLock = true;
-    }
+        GatheringManager.Instance.CloseGatheringPannel();
 
-    public void CloseGatheringPannel()
-    {
-        GatheringPannel.SetActive(false);
-        InGameMgr.Instance.state = State.Camp;
-        Notice.Instance.isLock = false;
+        MiniGameMgr.Instance.Setup();
     }
 }

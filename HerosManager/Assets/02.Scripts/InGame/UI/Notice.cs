@@ -19,9 +19,6 @@ public class Notice : Singleton<Notice>
 
     public bool isLock;
 
-    //temp
-    public string tempStr = "";
-
     void Awake()
     {
         NoticeBtn.onClick.AddListener(() => Slide());
@@ -40,14 +37,6 @@ public class Notice : Singleton<Notice>
         closeSz = new Vector2(582f, 88f);
 
         isLock = false;
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            InstNoticeText(tempStr);
-        }
     }
 
     public void InstNoticeText(string _msg)

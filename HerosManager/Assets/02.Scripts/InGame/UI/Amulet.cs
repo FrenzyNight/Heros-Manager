@@ -5,32 +5,34 @@ using UnityEngine.EventSystems;
 
 public class Amulet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    AmuletPannel amuletPannel;
-
     bool isMouseOn;
 
     void Start()
     {
-        amuletPannel = this.GetComponentInParent<AmuletPannel>();
-
         isMouseOn = false;
+    }
+
+    public void Setup()
+    {
+
     }
 
     void Update()
     {
         if (isMouseOn)
-            amuletPannel.AmuletNoticePosition();
+            AmuletManager.Instance.AmuletNotice.transform.position = Input.mousePosition;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         isMouseOn = true;
-        amuletPannel.SetAmuletNotice();
+
+        AmuletManager.Instance.NoticeText.text = "";
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         isMouseOn = false;
-        amuletPannel.AmuletNotice.SetActive(isMouseOn);
+        AmuletManager.Instance.AmuletNotice.SetActive(isMouseOn);
     }
 }

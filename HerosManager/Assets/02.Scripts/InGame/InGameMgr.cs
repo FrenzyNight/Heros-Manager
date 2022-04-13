@@ -4,23 +4,19 @@ using UnityEngine;
 
 public enum State
 {
+    None,
     Camp,
-    Pannel,
-    Game1,
-    Game2,
-    Game3,
+    Gathering,
+    MiniGame,
 }
 
 public class InGameMgr : Singleton<InGameMgr>
 {
     public StageData stageData;
-    int stage = 1;
+    public int stage = 1;
 
     public State state = State.Camp;
 
-    public Dictionary<string, MiniGameData> miniGameData = new Dictionary<string, MiniGameData>();
-
-    public MiniGameMgr miniGameMgr;
     public Pause pause;
 
     void Awake()
@@ -78,22 +74,14 @@ public class InGameMgr : Singleton<InGameMgr>
             {
                 pause.PauseBtn();
             }
-            else if (state == State.Pannel)
+            else if (state == State.Gathering)
             {
-                Gathering.Instance.CloseGatheringPannel();
+                GatheringManager.Instance.CloseGatheringPannel();
             }
-            else if (state == State.Game1 || state == State.Game2 || state == State.Game3)
+            else if (state == State.MiniGame)
             {
-                miniGameMgr.CloseCurrentGame();
+                MiniGameMgr.Instance.CloseMiniGame();
             }
         }
-    }
-
-    public void EnterMiniGame(string _stageCode)
-    {
-        miniGameData.Clear();
-
-
-        miniGameMgr.StartMiniGame(_stageCode);
     }
 }

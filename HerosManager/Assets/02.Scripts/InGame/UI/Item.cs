@@ -5,17 +5,25 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
+    public int num;
     public Text NumText;
     public Text EffNum;
 
     Coroutine runningCo;
 
-    public void AddNum(int _num, int _addNum)
+    public void Setup(ItemData _itemData)
+    {
+        num = _itemData.FirstGive;
+        NumText.text = num.ToString();
+    }
+
+    public void AddNum(int _addNum)
     {
         if (_addNum == 0)
             return;
 
-        NumText.text = _num.ToString();
+        num += _addNum;
+        NumText.text = num.ToString();
 
         if (runningCo != null)
             StopCoroutine(runningCo);

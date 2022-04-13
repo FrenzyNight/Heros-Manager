@@ -36,12 +36,6 @@ public class PlayerCtrl : MonoBehaviour
             case State.Camp:
                 Move_MouseClick();
                 break;
-            case State.Game1:
-                break;
-            case State.Game2:
-                break;
-            case State.Game3:
-                break;
         }
     }
 

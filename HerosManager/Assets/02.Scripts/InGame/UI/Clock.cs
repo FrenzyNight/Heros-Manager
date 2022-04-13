@@ -19,6 +19,7 @@ public class Clock : Singleton<Clock>
     void Start()
     {
         LoadStageDayData();
+        AdventureMgr.ReadyAdventure(stageDayData);
     }
 
     void LoadStageDayData()
@@ -62,10 +63,12 @@ public class Clock : Singleton<Clock>
 
         if (day > stageDayCnt)
         {
+            day = 1;
             InGameMgr.Instance.NextStage();
         }
 
         LoadStageDayData();
+        AdventureMgr.ReadyAdventure(stageDayData);
     }
 
     void Update()

@@ -4,112 +4,56 @@ using UnityEngine;
 
 public class HeroStateManager : Singleton<HeroStateManager>
 {
-    public HeroInfo[] heroInfos = new HeroInfo[4];
-    HeroState[] heroStateList;
+    HeroState[] heroStates;
 
     void Start()
     {
-        heroStateList = this.GetComponentsInChildren<HeroState>();
+        heroStates = this.GetComponentsInChildren<HeroState>();
 
         Setup();
     }
 
     void Setup()
     {
-        for (int i = 0; i < heroInfos.Length; i++)
+        //0-레이널드 1-아시스 2-엘리스 3-슈아
+        for (int i = 0; i < heroStates.Length; i++)
         {
-            string hpKey = "Heros" + (i + 1) + "Hp";
-            string powerKey = "Heros" + (i + 1) + "Power";
-            string stressKey = "Heros" + (i + 1) + "Stress";
-            string expKey = "Heros" + (i + 1) + "Exp";
-            HeroInfo hInfo = new HeroInfo(LoadGameData.Instance.herosDatas[hpKey].startState
-                , LoadGameData.Instance.herosDatas[powerKey].startState
-                , LoadGameData.Instance.herosDatas[stressKey].startState
-                , LoadGameData.Instance.herosDatas[expKey].startState);
-            heroInfos[i] = hInfo;
-            heroStateList[i].SetState(hInfo);
+            string key = "Hero_" + (i + 1);
+            HeroData heroData = LoadGameData.Instance.heroDatas[key];
+
+            heroStates[i].Setup(heroData);
         }
     }
 
-    public void SetJourneyState(int _case)
+    HeroState GetHeroStatInfo(string _code)
     {
-        switch (_case)
+        HeroState heroStat = null;
+
+        switch (_code)
         {
-            case 1: //perfect
-                for (int i = 0; i < heroInfos.Length; i++)
-                {
-                    string hpKey = "Heros" + (i + 1) + "Hp";
-                    string powerKey = "Heros" + (i + 1) + "Power";
-                    string stressKey = "Heros" + (i + 1) + "Stress";
-                    string expKey = "Heros" + (i + 1) + "Exp";
-
-                    heroInfos[i].hp -= LoadGameData.Instance.herosDatas[hpKey].journeyPerfect;
-                    heroInfos[i].power += LoadGameData.Instance.herosDatas[powerKey].journeyPerfect;
-                    heroInfos[i].stress -= LoadGameData.Instance.herosDatas[stressKey].journeyPerfect;
-                    heroInfos[i].exp += LoadGameData.Instance.herosDatas[expKey].journeyPerfect;
-                    heroStateList[i].SetState(heroInfos[i]);
-                }
+            case "Hero_1":
+                heroStat = heroStates[0];
                 break;
-            case 2: //success
-                for (int i = 0; i < heroInfos.Length; i++)
-                {
-                    string hpKey = "Heros" + (i + 1) + "Hp";
-                    string powerKey = "Heros" + (i + 1) + "Power";
-                    string stressKey = "Heros" + (i + 1) + "Stress";
-                    string expKey = "Heros" + (i + 1) + "Exp";
-
-                    heroInfos[i].hp -= LoadGameData.Instance.herosDatas[hpKey].journeySuccess;
-                    heroInfos[i].power += LoadGameData.Instance.herosDatas[powerKey].journeySuccess;
-                    heroInfos[i].stress -= LoadGameData.Instance.herosDatas[stressKey].journeySuccess;
-                    heroInfos[i].exp += LoadGameData.Instance.herosDatas[expKey].journeySuccess;
-                    heroStateList[i].SetState(heroInfos[i]);
-                }
+            case "Hero_2":
+                heroStat = heroStates[1];
                 break;
-            case 3: //fail
-                for (int i = 0; i < heroInfos.Length; i++)
-                {
-                    string hpKey = "Heros" + (i + 1) + "Hp";
-                    string powerKey = "Heros" + (i + 1) + "Power";
-                    string stressKey = "Heros" + (i + 1) + "Stress";
-                    string expKey = "Heros" + (i + 1) + "Exp";
-
-                    heroInfos[i].hp -= LoadGameData.Instance.herosDatas[hpKey].journeyFail;
-                    heroInfos[i].power += LoadGameData.Instance.herosDatas[powerKey].journeyFail;
-                    heroInfos[i].stress += LoadGameData.Instance.herosDatas[stressKey].journeyFail;
-                    heroInfos[i].exp += LoadGameData.Instance.herosDatas[expKey].journeyFail;
-                    heroStateList[i].SetState(heroInfos[i]);
-                }
+            case "Hero_3":
+                heroStat = heroStates[2];
+                break;
+            case "Hero_4":
+                heroStat = heroStates[3];
                 break;
         }
+
+        return heroStat;
     }
-
-    //void Update()
-    //{
-
-    //}
 
     public void SlideAll(bool _isSlide)
     {
-        for (int i = 0; i < heroStateList.Length; i++)
+        for (int i = 0; i < heroStates.Length; i++)
         {
-            heroStateList[i].isSlide = _isSlide;
-            heroStateList[i].Slide();
+            heroStates[i].isSlide = _isSlide;
+            heroStates[i].Slide();
         }
-    }
-}
-
-public class HeroInfo
-{
-    public float hp;
-    public float power;
-    public float stress;
-    public float exp;
-
-    public HeroInfo(float _hp, float _power, float _stress, float _exp)
-    {
-        this.hp = _hp;
-        this.power = _power;
-        this.stress = _stress;
-        this.exp = _exp;
     }
 }
