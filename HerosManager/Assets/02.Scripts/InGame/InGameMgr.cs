@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class InGameMgr : Singleton<InGameMgr>
     public int stage = 1;
 
     public State state = State.Camp;
+
+    public Action NextStageAct;
 
     public Pause pause;
 

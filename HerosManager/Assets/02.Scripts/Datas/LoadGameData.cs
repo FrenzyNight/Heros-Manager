@@ -13,7 +13,7 @@ public class LoadGameData : Singleton<LoadGameData>
     public Dictionary<string, InvadeData> invadeDatas = new Dictionary<string, InvadeData>();
     public Dictionary<string, ItemData> itemDatas = new Dictionary<string, ItemData>();
     public Dictionary<string, JourneyData> journeyDatas = new Dictionary<string, JourneyData>();
-    public Dictionary<string, JRwithHeroData> jRwithHeroDatas = new Dictionary<string, JRwithHeroData>();
+    public List<JRwithHeroData> jRwithHeroDatas = new List<JRwithHeroData>();
     public Dictionary<string, JStateData> jStateDatas = new Dictionary<string, JStateData>();
     public Dictionary<string, JVCutData> jVCutDatas = new Dictionary<string, JVCutData>();
     public Dictionary<string, JVwithObjectData> jVwithObjectDatas = new Dictionary<string, JVwithObjectData>();
@@ -230,7 +230,7 @@ public class LoadGameData : Singleton<LoadGameData>
             jRwithHeroData.Hero4_Hp = CSVConvert.ToFloat(data[i]["Hero4_Hp"]);
             jRwithHeroData.Hero4_Exp = CSVConvert.ToFloat(data[i]["Hero4_Exp"]);
 
-            jRwithHeroDatas.Add(jRwithHeroData.JRwithHeroID, jRwithHeroData);
+            jRwithHeroDatas.Add(jRwithHeroData);
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ public class Clock : Singleton<Clock>
 
     public Text DayText;
     public Image ClockFillImg;
+
+    public Action NextDayAct;
 
     public AdventureManager AdventureMgr;
 

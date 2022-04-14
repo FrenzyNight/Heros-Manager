@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemManager : Singleton<ItemManager>
 {
-    Item[] items;
+    public Item[] items;
 
     void Start()
     {
@@ -23,7 +23,7 @@ public class ItemManager : Singleton<ItemManager>
         items[4].Setup(LoadGameData.Instance.itemDatas["Item_Food"]);
     }
 
-    Item GetItemInfo(string _code)
+    public Item GetItemInfo(string _code)
     {
         Item item = null;
 

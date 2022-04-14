@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeroStateManager : Singleton<HeroStateManager>
 {
-    HeroState[] heroStates;
+    public HeroState[] heroStates;
 
     void Start()
     {

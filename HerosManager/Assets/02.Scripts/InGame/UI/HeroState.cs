@@ -77,7 +77,7 @@ public class HeroState : MonoBehaviour
         ExpFill.fillAmount = exp / maxExp;
     }
 
-    public void SetStat(float _stress, float _power, float _hp, float _exp)
+    public void AddStat(float _stress, float _power, float _hp, float _exp)
     {
         stress += _stress;
         if (stress > maxStress)

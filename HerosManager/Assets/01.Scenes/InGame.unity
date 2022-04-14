@@ -9870,7 +9870,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b87162e8d7075644eb67d07faf8d7c14,
         type: 3}
       propertyPath: m_Name
-      value: fence003
+      value: fence2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b87162e8d7075644eb67d07faf8d7c14,
         type: 3}
@@ -10730,7 +10730,7 @@ GameObject:
   m_Component:
   - component: {fileID: 340456575}
   m_Layer: 0
-  m_Name: fence004
+  m_Name: fence3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11402,7 +11402,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a52c5cf2c20380743991d2a9eacd50f3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a52c5cf2c20380743991d2a9eacd50f3,
         type: 3}
@@ -11427,7 +11427,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a52c5cf2c20380743991d2a9eacd50f3,
         type: 3}
       propertyPath: m_Name
-      value: fence002
+      value: fence1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a52c5cf2c20380743991d2a9eacd50f3,
         type: 3}
@@ -20612,8 +20612,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 374941097}
   - {fileID: 1683921868}
+  - {fileID: 374941097}
   - {fileID: 292048073}
   - {fileID: 340456575}
   - {fileID: 1235124542}
@@ -34695,7 +34695,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bab7bb926e37e8c4d8fb6ee1028ef803,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bab7bb926e37e8c4d8fb6ee1028ef803,
         type: 3}
@@ -34720,7 +34720,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bab7bb926e37e8c4d8fb6ee1028ef803,
         type: 3}
       propertyPath: m_Name
-      value: fence001
+      value: fence0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bab7bb926e37e8c4d8fb6ee1028ef803,
         type: 3}
@@ -39300,7 +39300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1980455395
 RectTransform:
   m_ObjectHideFlags: 0
