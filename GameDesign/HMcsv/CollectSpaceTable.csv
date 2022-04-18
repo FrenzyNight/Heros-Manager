@@ -1,0 +1,12 @@
+﻿CollectSpaceID,MiniGameID1,MiniGameHelpStringID1,MiniGameID2,MiniGameHelpStringID2,FunctionID
+CS_S1_Forest,MG_S1_Tree,MG_S1_a1,MG_S1_Cage,MG_S1_a2,-1
+CS_S1_Grassland,MG_S1_Hub,MG_S1_a3,MG_S1_Hunt,MG_S1_a4,-1
+CS_S1_Lake,MG_S1_Fish,MG_S1_a5,MG_S1_Water,MG_S1_a6,-1
+CS_S2_Ruins,MG_S2_Tree,MG_S2_a1,MG_S2_Maze,MG_S2_a2,-1
+CS_S2_Desertfield,MG_S2_Hub,MG_S2_a3,MG_S2_Hunt,MG_S2_a4,-1
+CS_S2_Desertlake,MG_S2_Fish,MG_S2_a5,MG_S2_Water,MG_S2_a6,-1
+CS_S2_Oasis,MG_S2_Oasis,MG_S2_a7,-1,-1,-1
+CS_S3_Magicspring,MG_S3_Magicspring,MG_S3_a1,-1,-1,-1
+CS_S3_Fairywarehouse,MG_S3_FairyWarehouse,MG_S3_a2,-1,-1,-1
+CS_S3_Portal,MG_S3_Portal,MG_S3_a3,-1,-1,MG_S3_Rand_Portal
+CS_S3_Worldtree,MG_S3_Worldtree,MG_S3_a4,-1,-1,-1

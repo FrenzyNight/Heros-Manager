@@ -1,52 +1,83 @@
 ﻿StringID,KOR,ENG
-Stage_Name_1,초원,
-Stage_Name_2,사막,
-Stage_Name_3,요정 숲,
-Stage_title_1,평화롭지만 음산한 초원입니다..,
-Stage_title_2,햇빛이 작렬하는 사막입니다..,
-Stage_title_3,신비한 기운이 웃도는 숲입니다..,
-Journey_a1,최소 개수를 만족 시키지 못하면 여정 결과에 큰 영향을 미치게 됩니다.,
-Journey_t1,최소 개수 :,
-Journey_t2,여정 결과 확률,
-Journey_t3,대성공 확률 :,
-Journey_t4,성공 확률 :,
-Journey_t5,실패 확률 :,
-Journey_t6,여정 출발,
-Journey_result_a1,용사들이 의기양양한 모습으로 돌아옵니다!!,
-Journey_result_a2,용사들이 도착했습니다.,
-Journey_result_a3,용사들이 많이 지쳐 보입니다…,
-Stage_day_1,1일차,
-Stage_day_2,2일차,
-Stage_day_3,3일차,
-Stage_day_4,4일차,
-Journey_state_1,위험,
-Journey_state_2,부실,
-Journey_state_3,보통,
-Journey_state_4,순탄,
-Item_name_1,고기,
-Item_name_2,물,
-Item_name_3,허브,
-Item_name_4,목재,
-Item_name_5,요리된 음식,
-Fence_a1,"다음 날로 넘어갈 때, 몬스터들에게 야영지를 침략받을 확률 입니다.",
-Fence_t1,울타리 단계,
-Fence_t2,침략 확률,
-Fence_t3,필요 목재량,
-Fence_t4,소모시간(초),
-Fence_b1,강화하기,
-Fence_b2,취소,
-Fence_b3,완료,
-Fence_a2,강화 중..,
-Fence_a3,강화 완료,
-Invade_a1,지난 밤 몬스터 들에게 침략 당했습니다. \n일부 아이템들을 도둑질 해 갔습니다.,
-Invade_a2,무사히 아침이 밝았습니다.,
-Hero_name_1,레이널드,
-Hero_name_2,아시스,
-Hero_name_3,엘리스,
-Hero_name_4,슈아,
-Hero_t1,스트레스,
-Hero_t2,전투력,
-Hero_t3,체력,
-Hero_t4,용사도,
-BonFire_a1,용사들이 추위에 떨고 있습니다. 용사들의 스트레스가 증가합니다.,
-Cook_a1,무언가 탄 냄새가 납니다.,
+Stage_t1,초원,-1
+Stage_t2,사막,-1
+Stage_t3,요정 숲,-1
+Journey_title_a1,평화롭지만 음산한 초원입니다..,-1
+Journey_title_a2,햇빛이 작렬하는 사막입니다..,-1
+Journey_title_a3,신비한 기운이 웃도는 숲입니다..,-1
+Journey_a1,최소 개수를 만족 시키지 못하면 여정 결과에 큰 영향을 미치게 됩니다.,-1
+Journey_t1,최소 개수 : {0}개 ,-1
+Journey_t2,최소 개수 : {0}개 ,-1
+Journey_t3,여정 결과 확률,-1
+Journey_t4,대성공 확률 : {0} %,-1
+Journey_t5,성공 확률 : {0} %,-1
+Journey_t6,실패 확률 : {0} %,-1
+Journey_t7,여정 출발,-1
+JR_a1,용사들이 의기양양한 모습으로 돌아옵니다!!,-1
+JR_a2,용사들이 도착했습니다.,-1
+JR_a3,용사들이 많이 지쳐 보입니다…,-1
+Day_t1,{0}일차,-1
+JS_t1,순탄,-1
+JS_t2,보통,-1
+JS_t3,부실,-1
+JS_t4,위험,-1
+Item_t1,고기,-1
+Item_t2,물,-1
+Item_t3,허브,-1
+Item_t4,목재,-1
+Item_t5,요리된 음식,-1
+Fence_a1,"다음 날로 넘어갈 때, 몬스터들에게 야영지를 침략받을 확률 입니다.",-1
+Fence_t1,울타리 단계,-1
+Fence_t2,침략 확률,-1
+Fence_t3,필요 목재량,-1
+Fence_t4,소모시간(초),-1
+Fence_b1,강화하기,-1
+Fence_b2,취소,-1
+Fence_b3,완료,-1
+Fence_a2,강화 중..,-1
+Fence_a3,강화 완료,-1
+Fence_a4,더 이상 강화할 수 없습니다.,-1
+Invade_a1,지난 밤 몬스터 들에게 침략 당했습니다. \n일부 아이템들을 도둑질 해 갔습니다.,-1
+Invade_a2,: {0}개,-1
+Invade_a3,무사히 아침이 밝았습니다.,-1
+Hero_1_t1,레이널드,-1
+Hero_1_t2,아시스,-1
+Hero_1_t3,엘리스,-1
+Hero_1_t4,슈아,-1
+HeroState_t1,스트레스 :,-1
+HeroState_a1,낮음,-1
+HeroState_a2,보통,-1
+HeroState_a3,높음,-1
+HeroState_t2,전투력 : {0},-1
+HeroState_t3,체력 : {0} / {1},-1
+HeroState_t4,용사도,-1
+BonFire_a1,용사들이 추위에 떨고 있습니다. 용사들의 스트레스가 증가합니다.,-1
+Cook_a1,무언가 탄 냄새가 납니다.,-1
+CS_S1_t1,숲,-1
+CS_S1_t2,초원,-1
+CS_S1_t3,냇가,-1
+CS_S2_t1,버려진 마을,-1
+CS_S2_t2,사막평야,-1
+CS_S2_t3,우물,-1
+CS_S2_t4,오아시스,-1
+CS_S3_t1,마법샘,-1
+CS_S3_t2,요정창고,-1
+CS_S3_t3,차원문,-1
+CS_S3_t4,세계수,-1
+MG_S1_a1,금이 간 부분을 WASD로 찾아가 나무를 베세요.,-1
+MG_S1_a2,장애물을 방향키를 이용해 피하세요.,-1
+MG_S1_a3,aaa,-1
+MG_S1_a4,aaa,-1
+MG_S1_a5,aaa,-1
+MG_S1_a6,aaa,-1
+MG_S2_a1,aaa,-1
+MG_S2_a2,aaa,-1
+MG_S2_a3,aaa,-1
+MG_S2_a4,aaa,-1
+MG_S2_a5,aaa,-1
+MG_S2_a6,aaa,-1
+MG_S2_a7,aaa,-1
+MG_S3_a1,aaa,-1
+MG_S3_a2,aaa,-1
+MG_S3_a3,aaa,-1
+MG_S3_a4,aaa,-1

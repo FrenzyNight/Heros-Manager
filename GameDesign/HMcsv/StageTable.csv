@@ -1,4 +1,4 @@
-﻿StageID,StageStringID
-Stage_Grassland,Stage_Name_1
-Stage_Desert,Stage_Name_2
-Stage_Forest,Stage_Name_3
+﻿StageID,StageDayGroupID,StageStringID,BonfireID,FenceGroupID,CollectID,FieldID
+Stage_Grassland,Day_S1,Stage_t1,Bonfire_S1,Fence_S1,Collect_S1,Field_S1
+Stage_Desert,Day_S2,Stage_t2,Bonfire_S2,Fence_S2,Collect_S2,Field_S2
+Stage_Forest,Day_S3,Stage_t3,Bonfire_S3,Fence_S3,Collect_S3,Field_S3
