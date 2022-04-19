@@ -1,5 +1,5 @@
-﻿HeroID,HeroStringID,StressID,StressStringID,PowerID,PowerStringID,HpID,HpStringID,ExpID,ExpStringID
-Hero_1,Hero_name_1,Hero1Stress,Hero_t1,Hero1Power,Hero_t2,Hero1Hp,Hero_t3,Hero1Exp,Hero_t3
-Hero_2,Hero_name_2,Hero2Stress,Hero_t1,Hero2Power,Hero_t2,Hero2Hp,Hero_t3,Hero2Exp,Hero_t3
-Hero_3,Hero_name_3,Hero3Stress,Hero_t1,Hero3Power,Hero_t2,Hero3Hp,Hero_t3,Hero3Exp,Hero_t3
-Hero_4,Hero_name_4,Hero4Stress,Hero_t1,Hero4Power,Hero_t2,Hero4Hp,Hero_t3,Hero4Exp,Hero_t3
+﻿HeroID,HeroStringID,HeroStateGroupID
+Hero_1,Hero_1_t1,HeroState_H1
+Hero_2,Hero_1_t2,HeroState_H2
+Hero_3,Hero_1_t3,HeroState_H3
+Hero_4,Hero_1_t4,HeroState_H4

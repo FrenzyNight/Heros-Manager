@@ -1,0 +1,4 @@
+﻿CollectID,CollectSpaceID1,StringID1,CollectSpaceID2,StringID2,CollectSpaceID3,StringID3,RanPos,CollectSpaceID4,StringID4,StartTime,EndTime,ContinueTime
+Collect_S1,CS_S1_Forest,CS_S1_t1,CS_S1_Grassland,CS_S1_t2,CS_S1_Lake,CS_S1_t3,0,-1,-1,-1,-1,-1
+Collect_S2,CS_S2_Ruins,CS_S2_t1,CS_S2_Desertfield,CS_S2_t2,CS_S2_Desertlake,CS_S2_t3,1,CS_S2_Oasis,CS_S2_t4,60,140,10
+Collect_S3,CS_S3_Magicspring,CS_S3_t1,CS_S3_Fairywarehouse,CS_S3_t2,CS_S3_Portal,CS_S3_t3,0,CS_S3_Worldtree,CS_S3_t4,-1,-1,-1

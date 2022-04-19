@@ -1,15 +1,10 @@
-﻿string,string,string,int,int,int
-침략 고유 코드,스테이지 일수 고유 코드,침략 안내 문구 스트링 코드,뺏기는 오브젝트 랜덤 개수,뺏기는 랜덤 양의 최솟값,뺏기는 랜덤 양의 최댓값
-InvadeID,StageDayID,InvadeStringID,StealObject,RandMin,RandMax
-Invade_1,Stage1_1,Invade_a1,2,10,20
-Invade_2,Stage1_2,Invade_a1,2,10,20
-Invade_3,Stage1_3,Invade_a1,2,10,20
-Invade_4,Stage1_4,Invade_a1,2,10,20
-Invade_5,Stage2_1,Invade_a1,2,10,20
-Invade_6,Stage2_2,Invade_a1,2,10,20
-Invade_7,Stage2_3,Invade_a1,2,10,20
-Invade_8,Stage2_4,Invade_a1,2,10,20
-Invade_9,Stage3_1,Invade_a1,2,10,20
-Invade_10,Stage3_2,Invade_a1,2,10,20
-Invade_11,Stage3_3,Invade_a1,2,10,20
-Invade_12,Stage3_4,Invade_a1,2,10,20
+﻿InvadeID,InvadeStringID,StealObject,ItemID1,RandMin1,RandMax1,ItemID2,RandMin2,RandMax2,ItemID3,RandMin3,RandMax3,ItemID4,RandMin4,RandMax4
+Invade_S1_D1,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
+Invade_S1_D2,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
+Invade_S1_D3,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
+Invade_S2_D1,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
+Invade_S2_D2,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
+Invade_S2_D3,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
+Invade_S3_D1,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
+Invade_S3_D2,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
+Invade_S3_D3,Invade_a1,2,Item_Meat,10,20,Item_Water,10,20,Item_Hub,10,20,Item_Wood,70,80
