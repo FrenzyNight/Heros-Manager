@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +22,8 @@ public class Item : MonoBehaviour
             return;
 
         num += _addNum;
+        if (num < 0)
+            num = 0;
         NumText.text = num.ToString();
 
         if (runningCo != null)

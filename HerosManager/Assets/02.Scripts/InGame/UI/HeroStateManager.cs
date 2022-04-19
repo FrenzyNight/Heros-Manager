@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class HeroStateManager : Singleton<HeroStateManager>
+﻿public class HeroStateManager : Singleton<HeroStateManager>
 {
     public HeroState[] heroStates;
 

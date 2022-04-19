@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum State
@@ -16,9 +14,9 @@ public class InGameMgr : Singleton<InGameMgr>
     public StageData stageData;
     public int stage = 1;
 
-    public State state = State.Camp;
-
     public Action NextStageAct;
+
+    public State state = State.Camp;
 
     public Pause pause;
 
@@ -32,27 +30,20 @@ public class InGameMgr : Singleton<InGameMgr>
 
     void LoadStageData()
     {
-        string code = "";
-        switch (stage)
+        foreach (var data in LoadGameData.Instance.stageDatas)
         {
-            case 1:
-                code = "Stage_Grassland";
+            if (data.Value.Index == stage)
+            {
+                stageData = data.Value;
                 break;
-            case 2:
-                code = "Stage_Desert";
-                break;
-            case 3:
-                code = "Stage_Forest";
-                break;
+            }
         }
 
-        if (code == "")
+        if (stageData == null)
         {
             Debug.LogError("StageData is Null");
             return;
         }
-
-        stageData = LoadGameData.Instance.stageDatas[code];
     }
 
     public void NextStage()
@@ -67,6 +58,7 @@ public class InGameMgr : Singleton<InGameMgr>
         }
 
         LoadStageData();
+        NextStageAct();
     }
 
     void Update()

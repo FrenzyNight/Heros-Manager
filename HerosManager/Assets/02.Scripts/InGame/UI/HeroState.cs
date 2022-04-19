@@ -20,13 +20,15 @@ public class HeroState : MonoBehaviour
     float minExp;
     float maxExp;
 
+    string stressStr;
+    string powerStr;
+    string hpStr;
+
     public Text NameText;
     public Text JobText;
     public TextMeshProUGUI StateText;
     public Text ExpText;
     public Image ExpFill;
-
-    string statStr;
 
     public Button button;
 
@@ -53,28 +55,37 @@ public class HeroState : MonoBehaviour
         NameText.text = LoadGameData.Instance.GetString(_heroData.HeroStringID);
         //JobText.text = LoadGameData.Instance.GetString(_heroData.HeroStringID);
 
-        stress = LoadGameData.Instance.heroStateDatas[_heroData.StressID].FirstGive;
-        power = LoadGameData.Instance.heroStateDatas[_heroData.PowerID].FirstGive;
-        hp = LoadGameData.Instance.heroStateDatas[_heroData.HpID].FirstGive;
-        exp = LoadGameData.Instance.heroStateDatas[_heroData.ExpID].FirstGive;
+        List<HeroStateData> heroStateDataList = new List<HeroStateData>();
+        foreach (var data in LoadGameData.Instance.heroStateDatas)
+        {
+            if (data.Value.HeroStateGroupID == _heroData.HeroStateGroupID)
+            {
+                heroStateDataList.Add(data.Value);
+            }
+        }
 
-        minStress = LoadGameData.Instance.heroStateDatas[_heroData.StressID].Min;
-        maxStress = LoadGameData.Instance.heroStateDatas[_heroData.StressID].Max;
-        minPower = LoadGameData.Instance.heroStateDatas[_heroData.PowerID].Min;
-        maxPower = LoadGameData.Instance.heroStateDatas[_heroData.PowerID].Max;
-        minHp = LoadGameData.Instance.heroStateDatas[_heroData.HpID].Min;
-        maxHp = LoadGameData.Instance.heroStateDatas[_heroData.HpID].Max;
-        minExp = LoadGameData.Instance.heroStateDatas[_heroData.ExpID].Min;
-        maxExp = LoadGameData.Instance.heroStateDatas[_heroData.ExpID].Max;
+        //0.Stress 1.Power 2.Hp 3.Exp
+        stress = heroStateDataList[0].FirstGive;
+        power = heroStateDataList[1].FirstGive;
+        hp = heroStateDataList[2].FirstGive;
+        exp = heroStateDataList[3].FirstGive;
 
-        statStr = LoadGameData.Instance.GetString(_heroData.StressStringID) + ":{0}\n" +
-            LoadGameData.Instance.GetString(_heroData.PowerStringID) + ":{1}\n" +
-            LoadGameData.Instance.GetString(_heroData.HpStringID) + ":{2}/" + LoadGameData.Instance.heroStateDatas[_heroData.HpID].Max;
-        StateText.text = string.Format(statStr, stress, power, hp);
+        minStress = heroStateDataList[0].Min;
+        maxStress = heroStateDataList[0].Max;
+        minPower = heroStateDataList[1].Min;
+        maxPower = heroStateDataList[1].Max;
+        minHp = heroStateDataList[2].Min;
+        maxHp = heroStateDataList[2].Max;
+        minExp = heroStateDataList[3].Min;
+        maxExp = heroStateDataList[3].Max;
 
-        ExpText.text = LoadGameData.Instance.GetString(_heroData.ExpStringID);
+        stressStr = heroStateDataList[0].HeroStateStringID;
+        powerStr = heroStateDataList[1].HeroStateStringID;
+        hpStr = heroStateDataList[2].HeroStateStringID;
 
+        ExpText.text = LoadGameData.Instance.GetString(heroStateDataList[3].HeroStateStringID);
         ExpFill.fillAmount = exp / maxExp;
+        SetStatText();
     }
 
     public void AddStat(float _stress, float _power, float _hp, float _exp)
@@ -104,8 +115,23 @@ public class HeroState : MonoBehaviour
             exp = minExp;
 
 
-        StateText.text = string.Format(statStr, stress, power, hp);
         ExpFill.fillAmount = exp / maxExp;
+        SetStatText();
+    }
+
+    void SetStatText()
+    {
+        string str = stressStr;
+        if (stress <= 30)
+            str += LoadGameData.Instance.GetString("HeroState_a1");
+        else if (stress <= 70)
+            str += LoadGameData.Instance.GetString("HeroState_a2");
+        else if (stress <= 100)
+            str += LoadGameData.Instance.GetString("HeroState_a3");
+
+        str += "\n" + string.Format(powerStr, power) + "\n" + string.Format(hpStr, hp, maxHp);
+
+        StateText.text = str;
     }
 
     public void Slide()

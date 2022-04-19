@@ -74,9 +74,10 @@ public class FenceMgr : MonoBehaviour
         }
     }
 
-    void Invade()
+    public bool CheckInvade(InvadeData _invadeData)
     {
 
+        return true;
     }
 
     [ContextMenu("FenceLv1")]

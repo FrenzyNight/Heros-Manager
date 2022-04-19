@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Text.RegularExpressions;
 
 public class LoadGameData : Singleton<LoadGameData>
 {
     public Dictionary<string, BonfireData> bonfireDatas = new Dictionary<string, BonfireData>();
+    public Dictionary<string, CollectSpaceData> collectSpaceDatas = new Dictionary<string, CollectSpaceData>();
+    public Dictionary<string, CollectData> collectDatas = new Dictionary<string, CollectData>();
+    public Dictionary<string, DefineData> defineDatas = new Dictionary<string, DefineData>();
     public Dictionary<string, FenceData> fenceDatas = new Dictionary<string, FenceData>();
     public Dictionary<string, FieldData> fieldDatas = new Dictionary<string, FieldData>();
     public Dictionary<string, HeroStateData> heroStateDatas = new Dictionary<string, HeroStateData>();
@@ -13,11 +14,8 @@ public class LoadGameData : Singleton<LoadGameData>
     public Dictionary<string, InvadeData> invadeDatas = new Dictionary<string, InvadeData>();
     public Dictionary<string, ItemData> itemDatas = new Dictionary<string, ItemData>();
     public Dictionary<string, JourneyData> journeyDatas = new Dictionary<string, JourneyData>();
-    public List<JRwithHeroData> jRwithHeroDatas = new List<JRwithHeroData>();
+    public Dictionary<string, JResultData> jResultDatas = new Dictionary<string, JResultData>();
     public Dictionary<string, JStateData> jStateDatas = new Dictionary<string, JStateData>();
-    public Dictionary<string, JVCutData> jVCutDatas = new Dictionary<string, JVCutData>();
-    public Dictionary<string, JVwithObjectData> jVwithObjectDatas = new Dictionary<string, JVwithObjectData>();
-    public Dictionary<string, LaundryData> laundryDatas = new Dictionary<string, LaundryData>();
     public Dictionary<string, MiniGameData> miniGameDatas = new Dictionary<string, MiniGameData>();
     public Dictionary<string, StageDayData> stageDayDatas = new Dictionary<string, StageDayData>();
     public Dictionary<string, StageData> stageDatas = new Dictionary<string, StageData>();
@@ -26,6 +24,9 @@ public class LoadGameData : Singleton<LoadGameData>
     public void LoadCSVDatas()
     {
         LoadBonfireData("CSVData/BonfireTable");
+        LoadCollectSpaceData("CSVData/CollectSpaceTable");
+        LoadCollectData("CSVData/CollectTable");
+        LoadDefineData("CSVData/DefineTable");
         LoadFenceData("CSVData/FenceTable");
         LoadFieldData("CSVData/FieldTable");
         LoadHeroStateData("CSVData/HeroStateTable");
@@ -33,11 +34,8 @@ public class LoadGameData : Singleton<LoadGameData>
         LoadInvadeData("CSVData/InvadeTable");
         LoadItemData("CSVData/ItemTable");
         LoadJourneyData("CSVData/JourneyTable");
-        LoadJRwithHeroData("CSVData/JRwithHeroTable");
+        LoadJResultData("CSVData/JResultTable");
         LoadJStateData("CSVData/JStateTable");
-        LoadJVCutData("CSVData/JVCutTable");
-        LoadJVwithObjectData("CSVData/JVwithObjectTable");
-        LoadLaundryData("CSVData/LaundryTable");
         LoadMiniGameData("CSVData/MiniGameTable");
         LoadStageDayData("CSVData/StageDayTable");
         LoadStageData("CSVData/StageTable");
@@ -52,7 +50,6 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             BonfireData bonfireData = new BonfireData();
             bonfireData.BonfireID = CSVConvert.ToString(data[i]["BonfireID"]);
-            bonfireData.StageID = CSVConvert.ToString(data[i]["StageID"]);
             bonfireData.NeedItemID = CSVConvert.ToString(data[i]["NeedItemID"]);
             bonfireData.NeedAmount = CSVConvert.ToInt(data[i]["NeedAmount"]);
             bonfireData.Time1 = CSVConvert.ToFloat(data[i]["Time1"]);
@@ -67,6 +64,64 @@ public class LoadGameData : Singleton<LoadGameData>
         }
     }
 
+    void LoadCollectSpaceData(string _path)
+    {
+        collectSpaceDatas.Clear();
+        List<Dictionary<string, object>> data = CSVReader.Read(_path);
+        for (int i = 0; i < data.Count; i++)
+        {
+            CollectSpaceData collectSpaceData = new CollectSpaceData();
+            collectSpaceData.CollectSpaceID = CSVConvert.ToString(data[i]["CollectSpaceID"]);
+            collectSpaceData.MiniGameLeftID1 = CSVConvert.ToString(data[i]["MiniGameLeftID1"]);
+            collectSpaceData.MiniGameHelpStringID1 = CSVConvert.ToString(data[i]["MiniGameHelpStringID1"]);
+            collectSpaceData.MiniGameRightID2 = CSVConvert.ToString(data[i]["MiniGameRightID2"]);
+            collectSpaceData.MiniGameHelpStringID2 = CSVConvert.ToString(data[i]["MiniGameHelpStringID2"]);
+            collectSpaceData.FunctionID = CSVConvert.ToString(data[i]["FunctionID"]);
+
+            collectSpaceDatas.Add(collectSpaceData.CollectSpaceID, collectSpaceData);
+        }
+    }
+
+    void LoadCollectData(string _path)
+    {
+        collectDatas.Clear();
+        List<Dictionary<string, object>> data = CSVReader.Read(_path);
+        for (int i = 0; i < data.Count; i++)
+        {
+            CollectData collectData = new CollectData();
+            collectData.CollectID = CSVConvert.ToString(data[i]["CollectID"]);
+            collectData.CollectSpaceID1 = CSVConvert.ToString(data[i]["CollectSpaceID1"]);
+            collectData.StringID1 = CSVConvert.ToString(data[i]["StringID1"]);
+            collectData.CollectSpaceID2 = CSVConvert.ToString(data[i]["CollectSpaceID2"]);
+            collectData.StringID2 = CSVConvert.ToString(data[i]["StringID2"]);
+            collectData.CollectSpaceID3 = CSVConvert.ToString(data[i]["CollectSpaceID3"]);
+            collectData.StringID3 = CSVConvert.ToString(data[i]["StringID3"]);
+            collectData.RanPos = CSVConvert.ToInt(data[i]["RanPos"]);
+            collectData.CollectSpaceID4 = CSVConvert.ToString(data[i]["CollectSpaceID4"]);
+            collectData.StringID4 = CSVConvert.ToString(data[i]["StringID4"]);
+            collectData.StartTime = CSVConvert.ToFloat(data[i]["StartTime"]);
+            collectData.EndTime = CSVConvert.ToFloat(data[i]["EndTime"]);
+            collectData.ContinueTime = CSVConvert.ToFloat(data[i]["ContinueTime"]);
+
+            collectDatas.Add(collectData.CollectID, collectData);
+        }
+    }
+
+    void LoadDefineData(string _path)
+    {
+        defineDatas.Clear();
+        List<Dictionary<string, object>> data = CSVReader.Read(_path);
+        for (int i = 0; i < data.Count; i++)
+        {
+            DefineData defineData = new DefineData();
+            defineData.Index = CSVConvert.ToInt(data[i]["Index"]);
+            defineData.DefineID = CSVConvert.ToString(data[i]["DefineID"]);
+            defineData.value = CSVConvert.ToFloat(data[i]["value"]);
+
+            defineDatas.Add(defineData.DefineID, defineData);
+        }
+    }
+
     void LoadFenceData(string _path)
     {
         fenceDatas.Clear();
@@ -75,7 +130,7 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             FenceData fenceData = new FenceData();
             fenceData.FenceID = CSVConvert.ToString(data[i]["FenceID"]);
-            fenceData.StageID = CSVConvert.ToString(data[i]["StageID"]);
+            fenceData.FenceGroupID = CSVConvert.ToString(data[i]["FenceGroupID"]);
             fenceData.FenceLevel = CSVConvert.ToInt(data[i]["FenceLevel"]);
             fenceData.InvadeProb = CSVConvert.ToFloat(data[i]["InvadeProb"]);
             fenceData.NeedItemID = CSVConvert.ToString(data[i]["NeedItemID"]);
@@ -94,7 +149,6 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             FieldData fieldData = new FieldData();
             fieldData.FieldID = CSVConvert.ToString(data[i]["FieldID"]);
-            fieldData.StageID = CSVConvert.ToString(data[i]["StageID"]);
             fieldData.NeedItemID = CSVConvert.ToString(data[i]["NeedItemID"]);
             fieldData.NeedAmount = CSVConvert.ToInt(data[i]["NeedAmount"]);
             fieldData.Time1 = CSVConvert.ToFloat(data[i]["Time1"]);
@@ -102,7 +156,6 @@ public class LoadGameData : Singleton<LoadGameData>
             fieldData.Repeat = CSVConvert.ToInt(data[i]["Repeat"]);
             fieldData.GetItemID = CSVConvert.ToString(data[i]["GetItemID"]);
             fieldData.GetAmount = CSVConvert.ToInt(data[i]["GetAmount"]);
-
 
             fieldDatas.Add(fieldData.FieldID, fieldData);
         }
@@ -116,6 +169,8 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             HeroStateData heroStateData = new HeroStateData();
             heroStateData.HeroStateID = CSVConvert.ToString(data[i]["HeroStateID"]);
+            heroStateData.HeroStateGroupID = CSVConvert.ToString(data[i]["HeroStateGroupID"]);
+            heroStateData.HeroStateStringID = CSVConvert.ToString(data[i]["HeroStateStringID"]);
             heroStateData.FirstGive = CSVConvert.ToFloat(data[i]["FirstGive"]);
             heroStateData.Min = CSVConvert.ToFloat(data[i]["Min"]);
             heroStateData.Max = CSVConvert.ToFloat(data[i]["Max"]);
@@ -133,14 +188,7 @@ public class LoadGameData : Singleton<LoadGameData>
             HeroData heroData = new HeroData();
             heroData.HeroID = CSVConvert.ToString(data[i]["HeroID"]);
             heroData.HeroStringID = CSVConvert.ToString(data[i]["HeroStringID"]);
-            heroData.StressID = CSVConvert.ToString(data[i]["StressID"]);
-            heroData.StressStringID = CSVConvert.ToString(data[i]["StressStringID"]);
-            heroData.PowerID = CSVConvert.ToString(data[i]["PowerID"]);
-            heroData.PowerStringID = CSVConvert.ToString(data[i]["PowerStringID"]);
-            heroData.HpID = CSVConvert.ToString(data[i]["HpID"]);
-            heroData.HpStringID = CSVConvert.ToString(data[i]["HpStringID"]);
-            heroData.ExpID = CSVConvert.ToString(data[i]["ExpID"]);
-            heroData.ExpStringID = CSVConvert.ToString(data[i]["ExpStringID"]);
+            heroData.HeroStateGroupID = CSVConvert.ToString(data[i]["HeroStateGroupID"]);
 
             heroDatas.Add(heroData.HeroID, heroData);
         }
@@ -154,11 +202,20 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             InvadeData invadeData = new InvadeData();
             invadeData.InvadeID = CSVConvert.ToString(data[i]["InvadeID"]);
-            invadeData.StageDayID = CSVConvert.ToString(data[i]["StageDayID"]);
             invadeData.InvadeStringID = CSVConvert.ToString(data[i]["InvadeStringID"]);
             invadeData.StealObject = CSVConvert.ToInt(data[i]["StealObject"]);
-            invadeData.RandMin = CSVConvert.ToInt(data[i]["RandMin"]);
-            invadeData.RandMax = CSVConvert.ToInt(data[i]["RandMax"]);
+            invadeData.ItemID1 = CSVConvert.ToString(data[i]["ItemID1"]);
+            invadeData.RandMin1 = CSVConvert.ToInt(data[i]["RandMin1"]);
+            invadeData.RandMax1 = CSVConvert.ToInt(data[i]["RandMax1"]);
+            invadeData.ItemID2 = CSVConvert.ToString(data[i]["ItemID2"]);
+            invadeData.RandMin2 = CSVConvert.ToInt(data[i]["RandMin2"]);
+            invadeData.RandMax2 = CSVConvert.ToInt(data[i]["RandMax2"]);
+            invadeData.ItemID3 = CSVConvert.ToString(data[i]["ItemID3"]);
+            invadeData.RandMin3 = CSVConvert.ToInt(data[i]["RandMin3"]);
+            invadeData.RandMax3 = CSVConvert.ToInt(data[i]["RandMax3"]);
+            invadeData.ItemID4 = CSVConvert.ToString(data[i]["ItemID4"]);
+            invadeData.RandMin4 = CSVConvert.ToInt(data[i]["RandMin4"]);
+            invadeData.RandMax4 = CSVConvert.ToInt(data[i]["RandMax4"]);
 
             invadeDatas.Add(invadeData.InvadeID, invadeData);
         }
@@ -187,50 +244,50 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             JourneyData journeyData = new JourneyData();
             journeyData.JourneyID = CSVConvert.ToString(data[i]["JourneyID"]);
-            journeyData.StageDayID = CSVConvert.ToString(data[i]["StageDayID"]);
             journeyData.Item1Min = CSVConvert.ToInt(data[i]["Item1Min"]);
             journeyData.Item2Min = CSVConvert.ToInt(data[i]["Item2Min"]);
             journeyData.StageTitleStringID = CSVConvert.ToString(data[i]["StageTitleStringID"]);
-            journeyData.JVwithObjectID = CSVConvert.ToString(data[i]["JVwithObjectID"]);
-            journeyData.JVCutID = CSVConvert.ToString(data[i]["JVCutID"]);
-            journeyData.JRwithHeroID = CSVConvert.ToString(data[i]["JRwithHeroID"]);
+            journeyData.MeatValue = CSVConvert.ToFloat(data[i]["MeatValue"]);
+            journeyData.WaterValue = CSVConvert.ToFloat(data[i]["WaterValue"]);
+            journeyData.HubValue = CSVConvert.ToFloat(data[i]["HubValue"]);
+            journeyData.FoodValue = CSVConvert.ToFloat(data[i]["FoodValue"]);
+            journeyData.HStressValue = CSVConvert.ToFloat(data[i]["HStressValue"]);
+            journeyData.HPowerValue = CSVConvert.ToFloat(data[i]["HPowerValue"]);
+            journeyData.JStateGroupID = CSVConvert.ToString(data[i]["JStateGroupID"]);
 
             journeyDatas.Add(journeyData.JourneyID, journeyData);
         }
     }
 
-    void LoadJRwithHeroData(string _path)
+    void LoadJResultData(string _path)
     {
-        jRwithHeroDatas.Clear();
+        jResultDatas.Clear();
         List<Dictionary<string, object>> data = CSVReader.Read(_path);
         for (int i = 0; i < data.Count; i++)
         {
-            JRwithHeroData jRwithHeroData = new JRwithHeroData();
-            jRwithHeroData.JRwithHeroID = CSVConvert.ToString(data[i]["JRwithHeroID"]);
-            jRwithHeroData.JRStateID = CSVConvert.ToString(data[i]["JRStateID"]);
-            jRwithHeroData.JRanStringID = CSVConvert.ToString(data[i]["JRanStringID"]);
+            JResultData jResultData = new JResultData();
+            jResultData.JResultID = CSVConvert.ToString(data[i]["JResultID"]);
+            jResultData.JResultGroupID = CSVConvert.ToString(data[i]["JResultGroupID"]);
+            jResultData.JRanStringID = CSVConvert.ToString(data[i]["JRanStringID"]);
+            jResultData.Prob = CSVConvert.ToFloat(data[i]["Prob"]);
+            jResultData.Hero1_Stress = CSVConvert.ToFloat(data[i]["Hero1_Stress"]);
+            jResultData.Hero1_Power = CSVConvert.ToFloat(data[i]["Hero1_Power"]);
+            jResultData.Hero1_Hp = CSVConvert.ToFloat(data[i]["Hero1_Hp"]);
+            jResultData.Hero1_Exp = CSVConvert.ToFloat(data[i]["Hero1_Exp"]);
+            jResultData.Hero2_Stress = CSVConvert.ToFloat(data[i]["Hero2_Stress"]);
+            jResultData.Hero2_Power = CSVConvert.ToFloat(data[i]["Hero2_Power"]);
+            jResultData.Hero2_Hp = CSVConvert.ToFloat(data[i]["Hero2_Hp"]);
+            jResultData.Hero2_Exp = CSVConvert.ToFloat(data[i]["Hero2_Exp"]);
+            jResultData.Hero3_Stress = CSVConvert.ToFloat(data[i]["Hero3_Stress"]);
+            jResultData.Hero3_Power = CSVConvert.ToFloat(data[i]["Hero3_Power"]);
+            jResultData.Hero3_Hp = CSVConvert.ToFloat(data[i]["Hero3_Hp"]);
+            jResultData.Hero3_Exp = CSVConvert.ToFloat(data[i]["Hero3_Exp"]);
+            jResultData.Hero4_Stress = CSVConvert.ToFloat(data[i]["Hero4_Stress"]);
+            jResultData.Hero4_Power = CSVConvert.ToFloat(data[i]["Hero4_Power"]);
+            jResultData.Hero4_Hp = CSVConvert.ToFloat(data[i]["Hero4_Hp"]);
+            jResultData.Hero4_Exp = CSVConvert.ToFloat(data[i]["Hero4_Exp"]);
 
-            jRwithHeroData.Hero1_Stress = CSVConvert.ToFloat(data[i]["Hero1_Stress"]);
-            jRwithHeroData.Hero1_Power = CSVConvert.ToFloat(data[i]["Hero1_Power"]);
-            jRwithHeroData.Hero1_Hp = CSVConvert.ToFloat(data[i]["Hero1_Hp"]);
-            jRwithHeroData.Hero1_Exp = CSVConvert.ToFloat(data[i]["Hero1_Exp"]);
-
-            jRwithHeroData.Hero2_Stress = CSVConvert.ToFloat(data[i]["Hero2_Stress"]);
-            jRwithHeroData.Hero2_Power = CSVConvert.ToFloat(data[i]["Hero2_Power"]);
-            jRwithHeroData.Hero2_Hp = CSVConvert.ToFloat(data[i]["Hero2_Hp"]);
-            jRwithHeroData.Hero2_Exp = CSVConvert.ToFloat(data[i]["Hero2_Exp"]);
-
-            jRwithHeroData.Hero3_Stress = CSVConvert.ToFloat(data[i]["Hero3_Stress"]);
-            jRwithHeroData.Hero3_Power = CSVConvert.ToFloat(data[i]["Hero3_Power"]);
-            jRwithHeroData.Hero3_Hp = CSVConvert.ToFloat(data[i]["Hero3_Hp"]);
-            jRwithHeroData.Hero3_Exp = CSVConvert.ToFloat(data[i]["Hero3_Exp"]);
-
-            jRwithHeroData.Hero4_Stress = CSVConvert.ToFloat(data[i]["Hero4_Stress"]);
-            jRwithHeroData.Hero4_Power = CSVConvert.ToFloat(data[i]["Hero4_Power"]);
-            jRwithHeroData.Hero4_Hp = CSVConvert.ToFloat(data[i]["Hero4_Hp"]);
-            jRwithHeroData.Hero4_Exp = CSVConvert.ToFloat(data[i]["Hero4_Exp"]);
-
-            jRwithHeroDatas.Add(jRwithHeroData);
+            jResultDatas.Add(jResultData.JResultID, jResultData);
         }
     }
 
@@ -242,71 +299,12 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             JStateData jStateData = new JStateData();
             jStateData.JStateID = CSVConvert.ToString(data[i]["JStateID"]);
+            jStateData.JStateGroupID = CSVConvert.ToString(data[i]["JStateGroupID"]);
             jStateData.JStateStringID = CSVConvert.ToString(data[i]["JStateStringID"]);
-            jStateData.ResultPerfectProb = CSVConvert.ToFloat(data[i]["ResultPerfectProb"]);
-            jStateData.ResultNormalProb = CSVConvert.ToFloat(data[i]["ResultNormalProb"]);
-            jStateData.ResultFailProb = CSVConvert.ToFloat(data[i]["ResultFailProb"]);
+            jStateData.ValueMin = CSVConvert.ToFloat(data[i]["ValueMin"]);
+            jStateData.JResultGroupID = CSVConvert.ToString(data[i]["JResultGroupID"]);
 
             jStateDatas.Add(jStateData.JStateID, jStateData);
-        }
-    }
-
-    void LoadJVCutData(string _path)
-    {
-        jVCutDatas.Clear();
-        List<Dictionary<string, object>> data = CSVReader.Read(_path);
-        for (int i = 0; i < data.Count; i++)
-        {
-            JVCutData jVCutData = new JVCutData();
-            jVCutData.JVCutID = CSVConvert.ToString(data[i]["JVCutID"]);
-            jVCutData.StateGoodMin = CSVConvert.ToFloat(data[i]["StateGoodMin"]);
-            jVCutData.StateNormalMin = CSVConvert.ToFloat(data[i]["StateNormalMin"]);
-            jVCutData.StateBadMin = CSVConvert.ToFloat(data[i]["StateBadMin"]);
-            jVCutData.StateDangerMin = CSVConvert.ToFloat(data[i]["StateDangerMin"]);
-
-            jVCutDatas.Add(jVCutData.JVCutID, jVCutData);
-        }
-    }
-
-    void LoadJVwithObjectData(string _path)
-    {
-        jVwithObjectDatas.Clear();
-        List<Dictionary<string, object>> data = CSVReader.Read(_path);
-        for (int i = 0; i < data.Count; i++)
-        {
-            JVwithObjectData jVwithObjectData = new JVwithObjectData();
-            jVwithObjectData.JVwithObjectID = CSVConvert.ToString(data[i]["JVwithObjectID"]);
-            jVwithObjectData.MeatValue = CSVConvert.ToFloat(data[i]["MeatValue"]);
-            jVwithObjectData.WaterValue = CSVConvert.ToFloat(data[i]["WaterValue"]);
-            jVwithObjectData.HubValue = CSVConvert.ToFloat(data[i]["HubValue"]);
-            jVwithObjectData.FoodValue = CSVConvert.ToFloat(data[i]["FoodValue"]);
-            jVwithObjectData.HStressValue = CSVConvert.ToFloat(data[i]["HStressValue"]);
-            jVwithObjectData.HPowerValue = CSVConvert.ToFloat(data[i]["HPowerValue"]);
-
-            jVwithObjectDatas.Add(jVwithObjectData.JVwithObjectID, jVwithObjectData);
-        }
-    }
-
-    void LoadLaundryData(string _path)
-    {
-        laundryDatas.Clear();
-        List<Dictionary<string, object>> data = CSVReader.Read(_path);
-        for (int i = 0; i < data.Count; i++)
-        {
-            LaundryData laundryData = new LaundryData();
-            laundryData.LaundryID = CSVConvert.ToString(data[i]["LaundryID"]);
-            laundryData.StageID = CSVConvert.ToString(data[i]["StageID"]);
-            laundryData.NeedItemID = CSVConvert.ToString(data[i]["NeedItemID"]);
-            laundryData.NeedAmount = CSVConvert.ToInt(data[i]["NeedAmount"]);
-            laundryData.StressAdd = CSVConvert.ToFloat(data[i]["StressAdd"]);
-            laundryData.StringID = CSVConvert.ToString(data[i]["StringID"]);
-            laundryData.L1_GermCount = CSVConvert.ToInt(data[i]["L1_GermCount"]);
-            laundryData.L2_RinseCount = CSVConvert.ToInt(data[i]["L2_RinseCount"]);
-            laundryData.L3_MinTime = CSVConvert.ToFloat(data[i]["L3_MinTime"]);
-            laundryData.L3_MaxTime = CSVConvert.ToFloat(data[i]["L3_MaxTime"]);
-            laundryData.L3_TotalTime = CSVConvert.ToFloat(data[i]["L3_TotalTime"]);
-
-            laundryDatas.Add(laundryData.LaundryID, laundryData);
         }
     }
 
@@ -317,14 +315,13 @@ public class LoadGameData : Singleton<LoadGameData>
         for (int i = 0; i < data.Count; i++)
         {
             MiniGameData miniGameData = new MiniGameData();
-            miniGameData.ObjectCode = CSVConvert.ToString(data[i]["ObjectCode"]);
-            miniGameData.StageCode = CSVConvert.ToString(data[i]["StageCode"]);
-            miniGameData.Object_type = CSVConvert.ToInt(data[i]["Object_type"]);
-            miniGameData.Wood = CSVConvert.ToInt(data[i]["Wood"]);
-            miniGameData.Water = CSVConvert.ToInt(data[i]["Water"]);
-            miniGameData.Meat = CSVConvert.ToInt(data[i]["Meat"]);
-            miniGameData.Hub = CSVConvert.ToInt(data[i]["Hub"]);
-            miniGameData.Jem = CSVConvert.ToInt(data[i]["Jem"]);
+            miniGameData.ObjectID = CSVConvert.ToString(data[i]["ObjectID"]);
+            miniGameData.MinigameID = CSVConvert.ToString(data[i]["MinigameID"]);
+            miniGameData.GetItemID1 = CSVConvert.ToString(data[i]["GetItemID1"]);
+            miniGameData.GetAmount1 = CSVConvert.ToInt(data[i]["GetAmount1"]);
+            miniGameData.GetItemID2 = CSVConvert.ToString(data[i]["GetItemID2"]);
+            miniGameData.GetAmount2 = CSVConvert.ToInt(data[i]["GetAmount2"]);
+            miniGameData.GetJemAmount = CSVConvert.ToInt(data[i]["GetJemAmount"]);
             miniGameData.Probability = CSVConvert.ToFloat(data[i]["Probability"]);
             miniGameData.Stun = CSVConvert.ToFloat(data[i]["Stun"]);
             miniGameData.Invincibility = CSVConvert.ToFloat(data[i]["Invincibility"]);
@@ -338,7 +335,7 @@ public class LoadGameData : Singleton<LoadGameData>
             miniGameData.value5 = CSVConvert.ToFloat(data[i]["value5"]);
             miniGameData.value6 = CSVConvert.ToFloat(data[i]["value6"]);
 
-            miniGameDatas.Add(miniGameData.ObjectCode, miniGameData);
+            miniGameDatas.Add(miniGameData.ObjectID, miniGameData);
         }
     }
 
@@ -350,10 +347,11 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             StageDayData stageDayData = new StageDayData();
             stageDayData.StageDayID = CSVConvert.ToString(data[i]["StageDayID"]);
-            stageDayData.StageID = CSVConvert.ToString(data[i]["StageID"]);
+            stageDayData.Day = CSVConvert.ToInt(data[i]["Day"]);
+            stageDayData.StageDayGroupID = CSVConvert.ToString(data[i]["StageDayGroupID"]);
             stageDayData.StageDayStringID = CSVConvert.ToString(data[i]["StageDayStringID"]);
-            stageDayData.Time = CSVConvert.ToFloat(data[i]["Time"]);
-            stageDayData.HeroBackTime = CSVConvert.ToFloat(data[i]["HeroBackTime"]);
+            stageDayData.InvadeID = CSVConvert.ToString(data[i]["InvadeID"]);
+            stageDayData.JourneyID = CSVConvert.ToString(data[i]["JourneyID"]);
 
             stageDayDatas.Add(stageDayData.StageDayID, stageDayData);
         }
@@ -367,7 +365,13 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             StageData stageData = new StageData();
             stageData.StageID = CSVConvert.ToString(data[i]["StageID"]);
+            stageData.Index = CSVConvert.ToInt(data[i]["Index"]);
+            stageData.StageDayGroupID = CSVConvert.ToString(data[i]["StageDayGroupID"]);
             stageData.StageStringID = CSVConvert.ToString(data[i]["StageStringID"]);
+            stageData.BonfireID = CSVConvert.ToString(data[i]["BonfireID"]);
+            stageData.FenceGroupID = CSVConvert.ToString(data[i]["FenceGroupID"]);
+            stageData.CollectID = CSVConvert.ToString(data[i]["CollectID"]);
+            stageData.FieldID = CSVConvert.ToString(data[i]["FieldID"]);
 
             stageDatas.Add(stageData.StageID, stageData);
         }
@@ -408,7 +412,6 @@ public class LoadGameData : Singleton<LoadGameData>
 public class BonfireData
 {
     public string BonfireID;
-    public string StageID;
     public string NeedItemID;
     public int NeedAmount;
     public float Time1;
@@ -421,10 +424,47 @@ public class BonfireData
 }
 
 [System.Serializable]
+public class CollectSpaceData
+{
+    public string CollectSpaceID;
+    public string MiniGameLeftID1;
+    public string MiniGameHelpStringID1;
+    public string MiniGameRightID2;
+    public string MiniGameHelpStringID2;
+    public string FunctionID;
+}
+
+[System.Serializable]
+public class CollectData
+{
+    public string CollectID;
+    public string CollectSpaceID1;
+    public string StringID1;
+    public string CollectSpaceID2;
+    public string StringID2;
+    public string CollectSpaceID3;
+    public string StringID3;
+    public int RanPos;
+    public string CollectSpaceID4;
+    public string StringID4;
+    public float StartTime;
+    public float EndTime;
+    public float ContinueTime;
+}
+
+[System.Serializable]
+public class DefineData
+{
+    public int Index;
+    public string DefineID;
+    public float value;
+}
+
+[System.Serializable]
 public class FenceData
 {
     public string FenceID;
-    public string StageID;
+    public string FenceGroupID;
     public int FenceLevel;
     public float InvadeProb;
     public string NeedItemID;
@@ -436,7 +476,6 @@ public class FenceData
 public class FieldData
 {
     public string FieldID;
-    public string StageID;
     public string NeedItemID;
     public int NeedAmount;
     public float Time1;
@@ -450,6 +489,8 @@ public class FieldData
 public class HeroStateData
 {
     public string HeroStateID;
+    public string HeroStateGroupID;
+    public string HeroStateStringID;
     public float FirstGive;
     public float Min;
     public float Max;
@@ -460,25 +501,27 @@ public class HeroData
 {
     public string HeroID;
     public string HeroStringID;
-    public string StressID;
-    public string StressStringID;
-    public string PowerID;
-    public string PowerStringID;
-    public string HpID;
-    public string HpStringID;
-    public string ExpID;
-    public string ExpStringID;
+    public string HeroStateGroupID;
 }
 
 [System.Serializable]
 public class InvadeData
 {
     public string InvadeID;
-    public string StageDayID;
     public string InvadeStringID;
     public int StealObject;
-    public int RandMin;
-    public int RandMax;
+    public string ItemID1;
+    public int RandMin1;
+    public int RandMax1;
+    public string ItemID2;
+    public int RandMin2;
+    public int RandMax2;
+    public string ItemID3;
+    public int RandMin3;
+    public int RandMax3;
+    public string ItemID4;
+    public int RandMin4;
+    public int RandMax4;
 }
 
 [System.Serializable]
@@ -493,21 +536,25 @@ public class ItemData
 public class JourneyData
 {
     public string JourneyID;
-    public string StageDayID;
     public int Item1Min;
     public int Item2Min;
     public string StageTitleStringID;
-    public string JVwithObjectID;
-    public string JVCutID;
-    public string JRwithHeroID;
+    public float MeatValue;
+    public float WaterValue;
+    public float HubValue;
+    public float FoodValue;
+    public float HStressValue;
+    public float HPowerValue;
+    public string JStateGroupID;
 }
 
 [System.Serializable]
-public class JRwithHeroData
+public class JResultData
 {
-    public string JRwithHeroID;
-    public string JRStateID;
+    public string JResultID;
+    public string JResultGroupID;
     public string JRanStringID;
+    public float Prob;
     public float Hero1_Stress;
     public float Hero1_Power;
     public float Hero1_Hp;
@@ -530,61 +577,22 @@ public class JRwithHeroData
 public class JStateData
 {
     public string JStateID;
+    public string JStateGroupID;
     public string JStateStringID;
-    public float ResultPerfectProb;
-    public float ResultNormalProb;
-    public float ResultFailProb;
-}
-
-[System.Serializable]
-public class JVCutData
-{
-    public string JVCutID;
-    public float StateGoodMin;
-    public float StateNormalMin;
-    public float StateBadMin;
-    public float StateDangerMin;
-}
-
-[System.Serializable]
-public class JVwithObjectData
-{
-    public string JVwithObjectID;
-    public float MeatValue;
-    public float WaterValue;
-    public float HubValue;
-    public float FoodValue;
-    public float HStressValue;
-    public float HPowerValue;
-}
-
-[System.Serializable]
-public class LaundryData
-{
-    public string LaundryID;
-    public string StageID;
-    public string NeedItemID;
-    public int NeedAmount;
-    public float StressAdd;
-    public string StringID;
-    public int L1_GermCount;
-    public int L2_RinseCount;
-    public float L3_MinTime;
-    public float L3_MaxTime;
-    public float L3_TotalTime;
+    public float ValueMin;
+    public string JResultGroupID;
 }
 
 [System.Serializable]
 public class MiniGameData
 {
-    public string ObjectCode;
-    public string StageCode;
-    public int Object_type;
-    public int Wood;
-    public int Water;
-    public int Meat;
-    public int Hub;
-    public int Jem;
+    public string ObjectID;
+    public string MinigameID;
+    public string GetItemID1;
+    public int GetAmount1;
+    public string GetItemID2;
+    public int GetAmount2;
+    public int GetJemAmount;
     public float Probability;
     public float Stun;
     public float Invincibility;
@@ -603,17 +611,24 @@ public class MiniGameData
 public class StageDayData
 {
     public string StageDayID;
-    public string StageID;
+    public int Day;
+    public string StageDayGroupID;
     public string StageDayStringID;
-    public float Time;
-    public float HeroBackTime;
+    public string InvadeID;
+    public string JourneyID;
 }
 
 [System.Serializable]
 public class StageData
 {
     public string StageID;
+    public int Index;
+    public string StageDayGroupID;
     public string StageStringID;
+    public string BonfireID;
+    public string FenceGroupID;
+    public string CollectID;
+    public string FieldID;
 }
 
 [System.Serializable]
