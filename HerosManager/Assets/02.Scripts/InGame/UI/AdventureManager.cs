@@ -21,53 +21,48 @@ public class AdventureManager : MonoBehaviour
     public Text WarningText;
     public Text MinMeatText;
     public Text MinWaterText;
-    string minStr;
 
     [Header("Info")]
     public Text ResultTitleText;
     public Text ResultRateText;
     public Text ResultText;
     public Button StartAdvBtn;
-    string rateStr;
+    string perfectStr;
+    string normalStr;
+    string failStr;
+
 
     [Header("EX")]
     public GameObject ExImg;
     
 
     JourneyData journeyData;
-    JVwithObjectData jVwithObjectData;
-    JVCutData jVCutData;
-    JRwithHeroData jRwithHeroData;
-    JStateData jStateData;
+    List<JStateData> jStateDataList = new List<JStateData>();
+    List<JResultData> jResultDataList = new List<JResultData>();
 
     void Start()
     {
         StartAdvBtn.onClick.AddListener(StartAdventure);
 
         WarningText.text = LoadGameData.Instance.GetString("Journey_a1");
-        minStr = LoadGameData.Instance.GetString("Journey_t1") + "{0}";
 
-        ResultTitleText.text = LoadGameData.Instance.GetString("Journey_t2");
-        rateStr = LoadGameData.Instance.GetString("Journey_t3") + "{0}%\n" +
-            LoadGameData.Instance.GetString("Journey_t4") + "{1}%\n" +
-            LoadGameData.Instance.GetString("Journey_t5") + "{2}%";
+        ResultTitleText.text = LoadGameData.Instance.GetString("Journey_t3");
+        perfectStr = LoadGameData.Instance.GetString("Journey_t4");
+        normalStr = LoadGameData.Instance.GetString("Journey_t5");
+        failStr = LoadGameData.Instance.GetString("Journey_t6");
         
-        StartAdvBtn.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString("Journey_t6");
+        StartAdvBtn.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString("Journey_t7");
     }
 
     public void ReadyAdventure(StageDayData _stageDayData)
     {
-        foreach (var data in LoadGameData.Instance.journeyDatas)
+        journeyData = LoadGameData.Instance.journeyDatas[Clock.Instance.stageDayData.JourneyID];
+        jStateDataList.Clear();
+        foreach (var data in LoadGameData.Instance.jStateDatas)
         {
-            if (data.Value.StageDayID == _stageDayData.StageDayID)
-            {
-                journeyData = data.Value;
-                break;
-            }
+            if (data.Value.JStateGroupID == journeyData.JStateGroupID)
+                jStateDataList.Add(data.Value);
         }
-
-        jVwithObjectData = LoadGameData.Instance.jVwithObjectDatas[journeyData.JVwithObjectID];
-        jVCutData = LoadGameData.Instance.jVCutDatas[journeyData.JVCutID];
 
         meat = 0;
         water = 0;
@@ -81,15 +76,15 @@ public class AdventureManager : MonoBehaviour
         HeroStateManager.Instance.SlideAll(false);
 
         TitleText.text = LoadGameData.Instance.GetString(journeyData.StageTitleStringID);
-        DayText.text = Clock.Instance.DayText.text;
+        DayText.text = string.Format(LoadGameData.Instance.GetString("Day_t1"), Clock.Instance.day);
 
         ItemNumTexts[0].text = meat.ToString();
         ItemNumTexts[1].text = water.ToString();
         ItemNumTexts[2].text = food.ToString();
         ItemNumTexts[3].text = hub.ToString();
 
-        MinMeatText.text = string.Format(minStr, journeyData.Item1Min);
-        MinWaterText.text = string.Format(minStr, journeyData.Item2Min);
+        MinMeatText.text = string.Format(LoadGameData.Instance.GetString("Journey_t1"), journeyData.Item1Min);
+        MinWaterText.text = string.Format(LoadGameData.Instance.GetString("Journey_t1"), journeyData.Item2Min);
 
 
         CheckAdventureState();
@@ -97,46 +92,39 @@ public class AdventureManager : MonoBehaviour
 
     void StartAdventure()
     {
+        Time.timeScale = 1;
+        AdvPanel.SetActive(false);
         ItemManager.Instance.AddItem(0, -water, -meat, -hub, -food);
-
-        string jRStateID = "";
-
-        float rand = Random.Range(0f, 0.99f);
-        if (rand < jStateData.ResultPerfectProb)
-            jRStateID = "JR_Perfect";
-        else if (rand < jStateData.ResultPerfectProb + jStateData.ResultNormalProb)
-            jRStateID = "JR_Normal";
-        else if (rand < jStateData.ResultPerfectProb + jStateData.ResultNormalProb + jStateData.ResultFailProb)
-            jRStateID = "JR_Fail";
-
-        foreach (var data in LoadGameData.Instance.jRwithHeroDatas)
-        {
-            if (data.JRwithHeroID == journeyData.JRwithHeroID)
-            {
-                if (data.JRStateID == jRStateID)
-                {
-                    jRwithHeroData = data;
-                    break;
-                }
-            }
-        }
-
         HeroStateManager.Instance.SlideAll(true);
     }
 
     public void EndJourney()
     {
-        string msg = LoadGameData.Instance.GetString(jRwithHeroData.JRanStringID);
+        JResultData jResultData = null;
+
+        float rand = Random.Range(0f, 0.99f);
+        float temp = 0;
+        for (int i = 0; i < jResultDataList.Count; i++)
+        {
+            temp += jResultDataList[i].Prob;
+            if (rand < temp)
+            {
+                jResultData = jResultDataList[i];
+                break;
+            }
+        }
+
+        string msg = LoadGameData.Instance.GetString(jResultData.JRanStringID);
         Notice.Instance.InstNoticeText(msg);
 
         HeroStateManager.Instance.heroStates[0].AddStat
-            (jRwithHeroData.Hero1_Stress, jRwithHeroData.Hero1_Power, jRwithHeroData.Hero1_Hp, jRwithHeroData.Hero1_Exp);
+            (jResultData.Hero1_Stress, jResultData.Hero1_Power, jResultData.Hero1_Hp, jResultData.Hero1_Exp);
         HeroStateManager.Instance.heroStates[1].AddStat
-            (jRwithHeroData.Hero2_Stress, jRwithHeroData.Hero2_Power, jRwithHeroData.Hero2_Hp, jRwithHeroData.Hero2_Exp);
+            (jResultData.Hero2_Stress, jResultData.Hero2_Power, jResultData.Hero2_Hp, jResultData.Hero2_Exp);
         HeroStateManager.Instance.heroStates[2].AddStat
-            (jRwithHeroData.Hero3_Stress, jRwithHeroData.Hero3_Power, jRwithHeroData.Hero3_Hp, jRwithHeroData.Hero3_Exp);
+            (jResultData.Hero3_Stress, jResultData.Hero3_Power, jResultData.Hero3_Hp, jResultData.Hero3_Exp);
         HeroStateManager.Instance.heroStates[3].AddStat
-            (jRwithHeroData.Hero4_Stress, jRwithHeroData.Hero4_Power, jRwithHeroData.Hero4_Hp, jRwithHeroData.Hero4_Exp);
+            (jResultData.Hero4_Stress, jResultData.Hero4_Power, jResultData.Hero4_Hp, jResultData.Hero4_Exp);
 
     }
 
@@ -144,7 +132,7 @@ public class AdventureManager : MonoBehaviour
     {
         int num = 1;
         if (!_isAdd)
-            num *= -1;
+            num = -1;
 
         switch (_idx)
         {
@@ -187,23 +175,31 @@ public class AdventureManager : MonoBehaviour
 
     void CheckAdventureState()
     {
-        string jStateID = "";
+        JStateData jStateData = jStateDataList[jStateDataList.Count - 1];
 
         float cutValue = AdventureValue();
-        if (cutValue >= jVCutData.StateGoodMin)
-            jStateID = "State_Good";
-        else if (cutValue >= jVCutData.StateNormalMin)
-            jStateID = "State_Normal";
-        else if (cutValue >= jVCutData.StateBadMin)
-            jStateID = "State_Bad";
-        else if (cutValue >= jVCutData.StateDangerMin)
-            jStateID = "State_Danger";
-        else
-            jStateID = "State_Danger";
+        for (int i = 0; i < jStateDataList.Count; i++)
+        {
+            if (cutValue >= jStateDataList[i].ValueMin)
+            {
+                jStateData = jStateDataList[i];
+                break;
+            }
+        }
 
-        jStateData = LoadGameData.Instance.jStateDatas[jStateID];
-        ResultRateText.text = string.Format(rateStr,
-            (int)(jStateData.ResultPerfectProb * 100), (int)(jStateData.ResultNormalProb * 100), (int)(jStateData.ResultFailProb * 100));
+        jResultDataList.Clear();
+        foreach (var data in LoadGameData.Instance.jResultDatas)
+        {
+            if (data.Value.JResultGroupID == jStateData.JResultGroupID)
+                jResultDataList.Add(data.Value);
+        }
+
+        string str = "";
+        str += string.Format(perfectStr, (int)(jResultDataList[0].Prob * 100)) + "\n" +
+            string.Format(normalStr, (int)(jResultDataList[1].Prob * 100)) + "\n" +
+            string.Format(failStr, (int)(jResultDataList[2].Prob * 100));
+
+        ResultRateText.text = str;
         ResultText.text = LoadGameData.Instance.GetString(jStateData.JStateStringID);
     }
 
@@ -223,9 +219,9 @@ public class AdventureManager : MonoBehaviour
             totalHeroPower += HeroStateManager.Instance.heroStates[i].power;
         }
 
-        value = (jVwithObjectData.MeatValue * meat) + (jVwithObjectData.WaterValue * water) +
-            (jVwithObjectData.HubValue * hub) + (jVwithObjectData.FoodValue * food) +
-            (jVwithObjectData.HStressValue * totalHeroStress) + (jVwithObjectData.HPowerValue * totalHeroPower);
+        value = (journeyData.MeatValue * meat) + (journeyData.WaterValue * water) +
+            (journeyData.HubValue * hub) + (journeyData.FoodValue * food) +
+            (journeyData.HStressValue * totalHeroStress) + (journeyData.HPowerValue * totalHeroPower);
 
         return value;
     }

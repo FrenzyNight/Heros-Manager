@@ -6,6 +6,7 @@ public enum State
     None,
     Camp,
     Gathering,
+    Fence,
     MiniGame,
 }
 
@@ -76,6 +77,10 @@ public class InGameMgr : Singleton<InGameMgr>
             else if (state == State.MiniGame)
             {
                 MiniGameMgr.Instance.CloseMiniGame();
+            }
+            else if (state == State.Fence)
+            {
+                FenceMgr.Instance.ClosePanel();
             }
         }
     }

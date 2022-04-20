@@ -7,7 +7,7 @@ public class Clock : Singleton<Clock>
 {
     public StageDayData stageDayData;
 
-    int day = 1;
+    public int day = 1;
     float nowTime;
     float dayTime;
     float heroBackTime;
@@ -19,7 +19,6 @@ public class Clock : Singleton<Clock>
     public Action NextDayAct;
 
     public AdventureManager AdventureMgr;
-    public FenceMgr fenceMgr;
 
     void Start()
     {
@@ -74,64 +73,10 @@ public class Clock : Singleton<Clock>
         else
         {
             day++;
-            CheckInvade();
+            FenceMgr.Instance.Invade();
             LoadStageDayData();
             NextDayAct();
         }
-    }
-
-    void CheckInvade()
-    {
-        InvadeData invadeData = LoadGameData.Instance.invadeDatas[stageDayData.InvadeID];
-
-        string msg = "";
-        if (fenceMgr.CheckInvade(invadeData))
-        {
-            msg = LoadGameData.Instance.GetString(invadeData.InvadeStringID);
-
-            List<int> temp = new List<int>() { 1, 2, 3, 4 };
-            for (int i = 0; i < invadeData.StealObject; i++)
-            {
-                int rand = UnityEngine.Random.Range(0, temp.Count);
-
-                string itemCode = "";
-                int itemCnt = 0;
-                switch (temp[rand])
-                {
-                    case 1:
-                        itemCode = invadeData.ItemID1;
-                        itemCnt = UnityEngine.Random.Range(invadeData.RandMin1, invadeData.RandMax1 + 1);
-                        break;
-                    case 2:
-                        itemCode = invadeData.ItemID2;
-                        itemCnt = UnityEngine.Random.Range(invadeData.RandMin2, invadeData.RandMax2 + 1);
-                        break;
-                    case 3:
-                        itemCode = invadeData.ItemID3;
-                        itemCnt = UnityEngine.Random.Range(invadeData.RandMin3, invadeData.RandMax3 + 1);
-                        break;
-                    case 4:
-                        itemCode = invadeData.ItemID4;
-                        itemCnt = UnityEngine.Random.Range(invadeData.RandMin4, invadeData.RandMax4 + 1);
-                        break;
-                }
-                ItemManager.Instance.AddItem(itemCode, -itemCnt);
-
-                temp.RemoveAt(rand);
-            }
-
-            //연출 추가
-
-        }
-        else
-        {
-            msg = LoadGameData.Instance.GetString("Invade_a3");
-
-            //연출 추가
-
-        }
-
-        Notice.Instance.InstNoticeText(msg);
     }
 
     void Update()
