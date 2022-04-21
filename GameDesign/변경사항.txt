@@ -1,0 +1,5 @@
+2022-04-21
+	1. CollectSpaceTable에 좌우게임이 아닌 중앙 게임을 분류하기 위해 MiniGameCenterID와 MiniGameStringID3 열 추가
+	2. MiniGameTable에 portal 게임 행 삭제
+	3. InvadeTable에 InvadeStringID 열 삭제
+	4. StageDayTable에 StageDayStringID 열 삭제
