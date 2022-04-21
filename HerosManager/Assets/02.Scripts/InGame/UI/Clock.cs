@@ -46,7 +46,7 @@ public class Clock : Singleton<Clock>
 
         nowTime = 0f;
 
-        DayText.text = string.Format(LoadGameData.Instance.GetString(stageDayData.StageDayStringID), day);
+        DayText.text = string.Format(LoadGameData.Instance.GetString("Day_t1"), day);
         ClockFillImg.fillAmount = 0;
 
         AdventureMgr.ReadyAdventure(stageDayData);

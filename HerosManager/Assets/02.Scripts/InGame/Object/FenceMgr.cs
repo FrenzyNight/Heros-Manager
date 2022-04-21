@@ -209,7 +209,7 @@ public class FenceMgr : Singleton<FenceMgr>
         string msg = "";
         if (CheckInvade())
         {
-            msg = LoadGameData.Instance.GetString(invadeData.InvadeStringID);
+            msg = LoadGameData.Instance.GetString("Invade_a1");
 
             List<int> temp = new List<int>() { 1, 2, 3, 4 };
             for (int i = 0; i < invadeData.StealObject; i++)

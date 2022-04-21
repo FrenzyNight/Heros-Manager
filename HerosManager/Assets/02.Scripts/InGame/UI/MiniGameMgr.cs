@@ -1,42 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MiniGameMgr : Singleton<MiniGameMgr>
 {
     public GameObject MiniGamePanel;
-
     public Button ExitBtn;
-    public Text[] ItemsText;
-    public Transform MiniGameTrans;
 
-    GameObject currentMiniGame;
+    public MiniGameInfo[] miniGames;
+    public Transform[] minigamePlaceTrans;
+    public Text[] GuildTexts;
 
-    //temp
-    Dictionary<string, GameObject> MiniGameObjs;
+    int wood;
+    int water;
+    int meat;
+    int hub;
+    int food;
 
-    [Header("TempItem")]
-    public int wood;
-    public int water;
-    public int meat;
-    public int hub;
-    public int food;
+    IEnumerator cycleRandomGameCo;
 
     void Start()
     {
         ExitBtn.onClick.AddListener(CloseMiniGame);
 
-
     }
 
-    public void Setup()
+    public void Setup(string _code)
     {
         InGameMgr.Instance.state = State.MiniGame;
-
         MiniGamePanel.SetActive(true);
-
-        MiniGameObjs[""].SetActive(true);
 
         wood = 0;
         water = 0;
@@ -44,31 +39,176 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         hub = 0;
         food = 0;
 
-        currentMiniGame = MiniGameObjs[""];
+        CollectSpaceData collectSpaceData;
+        collectSpaceData = LoadGameData.Instance.collectSpaceDatas[_code];
+
+        for (int i = 0; i < miniGames.Length; i++)
+        {
+            miniGames[i].obj.SetActive(false);
+        }
+        for (int i = 0; i < GuildTexts.Length; i++)
+        {
+            GuildTexts[i].gameObject.SetActive(false);
+        }
+
+        MiniGameInfo miniGameInfo;
+        if (collectSpaceData.MiniGameLeftID1 != "-1")
+        {
+            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameLeftID1);
+            miniGameInfo.obj.SetActive(true);
+            miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
+            GuildTexts[0].gameObject.SetActive(true);
+            GuildTexts[0].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID1);
+            GuildTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+        }
+        if (collectSpaceData.MiniGameRightID2 != "-1")
+        {
+            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameRightID2);
+            miniGameInfo.obj.SetActive(true);
+            miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
+            GuildTexts[1].gameObject.SetActive(true);
+            GuildTexts[1].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID2);
+            GuildTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+        }
+        if (collectSpaceData.MiniGameCenterID != "-1")
+        {
+            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameCenterID);
+            miniGameInfo.obj.SetActive(true);
+            miniGameInfo.obj.transform.position = minigamePlaceTrans[2].position;
+            GuildTexts[2].gameObject.SetActive(true);
+            GuildTexts[2].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID3);
+            GuildTexts[2].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+        }
+
+        if (collectSpaceData.FunctionID == "MG_S3_Rand_Portal")
+        {
+            if (cycleRandomGameCo != null)
+            {
+                StopCoroutine(cycleRandomGameCo);
+            }
+            cycleRandomGameCo = CycleRandomGameCo();
+            StartCoroutine(cycleRandomGameCo);
+        }
     }
 
-    public void AddTempItem(int _wood, int _water, int _meat, int _hub, int _food)
+    IEnumerator CycleRandomGameCo()
     {
-        wood += _wood;
-        water += _water;
-        meat += _meat;
-        hub += _hub;
-        food += _food;
+        yield return null;
 
-        ItemsText[0].text = wood.ToString();
-        ItemsText[1].text = water.ToString();
-        ItemsText[2].text = meat.ToString();
-        ItemsText[3].text = hub.ToString();
-        ItemsText[4].text = food.ToString();
+        List<CollectSpaceData> randomGameList = new List<CollectSpaceData>();
+        foreach (var data in LoadGameData.Instance.collectSpaceDatas)
+        {
+            if (data.Value.MiniGameLeftID1 != "-1" && data.Value.MiniGameRightID2 != "-1")
+            {
+                randomGameList.Add(data.Value);
+            }
+        }
+
+        ChangeRandomGame(randomGameList);
+        float changeTime = LoadGameData.Instance.defineDatas[""].value;
+        float timer = 0f;
+
+        while (true)
+        {
+            timer += Time.deltaTime;
+            if (timer >= changeTime)
+            {
+                ChangeRandomGame(randomGameList);
+                timer = 0f;
+            }
+
+            yield return null;
+        }
+    }
+
+    void ChangeRandomGame(List<CollectSpaceData> _randomGameList)
+    {
+        for (int i = 0; i < miniGames.Length; i++)
+        {
+            miniGames[i].obj.SetActive(false);
+        }
+        for (int i = 0; i < GuildTexts.Length; i++)
+        {
+            GuildTexts[i].gameObject.SetActive(false);
+        }
+
+        MiniGameInfo miniGameInfo;
+
+        int rand = UnityEngine.Random.Range(0, _randomGameList.Count);
+        miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameLeftID1);
+        miniGameInfo.obj.SetActive(true);
+        miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
+        GuildTexts[0].gameObject.SetActive(true);
+        GuildTexts[0].text = LoadGameData.Instance.GetString(_randomGameList[rand].MiniGameHelpStringID1);
+        GuildTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+
+        rand = UnityEngine.Random.Range(0, _randomGameList.Count);
+        miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameRightID2);
+        miniGameInfo.obj.SetActive(true);
+        miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
+        GuildTexts[1].gameObject.SetActive(true);
+        GuildTexts[1].text = LoadGameData.Instance.GetString(_randomGameList[rand].MiniGameHelpStringID2);
+        GuildTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+    }
+
+    public void AddTempItem(string _item1Code, int _amount1, string _item2Code, int _amount2)
+    {
+        switch (_item1Code)
+        {
+            case "Item_Wood":
+                wood += _amount1;
+                break;
+            case "Item_Water":
+                water += _amount1;
+                break;
+            case "Item_Meat":
+                meat += _amount1;
+                break;
+            case "Item_Hub":
+                hub += _amount1;
+                break;
+            case "Item_Food":
+                food += _amount1;
+                break;
+        }
+
+        switch (_item2Code)
+        {
+            case "Item_Wood":
+                wood += _amount2;
+                break;
+            case "Item_Water":
+                water += _amount2;
+                break;
+            case "Item_Meat":
+                meat += _amount2;
+                break;
+            case "Item_Hub":
+                hub += _amount2;
+                break;
+            case "Item_Food":
+                food += _amount2;
+                break;
+        }
     }
 
     public void CloseMiniGame()
     {
         InGameMgr.Instance.state = State.Camp;
-
-        currentMiniGame.SetActive(false);
         MiniGamePanel.SetActive(false);
 
         ItemManager.Instance.AddItem(wood, water, meat, hub, food);
+
+        if (cycleRandomGameCo != null)
+        {
+            StopCoroutine(cycleRandomGameCo);
+        }
     }
+}
+
+[SerializeField]
+public class MiniGameInfo
+{
+    public string code;
+    public GameObject obj;
 }

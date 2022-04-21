@@ -76,6 +76,8 @@ public class LoadGameData : Singleton<LoadGameData>
             collectSpaceData.MiniGameHelpStringID1 = CSVConvert.ToString(data[i]["MiniGameHelpStringID1"]);
             collectSpaceData.MiniGameRightID2 = CSVConvert.ToString(data[i]["MiniGameRightID2"]);
             collectSpaceData.MiniGameHelpStringID2 = CSVConvert.ToString(data[i]["MiniGameHelpStringID2"]);
+            collectSpaceData.MiniGameCenterID = CSVConvert.ToString(data[i]["MiniGameCenterID"]);
+            collectSpaceData.MiniGameHelpStringID3 = CSVConvert.ToString(data[i]["MiniGameHelpStringID3"]);
             collectSpaceData.FunctionID = CSVConvert.ToString(data[i]["FunctionID"]);
 
             collectSpaceDatas.Add(collectSpaceData.CollectSpaceID, collectSpaceData);
@@ -202,7 +204,6 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             InvadeData invadeData = new InvadeData();
             invadeData.InvadeID = CSVConvert.ToString(data[i]["InvadeID"]);
-            invadeData.InvadeStringID = CSVConvert.ToString(data[i]["InvadeStringID"]);
             invadeData.StealObject = CSVConvert.ToInt(data[i]["StealObject"]);
             invadeData.ItemID1 = CSVConvert.ToString(data[i]["ItemID1"]);
             invadeData.RandMin1 = CSVConvert.ToInt(data[i]["RandMin1"]);
@@ -349,7 +350,6 @@ public class LoadGameData : Singleton<LoadGameData>
             stageDayData.StageDayID = CSVConvert.ToString(data[i]["StageDayID"]);
             stageDayData.Day = CSVConvert.ToInt(data[i]["Day"]);
             stageDayData.StageDayGroupID = CSVConvert.ToString(data[i]["StageDayGroupID"]);
-            stageDayData.StageDayStringID = CSVConvert.ToString(data[i]["StageDayStringID"]);
             stageDayData.InvadeID = CSVConvert.ToString(data[i]["InvadeID"]);
             stageDayData.JourneyID = CSVConvert.ToString(data[i]["JourneyID"]);
 
@@ -431,6 +431,8 @@ public class CollectSpaceData
     public string MiniGameHelpStringID1;
     public string MiniGameRightID2;
     public string MiniGameHelpStringID2;
+    public string MiniGameCenterID;
+    public string MiniGameHelpStringID3;
     public string FunctionID;
 }
 
@@ -508,7 +510,6 @@ public class HeroData
 public class InvadeData
 {
     public string InvadeID;
-    public string InvadeStringID;
     public int StealObject;
     public string ItemID1;
     public int RandMin1;
@@ -613,7 +614,6 @@ public class StageDayData
     public string StageDayID;
     public int Day;
     public string StageDayGroupID;
-    public string StageDayStringID;
     public string InvadeID;
     public string JourneyID;
 }
