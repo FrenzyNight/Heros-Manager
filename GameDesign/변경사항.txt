@@ -3,3 +3,6 @@
 	2. MiniGameTable에 portal 게임 행 삭제
 	3. InvadeTable에 InvadeStringID 열 삭제
 	4. StageDayTable에 StageDayStringID 열 삭제
+
+2022-04-22
+	1. DefineTable에 value2열(float형) 추가 및 portal 게임관련 행 추가
