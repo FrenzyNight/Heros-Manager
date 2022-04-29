@@ -72,12 +72,12 @@ public class LoadGameData : Singleton<LoadGameData>
         {
             CollectSpaceData collectSpaceData = new CollectSpaceData();
             collectSpaceData.CollectSpaceID = CSVConvert.ToString(data[i]["CollectSpaceID"]);
-            collectSpaceData.MiniGameLeftID1 = CSVConvert.ToString(data[i]["MiniGameLeftID1"]);
+            collectSpaceData.MiniGameLeftID1 = CSVConvert.ToString(data[i]["MiniGameID1"]);
             collectSpaceData.MiniGameHelpStringID1 = CSVConvert.ToString(data[i]["MiniGameHelpStringID1"]);
-            collectSpaceData.MiniGameRightID2 = CSVConvert.ToString(data[i]["MiniGameRightID2"]);
+            collectSpaceData.MiniGameRightID2 = CSVConvert.ToString(data[i]["MiniGameID2"]);
             collectSpaceData.MiniGameHelpStringID2 = CSVConvert.ToString(data[i]["MiniGameHelpStringID2"]);
-            collectSpaceData.MiniGameCenterID = CSVConvert.ToString(data[i]["MiniGameCenterID"]);
-            collectSpaceData.MiniGameHelpStringID3 = CSVConvert.ToString(data[i]["MiniGameHelpStringID3"]);
+            //collectSpaceData.MiniGameCenterID = CSVConvert.ToString(data[i]["MiniGameCenterID"]);
+            //collectSpaceData.MiniGameHelpStringID3 = CSVConvert.ToString(data[i]["MiniGameHelpStringID3"]);
             collectSpaceData.FunctionID = CSVConvert.ToString(data[i]["FunctionID"]);
 
             collectSpaceDatas.Add(collectSpaceData.CollectSpaceID, collectSpaceData);
@@ -535,7 +535,7 @@ public class ItemData
 
 [System.Serializable]
 public class JourneyData
-{
+{                 
     public string JourneyID;
     public int Item1Min;
     public int Item2Min;
@@ -612,8 +612,9 @@ public class MiniGameData
 public class StageDayData
 {
     public string StageDayID;
-    public int Day;
+    
     public string StageDayGroupID;
+    public int Day;
     public string InvadeID;
     public string JourneyID;
 }

@@ -32,10 +32,7 @@ public class MiniGameSetMgr : MonoBehaviour
         RealSpawnPoint = new Vector2(BlockSpawnPoint.x * widthScale + transform.position.x , BlockSpawnPoint.y * heightScale + transform.position.y);
     }
 
-    public virtual void StartGame()
-    {
-
-    }
+    public virtual void StartGame() {}
 
     public virtual void AddItem(string itemID, int amount)
     {

@@ -208,7 +208,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
     }
 }
 
-[SerializeField]
+[System.Serializable]
 public class MiniGameInfo
 {
     public string code;

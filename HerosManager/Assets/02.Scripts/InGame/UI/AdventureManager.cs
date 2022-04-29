@@ -127,42 +127,78 @@ public class AdventureManager : MonoBehaviour
             (jResultData.Hero4_Stress, jResultData.Hero4_Power, jResultData.Hero4_Hp, jResultData.Hero4_Exp);
 
     }
-
-    public void AddSubItemBtn(int _idx, bool _isAdd)
+    public void SubItemBtn(int _idx)
     {
-        int num = 1;
-        if (!_isAdd)
-            num = -1;
+        int num = -1;
+        //if (!_isAdd)
+         //   num = -1;
 
         switch (_idx)
         {
             case 0:
-                if (meat + num > ItemManager.Instance.GetItemInfo("Item_Meat").num ||
-                    meat + num < 0)
+                if (meat + num < 0)
                     return;
 
                 meat += num;
                 ItemNumTexts[_idx].text = meat.ToString();
                 break;
             case 1:
-                if (water + num > ItemManager.Instance.GetItemInfo("Item_Water").num ||
-                    water + num < 0)
+                if (water + num < 0)
                     return;
 
                 water += num;
                 ItemNumTexts[_idx].text = water.ToString();
                 break;
             case 2:
-                if (food + num > ItemManager.Instance.GetItemInfo("Item_Food").num ||
-                    food + num < 0)
+                if (food + num < 0)
                     return;
 
                 food += num;
                 ItemNumTexts[_idx].text = food.ToString();
                 break;
             case 3:
-                if (hub + num > ItemManager.Instance.GetItemInfo("Item_Hub").num ||
-                    hub + num < 0)
+                if (hub + num < 0)
+                    return;
+
+                hub += num;
+                ItemNumTexts[_idx].text = hub.ToString();
+                break;
+        }
+
+        CheckAdventureState();
+    }
+
+    public void AddItemBtn(int _idx)
+    {
+        int num = 1;
+        //if (!_isAdd)
+         //   num = -1;
+
+        switch (_idx)
+        {
+            case 0:
+                if (meat + num > ItemManager.Instance.GetItemInfo("Item_Meat").num)
+                    return;
+
+                meat += num;
+                ItemNumTexts[_idx].text = meat.ToString();
+                break;
+            case 1:
+                if (water + num > ItemManager.Instance.GetItemInfo("Item_Water").num )
+                    return;
+
+                water += num;
+                ItemNumTexts[_idx].text = water.ToString();
+                break;
+            case 2:
+                if (food + num > ItemManager.Instance.GetItemInfo("Item_Food").num)
+                    return;
+
+                food += num;
+                ItemNumTexts[_idx].text = food.ToString();
+                break;
+            case 3:
+                if (hub + num > ItemManager.Instance.GetItemInfo("Item_Hub").num)
                     return;
 
                 hub += num;

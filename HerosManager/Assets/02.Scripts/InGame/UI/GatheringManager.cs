@@ -127,7 +127,7 @@ public class GatheringManager : Singleton<GatheringManager>
     }
 }
 
-[SerializeField]
+[System.Serializable]
 public class GatheringObject
 {
     public string code;
