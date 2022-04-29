@@ -112,9 +112,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6924654202750793580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0711e83caea81d042a733767ecff1983, type: 3}
+  m_Script: {fileID: 11500000, guid: e18e2503a163a4f4e88a5f729fee5df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
+  isGold: 1
   GageImg: {fileID: 5463485822341330499, guid: dfd9861f24d10c449bccbfb600e7fc85, type: 3}
 --- !u!95 &6510542184958696301
 Animator:

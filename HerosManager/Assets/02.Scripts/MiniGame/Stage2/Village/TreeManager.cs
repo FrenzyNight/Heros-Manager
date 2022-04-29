@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeManager : MonoBehaviour
+public class TreeManager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
 
     public GameObject GoldTree, NormalTree, BugTree;
 
@@ -29,45 +26,30 @@ public class TreeManager : MonoBehaviour
     public float treeBugPer;
     public float treeBugStun;
 
-    //real
-    private int rnd;
-    //scale
-    public float widthScale, heightScale;
-
     private bool isStun;
 
-    //UI
-    private bool isFirst = true;
 
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_2_ruins");
-        
         SetUp();
-        StartCoroutine(FirstStart());
     }
 
     void SetUp()
     {
-        widthScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
 
-        treeInputDelay = InGameMgr.Instance.miniGameData["game2tree_norm"].stun;
+        treeInputDelay = LoadGameData.Instance.miniGameDatas["game2tree_norm"].Stun;
 
-        treeNormalPer = InGameMgr.Instance.miniGameData["game2tree_norm"].probability * 100;
-        treeNormalRes = InGameMgr.Instance.miniGameData["game2tree_norm"].wood;
+        treeNormalPer = LoadGameData.Instance.miniGameDatas["game2tree_norm"].Probability * 100;
+        treeNormalRes = LoadGameData.Instance.miniGameDatas["game2tree_norm"].GetAmount1;
 
-        treeGoldRes = InGameMgr.Instance.miniGameData["game2tree_gold"].wood;
-        treeGoldPer = InGameMgr.Instance.miniGameData["game2tree_gold"].probability * 100;
+        treeGoldRes = LoadGameData.Instance.miniGameDatas["game2tree_gold"].GetAmount1;
+        treeGoldPer = LoadGameData.Instance.miniGameDatas["game2tree_gold"].Probability * 100;
 
-        treeBugLoss = InGameMgr.Instance.miniGameData["game2tree_insect"].value1;
-        treeBugPer = InGameMgr.Instance.miniGameData["game2tree_insect"].probability * 100;
-        treeBugStun = InGameMgr.Instance.miniGameData["game2tree_insect"].stun;
+        treeBugLoss = LoadGameData.Instance.miniGameDatas["game2tree_insect"].value1;
+        treeBugPer = LoadGameData.Instance.miniGameDatas["game2tree_insect"].Probability * 100;
+        treeBugStun = LoadGameData.Instance.miniGameDatas["game2tree_insect"].Stun;
 
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
-        //SpawnPoint = new Vector2(point.x * widthScale + transform.position.x, point.y * heightScale + transform.position.y);
-
+        
         for(int i=0;i<4;i++)
         {
             rnd = Random.Range(1,101);
@@ -188,42 +170,7 @@ public class TreeManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!isFirst)
-            StartCoroutine(ReStart());
     }
 
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        //StartCoroutine(SpawnObject());
-    }
-    IEnumerator FirstStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFirst = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        
-    }
+    
 }

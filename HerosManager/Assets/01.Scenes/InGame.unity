@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16086814, g: 0.38072407, b: 0.9632411, a: 1}
+  m_IndirectSpecularColor: {r: 0.1518785, g: 0.35675228, b: 0.9668717, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -706,7 +706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &37905504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1756,7 +1756,6 @@ MonoBehaviour:
   Content: {fileID: 1773722928}
   NoticeBtn: {fileID: 475142973}
   isLock: 0
-  tempStr: 
 --- !u!1 &69213634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,7 +2429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 117195314}
   m_Layer: 5
-  m_Name: Guild
+  m_Name: Guide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3528,6 +3527,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a17d15677528b40a6fe741f69533b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
   img1: {fileID: 21300000, guid: 9664dcd2c87827a43b4258549e9495ec, type: 3}
   img2: {fileID: 21300000, guid: 4483850510aed4540a40ae1f8374a492, type: 3}
   img3: {fileID: 21300000, guid: 32d9e54939577384e9ee7686d00bae2f, type: 3}
@@ -3788,9 +3789,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd6fd48277e0bc4c8052a67b62d8b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 444402153}
-  GuidPanel: {fileID: 498550127}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   SpawnPoint1: {x: 0, y: 0}
   SpawnPoint2: {x: 0, y: 0}
   SpawnPoint3: {x: 0, y: 0}
@@ -3816,8 +3824,6 @@ MonoBehaviour:
   fishNormalRes: 0
   realFishSpeed: 0
   realLogSpeed: 0
-  widthScale: 0
-  heightScale: 0
 --- !u!1 &239064599
 GameObject:
   m_ObjectHideFlags: 0
@@ -4426,7 +4432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &257246201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4871,8 +4877,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf85682805c453240aef9e2dc9bcc572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stress: 0
+  power: 0
+  hp: 0
+  exp: 0
+  NameText: {fileID: 0}
+  JobText: {fileID: 0}
   StateText: {fileID: 691319811}
-  BraveryFill: {fileID: 1570369962}
+  ExpText: {fileID: 0}
+  ExpFill: {fileID: 0}
   button: {fileID: 421662023}
   isSlide: 0
 --- !u!114 &276907118
@@ -10778,7 +10791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &335836309
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10888,9 +10901,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0efcdd9badac94e449b3db65c1589f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 264360874}
-  GuidPanel: {fileID: 1140958738}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   Hub: {fileID: 2421946700652176380, guid: e60fa292167b9fa42ab923681358e353, type: 3}
   GoldHub: {fileID: 4599634804358760963, guid: 9d569bf868274f44c9f02d9362dbccfa, type: 3}
   Cactus: {fileID: 6754342570821917454, guid: ce98cac8ac532564985d7b2b678ca215, type: 3}
@@ -10909,8 +10929,6 @@ MonoBehaviour:
   hubNormalRes: 0
   hubCharSpeed: 0
   realHubCharSpeed: 0
-  widthScale: 0
-  heightScale: 0
 --- !u!1 &340456574
 GameObject:
   m_ObjectHideFlags: 0
@@ -11175,11 +11193,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7340a38df281ea8468123037f2c99479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 992820200}
-  GuidPanel: {fileID: 402061772}
+  mother: {fileID: 0}
   widthScale: 0
   heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   standardLakeWaterSpeed: 100
   waterBucketSpeed: 0
   waterRock1Speed: 0
@@ -13058,7 +13081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &444402154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13234,6 +13257,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88687a1472ea6d4439c7a59c9cd14b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
+  moveType: 0
+  isStun: 0
+  isCheck: 0
+  isW: 0
+  isA: 0
+  isS: 0
+  isD: 0
+  target: {x: 0, y: 0}
+  mouse: {x: 0, y: 0}
+  angle: 0
   img1: {fileID: 21300000, guid: c8e18f096111d2c4ab7b7694d05aefb0, type: 3}
   img2: {fileID: 5789660533739163302, guid: 60c4f4e1fa604e24789048377ece5d24, type: 3}
   moveVar: 175
@@ -13514,19 +13549,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d09a6e4f43ff6d419ef8929a2ecc49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 1276890704}
-  GuidPanel: {fileID: 1596725708}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
+  Treasure1Prefab: {fileID: 0}
+  Treasure2Prefab: {fileID: 0}
+  Treasure3Prefab: {fileID: 0}
+  tp1: {x: 0, y: 0}
+  tp2: {x: 0, y: 0}
+  tp3: {x: 0, y: 0}
   fwStandardSpeed: 300
   fwTreasure1ResMeat: 0
   fwTreasure1ResHub: 0
   fwTreasure1CoolTime: 0
+  fwTreasure1GetTime: 0
   fwTreasure2ResMeat: 0
   fwTreasure2ResHub: 0
   fwTreasure2CoolTime: 0
+  fwTreasure2GetTime: 0
   fwTreasure3ResMeat: 0
   fwTreasure3ResHub: 0
   fwTreasure3CoolTime: 0
+  fwTreasure3GetTime: 0
   fwLaySpeed: 0
   fwFairy1Speed: 0
   fwFairy2Speed: 0
@@ -14073,6 +14124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa6696eb54f3d848b5d7b9c3cb6dadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1555623197}
+  objectType: 0
   Pair: {fileID: 1094466513}
   speed: 200
 --- !u!114 &495683162
@@ -14203,7 +14256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &498550128
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15516,7 +15569,7 @@ GameObject:
   - component: {fileID: 565972581}
   - component: {fileID: 565972580}
   m_Layer: 5
-  m_Name: GuidText2
+  m_Name: GuideText2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16223,8 +16276,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf85682805c453240aef9e2dc9bcc572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stress: 0
+  power: 0
+  hp: 0
+  exp: 0
+  NameText: {fileID: 0}
+  JobText: {fileID: 0}
   StateText: {fileID: 1263498791}
-  BraveryFill: {fileID: 634985473}
+  ExpText: {fileID: 0}
+  ExpFill: {fileID: 0}
   button: {fileID: 556856608}
   isSlide: 0
 --- !u!114 &604381916
@@ -16471,7 +16531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &642795191
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16817,23 +16877,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3ea4c76f9a7dd4b9b749598f19fda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 1749611667}
-  GuidPanel: {fileID: 257246200}
+  mother: {fileID: 1019303499}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   NormalWoodPrefab: {fileID: 3923185106091553558, guid: 3f8d2e8d79621a84faf55a58850642f3,
     type: 3}
   GoldWoodPrefab: {fileID: 4094588826011906697, guid: f9599c77009b7624db16c8803963fa3d,
     type: 3}
   WoodChar: {fileID: 692279413}
-  charDistance: 235
-  widthScale: 0
-  heightScale: 0
   woodStunTime: 0
   woodNormalRes: 0
   woodGoldPer: 0
   woodGoldRes: 0
   woodDirection: 0
   isStun: 0
+  charDistance: 235
 --- !u!1 &657353653
 GameObject:
   m_ObjectHideFlags: 0
@@ -19911,7 +19976,7 @@ GameObject:
   - component: {fileID: 749308780}
   m_Layer: 5
   m_Name: Ground
-  m_TagString: Land
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20429,6 +20494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17259f5a45e303e4db017f63fa5a4f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  num: 0
   NumText: {fileID: 765642341}
   EffNum: {fileID: 2088187375}
 --- !u!1 &772778048
@@ -21500,10 +21566,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca8181cabb7e7440aa23ed437c2142e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectUI: {fileID: 0}
+  FenceBtn: {fileID: 837813600}
+  FencePanel: {fileID: 983188522}
+  TitleImg: {fileID: 1433740038}
+  ExitBtn: {fileID: 1847995588}
+  FenceInfo: {fileID: 462297920}
+  FenceLevelup: {fileID: 1853609824}
+  StartBtn: {fileID: 664900071}
+  LevelTxt: {fileID: 1315373564}
+  PrevLevel: {fileID: 687530702}
+  NextLevel: {fileID: 766538688}
+  InvadeTxt: {fileID: 1024047260}
+  PrevRate: {fileID: 1871539041}
+  NextRate: {fileID: 151197457}
+  WoodTxt: {fileID: 709236248}
+  PrevNum: {fileID: 1293044833}
+  NextNum: {fileID: 1148859238}
+  TimeTxt: {fileID: 1339948582}
+  PrevTime: {fileID: 1753348265}
+  NextTime: {fileID: 952166672}
+  GuageFillImg: {fileID: 706944782}
+  LevelingTxt: {fileID: 476121568}
+  CancelBtn: {fileID: 1100419561}
+  CompleteBtn: {fileID: 1369169519}
   fenceLv1: {fileID: 1017812333}
   fenceLv2: {fileID: 963942311}
   fenceLv3: {fileID: 1974016827}
+  fenceLv4: {fileID: 0}
 --- !u!1 &837813597
 GameObject:
   m_ObjectHideFlags: 0
@@ -21634,7 +21723,7 @@ GameObject:
   - component: {fileID: 846556250}
   m_Layer: 5
   m_Name: Log2
-  m_TagString: Untagged
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21673,6 +21762,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0140370a34f0b2e49986f11b6eae9972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
   direction: 0
 --- !u!1001 &848204782
 PrefabInstance:
@@ -21890,11 +21981,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdf171e3a1466b419d07b21f3d29a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GatheringPannel: {fileID: 1587386192}
-  StageBtns:
-  - {fileID: 1771884624}
-  - {fileID: 1414312012}
-  - {fileID: 1425531688}
+  GatheringBtn: {fileID: 851111407}
+  ExitBtn: {fileID: 212066230}
+  GatheringPanel: {fileID: 1587386192}
+  NoticeText: {fileID: 1586590020}
+  gatheringPlaceTrans:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &852744757
 GameObject:
   m_ObjectHideFlags: 0
@@ -22089,7 +22183,7 @@ GameObject:
   - component: {fileID: 859358269}
   - component: {fileID: 859358268}
   m_Layer: 5
-  m_Name: GuidText1
+  m_Name: GuideText1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22635,6 +22729,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa6696eb54f3d848b5d7b9c3cb6dadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1555623197}
+  objectType: 0
   Pair: {fileID: 1120574654}
   speed: 300
 --- !u!1 &900429598
@@ -22910,6 +23006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17259f5a45e303e4db017f63fa5a4f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  num: 0
   NumText: {fileID: 570842398}
   EffNum: {fileID: 1839791893}
 --- !u!1001 &931328638
@@ -23389,6 +23486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd3967769f3f2f459246a428e839f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroStates: []
 --- !u!1 &963942311 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a52c5cf2c20380743991d2a9eacd50f3,
@@ -23826,9 +23924,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4b8d1a1ed055542af291431b79f1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 2065915195}
-  GuidPanel: {fileID: 642795190}
+  mother: {fileID: 1820804874}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   FoxPrefab: {fileID: 2499871224497498752, guid: 46ff4f33823fc0f4fac36f92b2088d75,
     type: 3}
   BearPrefab: {fileID: 5165164910398136316, guid: 663960be50bdd2d44b1c055a988c12cc,
@@ -23859,9 +23964,6 @@ MonoBehaviour:
   realArrowSpeed: 0
   realFoxSpeed: 0
   realBearSpeed: 0
-  isShoot: 0
-  resolutionScale: 0
-  heightScale: 0
 --- !u!1 &1008593040
 GameObject:
   m_ObjectHideFlags: 0
@@ -24402,7 +24504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1025649055
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25064,7 +25166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1060722062
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25211,7 +25313,7 @@ GameObject:
   - component: {fileID: 1071296738}
   m_Layer: 5
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25477,6 +25579,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa6696eb54f3d848b5d7b9c3cb6dadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1555623197}
+  objectType: 0
   Pair: {fileID: 495683159}
   speed: 200
 --- !u!114 &1094466516
@@ -25607,9 +25711,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3d8e8d18b7e764193a70f457eb7812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 1750526964}
-  GuidPanel: {fileID: 20516096}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   FoxPrefab: {fileID: 2537414466453017109, guid: ecad0658b666b4348aefa9f2aec3924d,
     type: 3}
   GoldFoxPrefab: {fileID: 578358059918110083, guid: bae906b4de32986419ff7aa6e93ce045,
@@ -25657,8 +25768,6 @@ MonoBehaviour:
   realGoldFoxSpeed: 0
   realWeaselSpeed: 0
   isShoot: 0
-  resolutionScale: 0
-  heightScale: 0
 --- !u!1 &1100419559
 GameObject:
   m_ObjectHideFlags: 0
@@ -26325,6 +26434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa6696eb54f3d848b5d7b9c3cb6dadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1555623197}
+  objectType: 0
   Pair: {fileID: 899100238}
   speed: 300
 --- !u!1 &1127886724 stripped
@@ -26778,7 +26889,7 @@ GameObject:
   - component: {fileID: 1150466804}
   m_Layer: 5
   m_Name: CaveChar
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26838,6 +26949,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1408532a6937f439e4b4cac1c4bdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1555623197}
+  objectType: 0
+  moveType: 0
+  isStun: 0
+  isCheck: 0
+  isW: 0
+  isA: 0
+  isS: 0
+  isD: 0
+  target: {x: 0, y: 0}
+  mouse: {x: 0, y: 0}
+  angle: 0
   RunStat: {fileID: 1194233712}
   SlideStat: {fileID: 69213634}
   StunStat: {fileID: 556406540}
@@ -27106,9 +27229,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Back: {fileID: 0}
+  Front: {fileID: 0}
+  Left: {fileID: 0}
+  Right: {fileID: 0}
+  fairySpeed: 0
   direction: -1
   topP: 215
   botP: -215
+  observePoint1: 0
+  observePoint2: 0
   fairyNum: 1
 --- !u!58 &1161247997
 CircleCollider2D:
@@ -27296,9 +27426,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba5a3739d717ad4ea448b107b60d36a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 425889185}
-  GuidPanel: {fileID: 497155701}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   GoldTree: {fileID: 5334757185379550356, guid: c5ed89bcdc4952a4089380fe8b7a3afa,
     type: 3}
   NormalTree: {fileID: 8459736026735668998, guid: 1e36e38a8027c804c9271dc924aad065,
@@ -27312,8 +27449,6 @@ MonoBehaviour:
   treeBugLoss: 0
   treeBugPer: 0
   treeBugStun: 0
-  widthScale: 0
-  heightScale: 0
 --- !u!1 &1181751721
 GameObject:
   m_ObjectHideFlags: 0
@@ -27493,6 +27628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17259f5a45e303e4db017f63fa5a4f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  num: 0
   NumText: {fileID: 360086860}
   EffNum: {fileID: 1431463495}
 --- !u!1 &1192748031
@@ -27840,9 +27976,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9ac6dcb477c2f4eb0c7e913b84b887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 1400365177}
-  GuidPanel: {fileID: 1824525823}
+  mother: {fileID: 2143593970}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   Hub: {fileID: 6305170746588889613, guid: 4075cbc0640628d488e7cd3a10b98a20, type: 3}
   GoldHub: {fileID: 6924654202750793580, guid: d64e477ed92af7d4db6efc4ca536ba4b, type: 3}
   StartP: {x: -280, y: -280}
@@ -27855,7 +27998,6 @@ MonoBehaviour:
   hubNormalRes: 0
   hubCharSpeed: 0
   realHubCharSpeed: 0
-  resolutionScale: 0
 --- !u!1 &1201914372
 GameObject:
   m_ObjectHideFlags: 0
@@ -29865,13 +30007,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6674c22948054c14d8f4aa704110dc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DayText: {fileID: 1274791509}
-  ClockFillImg: {fileID: 733549862}
-  nowTime: 0
-  maxTime: 0
+  stageDayData:
+    StageDayID: 
+    Day: 0
+    StageDayGroupID: 
+    InvadeID: 
+    JourneyID: 
   day: 0
   isStop: 0
-  NextDayPannel: {fileID: 0}
+  DayText: {fileID: 1274791509}
+  ClockFillImg: {fileID: 733549862}
   AdventureMgr: {fileID: 1980455398}
 --- !u!1 &1311579573
 GameObject:
@@ -31150,7 +31295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1400365178
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31927,6 +32072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa6696eb54f3d848b5d7b9c3cb6dadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1555623197}
+  objectType: 0
   Pair: {fileID: 1843473561}
   speed: 400
 --- !u!1 &1425531686
@@ -32366,6 +32513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17259f5a45e303e4db017f63fa5a4f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  num: 0
   NumText: {fileID: 2141823834}
   EffNum: {fileID: 1727123334}
 --- !u!1 &1444617211
@@ -32385,7 +32533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1444617212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32531,7 +32679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1450944655
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33231,6 +33379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb4a028f4e8ae847971c3c2cf18a92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 655565557}
+  objectType: 0
   speed: 1
 --- !u!114 &1503892640
 MonoBehaviour:
@@ -33712,6 +33862,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c2a705fbcb1ef4381248bb186d1633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1200085581}
+  objectType: 0
+  moveType: 0
+  isStun: 0
+  isCheck: 0
+  isW: 0
+  isA: 0
+  isS: 0
+  isD: 0
+  target: {x: 0, y: 0}
+  mouse: {x: 0, y: 0}
+  angle: 0
 --- !u!95 &1518820752
 Animator:
   serializedVersion: 3
@@ -33982,15 +34144,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0fc5b13d7143b846a515c419e162a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 1141141235}
-  GuidPanel: {fileID: 179169816}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   Wall: {fileID: 3108457539718436793, guid: d640896a66e9b344d82066286de1a62d, type: 3}
   Road: {fileID: 1371304986955518882, guid: 066b522962d56694cab338e70aff8c89, type: 3}
   blockSize: 50
   mazesize: 11
-  resolutionScale: 0
-  heightScale: 0
   mazeCharSpeed: 0
   realMazeCharSpeed: 0
 --- !u!1 &1538516868
@@ -34290,17 +34457,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ce80e7294fbee4586dcba8ad879ed2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 1060722061}
-  GuidPanel: {fileID: 1025649054}
+  mother: {fileID: 685907877}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 500, y: -175}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   JemPrefab: {fileID: 2513485046151528066, guid: e6b69b0303391044fb059283d97d0be6,
     type: 3}
   DownStonePrefab: {fileID: 3439409657698852365, guid: 2abf1dcaa8654174fabaf3567f87d350,
     type: 3}
   UpStonePrefab: {fileID: 1216136845152820713, guid: df43faeffc8e1084f856c2766b1288ce,
     type: 3}
-  BlockSpawnPoint: {x: 500, y: -175}
-  isRun: 0
   realSpeed: 0
   realCharJump: 0
   varSpeed: 0
@@ -34311,8 +34483,6 @@ MonoBehaviour:
   jemResource: 0
   jemPer: 0
   charJump: 0
-  resolutionScale: 0
-  heightScale: 0
 --- !u!1 &1560569123
 GameObject:
   m_ObjectHideFlags: 0
@@ -34717,7 +34887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e762ab5e47f6ce47b0cf0ff2c06344f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniGameDatas: []
 --- !u!1 &1570369960
 GameObject:
   m_ObjectHideFlags: 0
@@ -35164,9 +35333,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 298fbc879e9bf224088f1bff3c791976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 335836308}
-  GuidPanel: {fileID: 1444617211}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   SpawnPoint1: {x: 0, y: 0}
   SpawnPoint2: {x: 0, y: 0}
   SpawnPoint3: {x: 0, y: 0}
@@ -35185,8 +35361,6 @@ MonoBehaviour:
   waterRockMaxNum: 0
   waterRockInvTime: 0
   realRockSpeed: 0
-  widthScale: 0
-  heightScale: 0
 --- !u!1 &1586590018
 GameObject:
   m_ObjectHideFlags: 0
@@ -37045,7 +37219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1749611668
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37273,6 +37447,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750528795d3d454885c57259ad55a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1006369569}
+  objectType: 0
+  moveType: 0
+  isStun: 0
+  isCheck: 0
+  isW: 0
+  isA: 0
+  isS: 0
+  isD: 0
+  target: {x: 0, y: 0}
+  mouse: {x: 0, y: 0}
+  angle: 0
   ArrowPrefab: {fileID: 5342781513658744933, guid: 6a197e41c333d484289305f1fb256a9b,
     type: 3}
 --- !u!95 &1751420317
@@ -37644,9 +37830,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41336d61435b2fd479d0a349e8b5677f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 1327111231}
-  GuidPanel: {fileID: 329108232}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   Command: {fileID: 703543994}
   Altars:
   - {fileID: 2125221254}
@@ -38181,11 +38374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff2e1d99979d54e8337cf5868b4a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wood: 0
-  water: 0
-  meat: 0
-  hub: 0
-  food: 0
+  items: []
 --- !u!1 &1783321611
 GameObject:
   m_ObjectHideFlags: 0
@@ -38368,9 +38557,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Back: {fileID: 0}
+  Front: {fileID: 0}
+  Left: {fileID: 0}
+  Right: {fileID: 0}
+  fairySpeed: 0
   direction: -1
   topP: 215
   botP: -215
+  observePoint1: 0
+  observePoint2: 0
   fairyNum: 2
 --- !u!1 &1797239218
 GameObject:
@@ -38384,7 +38580,7 @@ GameObject:
   - component: {fileID: 1797239220}
   m_Layer: 5
   m_Name: Log1
-  m_TagString: Untagged
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38423,6 +38619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0140370a34f0b2e49986f11b6eae9972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
   direction: 0
 --- !u!1 &1813316598
 GameObject:
@@ -38726,7 +38924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1824525824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39201,6 +39399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa6696eb54f3d848b5d7b9c3cb6dadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1555623197}
+  objectType: 0
   Pair: {fileID: 1422978298}
   speed: 400
 --- !u!1 &1847995586
@@ -39594,9 +39794,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7472731cae653384d9558b93b3aa65d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageData:
+    StageID: 
+    Index: 0
+    StageDayGroupID: 
+    StageStringID: 
+    BonfireID: 
+    FenceGroupID: 
+    CollectID: 
+    FieldID: 
   stage: 1
   state: 0
-  miniGameMgr: {fileID: 0}
   pause: {fileID: 1902172475}
 --- !u!1 &1869789576
 GameObject:
@@ -40780,9 +40988,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Back: {fileID: 0}
+  Front: {fileID: 0}
+  Left: {fileID: 0}
+  Right: {fileID: 0}
+  fairySpeed: 0
   direction: -1
   topP: 215
   botP: -215
+  observePoint1: 0
+  observePoint2: 0
   fairyNum: 3
 --- !u!1 &1941942340
 GameObject:
@@ -41033,6 +41248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17259f5a45e303e4db017f63fa5a4f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  num: 0
   NumText: {fileID: 1084113087}
   EffNum: {fileID: 388476113}
 --- !u!1 &1969176380
@@ -41394,17 +41610,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0201bf6d8da0edf4590987835f8a5775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainImg: {fileID: 1619481542}
-  ExplainTxt: {fileID: 672487347}
+  AdvPanel: {fileID: 0}
+  TitleImg: {fileID: 0}
+  TitleText: {fileID: 0}
   DayText: {fileID: 414443436}
-  MeatNumTxt: {fileID: 248355095}
-  WaterNumTxt: {fileID: 0}
-  FoodNumTxt: {fileID: 0}
-  HubNumTxt: {fileID: 0}
-  MeatMinTxt: {fileID: 610796613}
-  WaterMinTxt: {fileID: 0}
-  RateTxt: {fileID: 1107242704}
-  StateTxt: {fileID: 714635031}
+  ItemNumTexts: []
+  WarningText: {fileID: 0}
+  MinMeatText: {fileID: 0}
+  MinWaterText: {fileID: 0}
+  ResultTitleText: {fileID: 0}
+  ResultRateText: {fileID: 0}
+  ResultText: {fileID: 0}
+  StartAdvBtn: {fileID: 0}
+  ExImg: {fileID: 0}
 --- !u!1 &1999850185
 GameObject:
   m_ObjectHideFlags: 0
@@ -41946,7 +42164,7 @@ GameObject:
   - component: {fileID: 2024730596}
   m_Layer: 5
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41986,7 +42204,7 @@ GameObject:
   - component: {fileID: 2035667908}
   - component: {fileID: 2035667907}
   m_Layer: 5
-  m_Name: GuidText3
+  m_Name: GuideText3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42306,7 +42524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AmuletNotice: {fileID: 1925330085}
   NoticeText: {fileID: 1570703890}
-  tempObj: {fileID: 5136299243927751042, guid: 65f6ab0af4eb68e49875aeca68a68c3f, type: 3}
+  AmuletObj: {fileID: 0}
 --- !u!1001 &2056176946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42517,8 +42735,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf85682805c453240aef9e2dc9bcc572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stress: 0
+  power: 0
+  hp: 0
+  exp: 0
+  NameText: {fileID: 0}
+  JobText: {fileID: 0}
   StateText: {fileID: 454061193}
-  BraveryFill: {fileID: 678865040}
+  ExpText: {fileID: 0}
+  ExpFill: {fileID: 0}
   button: {fileID: 1560569125}
   isSlide: 0
 --- !u!114 &2064398553
@@ -42575,7 +42800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2065915196
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43381,8 +43606,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf85682805c453240aef9e2dc9bcc572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stress: 0
+  power: 0
+  hp: 0
+  exp: 0
+  NameText: {fileID: 0}
+  JobText: {fileID: 0}
   StateText: {fileID: 675884875}
-  BraveryFill: {fileID: 121339990}
+  ExpText: {fileID: 0}
+  ExpFill: {fileID: 0}
   button: {fileID: 1813316600}
   isSlide: 0
 --- !u!1 &2117149132
@@ -43759,17 +43991,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3834f7c6e4a029c40bea4054eb5ef34d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
-  GuidText: {fileID: 673634510}
-  GuidPanel: {fileID: 1514720173}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   MeatPrefab: {fileID: 1140092222600195474, guid: 0f7d31b567d083d438abeafb9160ad5b,
     type: 3}
   TreePrefab: {fileID: 8811654158261455455, guid: c1c2f7906cab6014392f0b037ef93bc6,
     type: 3}
   WaterPrefab: {fileID: 850938229114182301, guid: fea484af1d2ff2d48b37b13479d69b60,
     type: 3}
-  widthScale: 0
-  heightScale: 0
   oasisCharSpeed: 0
   oasisMeatRes: 0
   oasisWaterRes: 0
@@ -44229,15 +44466,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b8b1da5666a1d4393344af119bf0ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MGM: {fileID: 0}
+  mother: {fileID: 0}
+  widthScale: 0
+  heightScale: 0
+  rnd: 0
+  isCheck: 0
+  BlockSpawnPoint: {x: 0, y: 0}
+  RealSpawnPoint: {x: 0, y: 0}
+  miniGameID: 
+  item1ID: 
+  item2ID: 
   FishPrefab: {fileID: 7447688348451359491, guid: 2f541bb99458cf343bd370177a8f0c82,
     type: 3}
   GoldFishPrefab: {fileID: 2190588139933792519, guid: 70a41b59cbc25564393cb69a2b64aa25,
     type: 3}
-  GuidText: {fileID: 2003430424}
-  GuidPanel: {fileID: 565253858}
-  widthScale: 0
-  heightScale: 0
   fishStunTime: 0
   fishCoolTime: 0
   fishNormalRes: 0

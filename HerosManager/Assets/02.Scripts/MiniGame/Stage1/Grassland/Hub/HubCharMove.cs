@@ -2,113 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HubCharMove : MonoBehaviour
+public class HubCharMove : MiniGameCharMgr
 {
-    private HubManager HM;
-    
+    private HubManager Mgr;
     private RectTransform rt;
+    private Animator ani;
     private float x, y;
     private int direction;
-    private bool isMove;
-    private bool isW, isA, isS, isD;
 
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("HubManager").GetComponent<HubManager>();
+        Mgr = manager.GetComponent<HubManager>();
         rt = gameObject.GetComponent<RectTransform>();
+        ani = gameObject.GetComponent<Animator>();
+
+        moveType = 2;
+        //moveType = LoadGameData.Instance.miniGameDatas["game2Lay"].value1;
         
-        isMove = false;
+        isCheck = false;
         isW = false;
         isA = false;
         isS = false;
         isD = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void MoveAction()
     {
-
-        if(Input.GetKey(KeyCode.W))
-        {
-            isW = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.A))
-        {
-            isA = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.S))
-        {
-            isS = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            isD = true;
-            isMove = true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-           SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-           SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            SetDirection();
-        }
-
-        if(Input.GetKeyUp(KeyCode.W))
-        {
-            isW =false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.A))
-        {
-            isA = false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.S))
-        {
-            isS = false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.D))
-        {
-            isD = false;
-            isMove = false;
-            SetDirection();
-        }
-
-    }
-
-    void FixedUpdate()
-    {
-        if(isMove)
+        if(isCheck)
         {
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (x * Time.deltaTime) , rt.anchoredPosition.y + (y * Time.deltaTime));
-            gameObject.GetComponent<Animator>().speed = 1.0f;
+            ani.speed = 1.0f;
         }
         else
         {
-            gameObject.GetComponent<Animator>().speed = 0.0f;
+            ani.speed = 0.0f;
         }
     }
 
 
-    void SetDirection()
+    public override void Action1() //Set Direction
     {
         if(isW && !isA && !isS && !isD) // only w
         {
@@ -144,10 +77,8 @@ public class HubCharMove : MonoBehaviour
             direction = 315;
         }
 
-
-        x = HM.realHubCharSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
-        y = HM.realHubCharSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
-
+        x = Mgr.realHubCharSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
+        y = Mgr.realHubCharSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
 
         if(x >= 0)
         {
@@ -162,9 +93,9 @@ public class HubCharMove : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D c)
     {
-        if(c.gameObject.CompareTag("Block"))
+        if(c.gameObject.CompareTag("MiniGameObj1")) //block
         {
-            isMove = false;
+            isCheck = false;
         }
     }
 }

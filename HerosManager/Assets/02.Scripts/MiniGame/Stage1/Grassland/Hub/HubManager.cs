@@ -2,20 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HubManager : MonoBehaviour
+public class HubManager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
-
-    private bool isFirst = true;
 
     public GameObject Hub,GoldHub;
     public Vector2 StartP, EndP;
     private Vector2 StartPoint, EndPoint;
     
     private float x, y;
-    private int rnd;
 
     // load
     private float standardHubSpeed = 500f;
@@ -25,82 +19,49 @@ public class HubManager : MonoBehaviour
     
 
     public float hubGoldPer;
-    public float hubGoldRes;
-    public float hubNormalRes;
+    public int hubGoldRes;
+    public int hubNormalRes;
 
     public float hubCharSpeed;
 
     //real
     public float realHubCharSpeed;
 
-    public float resolutionScale;
-
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_1_Grassland");
         SetUp();
-        StartCoroutine(FirstStart());
     }
 
-    void SetUp()
+    public override void SetUp()
     {
-        hubCharSpeed = InGameMgr.Instance.miniGameData["game1hub_normal"].value1;
-        hubCoolTime = InGameMgr.Instance.miniGameData["game1hub_normal"].cooltime;
-        hubGetTime = InGameMgr.Instance.miniGameData["game1hub_normal"].value3;
+        base.SetUp();
         
-        hubGoldPer = InGameMgr.Instance.miniGameData["game1hub_gold"].probability * 100;
-        hubGoldRes = InGameMgr.Instance.miniGameData["game1hub_gold"].hub;
+        Hub.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+        GoldHub.GetComponent<MiniGameObjectMgr>().manager = gameObject;
         
-        hubNormalRes = InGameMgr.Instance.miniGameData["game1hub_normal"].hub;
-        hubSpanTime = InGameMgr.Instance.miniGameData["game1hub_normal"].value2;
+        hubCharSpeed = LoadGameData.Instance.miniGameDatas["game1hub_normal"].value1;
+        hubCoolTime = LoadGameData.Instance.miniGameDatas["game1hub_normal"].CoolTime;
+        hubGetTime = LoadGameData.Instance.miniGameDatas["game1hub_normal"].value3;
+        
+        hubGoldPer = LoadGameData.Instance.miniGameDatas["game1hub_gold"].Probability * 100;
+        hubGoldRes = (int)LoadGameData.Instance.miniGameDatas["game1hub_gold"].GetAmount1;
+        
+        hubNormalRes = (int)LoadGameData.Instance.miniGameDatas["game1hub_normal"].GetAmount1;
+        hubSpanTime = LoadGameData.Instance.miniGameDatas["game1hub_normal"].value2;
 
+        item1ID = LoadGameData.Instance.miniGameDatas["game1hub_normal"].GetItemID1;
+        
         realHubCharSpeed = standardHubSpeed * hubCharSpeed;
 
-        resolutionScale = Screen.width / 1920f;
-        StartPoint = new Vector2(StartP.x * resolutionScale + transform.position.x , StartP.y * resolutionScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * resolutionScale + transform.position.x , EndP.y * resolutionScale + transform.position.y);
+        StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
+        EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
 
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
+        StartGame();
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
-        if(!isFirst)
-            StartCoroutine(ReStart());
-    }
-
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        StartCoroutine(SpawnHub());
-    }
-
-    IEnumerator FirstStart()
-    {
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFirst = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        
+        base.StartGame();
         StartCoroutine(SpawnHub());
     }
 
@@ -114,11 +75,11 @@ public class HubManager : MonoBehaviour
             rnd = Random.Range(1, 101);
             if(rnd <= hubGoldPer)
             {
-                Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub").transform);
+                Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,mother.transform);
             }
             else
             {
-                Instantiate(Hub, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub").transform);
+                Instantiate(Hub, new Vector2(x,y), Quaternion.identity,mother.transform);
             }
             
             yield return new WaitForSeconds(hubCoolTime);
@@ -127,12 +88,12 @@ public class HubManager : MonoBehaviour
 
     public void GetHub()
     {
-        MGM.hub += (int)hubNormalRes;
+        base.AddItem(item1ID, hubNormalRes);
     }
 
     public void GetGoldHub()
     {
-        MGM.hub += (int)hubGoldRes;
+        base.AddItem(item1ID, hubGoldRes);
     }
 
     void OnDrawGizmos()

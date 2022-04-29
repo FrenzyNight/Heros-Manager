@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2129413791705917345}
   m_Layer: 5
   m_Name: Boots
-  m_TagString: Block
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,6 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fad362b438ae34cafc57269e474f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
 --- !u!50 &2129413791705917345
 Rigidbody2D:
   serializedVersion: 4

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6488827329760144657}
   m_Layer: 5
   m_Name: Arrow
-  m_TagString: Arrow
+  m_TagString: MiniGameObj3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,3 +185,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f0656029b6c2044929673df984d6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0

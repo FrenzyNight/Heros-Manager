@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LogMove : MonoBehaviour
+public class LogMove : MiniGameObjectMgr
 {
     private FishManager FM;
     private RectTransform rt;
@@ -12,13 +12,19 @@ public class LogMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FM = GameObject.Find("FishManager").GetComponent<FishManager>();
+        FM = manager.GetComponent<FishManager>();
         rt = gameObject.GetComponent<RectTransform>();
         direction = 1;
+
+        objectType = 3;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void MoveAction()
+    {
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y + (FM.realLogSpeed * direction * Time.deltaTime));
+    }
+
+    public override void UpdateAction()
     {
         if(rt.anchoredPosition.y >= FM.topP)
         {
@@ -28,10 +34,5 @@ public class LogMove : MonoBehaviour
         {
             direction = 1;
         }
-    }
-
-    void FixedUpdate()
-    {
-        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y + (FM.realLogSpeed * direction * Time.deltaTime));
     }
 }

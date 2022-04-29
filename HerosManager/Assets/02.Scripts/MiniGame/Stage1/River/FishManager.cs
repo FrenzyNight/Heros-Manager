@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishManager : MonoBehaviour
+public class FishManager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
-    private bool isFisrt = true;
-
     public Vector2 SpawnPoint1, SpawnPoint2, SpawnPoint3;
     public Vector2 spawnP1, spawnP2, spawnP3;
 
@@ -21,7 +16,6 @@ public class FishManager : MonoBehaviour
     private LogMove LM1,LM2;
 
     private float x, y;
-    private int rnd;
 
     //read
 
@@ -33,27 +27,21 @@ public class FishManager : MonoBehaviour
     public float fishVarSpeed;
 
     public float fishGoldPer;
-    public float fishGoldRes;
+    public int fishGoldRes;
 
-    public float fishNormalRes;
+    public int fishNormalRes;
 
     // real
     public float realFishSpeed;
     public float realLogSpeed;
 
-    //resolution
-
-    public float widthScale, heightScale;
     // Start is called before the first frame update
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_1_river");
         LM1 = Log1.GetComponent<LogMove>();
         LM2 = Log2.GetComponent<LogMove>();
 
         SetUp();
-        StartCoroutine(FirstStart());
     }
 
     // Update is called once per frame
@@ -70,23 +58,27 @@ public class FishManager : MonoBehaviour
         }
     }
 
-    void SetUp()
+    public override void SetUp()
     {
-        widthScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
+        base.SetUp();
 
-        fishLogSpeed = InGameMgr.Instance.miniGameData["game1log"].speed;
+        FishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+        GoldFishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
-        fishCoolTime = InGameMgr.Instance.miniGameData["game1fish_normal"].cooltime;
-        fishVarSpeed = InGameMgr.Instance.miniGameData["game1fish_normal"].speed;
+        fishLogSpeed = LoadGameData.Instance.miniGameDatas["game1log"].Velocity;
 
-        fishGoldPer = InGameMgr.Instance.miniGameData["game1fish_gold"].probability * 100;
-        fishGoldRes = InGameMgr.Instance.miniGameData["game1fish_gold"].meat;
+        fishCoolTime = LoadGameData.Instance.miniGameDatas["game1fish_normal"].CoolTime;
+        fishVarSpeed = LoadGameData.Instance.miniGameDatas["game1fish_normal"].Velocity;
 
-        fishNormalRes = InGameMgr.Instance.miniGameData["game1fish_normal"].meat;
+        fishGoldPer = LoadGameData.Instance.miniGameDatas["game1fish_gold"].Probability * 100;
+        fishGoldRes = (int)LoadGameData.Instance.miniGameDatas["game1fish_gold"].GetAmount1;
+
+        fishNormalRes = (int)LoadGameData.Instance.miniGameDatas["game1fish_normal"].GetAmount1;
 
         realFishSpeed = standardFishSpeed * fishVarSpeed;
         realLogSpeed = standardFishSpeed * fishLogSpeed;
+
+        item1ID = LoadGameData.Instance.miniGameDatas["game1fish_normal"].GetItemID1;
 
         SpawnPoint1 = new Vector2(spawnP1.x * widthScale + transform.position.x, spawnP1.y * heightScale + transform.position.y);
         SpawnPoint2 = new Vector2(spawnP2.x * widthScale + transform.position.x, spawnP2.y * heightScale + transform.position.y);
@@ -94,50 +86,16 @@ public class FishManager : MonoBehaviour
     
         TopPoint = new Vector2(transform.position.x, topP * heightScale + transform.position.y);
         BotPoint = new Vector2(transform.position.x, botP * heightScale + transform.position.y);
-    
-    
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
-    }
-
-    IEnumerator FirstStart()
-    {
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFisrt = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
         
-        StartCoroutine(FishSpawn());
+        StartGame();
     }
 
     public void StartGame()
     {
-        if(!isFisrt)
-            StartCoroutine(ReStart());
-    }
-
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
+        base.StartGame();
         StartCoroutine(FishSpawn());
     }
+
     IEnumerator FishSpawn()
     {
         while(true)
@@ -157,15 +115,15 @@ public class FishManager : MonoBehaviour
 
             if(rnd == 1)
             {
-                Instantiate(SelectedFish, SpawnPoint1, Quaternion.identity, GameObject.Find("Fish").transform);
+                Instantiate(SelectedFish, SpawnPoint1, Quaternion.identity, mother.transform);
             }
             else if(rnd == 2)
             {
-                Instantiate(SelectedFish, SpawnPoint2, Quaternion.identity, GameObject.Find("Fish").transform);
+                Instantiate(SelectedFish, SpawnPoint2, Quaternion.identity, mother.transform);
             }
             else if(rnd == 3)
             {
-                Instantiate(SelectedFish, SpawnPoint3, Quaternion.identity, GameObject.Find("Fish").transform);
+                Instantiate(SelectedFish, SpawnPoint3, Quaternion.identity, mother.transform);
             }
 
             yield return new WaitForSeconds(fishCoolTime);
@@ -174,12 +132,12 @@ public class FishManager : MonoBehaviour
 
     public void GetFish()
     {
-        MGM.meat += (int)fishNormalRes;
+        base.AddItem(item1ID, fishNormalRes);
     }
 
     public void GetGoldFish()
     {
-        MGM.meat += (int)fishGoldRes;
+        base.AddItem(item1ID, fishGoldRes);
     }
 
     void OnDrawGizmos()

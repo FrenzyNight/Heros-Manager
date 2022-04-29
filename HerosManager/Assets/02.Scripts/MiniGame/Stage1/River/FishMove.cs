@@ -2,36 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishMove : MonoBehaviour
+public class FishMove : MiniGameObjectMgr
 {
     private FishManager FM;
     private RectTransform rt;
+    public bool isGold;
 
     // Start is called before the first frame update
     void Start()
     {
-        FM = GameObject.Find("FishManager").GetComponent<FishManager>();
+        FM = manager.GetComponent<FishManager>();
         rt = gameObject.GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void MoveAction()
     {
         rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (FM.realFishSpeed * Time.deltaTime), rt.anchoredPosition.y);
-        //transform.Translate(-realFishSpeed * Time.deltaTime, 0, 0);
     }
 
     void GetFish()
     {
-       // get RiverCSV.fishNormalRes
-       FM.GetFish();
-       Debug.Log("Get Fish : " + FM.fishNormalRes.ToString());
-       Destroy(gameObject);
+        if(isGold)
+        {
+            FM.GetGoldFish();
+            Debug.Log("Get GoldFish : " + FM.fishGoldRes.ToString());
+        }
+        else
+        {
+            FM.GetFish();
+            Debug.Log("Get Fish : " + FM.fishNormalRes.ToString());
+        }
+        Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if(coll.gameObject.CompareTag("Block"))
+        if(coll.gameObject.CompareTag("MiniGameObj1")) //block
         {
             //Debug.Log("block");
             Destroy(gameObject);

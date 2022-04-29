@@ -2,25 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowMove : MonoBehaviour
+public class ArrowMove : MiniGameObjectMgr
 {
-    private HuntManager HM;
+    private HuntManager Mgr;
     private RectTransform rt;
-
-    private float realArrowSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("HuntManager").GetComponent<HuntManager>();
+        Mgr = manager.GetComponent<HuntManager>();
         rt = gameObject.GetComponent<RectTransform>();
         Destroy(gameObject.transform.parent.gameObject, 1f);
+
+        objectType = 1;
+        //objectType = LoadGameData.Instance.miniGameDatas["game2Lay"].value1;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void MoveAction()
     {
-        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (HM.realArrowSpeed * Time.deltaTime) , rt.anchoredPosition.y);
-        //transform.Translate(HM.realArrowSpeed * Time.deltaTime,0,0);
+        rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (Mgr.realArrowSpeed * Time.deltaTime) , rt.anchoredPosition.y);
     }
 }

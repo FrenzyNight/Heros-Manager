@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 3974549843654544267}
   m_Layer: 5
   m_Name: UpStone
-  m_TagString: Untagged
+  m_TagString: MiniGameObj2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,3 +179,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be276bfe00ebb7f438b85749f8b4951a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4757356736916357009}
   m_Layer: 5
   m_Name: Fox
-  m_TagString: Monster
+  m_TagString: MiniGameObj2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,6 +128,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83ddba72c961d094d922507d11d9919c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
+  rt: {fileID: 0}
+  ani: {fileID: 0}
+  direction: 0
+  x: 0
+  y: 0
+  isIdle: 0
+  moveTime: 0
+  moveCheck: 0
+  animalHP: 0
+  AngryEffect: {fileID: 0}
+  realSpeed: 0
 --- !u!95 &4757356736916357009
 Animator:
   serializedVersion: 3

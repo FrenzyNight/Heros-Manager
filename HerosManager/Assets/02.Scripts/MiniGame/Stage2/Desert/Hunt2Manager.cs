@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-
-public class Hunt2Manager : MonoBehaviour
+ 
+public class Hunt2Manager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
-    private bool isFisrt = true;
-
     public GameObject FoxPrefab, GoldFoxPrefab, WeaselPrefab;
     public GameObject Cactus;
     private List<GameObject> CacList = new List<GameObject>();
@@ -22,8 +17,6 @@ public class Hunt2Manager : MonoBehaviour
     public int foxNum;
     public int weaselNum;
     public int goldFoxNum;
-    private int rnd;
-
     //cactus
     public float quater, plusmin;
 
@@ -68,17 +61,11 @@ public class Hunt2Manager : MonoBehaviour
 
     public bool isShoot;
 
-    public float resolutionScale;
-    public float heightScale;
-
     // Start is called before the first frame update
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_2_desertField");
         SetUp();
         SpawnCactus();
-        StartCoroutine(FirstStart());
     }
 
     void SetUp()
@@ -88,35 +75,35 @@ public class Hunt2Manager : MonoBehaviour
         goldFoxNum = 0;
         isShoot = false;
         
-        huntArrowSpeed = InGameMgr.Instance.miniGameData["game2arrow"].speed;
-        huntArrowCoolTime = InGameMgr.Instance.miniGameData["game2arrow"].cooltime;
+        huntArrowSpeed = LoadGameData.Instance.miniGameDatas["game2arrow"].Velocity;
+        huntArrowCoolTime = LoadGameData.Instance.miniGameDatas["game2arrow"].CoolTime;
 
-        huntCactusNum = InGameMgr.Instance.miniGameData["game2cactus"].value1;
+        huntCactusNum = LoadGameData.Instance.miniGameDatas["game2cactus"].value1;
 
-        huntMonsterCoolTime = InGameMgr.Instance.miniGameData["game2monster_weasel"].cooltime;
-        huntMonsterMinMoveTime = InGameMgr.Instance.miniGameData["game2monster_weasel"].value4;
-        huntMonsterMaxMoveTime = InGameMgr.Instance.miniGameData["game2monster_weasel"].value5;
-        huntMonsterIdleTime= InGameMgr.Instance.miniGameData["game2monster_weasel"].value3;
+        huntMonsterCoolTime = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].CoolTime;
+        huntMonsterMinMoveTime = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value4;
+        huntMonsterMaxMoveTime = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value5;
+        huntMonsterIdleTime= LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value3;
 
-        huntWeaselSpeed = InGameMgr.Instance.miniGameData["game2monster_weasel"].speed;
-        huntWeaselRes = InGameMgr.Instance.miniGameData["game2monster_weasel"].meat;
-        huntWeaselPer = InGameMgr.Instance.miniGameData["game2monster_weasel"].probability * 100;
-        huntWeaselHP = InGameMgr.Instance.miniGameData["game2monster_weasel"].value1;
-        huntWeaselMaxNum = InGameMgr.Instance.miniGameData["game2monster_weasel"].value6;
+        huntWeaselSpeed = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].Velocity;
+        huntWeaselRes = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].GetAmount1;
+        huntWeaselPer = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].Probability * 100;
+        huntWeaselHP = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value1;
+        huntWeaselMaxNum = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value6;
 
-        huntFoxSpeed = InGameMgr.Instance.miniGameData["game2monster_fennec"].speed;
-        huntFoxRes = InGameMgr.Instance.miniGameData["game2monster_fennec"].meat;
-        huntFoxPer = InGameMgr.Instance.miniGameData["game2monster_fennec"].probability * 100;
-        huntFoxHP = InGameMgr.Instance.miniGameData["game2monster_fennec"].value1;
-        huntFoxAngrySpeed = InGameMgr.Instance.miniGameData["game2monster_fennec"].value2;
-        huntFoxMaxNum = InGameMgr.Instance.miniGameData["game2monster_fennec"].value6;
+        huntFoxSpeed = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].Velocity;
+        huntFoxRes = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].GetAmount1;
+        huntFoxPer = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].Probability * 100;
+        huntFoxHP = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].value1;
+        huntFoxAngrySpeed = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].value2;
+        huntFoxMaxNum = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].value6;
 
-        huntGoldFoxSpeed = InGameMgr.Instance.miniGameData["game2monser_gfennec"].speed;
-        huntGoldFoxRes = InGameMgr.Instance.miniGameData["game2monser_gfennec"].meat;
-        huntGoldFoxPer = InGameMgr.Instance.miniGameData["game2monser_gfennec"].probability * 100;
-        huntGoldFoxHP = InGameMgr.Instance.miniGameData["game2monser_gfennec"].value1;
-        huntGoldFoxAngrySpeed = InGameMgr.Instance.miniGameData["game2monser_gfennec"].value2;
-        huntGoldFoxMaxNum = InGameMgr.Instance.miniGameData["game2monser_gfennec"].value6;
+        huntGoldFoxSpeed = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].Velocity;
+        huntGoldFoxRes = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].GetAmount1;
+        huntGoldFoxPer = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].Probability * 100;
+        huntGoldFoxHP = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].value1;
+        huntGoldFoxAngrySpeed = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].value2;
+        huntGoldFoxMaxNum = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].value6;
 
         realArrowSpeed = huntArrowSpeed * standardHuntSpeed;
 
@@ -124,16 +111,12 @@ public class Hunt2Manager : MonoBehaviour
         realGoldFoxSpeed = huntGoldFoxSpeed * standardHuntSpeed;
         realWeaselSpeed = huntWeaselSpeed * standardHuntSpeed;
 
-        resolutionScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
 
-        StartPoint = new Vector2(StartP.x * resolutionScale + transform.position.x , StartP.y * heightScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * resolutionScale + transform.position.x , EndP.y * heightScale + transform.position.y);
-        StartPoint2 = new Vector2(StartP2.x * resolutionScale + transform.position.x , StartP2.y * heightScale + transform.position.y);
-        EndPoint2 = new Vector2(EndP2.x * resolutionScale + transform.position.x , EndP2.y * heightScale + transform.position.y);
-
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
-    }
+        StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
+        EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
+        StartPoint2 = new Vector2(StartP2.x * widthScale + transform.position.x , StartP2.y * heightScale + transform.position.y);
+        EndPoint2 = new Vector2(EndP2.x * widthScale + transform.position.x , EndP2.y * heightScale + transform.position.y);
+ }
 
     private void SpawnCactus()
     {
@@ -289,59 +272,24 @@ public class Hunt2Manager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!isFisrt)
-            StartCoroutine(ReStart());
+        
     }
 
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        isShoot = false;
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        RemoveCactus();
-        SpawnCactus();
-        StartCoroutine(SpawnMonster());
-    }
-
-    IEnumerator FirstStart()
-    {
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFisrt = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        StartCoroutine(SpawnMonster());
-    }
+    
 
     public void KillFox()
     {
-        MGM.meat += (int)huntFoxRes;
+        //MGM.meat += (int)huntFoxRes;
     }
 
     public void KillGoldFox()
     {
-        MGM.meat += (int)huntGoldFoxRes;
+        //MGM.meat += (int)huntGoldFoxRes;
     }
 
     public void KillWeasel()
     {
-        MGM.meat += (int)huntWeaselRes;
+        //MGM.meat += (int)huntWeaselRes;
     }
     
 

@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 1676547749264099720}
   m_Layer: 5
   m_Name: Bear
-  m_TagString: Monster
+  m_TagString: MiniGameObj2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -278,7 +278,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216c4af3bee5751439cca58eb3dfb8a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
+  rt: {fileID: 0}
+  ani: {fileID: 0}
+  direction: 0
+  x: 0
+  y: 0
+  isIdle: 0
+  moveTime: 0
+  moveCheck: 0
+  animalHP: 0
   AngryEffect: {fileID: 495572580074049727}
+  realSpeed: 0
 --- !u!95 &7375900887137058681
 Animator:
   serializedVersion: 3

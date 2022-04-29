@@ -2,27 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockMove : MonoBehaviour
+public class BlockMove : MiniGameObjectMgr
 {
-    private CaveManager CM;
+    private CaveManager Mgr;
     private RectTransform rt;
 
     // Start is called before the first frame update
     void Start()
     {
-        CM = GameObject.Find("CaveManager").GetComponent<CaveManager>();
+        Mgr = manager.GetComponent<CaveManager>();
         rt = gameObject.GetComponent<RectTransform>();
         Destroy(gameObject, 5f);
+
+        objectType = 1;
+        //objectType = LoadGameData.Instance.miniGameDatas["game2Lay"].value1;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void MoveAction()
     {
-        if(CM.isRun)
+        if(Mgr.isCheck)
         {
-            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (CM.realSpeed * Time.deltaTime) , rt.anchoredPosition.y);
-            //transform.Translate( - CM.realSpeed * Time.deltaTime, 0, 0);
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (Mgr.realSpeed * Time.deltaTime) , rt.anchoredPosition.y);
         }
-    
     }
 }

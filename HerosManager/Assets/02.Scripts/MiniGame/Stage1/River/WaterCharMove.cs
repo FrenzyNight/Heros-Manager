@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WaterCharMove : MonoBehaviour
+public class WaterCharMove : MiniGameCharMgr
 {
     private WaterManager WM;
     private RectTransform rt;
@@ -18,35 +18,24 @@ public class WaterCharMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        WM = GameObject.Find("WaterManager").GetComponent<WaterManager>();
+        WM = manager.GetComponent<WaterManager>();
         rt = gameObject.GetComponent<RectTransform>();
         BK = GameObject.Find("Bucket").GetComponent<Bucket>();
         CharImg = gameObject.GetComponent<Image>();
         isCrash = false;
+
+        moveType = 4;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            LeftMove();
-        }
 
-        if(Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            RightMove();
-        }
-    }
-
-    void LeftMove()
+    public override void Action1()
     {
         if(rt.anchoredPosition.x != -moveVar)
         {
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (moveVar), rt.anchoredPosition.y);
         }
     }
-    void RightMove()
+    public override void Action2()
     {
         if(rt.anchoredPosition.x != moveVar)
         {
@@ -68,7 +57,7 @@ public class WaterCharMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if(coll.gameObject.CompareTag("Block") && !isCrash)
+        if(coll.gameObject.CompareTag("MiniGameObj1") && !isCrash)
         {
             Destroy(coll.gameObject);
             StartCoroutine(Crash());

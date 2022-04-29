@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BackgroundMove : MonoBehaviour
+public class BackgroundMove : MiniGameObjectMgr
 {
+	private CaveManager Mgr;
 	public GameObject Pair;
 	private RectTransform rt;
 	public float speed;
 
-	private CaveManager CM;
-
-	// UI 대응
 
 	private float moveLength;
 
@@ -21,22 +19,17 @@ public class BackgroundMove : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		CM = GameObject.Find("CaveManager").GetComponent<CaveManager>();
+		Mgr = manager.GetComponent<CaveManager>();
 		rt = gameObject.GetComponent<RectTransform>();
-		
 
 		moveLength = rt.rect.width  * transform.localScale.x;
-
-		
 	}
 	
-	// Update is called once per frame
-	void Update () 
+	void FixedUpdate () 
 	{
-		if(CM.isRun)
+		if(Mgr.isCheck)
 		{
 			rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (speed * Time.deltaTime) , rt.anchoredPosition.y);
-			//transform.Translate( -speed * resolutionScale * Time.deltaTime , 0, 0);
 			
 			if(rt.anchoredPosition.x <= - moveLength)
 			{

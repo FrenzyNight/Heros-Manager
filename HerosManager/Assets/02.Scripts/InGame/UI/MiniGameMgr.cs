@@ -12,7 +12,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
 
     public MiniGameInfo[] miniGames;
     public Transform[] minigamePlaceTrans;
-    public Text[] GuildTexts;
+    public Text[] GuideTexts;
 
     int wood;
     int water;
@@ -46,9 +46,9 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         {
             miniGames[i].obj.SetActive(false);
         }
-        for (int i = 0; i < GuildTexts.Length; i++)
+        for (int i = 0; i < GuideTexts.Length; i++)
         {
-            GuildTexts[i].gameObject.SetActive(false);
+            GuideTexts[i].gameObject.SetActive(false);
         }
 
         MiniGameInfo miniGameInfo;
@@ -57,27 +57,27 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameLeftID1);
             miniGameInfo.obj.SetActive(true);
             miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
-            GuildTexts[0].gameObject.SetActive(true);
-            GuildTexts[0].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID1);
-            GuildTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+            GuideTexts[0].gameObject.SetActive(true);
+            GuideTexts[0].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID1);
+            GuideTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
         }
         if (collectSpaceData.MiniGameRightID2 != "-1")
         {
             miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameRightID2);
             miniGameInfo.obj.SetActive(true);
             miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
-            GuildTexts[1].gameObject.SetActive(true);
-            GuildTexts[1].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID2);
-            GuildTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+            GuideTexts[1].gameObject.SetActive(true);
+            GuideTexts[1].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID2);
+            GuideTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
         }
         if (collectSpaceData.MiniGameCenterID != "-1")
         {
             miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameCenterID);
             miniGameInfo.obj.SetActive(true);
             miniGameInfo.obj.transform.position = minigamePlaceTrans[2].position;
-            GuildTexts[2].gameObject.SetActive(true);
-            GuildTexts[2].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID3);
-            GuildTexts[2].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+            GuideTexts[2].gameObject.SetActive(true);
+            GuideTexts[2].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID3);
+            GuideTexts[2].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
         }
 
         if (collectSpaceData.FunctionID == "MG_S3_Rand_Portal")
@@ -127,9 +127,9 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         {
             miniGames[i].obj.SetActive(false);
         }
-        for (int i = 0; i < GuildTexts.Length; i++)
+        for (int i = 0; i < GuideTexts.Length; i++)
         {
-            GuildTexts[i].gameObject.SetActive(false);
+            GuideTexts[i].gameObject.SetActive(false);
         }
 
         MiniGameInfo miniGameInfo;
@@ -138,20 +138,20 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameLeftID1);
         miniGameInfo.obj.SetActive(true);
         miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
-        GuildTexts[0].gameObject.SetActive(true);
-        GuildTexts[0].text = LoadGameData.Instance.GetString(_randomGameList[rand].MiniGameHelpStringID1);
-        GuildTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+        GuideTexts[0].gameObject.SetActive(true);
+        GuideTexts[0].text = LoadGameData.Instance.GetString(_randomGameList[rand].MiniGameHelpStringID1);
+        GuideTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
 
         rand = UnityEngine.Random.Range(0, _randomGameList.Count);
         miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameRightID2);
         miniGameInfo.obj.SetActive(true);
         miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
-        GuildTexts[1].gameObject.SetActive(true);
-        GuildTexts[1].text = LoadGameData.Instance.GetString(_randomGameList[rand].MiniGameHelpStringID2);
-        GuildTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
+        GuideTexts[1].gameObject.SetActive(true);
+        GuideTexts[1].text = LoadGameData.Instance.GetString(_randomGameList[rand].MiniGameHelpStringID2);
+        GuideTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
     }
 
-    public void AddTempItem(string _item1Code, int _amount1, string _item2Code, int _amount2)
+    public void AddTempItem(string _item1Code, int _amount1)
     {
         switch (_item1Code)
         {
@@ -172,6 +172,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
                 break;
         }
 
+/*
         switch (_item2Code)
         {
             case "Item_Wood":
@@ -190,6 +191,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
                 food += _amount2;
                 break;
         }
+        */
     }
 
     public void CloseMiniGame()

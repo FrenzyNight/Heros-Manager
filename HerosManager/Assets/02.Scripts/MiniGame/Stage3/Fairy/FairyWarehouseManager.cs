@@ -2,19 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FairyWarehouseManager : MonoBehaviour
+public class FairyWarehouseManager : MiniGameSetMgr
 {
-    //기본
-    public MiniGameMgr MGM;
     public GameObject Treasure1Prefab, Treasure2Prefab, Treasure3Prefab;
     public Vector2 tp1, tp2, tp3;
-
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
-    
-    private float widthScale;
-    private float heightScale;
-    private bool isFirst = true;
 
     //standard
     public float fwStandardSpeed;
@@ -58,44 +49,39 @@ public class FairyWarehouseManager : MonoBehaviour
     private bool isTreasure1, isTreasure2, isTreasure3;
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_3_fairyWarehouse");
-
+       
         SetUp();
-        StartCoroutine(FirstStart());
     }
 
     void SetUp()
     {
-        widthScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
         
-        fwTreasure1ResMeat = InGameMgr.Instance.miniGameData["game3treasure1"].meat;
-        fwTreasure1ResHub = InGameMgr.Instance.miniGameData["game3treasure1"].hub;
-        fwTreasure1CoolTime = InGameMgr.Instance.miniGameData["game3treasure1"].cooltime;
-        fwTreasure1GetTime = InGameMgr.Instance.miniGameData["game3treasure1"].value1;
+        fwTreasure1ResMeat = LoadGameData.Instance.miniGameDatas["game3treasure1"].GetAmount1;
+        fwTreasure1ResHub = LoadGameData.Instance.miniGameDatas["game3treasure1"].GetAmount2;
+        fwTreasure1CoolTime = LoadGameData.Instance.miniGameDatas["game3treasure1"].CoolTime;
+        fwTreasure1GetTime = LoadGameData.Instance.miniGameDatas["game3treasure1"].value1;
 
-        fwTreasure2ResMeat= InGameMgr.Instance.miniGameData["game3treasure2"].meat;
-        fwTreasure2ResHub= InGameMgr.Instance.miniGameData["game3treasure2"].hub;
-        fwTreasure2CoolTime= InGameMgr.Instance.miniGameData["game3treasure2"].cooltime;
-        fwTreasure2GetTime = InGameMgr.Instance.miniGameData["game3treasure2"].value1;
+        fwTreasure2ResMeat= LoadGameData.Instance.miniGameDatas["game3treasure2"].GetAmount1;
+        fwTreasure2ResHub= LoadGameData.Instance.miniGameDatas["game3treasure2"].GetAmount2;
+        fwTreasure2CoolTime= LoadGameData.Instance.miniGameDatas["game3treasure2"].CoolTime;
+        fwTreasure2GetTime = LoadGameData.Instance.miniGameDatas["game3treasure2"].value1;
 
-        fwTreasure3ResMeat= InGameMgr.Instance.miniGameData["game3treasure3"].meat;
-        fwTreasure3ResHub= InGameMgr.Instance.miniGameData["game3treasure3"].hub;
-        fwTreasure3CoolTime= InGameMgr.Instance.miniGameData["game3treasure3"].cooltime;
-        fwTreasure3GetTime = InGameMgr.Instance.miniGameData["game3treasure3"].value1;
+        fwTreasure3ResMeat= LoadGameData.Instance.miniGameDatas["game3treasure3"].GetAmount1;
+        fwTreasure3ResHub= LoadGameData.Instance.miniGameDatas["game3treasure3"].GetAmount2;
+        fwTreasure3CoolTime= LoadGameData.Instance.miniGameDatas["game3treasure3"].CoolTime;
+        fwTreasure3GetTime = LoadGameData.Instance.miniGameDatas["game3treasure3"].value1;
 
-        fwLaySpeed= InGameMgr.Instance.miniGameData["game3Lay"].speed;
+        fwLaySpeed= LoadGameData.Instance.miniGameDatas["game3Lay"].Velocity;
 
-        fwFairy1Speed= InGameMgr.Instance.miniGameData["game3fairy1"].speed;
+        fwFairy1Speed= LoadGameData.Instance.miniGameDatas["game3fairy1"].Velocity;
 
-        fwFairy2Speed= InGameMgr.Instance.miniGameData["game3fairy2"].speed;
+        fwFairy2Speed= LoadGameData.Instance.miniGameDatas["game3fairy2"].Velocity;
 
-        fwFairy3Speed= InGameMgr.Instance.miniGameData["game3fairy3"].speed;
+        fwFairy3Speed= LoadGameData.Instance.miniGameDatas["game3fairy3"].Velocity;
 
-        fwFairyLeftTime= InGameMgr.Instance.miniGameData["game3fairy1"].value1;
-        fwFairyRightTime= InGameMgr.Instance.miniGameData["game3fairy1"].value2;
-        fwFairyFrontTime= InGameMgr.Instance.miniGameData["game3fairy1"].value3;
+        fwFairyLeftTime= LoadGameData.Instance.miniGameDatas["game3fairy1"].value1;
+        fwFairyRightTime= LoadGameData.Instance.miniGameDatas["game3fairy1"].value2;
+        fwFairyFrontTime= LoadGameData.Instance.miniGameDatas["game3fairy1"].value3;
 
         //real
 
@@ -112,8 +98,7 @@ public class FairyWarehouseManager : MonoBehaviour
         Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
         Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
             
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
-    }
+        }
 
     void Update()
     {
@@ -133,6 +118,7 @@ public class FairyWarehouseManager : MonoBehaviour
 
     public void GetTreasure(int boxNum)
     {
+        /*
         if(boxNum == 1)
         {
             MGM.meat += (int)fwTreasure1ResMeat;
@@ -151,6 +137,7 @@ public class FairyWarehouseManager : MonoBehaviour
             MGM.hub += (int)fwTreasure3ResHub;
             isTreasure3 = false;
         }
+        */
     }
 
     IEnumerator SpawnTreasure(int boxNum)
@@ -177,39 +164,6 @@ public class FairyWarehouseManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!isFirst)
-            StartCoroutine(ReStart());
     }
 
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-    }
-    IEnumerator FirstStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFirst = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-    }
 }

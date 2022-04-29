@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2991464500044369745}
   m_Layer: 5
   m_Name: Stone
-  m_TagString: Block
+  m_TagString: MiniGameObj2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be276bfe00ebb7f438b85749f8b4951a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
 --- !u!50 &-5106188663813952524
 Rigidbody2D:
   serializedVersion: 4

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Bucket : MonoBehaviour
+public class Bucket : MiniGameObjectMgr
 {
     private WaterManager WM;
     private Image bucketImg;
@@ -14,13 +14,14 @@ public class Bucket : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        WM = GameObject.Find("WaterManager").GetComponent<WaterManager>();
+        WM = manager.GetComponent<WaterManager>();
         bucketImg = gameObject.GetComponent<Image>();
         waterTime = 0;
+
+        objectType = 2;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void UpdateAction()
     {
         waterTime += Time.deltaTime;
 
@@ -45,6 +46,7 @@ public class Bucket : MonoBehaviour
             GetWater();
         }
     }
+
 
     void GetWater()
     {

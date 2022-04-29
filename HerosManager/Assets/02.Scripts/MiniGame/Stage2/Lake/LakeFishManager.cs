@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LakeFishManager : MonoBehaviour
+public class LakeFishManager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-
     public GameObject FishPrefab, GoldFishPrefab;
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
-
-    public float widthScale;
-    public float heightScale;
-    private bool isFirst = true;
 
     private float standardLakeFishSpeed = 50f;
 
@@ -35,8 +27,6 @@ public class LakeFishManager : MonoBehaviour
     private Vector2 StartPoint, EndPoint;
     private Vector2 spawnPoint;
 
-    int rnd;
-
     //real
     public float realFishSpeed;
     public float realGoldFishSpeed;
@@ -45,32 +35,30 @@ public class LakeFishManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_2_desertLake");
-
         SetUp();
-        StartCoroutine(FirstStart());
     }
 
 
 
-    void SetUp()
+    public override void SetUp()
     {
-        widthScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
+        base.SetUp();
 
-        fishStunTime = InGameMgr.Instance.miniGameData["game2fish_norm"].stun;
-        fishCoolTime = InGameMgr.Instance.miniGameData["game2fish_norm"].cooltime;
+        FishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+        GoldFishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
-        fishNormalRes = InGameMgr.Instance.miniGameData["game2fish_norm"].meat;
-        fishNormalSpeed = InGameMgr.Instance.miniGameData["game2fish_norm"].speed;
+        fishStunTime = LoadGameData.Instance.miniGameDatas["game2fish_norm"].Stun;
+        fishCoolTime = LoadGameData.Instance.miniGameDatas["game2fish_norm"].CoolTime;
 
-        fishGoldRes = InGameMgr.Instance.miniGameData["game2fish_gold"].meat;
-        fishGoldPer = InGameMgr.Instance.miniGameData["game2fish_gold"].probability * 100;
-        fishGoldSpeed = InGameMgr.Instance.miniGameData["game2fish_gold"].speed;
+        fishNormalRes = LoadGameData.Instance.miniGameDatas["game2fish_norm"].GetAmount1;
+        fishNormalSpeed = LoadGameData.Instance.miniGameDatas["game2fish_norm"].Velocity;
 
-        fishLineSpeed = InGameMgr.Instance.miniGameData["game2fishingline"].speed;
-        fishLineCatchSpeedVar = InGameMgr.Instance.miniGameData["game2fishingline"].value1;
+        fishGoldRes = LoadGameData.Instance.miniGameDatas["game2fish_gold"].GetAmount1;
+        fishGoldPer = LoadGameData.Instance.miniGameDatas["game2fish_gold"].Probability * 100;
+        fishGoldSpeed = LoadGameData.Instance.miniGameDatas["game2fish_gold"].Velocity;
+
+        fishLineSpeed = LoadGameData.Instance.miniGameDatas["game2fishingline"].Velocity;
+        fishLineCatchSpeedVar = LoadGameData.Instance.miniGameDatas["game2fishingline"].value1;
 
         realFishSpeed = standardLakeFishSpeed * fishNormalSpeed;
         realGoldFishSpeed = standardLakeFishSpeed * fishGoldSpeed;
@@ -78,18 +66,16 @@ public class LakeFishManager : MonoBehaviour
 
         StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
         EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
-
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
     }
 
     public void GetFish()
     {
-        MGM.meat += (int)fishNormalRes;
+       // MGM.meat += (int)fishNormalRes;
     }
 
     public void GetGoldFish()
     {
-        MGM.meat += (int)fishGoldRes;
+       // MGM.meat += (int)fishGoldRes;
     }
 
     IEnumerator SpawnFish()
@@ -133,43 +119,9 @@ public class LakeFishManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!isFirst)
-            StartCoroutine(ReStart());
     }
 
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-    }
-    IEnumerator FirstStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFirst = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        StartCoroutine(SpawnFish());
-    }
+    
 
     void OnDrawGizmos()
     {

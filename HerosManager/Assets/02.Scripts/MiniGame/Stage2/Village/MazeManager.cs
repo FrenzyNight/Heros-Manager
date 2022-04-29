@@ -2,23 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MazeManager : MonoBehaviour
+public class MazeManager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
-
     public GameObject Wall, Road;
 
     private GameObject[,] maze;
     private float x,y;
     public float blockSize;
     public int mazesize;
-
-    public float resolutionScale;
-    public float heightScale;
-    private bool isFirst = true;
-
     private float mazeStandardSpeed = 300f;
     //road
 
@@ -27,26 +18,19 @@ public class MazeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_2_ruins");
-
         maze = new GameObject[mazesize,mazesize];
 
         SetUp();
-        StartCoroutine(FirstStart());
         MakeMaze();
     }
 
     void SetUp()
     {
-        resolutionScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
 
-        mazeCharSpeed = InGameMgr.Instance.miniGameData["game2maze"].speed;
+        mazeCharSpeed = LoadGameData.Instance.miniGameDatas["game2maze"].Velocity;
 
         realMazeCharSpeed = mazeStandardSpeed * mazeCharSpeed;
     
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
     }
 
     void MakeMaze()
@@ -217,43 +201,6 @@ public class MazeManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!isFirst)
-            StartCoroutine(ReStart());
     }
 
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        ResetMaze();
-        //StartCoroutine(SpawnObject());
-    }
-    IEnumerator FirstStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFirst = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        
-    }
 }

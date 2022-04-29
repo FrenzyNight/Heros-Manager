@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Hub : MonoBehaviour
+public class Hub : MiniGameObjectMgr
 {
-    private HubManager HM;
+    public bool isGold;
+    private HubManager Mgr;
     public GameObject GageImg;
     private GameObject Gage;
 
@@ -18,15 +19,15 @@ public class Hub : MonoBehaviour
     
     void Start()
     {
-        HM = GameObject.Find("HubManager").GetComponent<HubManager>();
+        Mgr = manager.GetComponent<HubManager>();
         tr = GetComponent<Transform>();
         Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("Hub").transform);
         Gage.GetComponent<Image>().fillAmount = 0;
     }
 
-    void Update()
+    public override void UpdateAction()
     {
-        Gage.GetComponent<Image>().fillAmount = HubTime / HM.hubGetTime;
+        Gage.GetComponent<Image>().fillAmount = HubTime / Mgr.hubGetTime;
         if(isTouch)
         {
             HubTime += Time.deltaTime;
@@ -36,19 +37,21 @@ public class Hub : MonoBehaviour
             hubSpan += Time.deltaTime;
         }
 
-        if(HubTime >= HM.hubGetTime)
+        if(HubTime >= Mgr.hubGetTime)
         {
 
             Debug.Log("Get Hub");
             //허브 획득
-            HM.GetHub();
-            //HM.hubNormalRes
+            if(isGold)
+                Mgr.GetGoldHub();
+            else
+                Mgr.GetHub();
             Destroy(Gage);
             Destroy(gameObject);
             
         }
 
-        if(hubSpan >= HM.hubSpanTime) //허브사라짐
+        if(hubSpan >= Mgr.hubSpanTime) //허브사라짐
         {
             Destroy(Gage);
             Destroy(gameObject);

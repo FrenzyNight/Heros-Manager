@@ -2,17 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OasisManager : MonoBehaviour
+public class OasisManager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-
-    public GameObject GuidText, GuidPanel;
     public GameObject MeatPrefab, TreePrefab, WaterPrefab;
-    private Vector2 TextTarget;
-
-    public float widthScale;
-    public float heightScale;
-    private bool isFirst = true;
 
     private float standardOasisSpeed = 72f;
     //road
@@ -36,45 +28,37 @@ public class OasisManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_2_oasis");
-
         SetUp();
-        StartCoroutine(FirstStart());
     }
 
     void SetUp()
     {
-        widthScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
 
         meatNum = 0;
         waterNum = 0;
         treeNum = 0;
 
-        oasisCharSpeed = InGameMgr.Instance.miniGameData["game2lay"].speed;
+        oasisCharSpeed = LoadGameData.Instance.miniGameDatas["game2lay"].Velocity;
 
-        oasisMeatRes = InGameMgr.Instance.miniGameData["game2meat"].meat;
-        oasisMeatMaxNum = InGameMgr.Instance.miniGameData["game2meat"].value1;
+        oasisMeatRes = LoadGameData.Instance.miniGameDatas["game2meat"].GetAmount1;
+        oasisMeatMaxNum = LoadGameData.Instance.miniGameDatas["game2meat"].value1;
 
-        oasisWaterRes = InGameMgr.Instance.miniGameData["game2water"].water;
-        oasisWaterMaxNum = InGameMgr.Instance.miniGameData["game2water"].value1;
+        oasisWaterRes = LoadGameData.Instance.miniGameDatas["game2water"].GetAmount1;
+        oasisWaterMaxNum = LoadGameData.Instance.miniGameDatas["game2water"].value1;
 
-        oasisTreeRes = InGameMgr.Instance.miniGameData["game2tree"].wood;
-        oasisTreeMaxNum = InGameMgr.Instance.miniGameData["game2tree"].value1;
+        oasisTreeRes = LoadGameData.Instance.miniGameDatas["game2tree"].GetAmount1;
+        oasisTreeMaxNum = LoadGameData.Instance.miniGameDatas["game2tree"].value1;
 
-        oasisNetSpeed = InGameMgr.Instance.miniGameData["game2net"].speed;
+        oasisNetSpeed = LoadGameData.Instance.miniGameDatas["game2net"].Velocity;
 
         realOasisNetSpeed = standardOasisSpeed * oasisNetSpeed;
         realOasisCharSpeed = standardOasisSpeed * oasisCharSpeed;
 
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
+       
     }
 
     public void StartGame()
     {
-        if(!isFirst)
-            StartCoroutine(ReStart());
     }
 
     void SpawnObject()
@@ -108,19 +92,19 @@ public class OasisManager : MonoBehaviour
 
     public void GetWater()
     {
-        MGM.water += (int)oasisWaterRes;
+        //MGM.water += (int)oasisWaterRes;
         waterNum--;
     }
 
     public void GetMeat()
     {
-        MGM.meat += (int)oasisMeatRes;
+        //MGM.meat += (int)oasisMeatRes;
         meatNum--;
     }
 
     public void GetTree()
     {
-        MGM.wood += (int)oasisTreeRes;
+        //MGM.wood += (int)oasisTreeRes;
         treeNum--;
     }
     
@@ -133,43 +117,9 @@ public class OasisManager : MonoBehaviour
         SpawnObject();
         yield return new WaitForSeconds(oasisCharSpeed * 5f);
 
-        MGM.CloseCurrentGame();
+        //MGM.CloseCurrentGame();
         yield return null;
     }
 
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        StartCoroutine(OasisRoutine());
-    }
-    IEnumerator FirstStart()
-    {
-        
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFirst = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        StartCoroutine(OasisRoutine());
-    }
+    
 }

@@ -6,25 +6,10 @@ TagManager:
   tags:
   - Map
   - Land
-  - Block
-  - Jem
-  - Monster
-  - Arrow
-  - BugTree
-  - GoldTree
-  - NormalTree
-  - Cactus
-  - Bottom
-  - Fish
-  - GoldFish
-  - Hook
-  - Treasure
-  - Tree
-  - Water
-  - Meat
   - CampObject
-  - Altar
-  - Observer
+  - MiniGameObj1
+  - MiniGameObj2
+  - MiniGameObj3
   layers:
   - Default
   - TransparentFX

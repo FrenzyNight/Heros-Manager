@@ -4,12 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
-public class HuntManager : MonoBehaviour
+public class HuntManager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
-    private bool isFisrt = true;
 
     public GameObject FoxPrefab, BearPrefab;
     public Vector2 StartP, EndP;
@@ -19,7 +15,6 @@ public class HuntManager : MonoBehaviour
     private float x, y;
     public int foxNum;
     public int bearNum;
-    private int rnd;
 
     //read
     public float standardHuntSpeed = 1000f;
@@ -33,12 +28,12 @@ public class HuntManager : MonoBehaviour
     public float huntMonsterIdleTime;
 
     public float huntFoxSpeed;
-    public float huntFoxRes;
+    public int huntFoxRes;
     public float huntFoxPer;
     public float huntFoxHP;
 
     public float huntBearSpeed;
-    public float huntBearRes;
+    public int huntBearRes;
     public float huntBearPer;
     public float huntBearHP;
     public float huntBearAngrySpeed;
@@ -48,58 +43,55 @@ public class HuntManager : MonoBehaviour
     public float realFoxSpeed;
     public float realBearSpeed;
 
-    public bool isShoot;
-
-    public float resolutionScale;
-    public float heightScale;
 
     // Start is called before the first frame update
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_1_Grassland");
         SetUp();
-        StartCoroutine(FirstStart());
     }
 
 
-    void SetUp()
+    public override void SetUp()
     {
+        base.SetUp();
+
+        BearPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+        FoxPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+
         foxNum = 0;
         bearNum = 0;
-        isShoot = false;
-        huntArrowSpeed = InGameMgr.Instance.miniGameData["game1arrow"].speed;
-        huntArrowCoolTime = InGameMgr.Instance.miniGameData["game1arrow"].cooltime;
+        huntArrowSpeed = LoadGameData.Instance.miniGameDatas["game1arrow"].Velocity;
+        huntArrowCoolTime = LoadGameData.Instance.miniGameDatas["game1arrow"].CoolTime;
 
-        huntMonsterCoolTime = InGameMgr.Instance.miniGameData["game1monster_fox"].cooltime;
-        huntMonsterMaxNum = InGameMgr.Instance.miniGameData["game1monster_fox"].value6;
-        huntMonsterMinMoveTime = InGameMgr.Instance.miniGameData["game1monster_fox"].value4;
-        huntMonsterMaxMoveTime = InGameMgr.Instance.miniGameData["game1monster_fox"].value5;
-        huntMonsterIdleTime= InGameMgr.Instance.miniGameData["game1monster_fox"].value3;
+        huntMonsterCoolTime = LoadGameData.Instance.miniGameDatas["game1monster_fox"].CoolTime;
+        huntMonsterMaxNum = LoadGameData.Instance.miniGameDatas["game1monster_fox"].value6;
+        huntMonsterMinMoveTime = LoadGameData.Instance.miniGameDatas["game1monster_fox"].value4;
+        huntMonsterMaxMoveTime = LoadGameData.Instance.miniGameDatas["game1monster_fox"].value5;
+        huntMonsterIdleTime= LoadGameData.Instance.miniGameDatas["game1monster_fox"].value3;
 
-        huntFoxSpeed = InGameMgr.Instance.miniGameData["game1monster_fox"].speed;
-        huntFoxRes = InGameMgr.Instance.miniGameData["game1monster_fox"].meat;
-        huntFoxPer = InGameMgr.Instance.miniGameData["game1monster_fox"].probability * 100;
-        huntFoxHP = InGameMgr.Instance.miniGameData["game1monster_fox"].value1;
+        huntFoxSpeed = LoadGameData.Instance.miniGameDatas["game1monster_fox"].Velocity;
+        huntFoxRes = (int)LoadGameData.Instance.miniGameDatas["game1monster_fox"].GetAmount1;
+        huntFoxPer = LoadGameData.Instance.miniGameDatas["game1monster_fox"].Probability * 100;
+        huntFoxHP = LoadGameData.Instance.miniGameDatas["game1monster_fox"].value1;
 
-        huntBearSpeed = InGameMgr.Instance.miniGameData["game1monster_bear"].speed;
-        huntBearRes = InGameMgr.Instance.miniGameData["game1monster_bear"].meat;
-        huntBearPer = InGameMgr.Instance.miniGameData["game1monster_bear"].probability * 100;
-        huntBearHP = InGameMgr.Instance.miniGameData["game1monster_bear"].value1;
-        huntBearAngrySpeed = InGameMgr.Instance.miniGameData["game1monster_bear"].value2;
+        huntBearSpeed = LoadGameData.Instance.miniGameDatas["game1monster_bear"].Velocity;
+        huntBearRes = (int)LoadGameData.Instance.miniGameDatas["game1monster_bear"].GetAmount1;
+        huntBearPer = LoadGameData.Instance.miniGameDatas["game1monster_bear"].Probability * 100;
+        huntBearHP = LoadGameData.Instance.miniGameDatas["game1monster_bear"].value1;
+        huntBearAngrySpeed = LoadGameData.Instance.miniGameDatas["game1monster_bear"].value2;
+
+        item1ID = LoadGameData.Instance.miniGameDatas["game1monster_fox"].GetItemID1;
 
         realArrowSpeed = huntArrowSpeed * standardHuntSpeed;
         realFoxSpeed = huntFoxSpeed * standardHuntSpeed;
         realBearSpeed = huntBearSpeed * standardHuntSpeed;
 
-        resolutionScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
-        StartPoint = new Vector2(StartP.x * resolutionScale + transform.position.x , StartP.y * heightScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * resolutionScale + transform.position.x , EndP.y * heightScale + transform.position.y);
-        StartPoint2 = new Vector2(StartP2.x * resolutionScale + transform.position.x , StartP2.y * heightScale + transform.position.y);
-        EndPoint2 = new Vector2(EndP2.x * resolutionScale + transform.position.x , EndP2.y * heightScale + transform.position.y);
-
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
+        StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
+        EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
+        StartPoint2 = new Vector2(StartP2.x * widthScale + transform.position.x , StartP2.y * heightScale + transform.position.y);
+        EndPoint2 = new Vector2(EndP2.x * widthScale + transform.position.x , EndP2.y * heightScale + transform.position.y);
+    
+        StartGame();
     }
 
     
@@ -126,27 +118,27 @@ public class HuntManager : MonoBehaviour
                 if(rnd <= huntFoxPer)
                 {
                     //fox Spawn
-                    Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt").transform);
+                    Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform);
                     foxNum++;
                 }
                 else
                 {
                     //bearSpawn
-                    Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt").transform);
+                    Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform);
                     bearNum++;
                 }
             }
             else if(foxNum < huntMonsterMaxNum && bearNum == huntMonsterMaxNum)
             {
                 //fox
-                Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt").transform);
+                Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform);
                 foxNum++;
             }
 
             else if(foxNum == huntMonsterMaxNum && bearNum < huntMonsterMaxNum)
             {
                 //bear
-                Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt").transform);
+                Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform);
                 bearNum++;
             }
 
@@ -156,57 +148,20 @@ public class HuntManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(!isFisrt)
-            StartCoroutine(ReStart());
-    }
-
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        isShoot = false;
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
+        base.StartGame();
         StartCoroutine(SpawnMonster());
     }
-    IEnumerator FirstStart()
-    {
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFisrt = false;
 
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-
-        
-
-        StartCoroutine(SpawnMonster());
-    }
 
     public void KillFox()
     {
-        MGM.meat += (int)huntFoxRes;
+        base.AddItem(item1ID, huntFoxRes);
     }
 
     public void KillBear()
     {
-        MGM.meat += (int)huntBearRes;
+        base.AddItem(item1ID, huntBearRes);
     }
-    
-
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

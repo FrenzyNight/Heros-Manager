@@ -2,40 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WoodManager : MonoBehaviour
+public class WoodManager : MiniGameSetMgr
 {
-    public MiniGameMgr MGM;
-    public GameObject GuidText, GuidPanel;
-    private Vector2 TextTarget;
 
     public GameObject NormalWoodPrefab, GoldWoodPrefab;
     private GameObject NowWood;
 
     public GameObject WoodChar;
-    public float charDistance;
-    //UI
-    public float widthScale;
-    public float heightScale;
-    private bool isFirst = true;
+    
 
     //road
     public float woodStunTime;
 
-    public float woodNormalRes;
+    public int woodNormalRes;
 
     public float woodGoldPer;
-    public float woodGoldRes;
+    public int woodGoldRes;
 
     //game
     public int woodDirection;
     public bool isStun;
+    public float charDistance;
+    
     void Start()
     {
-        MGM = GameObject.Find("MiniGameMgr").GetComponent<MiniGameMgr>();
-        InGameMgr.Instance.EnterMiniGame("Stage_1_Forest");
-
         SetUp();
-        StartCoroutine(FirstStart());
     }
 
     // Update is called once per frame
@@ -62,21 +53,23 @@ public class WoodManager : MonoBehaviour
         }
     }
 
-    void SetUp()
+    public override void SetUp()
     {
-        widthScale = Screen.width / 1920f;
-        heightScale = Screen.height / 1080f;
+        base.SetUp();
         isStun = false;
 
-        woodStunTime = InGameMgr.Instance.miniGameData["game1tree_normal"].stun;
+        woodStunTime = LoadGameData.Instance.miniGameDatas["game1tree_normal"].Stun;
 
-        woodGoldRes = InGameMgr.Instance.miniGameData["game1tree_gold"].wood;
-        woodGoldPer = InGameMgr.Instance.miniGameData["game1tree_gold"].probability * 100;
+        woodGoldRes = (int)LoadGameData.Instance.miniGameDatas["game1tree_gold"].GetAmount1;
+        woodGoldPer = LoadGameData.Instance.miniGameDatas["game1tree_gold"].Probability * 100;
 
-        woodNormalRes = InGameMgr.Instance.miniGameData["game1tree_normal"].wood;
+        woodNormalRes = (int)LoadGameData.Instance.miniGameDatas["game1tree_normal"].GetAmount1;
+
+        item1ID = LoadGameData.Instance.miniGameDatas["game1tree_normal"].GetItemID1;
     
-        TextTarget = new Vector2(GuidText.GetComponent<RectTransform>().anchoredPosition.x, GuidText.GetComponent<RectTransform>().anchoredPosition.y + MGM.textPosition);
+        StartGame();
     }
+
 
     void CheckWoodDirection(int input)
     {
@@ -106,11 +99,11 @@ public class WoodManager : MonoBehaviour
         {
            if(NowWood.CompareTag("NormalTree"))
            {
-               GetNormalWood();
+               AddItem(item1ID,woodNormalRes);
            }
            else if(NowWood.CompareTag("GoldTree"))
            {
-               GetGoldWood();
+               AddItem(item1ID,woodGoldRes);
            }
 
            Destroy(NowWood);
@@ -167,56 +160,11 @@ public class WoodManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
-        if(!isFirst)
-            StartCoroutine(ReStart());
-    }
-
-    void GetNormalWood()
-    {
-        MGM.wood += (int)woodNormalRes;
-    }
-
-    void GetGoldWood()
-    {
-        MGM.wood += (int)woodGoldRes;
-    }
-
-    IEnumerator ReStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
-
-        Destroy(NowWood);
-        SpawnWood();
-        //StartCoroutine(SpawnObject());
-    }
-    IEnumerator FirstStart()
-    {
-        GuidPanel.SetActive(true);
-        GuidText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,0);
-        
-        yield return new WaitForSeconds(MGM.firstTime);
-        GuidPanel.SetActive(false);
-        isFirst = false;
-
-        while (Vector2.Distance(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget) >= 0.1f)
-        {
-            GuidText.GetComponent<RectTransform>().anchoredPosition = Vector2.Lerp(GuidText.GetComponent<RectTransform>().anchoredPosition, TextTarget, Time.deltaTime * MGM.textSpeed);
-
-            yield return null;
-        }
+        base.StartGame();
 
         SpawnWood();
     }
+
 }
