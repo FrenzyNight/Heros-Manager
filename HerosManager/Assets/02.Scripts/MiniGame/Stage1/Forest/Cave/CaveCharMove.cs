@@ -17,7 +17,9 @@ public class CaveCharMove : MiniGameCharMgr
         Mgr = manager.GetComponent<CaveManager>();
         rigid = gameObject.GetComponent<Rigidbody2D>();
         rigid.gravityScale = rigid.gravityScale * Mgr.heightScale;
+        isCheck = false;
 
+        objectType = 5;
         moveType = 1;
         //moveType = LoadGameData.Instance.miniGameDatas["game1Lay"].value1;
         //
@@ -25,6 +27,7 @@ public class CaveCharMove : MiniGameCharMgr
 
     public override void Action1() //Jump
     {
+        //Debug.Log("Jump");
         if(!isCheck)
         {
             rigid.velocity = new Vector3(0, Mgr.realCharJump * Mgr.heightScale, 0);
@@ -53,11 +56,13 @@ public class CaveCharMove : MiniGameCharMgr
         RunStat.SetActive(false);
         SlideStat.SetActive(false);
         StunStat.SetActive(true);
+        isCheck = false;
         Mgr.isCheck = false;
         yield return new WaitForSeconds(Mgr.stunTime);
 
         StunStat.SetActive(false);
         RunStat.SetActive(true);
+        isCheck = true;
         Mgr.isCheck = true;
         yield return null;
     }

@@ -37,15 +37,14 @@ public class CaveManager : MiniGameSetMgr
 
     public override void SetUp()
     {
-        Debug.Log("Setup Test1");
         base.SetUp();
 
         
         isCheck = true;
-        Debug.Log("Setup Test2");
 
-        //DownStonePrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        //UpStonePrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+        DownStonePrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+        UpStonePrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+        JemPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
         varSpeed = LoadGameData.Instance.miniGameDatas["game1cage_normal"].Velocity;
         coolTime = LoadGameData.Instance.miniGameDatas["game1cage_normal"].CoolTime;

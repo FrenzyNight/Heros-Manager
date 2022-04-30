@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16086814, g: 0.38072407, b: 0.9632411, a: 1}
+  m_IndirectSpecularColor: {r: 0.1518785, g: 0.35675228, b: 0.9668717, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1543,7 +1543,7 @@ GameObject:
   - component: {fileID: 59829733}
   m_Layer: 5
   m_Name: Image (2)
-  m_TagString: Block
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1792,8 +1792,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 267.00003, y: 267.06863}
+  m_AnchoredPosition: {x: -0.000048637, y: 0}
+  m_SizeDelta: {x: 200, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &69213636
 Animator:
@@ -1833,8 +1833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6757018106555847637, guid: 60c4f4e1fa604e24789048377ece5d24,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: cdb5567b563e7274eb9aba547f504ad8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1865,7 +1864,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -100}
+  m_Offset: {x: 10, y: -30}
   m_Size: {x: 160, y: 65}
   m_Direction: 1
 --- !u!1 &72439607
@@ -2014,7 +2013,7 @@ GameObject:
   - component: {fileID: 76596948}
   m_Layer: 5
   m_Name: Image (1)
-  m_TagString: Block
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2545,7 +2544,7 @@ GameObject:
   - component: {fileID: 133179617}
   m_Layer: 5
   m_Name: Image
-  m_TagString: Block
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3601,7 +3600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a17d15677528b40a6fe741f69533b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 1585644564}
   objectType: 0
   img1: {fileID: 21300000, guid: 9664dcd2c87827a43b4258549e9495ec, type: 3}
   img2: {fileID: 21300000, guid: 4483850510aed4540a40ae1f8374a492, type: 3}
@@ -3863,7 +3862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd6fd48277e0bc4c8052a67b62d8b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mother: {fileID: 0}
+  mother: {fileID: 1153594530}
   widthScale: 0
   heightScale: 0
   rnd: 0
@@ -13405,7 +13404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88687a1472ea6d4439c7a59c9cd14b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 1585644564}
   objectType: 0
   moveType: 0
   isStun: 0
@@ -15438,7 +15437,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 267.00003, y: 267.06863}
+  m_SizeDelta: {x: 200, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &556406542
 Animator:
@@ -15478,8 +15477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6086778742049746264, guid: 60c4f4e1fa604e24789048377ece5d24,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: bde602d39f044fb4fb167e9c118e099a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15497,8 +15495,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556406540}
   m_CullTransparentMesh: 0
---- !u!58 &556406545
-CircleCollider2D:
+--- !u!70 &556406545
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15510,9 +15508,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -60}
-  serializedVersion: 2
-  m_Radius: 70
+  m_Offset: {x: 0, y: 30}
+  m_Size: {x: 150, y: 65}
+  m_Direction: 1
 --- !u!1 &556856606
 GameObject:
   m_ObjectHideFlags: 0
@@ -16565,7 +16563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &619897730
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17940,7 +17938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &685907878
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20144,7 +20142,7 @@ GameObject:
   - component: {fileID: 748014042}
   m_Layer: 5
   m_Name: Image
-  m_TagString: Block
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22031,7 +22029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0140370a34f0b2e49986f11b6eae9972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 231792641}
   objectType: 0
   direction: 0
 --- !u!1001 &848204782
@@ -24219,6 +24217,8 @@ MonoBehaviour:
     type: 3}
   BearPrefab: {fileID: 5165164910398136316, guid: 663960be50bdd2d44b1c055a988c12cc,
     type: 3}
+  ArrowPrefab: {fileID: 5342781513658744933, guid: 6a197e41c333d484289305f1fb256a9b,
+    type: 3}
   StartP: {x: -280, y: -280}
   EndP: {x: 280, y: -30}
   StartP2: {x: -280, y: 30}
@@ -24521,7 +24521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1019303500
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25916,7 +25916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1095500101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27302,7 +27302,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1153594531
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29120,7 +29120,7 @@ GameObject:
   - component: {fileID: 1260335709}
   m_Layer: 5
   m_Name: Image (1)
-  m_TagString: Block
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31653,39 +31653,39 @@ MonoBehaviour:
   MiniGamePanel: {fileID: 1261467126}
   ExitBtn: {fileID: 1919175}
   miniGames:
-  - code: 'MG_S1_Tree '
+  - code: MG_S1_Tree
     obj: {fileID: 1019303499}
-  - code: 'MG_S1_Cage '
+  - code: MG_S1_Cage
     obj: {fileID: 685907877}
-  - code: 'MG_S1_Hub '
+  - code: MG_S1_Hub
     obj: {fileID: 2143593970}
-  - code: 'MG_S1_Hunt '
+  - code: MG_S1_Hunt
     obj: {fileID: 1820804874}
-  - code: 'MG_S1_Fish '
+  - code: MG_S1_Fish
     obj: {fileID: 1153594530}
   - code: MG_S1_Water
     obj: {fileID: 2020573473}
-  - code: 'MG_S2_Tree '
+  - code: MG_S2_Tree
     obj: {fileID: 1486298699}
-  - code: 'MG_S2_Maze '
+  - code: MG_S2_Maze
     obj: {fileID: 791989573}
-  - code: 'MG_S2_Hub '
+  - code: MG_S2_Hub
     obj: {fileID: 2135341225}
-  - code: 'MG_S2_Hunt '
+  - code: MG_S2_Hunt
     obj: {fileID: 778009815}
-  - code: 'MG_S2_Fish '
+  - code: MG_S2_Fish
     obj: {fileID: 598702064}
-  - code: 'MG_S2_Water '
+  - code: MG_S2_Water
     obj: {fileID: 819796033}
-  - code: 'MG_S2_Oasis '
+  - code: MG_S2_Oasis
     obj: {fileID: 651837092}
-  - code: 'MG_S3_Magicspring '
+  - code: MG_S3_Magicspring
     obj: {fileID: 270152750}
-  - code: 'MG_S3_FairyWarehouse '
+  - code: MG_S3_FairyWarehouse
     obj: {fileID: 506454174}
-  - code: 'MG_S3_Portal '
+  - code: MG_S3_Portal
     obj: {fileID: 506454174}
-  - code: 'MG_S3_Worldtree '
+  - code: MG_S3_Worldtree
     obj: {fileID: 506454174}
   minigamePlaceTrans:
   - {fileID: 1019303500}
@@ -31695,6 +31695,7 @@ MonoBehaviour:
   - {fileID: 859358268}
   - {fileID: 565972580}
   - {fileID: 2035667907}
+  ItemText: {fileID: 239064601}
 --- !u!1 &1400365177
 GameObject:
   m_ObjectHideFlags: 0
@@ -35750,7 +35751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 298fbc879e9bf224088f1bff3c791976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mother: {fileID: 0}
+  mother: {fileID: 2020573473}
   widthScale: 0
   heightScale: 0
   rnd: 0
@@ -37876,8 +37877,6 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   mouse: {x: 0, y: 0}
   angle: 0
-  ArrowPrefab: {fileID: 5342781513658744933, guid: 6a197e41c333d484289305f1fb256a9b,
-    type: 3}
 --- !u!95 &1751420317
 Animator:
   serializedVersion: 3
@@ -39036,7 +39035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0140370a34f0b2e49986f11b6eae9972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 231792641}
   objectType: 0
   direction: 0
 --- !u!1 &1813316598
@@ -39249,7 +39248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1820804875
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39996,7 +39995,7 @@ GameObject:
   - component: {fileID: 1856680774}
   m_Layer: 5
   m_Name: Image (2)
-  m_TagString: Block
+  m_TagString: MiniGameObj1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40413,7 +40412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1887370456
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42499,7 +42498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2020573474
 RectTransform:
   m_ObjectHideFlags: 0
@@ -45012,7 +45011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2143593971
 RectTransform:
   m_ObjectHideFlags: 0

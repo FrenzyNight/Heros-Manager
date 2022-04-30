@@ -14,6 +14,8 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
     public Transform[] minigamePlaceTrans;
     public Text[] GuideTexts;
 
+    public Text ItemText;
+
     int wood;
     int water;
     int meat;
@@ -70,6 +72,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             GuideTexts[1].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID2);
             GuideTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
         }
+        /*
         if (collectSpaceData.MiniGameCenterID != "-1")
         {
             miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameCenterID);
@@ -79,6 +82,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             GuideTexts[2].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID3);
             GuideTexts[2].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
         }
+        */
 
         if (collectSpaceData.FunctionID == "MG_S3_Rand_Portal")
         {
@@ -89,6 +93,14 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             cycleRandomGameCo = CycleRandomGameCo();
             StartCoroutine(cycleRandomGameCo);
         }
+
+        SetItemText();
+    }
+
+    void SetItemText()
+    {
+        ItemText.text = wood.ToString()+ ", " + water.ToString()+ ", "
+                     + meat.ToString()+ ", " + hub.ToString()+ ", " + food.ToString();
     }
 
     IEnumerator CycleRandomGameCo()
@@ -171,6 +183,8 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
                 food += _amount1;
                 break;
         }
+
+        SetItemText();
 
 /*
         switch (_item2Code)

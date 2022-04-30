@@ -18,6 +18,9 @@ public class FoxMove : MiniGameAnimalMove
         realSpeed = Mgr.realFoxSpeed;
         
         objectType = 3;
+
+        SetMoveTime();
+        SetDirection();
     }
 
     public override IEnumerator SetIdle()
@@ -34,7 +37,7 @@ public class FoxMove : MiniGameAnimalMove
     public override void SetMoveTime()
     {
         moveCheck = 0;
-        moveTime = Random.Range(Mgr.huntMonsterMinMoveTime,Mgr.huntMonsterMaxMoveTime);
+        moveTime = Random.Range(Mgr.huntMonsterMinMoveTime, Mgr.huntMonsterMaxMoveTime);
     }
 
     public override void Death()

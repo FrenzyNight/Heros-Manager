@@ -22,9 +22,6 @@ public class MiniGameAnimalMove : MiniGameObjectMgr
         rt.SetAsLastSibling();
         ani = GetComponent<Animator>();
         isIdle = false;
-
-        SetMoveTime();
-        SetDirection();
     }
 
     public override void MoveAction()

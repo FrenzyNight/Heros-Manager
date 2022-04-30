@@ -8,6 +8,7 @@ public class HuntManager : MiniGameSetMgr
 {
 
     public GameObject FoxPrefab, BearPrefab;
+    public GameObject ArrowPrefab;
     public Vector2 StartP, EndP;
     public Vector2 StartP2, EndP2;
     private Vector2 StartPoint, EndPoint;
@@ -57,6 +58,7 @@ public class HuntManager : MiniGameSetMgr
 
         BearPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
         FoxPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
+        ArrowPrefab.transform.GetChild(0).GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
         foxNum = 0;
         bearNum = 0;

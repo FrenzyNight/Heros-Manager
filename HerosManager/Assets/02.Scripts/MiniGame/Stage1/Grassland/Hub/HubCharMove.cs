@@ -17,6 +17,7 @@ public class HubCharMove : MiniGameCharMgr
         rt = gameObject.GetComponent<RectTransform>();
         ani = gameObject.GetComponent<Animator>();
 
+        objectType = 5;
         moveType = 2;
         //moveType = LoadGameData.Instance.miniGameDatas["game2Lay"].value1;
         

@@ -25,6 +25,7 @@ public class WaterCharMove : MiniGameCharMgr
         isCrash = false;
 
         moveType = 4;
+        objectType = 5;
     }
 
 

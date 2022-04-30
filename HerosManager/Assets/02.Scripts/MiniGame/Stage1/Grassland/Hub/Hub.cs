@@ -21,8 +21,9 @@ public class Hub : MiniGameObjectMgr
     {
         Mgr = manager.GetComponent<HubManager>();
         tr = GetComponent<Transform>();
-        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("Hub").transform);
+        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, Mgr.mother.transform);
         Gage.GetComponent<Image>().fillAmount = 0;
+        objectType = 2;
     }
 
     public override void UpdateAction()

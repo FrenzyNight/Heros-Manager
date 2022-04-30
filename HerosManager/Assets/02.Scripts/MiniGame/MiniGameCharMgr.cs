@@ -14,6 +14,7 @@ public class MiniGameCharMgr : MiniGameObjectMgr
     void Start()
     {
         objectType = 5;
+        Debug.Log("부모ㅓ");
     }
 
     public override void UpdateAction()
@@ -129,7 +130,8 @@ public class MiniGameCharMgr : MiniGameObjectMgr
         this.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
         if(Input.GetMouseButtonDown(0) && !isCheck)
         {
-            StartCoroutine("ShootArrow");
+            Action1();
+            //StartCoroutine("ShootArrow");
         }
     }
 

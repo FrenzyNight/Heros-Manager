@@ -13,6 +13,8 @@ public class FishMove : MiniGameObjectMgr
     {
         FM = manager.GetComponent<FishManager>();
         rt = gameObject.GetComponent<RectTransform>();
+
+        objectType = 1;
     }
 
     public override void MoveAction()

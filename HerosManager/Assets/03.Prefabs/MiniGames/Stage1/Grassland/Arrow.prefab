@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 2520276142961346333}
   m_Layer: 5
   m_Name: Image
-  m_TagString: Arrow
+  m_TagString: MiniGameObj3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
