@@ -47,16 +47,20 @@ public class AdventureManager : MonoBehaviour
         WarningText.text = LoadGameData.Instance.GetString("Journey_a1");
 
         ResultTitleText.text = LoadGameData.Instance.GetString("Journey_t3");
-        perfectStr = LoadGameData.Instance.GetString("Journey_t4");
-        normalStr = LoadGameData.Instance.GetString("Journey_t5");
-        failStr = LoadGameData.Instance.GetString("Journey_t6");
         
         StartAdvBtn.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString("Journey_t7");
     }
 
     public void ReadyAdventure(StageDayData _stageDayData)
     {
-        journeyData = LoadGameData.Instance.journeyDatas[Clock.Instance.stageDayData.JourneyID];
+        Time.timeScale = 0;
+
+        perfectStr = LoadGameData.Instance.GetString("Journey_t4");
+        normalStr = LoadGameData.Instance.GetString("Journey_t5");
+        failStr = LoadGameData.Instance.GetString("Journey_t6");
+
+
+        journeyData = LoadGameData.Instance.journeyDatas[_stageDayData.JourneyID];
         jStateDataList.Clear();
         foreach (var data in LoadGameData.Instance.jStateDatas)
         {
@@ -96,6 +100,7 @@ public class AdventureManager : MonoBehaviour
         AdvPanel.SetActive(false);
         ItemManager.Instance.AddItem(0, -water, -meat, -hub, -food);
         HeroStateManager.Instance.SlideAll(true);
+        InGameMgr.Instance.state = State.Camp;
     }
 
     public void EndJourney()

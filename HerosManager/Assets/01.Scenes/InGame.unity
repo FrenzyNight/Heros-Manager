@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1518785, g: 0.35675228, b: 0.9668717, a: 1}
+  m_IndirectSpecularColor: {r: 0.16086814, g: 0.38072407, b: 0.9632411, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16428,11 +16428,11 @@ MonoBehaviour:
   power: 0
   hp: 0
   exp: 0
-  NameText: {fileID: 0}
-  JobText: {fileID: 0}
+  NameText: {fileID: 722758636}
+  JobText: {fileID: 423833410}
   StateText: {fileID: 1263498791}
-  ExpText: {fileID: 0}
-  ExpFill: {fileID: 0}
+  ExpText: {fileID: 1356089484}
+  ExpFill: {fileID: 634985473}
   button: {fileID: 556856608}
   isSlide: 0
 --- !u!114 &604381916
@@ -22255,17 +22255,17 @@ MonoBehaviour:
   GatheringPanel: {fileID: 1587386192}
   NoticeText: {fileID: 1586590020}
   gatheringObjs:
-  - code: 'CS_S1_Forest '
+  - code: CS_S1_Forest
     obj: {fileID: 1771884622}
-  - code: 'CS_S1_Grassland '
+  - code: CS_S1_Grassland
     obj: {fileID: 1414312010}
-  - code: 'CS_S1_Lake '
+  - code: CS_S1_Lake
     obj: {fileID: 1425531686}
   gatheringPlaceTrans:
-  - {fileID: 1771884623}
-  - {fileID: 1414312011}
-  - {fileID: 1425531687}
-  - {fileID: 638077373}
+  - {fileID: 290685883}
+  - {fileID: 961670108}
+  - {fileID: 1420129813}
+  - {fileID: 426434419}
 --- !u!1 &852744757
 GameObject:
   m_ObjectHideFlags: 0
@@ -30372,7 +30372,7 @@ MonoBehaviour:
     Day: 0
     InvadeID: 
     JourneyID: 
-  day: 0
+  day: 1
   isStop: 0
   DayText: {fileID: 1274791509}
   ClockFillImg: {fileID: 733549862}
@@ -31663,7 +31663,7 @@ MonoBehaviour:
     obj: {fileID: 1820804874}
   - code: 'MG_S1_Fish '
     obj: {fileID: 1153594530}
-  - code: 'MG_S1_Water '
+  - code: MG_S1_Water
     obj: {fileID: 2020573473}
   - code: 'MG_S2_Tree '
     obj: {fileID: 1486298699}
@@ -43974,9 +43974,9 @@ RectTransform:
   m_Father: {fileID: 962803615}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: -190}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 30, y: -190}
   m_SizeDelta: {x: 342, y: 165}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2113432277

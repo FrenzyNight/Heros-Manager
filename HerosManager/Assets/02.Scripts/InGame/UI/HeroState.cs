@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class HeroState : MonoBehaviour
 {
@@ -32,20 +33,11 @@ public class HeroState : MonoBehaviour
 
     public Button button;
 
-    RectTransform rectTrans;
     public bool isSlide;
-    Vector2 closeSlideVec;
-    Vector2 openSlideVec;
-    Vector2 slideVec;
-
-    Coroutine slideCo;
 
     void Start()
     {
-        rectTrans = this.GetComponent<RectTransform>();
         isSlide = false;
-        closeSlideVec = rectTrans.anchoredPosition;
-        openSlideVec = new Vector2(-rectTrans.rect.width / 2, rectTrans.anchoredPosition.y);
 
         button.onClick.AddListener(() => { Slide(); });
     }
@@ -79,9 +71,9 @@ public class HeroState : MonoBehaviour
         minExp = heroStateDataList[3].Min;
         maxExp = heroStateDataList[3].Max;
 
-        stressStr = heroStateDataList[0].HeroStateStringID;
-        powerStr = heroStateDataList[1].HeroStateStringID;
-        hpStr = heroStateDataList[2].HeroStateStringID;
+        stressStr = LoadGameData.Instance.GetString(heroStateDataList[0].HeroStateStringID);
+        powerStr = LoadGameData.Instance.GetString(heroStateDataList[1].HeroStateStringID);
+        hpStr = LoadGameData.Instance.GetString(heroStateDataList[2].HeroStateStringID);
 
         ExpText.text = LoadGameData.Instance.GetString(heroStateDataList[3].HeroStateStringID);
         ExpFill.fillAmount = exp / maxExp;
@@ -137,24 +129,10 @@ public class HeroState : MonoBehaviour
     public void Slide()
     {
         if (isSlide)
-            slideVec = closeSlideVec;
+            this.transform.DOLocalMoveX(30, 1f).SetUpdate(true).SetEase(Ease.OutQuad);
         else
-            slideVec = openSlideVec;
-
-        if (slideCo != null)
-            StopCoroutine(slideCo);
-        slideCo = StartCoroutine(SlideCo());
+            this.transform.DOLocalMoveX(-121, 1f).SetUpdate(true).SetEase(Ease.OutQuad);
 
         isSlide = !isSlide;
-    }
-
-    IEnumerator SlideCo()
-    {
-        while (Vector2.Distance(rectTrans.anchoredPosition, slideVec) >= 0.1f)
-        {
-            rectTrans.anchoredPosition = Vector2.Lerp(rectTrans.anchoredPosition, slideVec, Time.deltaTime * 3f);
-
-            yield return null;
-        }
     }
 }

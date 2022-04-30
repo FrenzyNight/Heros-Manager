@@ -2,10 +2,13 @@
 {
     public HeroState[] heroStates;
 
-    void Start()
+    void Awake()
     {
         heroStates = this.GetComponentsInChildren<HeroState>();
+    }
 
+    void Start()
+    {
         Setup();
     }
 

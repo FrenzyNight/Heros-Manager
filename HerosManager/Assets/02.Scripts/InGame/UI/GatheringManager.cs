@@ -24,9 +24,10 @@ public class GatheringManager : Singleton<GatheringManager>
         ExitBtn.onClick.AddListener(CloseGatheringPannel);
         for (int i = 0; i < gatheringObjs.Length; i++)
         {
+            int idx = i;
             gatheringObjs[i].obj.GetComponent<Button>().onClick.AddListener(() =>
             {
-                StartMiniGame(gatheringObjs[i].code);
+                StartMiniGame(gatheringObjs[idx].code);
             });
         }
 
