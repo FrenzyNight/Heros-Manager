@@ -33,6 +33,7 @@ public class BowAngle : MiniGameCharMgr
 
         ani.Play("Bow_ani", -1, 0f);
         yield return new WaitForSeconds(Mgr.huntArrowCoolTime);
+       
         isCheck = false;
 
         yield return null;
@@ -44,7 +45,7 @@ public class BowAngle : MiniGameCharMgr
     public override IEnumerator Stun()
     {
         yield return new WaitForSeconds(Mgr.huntArrowCoolTime);
-        isCheck = false;
+        Mgr.isCheck = false;
         yield return null;
     }
 }

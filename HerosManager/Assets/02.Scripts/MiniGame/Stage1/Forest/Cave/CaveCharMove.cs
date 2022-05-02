@@ -51,6 +51,13 @@ public class CaveCharMove : MiniGameCharMgr
         RunStat.SetActive(true);
     }
 
+    public void Reset()
+    {
+        RunStat.SetActive(true);
+        SlideStat.SetActive(false);
+        StunStat.SetActive(false);
+    }
+
     public override IEnumerator Stun()
     {
         RunStat.SetActive(false);

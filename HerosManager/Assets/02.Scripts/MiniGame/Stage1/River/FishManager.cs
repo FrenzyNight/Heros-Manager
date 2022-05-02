@@ -93,6 +93,14 @@ public class FishManager : MiniGameSetMgr
     public void StartGame()
     {
         base.StartGame();
+
+        foreach(GameObject obj in spawnObjects)
+        {
+            Destroy(obj);
+        }
+
+        spawnObjects.Clear();
+
         StartCoroutine(FishSpawn());
     }
 
@@ -115,15 +123,15 @@ public class FishManager : MiniGameSetMgr
 
             if(rnd == 1)
             {
-                Instantiate(SelectedFish, SpawnPoint1, Quaternion.identity, mother.transform);
+                spawnObjects.Add(Instantiate(SelectedFish, SpawnPoint1, Quaternion.identity, mother.transform));
             }
             else if(rnd == 2)
             {
-                Instantiate(SelectedFish, SpawnPoint2, Quaternion.identity, mother.transform);
+                spawnObjects.Add(Instantiate(SelectedFish, SpawnPoint2, Quaternion.identity, mother.transform));
             }
             else if(rnd == 3)
             {
-                Instantiate(SelectedFish, SpawnPoint3, Quaternion.identity, mother.transform);
+                spawnObjects.Add(Instantiate(SelectedFish, SpawnPoint3, Quaternion.identity, mother.transform));
             }
 
             yield return new WaitForSeconds(fishCoolTime);

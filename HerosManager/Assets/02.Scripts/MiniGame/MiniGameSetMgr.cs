@@ -18,6 +18,8 @@ public class MiniGameSetMgr : MonoBehaviour
     public string item1ID;
     public string item2ID;
 
+    public List<GameObject> spawnObjects = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {

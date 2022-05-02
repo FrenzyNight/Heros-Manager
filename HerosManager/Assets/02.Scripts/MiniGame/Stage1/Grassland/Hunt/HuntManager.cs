@@ -9,6 +9,7 @@ public class HuntManager : MiniGameSetMgr
 
     public GameObject FoxPrefab, BearPrefab;
     public GameObject ArrowPrefab;
+    public GameObject Bow;
     public Vector2 StartP, EndP;
     public Vector2 StartP2, EndP2;
     private Vector2 StartPoint, EndPoint;
@@ -120,27 +121,27 @@ public class HuntManager : MiniGameSetMgr
                 if(rnd <= huntFoxPer)
                 {
                     //fox Spawn
-                    Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
                     foxNum++;
                 }
                 else
                 {
                     //bearSpawn
-                    Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
                     bearNum++;
                 }
             }
             else if(foxNum < huntMonsterMaxNum && bearNum == huntMonsterMaxNum)
             {
                 //fox
-                Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform);
+                spawnObjects.Add(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
                 foxNum++;
             }
 
             else if(foxNum == huntMonsterMaxNum && bearNum < huntMonsterMaxNum)
             {
                 //bear
-                Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform);
+                spawnObjects.Add(Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
                 bearNum++;
             }
 
@@ -151,6 +152,16 @@ public class HuntManager : MiniGameSetMgr
     public void StartGame()
     {
         base.StartGame();
+
+        foreach(GameObject obj in spawnObjects)
+        {
+            Destroy(obj);
+        }
+
+        spawnObjects.Clear();
+
+        Bow.GetComponent<BowAngle>().isCheck = false;
+
         StartCoroutine(SpawnMonster());
     }
 

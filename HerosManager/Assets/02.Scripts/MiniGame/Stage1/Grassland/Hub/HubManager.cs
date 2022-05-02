@@ -62,6 +62,14 @@ public class HubManager : MiniGameSetMgr
     public override void StartGame()
     {
         base.StartGame();
+
+        foreach(GameObject obj in spawnObjects)
+        {
+            Destroy(obj);
+        }
+
+        spawnObjects.Clear();
+
         StartCoroutine(SpawnHub());
     }
 
@@ -75,11 +83,11 @@ public class HubManager : MiniGameSetMgr
             rnd = Random.Range(1, 101);
             if(rnd <= hubGoldPer)
             {
-                Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,mother.transform);
+                spawnObjects.Add(Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,mother.transform));
             }
             else
             {
-                Instantiate(Hub, new Vector2(x,y), Quaternion.identity,mother.transform);
+                spawnObjects.Add(Instantiate(Hub, new Vector2(x,y), Quaternion.identity,mother.transform));
             }
             
             yield return new WaitForSeconds(hubCoolTime);

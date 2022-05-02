@@ -34,7 +34,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
     {
         InGameMgr.Instance.state = State.MiniGame;
         MiniGamePanel.SetActive(true);
-
+        
         wood = 0;
         water = 0;
         meat = 0;
@@ -59,6 +59,9 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameLeftID1);
             miniGameInfo.obj.SetActive(true);
             miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
+
+            miniGameInfo.obj.transform.GetChild(0).gameObject.GetComponent<MiniGameSetMgr>().SetUp();
+
             GuideTexts[0].gameObject.SetActive(true);
             GuideTexts[0].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID1);
             GuideTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
@@ -68,6 +71,9 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameRightID2);
             miniGameInfo.obj.SetActive(true);
             miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
+
+            miniGameInfo.obj.transform.GetChild(0).gameObject.GetComponent<MiniGameSetMgr>().SetUp();
+
             GuideTexts[1].gameObject.SetActive(true);
             GuideTexts[1].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID2);
             GuideTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);

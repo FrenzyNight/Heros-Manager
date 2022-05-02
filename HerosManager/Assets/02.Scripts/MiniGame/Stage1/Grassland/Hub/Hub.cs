@@ -22,6 +22,7 @@ public class Hub : MiniGameObjectMgr
         Mgr = manager.GetComponent<HubManager>();
         tr = GetComponent<Transform>();
         Gage = Instantiate(GageImg, tr.position, Quaternion.identity, Mgr.mother.transform);
+        Mgr.spawnObjects.Add(Gage);
         Gage.GetComponent<Image>().fillAmount = 0;
         objectType = 2;
     }

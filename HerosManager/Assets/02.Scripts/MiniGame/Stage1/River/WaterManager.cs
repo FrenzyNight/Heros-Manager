@@ -62,6 +62,14 @@ public class WaterManager : MiniGameSetMgr
     public override void StartGame()
     {
         base.StartGame();
+
+        foreach(GameObject obj in spawnObjects)
+        {
+            Destroy(obj);
+        }
+
+        spawnObjects.Clear();
+
         StartCoroutine(SpawnRock());
     }
 
@@ -76,17 +84,17 @@ public class WaterManager : MiniGameSetMgr
                 if(rnd == 1) //1번 포인트 소환
                 {
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform));
                 }
                 else if(rnd == 2)
                 {
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform));
                 }
                 else if(rnd == 3)
                 {
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform));
                 }
             }
             else // 장애물 2개
@@ -95,23 +103,23 @@ public class WaterManager : MiniGameSetMgr
                 if(rnd == 1) //1번 포인트 제외 소환
                 {
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform));
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform));
                 }
                 else if(rnd == 2)
                 {
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform));
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform));
                 }
                 else if(rnd == 3)
                 {
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform));
                     RandomObject();
-                    Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform);
+                    spawnObjects.Add(Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform));
                 }
             }
 
