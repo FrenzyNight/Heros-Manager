@@ -26,7 +26,7 @@ public class WoodManager : MiniGameSetMgr
     
     void Start()
     {
-        SetUp();
+        //SetUp();
     }
 
     // Update is called once per frame

@@ -49,7 +49,7 @@ public class HuntManager : MiniGameSetMgr
     // Start is called before the first frame update
     void Start()
     {
-        SetUp();
+        //SetUp();
     }
 
 

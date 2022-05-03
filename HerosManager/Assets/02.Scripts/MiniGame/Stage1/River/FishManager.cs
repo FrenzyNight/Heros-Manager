@@ -41,7 +41,7 @@ public class FishManager : MiniGameSetMgr
         LM1 = Log1.GetComponent<LogMove>();
         LM2 = Log2.GetComponent<LogMove>();
 
-        SetUp();
+        //SetUp();
     }
 
     // Update is called once per frame

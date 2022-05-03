@@ -29,7 +29,7 @@ public class WaterManager : MiniGameSetMgr
 
     void Start()
     {
-        SetUp();
+        //SetUp();
     }
 
     public override void SetUp()

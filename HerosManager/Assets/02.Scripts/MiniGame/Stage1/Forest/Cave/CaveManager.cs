@@ -33,7 +33,7 @@ public class CaveManager : MiniGameSetMgr
     // Start is called before the first frame update
     void Start()
     {
-        SetUp();
+        //SetUp();
     }
 
     public override void SetUp()
