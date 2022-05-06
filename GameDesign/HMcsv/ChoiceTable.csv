@@ -1,0 +1,11 @@
+﻿ChoiceID,ChoiceStringID,NeeditemID,NeedAmount,RewardProb,RewardType,RewardStringID,Hero1ID,H1ImageResouce,H1Reward1ID,H1Reward1Amount,H1Reward2ID,H1Reward2Amount,Hero2ID,H2ImageResouce,H2Reward1ID,H2Reward1Amount,H2Reward2ID,H2Reward2Amount,FailHero1ID,FailH1ImageResouce,FailH1Reward1ID,FailH1Reward1Amount,FailH1Reward2ID,FailH1Reward2Amount,FailHero2ID,FailH2ImageResouce,FailH2Reward1ID,FailH2Reward1Amount,FailH2Reward2ID,FailH2Reward2Amount,AddEventID
+Choice_Norm1_1,Choice_Norm1_a1,Item_Meat,5,1,1,Choice_Norm1_s1,Hero_1,IM_Reynauld_1,HeroState_H1_Stress,5,HeroState_H1_Exp,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Norm1_2,Choice_Norm1_a2,-1,-1,1,0,Choice_Norm1_s2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Norm2_1,Choice_Norm2_a1,-1,-1,1,2,Choice_Norm2_s1,Hero_2,IM_Acis_1,HeroState_H2_Stress,-5,-1,-1,Hero_3,IM_Elise_1,HeroState_H3_Stress,5,HeroState_H3_Exp,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Norm2_2,Choice_Norm2_a2,-1,-1,1,2,Choice_Norm2_s2,Hero_2,IM_Acis_1,HeroState_H2_Stress,5,-1,-1,Hero_3,IM_Elise_1,HeroState_H3_Stress,-5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Acis1_1,Choice_Acis1_a1,-1,-1,1,0,Choice_Acis1_s1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Acis1_2,Choice_Acis1_a2,-1,-1,1,0,Choice_Acis1_s2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Acis1_3,Choice_Acis1_a3,-1,-1,1,0,Choice_Acis1_s3,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,Event_Acis2
+Choice_Acis2_1,Choice_Acis2_a1,-1,-1,1,0,Choice_Acis2_s1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Acis2_2,Choice_Acis2_a2,-1,-1,1,0,Choice_Acis2_s2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Acis2_3,Choice_Acis2_a3,-1,-1,1,1,Choice_Acis2_s3,Hero_2,IM_Acis_1,HeroState_H2_Exp,15,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
