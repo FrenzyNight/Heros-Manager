@@ -8,45 +8,68 @@ using DG.Tweening;
 
 public class TitleManager : MonoBehaviour
 {
-    public Transform Shield;
-    public Transform Knife1;
-    public Transform Knife2;
-
+    public Image LogoImg;
+    public Image EffImg;
+    public Text TouchTxt;
     public Transform MenuTrans;
-    public Transform CheckKnife;
+    public Transform SelImg;
+
+    bool isStart = false;
+    bool isEff = false;
 
     void Start()
     {
         LoadGameData.Instance.LoadCSVDatas();
-        StartCoroutine(TitleEffCo());
-        //TitleEff();
-        //SceneManager.LoadScene("InGame");
+
+        TouchTxt.gameObject.SetActive(false);
+        TouchTxt.DOFade(1, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).SetDelay(2.5f).OnStart(() =>
+        {
+            isStart = true;
+            TouchTxt.gameObject.SetActive(true);
+        });
+    }
+
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            if (!isEff && isStart)
+            {
+                TitleEff();
+                isEff = true;
+            }
+        }
     }
 
     void TitleEff()
     {
-        Shield.DOScale(3, 0.5f).From().SetEase(Ease.OutBack).OnStart(() =>
+        TouchTxt.DOKill();
+        TouchTxt.DOFade(0, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            Shield.gameObject.SetActive(true);
+            TouchTxt.gameObject.SetActive(false);
         });
-        Vector3 startVec1 = Knife1.localPosition + new Vector3(-300, 300);
-        Knife1.DOLocalMove(startVec1, 0.5f).SetDelay(0.2f).From().SetEase(Ease.OutBack).OnStart(() =>
+        LogoImg.DOFade(0, 1.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            Knife1.gameObject.SetActive(true);
+            LogoImg.transform.localPosition = new Vector2(650, 200);
+            EffImg.DOFade(1, 0.5f).SetEase(Ease.Linear);
+            LogoImg.DOFade(1, 1f).SetEase(Ease.Linear);
+            LogoImg.transform.DOLocalMoveX(750, 1f).From().SetEase(Ease.OutQuad).OnComplete(() =>
+            {
+                Setup();
+            });
         });
-        Vector3 startVec2 = Knife2.localPosition + new Vector3(300, 300);
-        Knife2.DOLocalMove(startVec2, 0.5f).SetDelay(0.2f).From().SetEase(Ease.OutBack).OnStart(() =>
-        {
-            Knife2.gameObject.SetActive(true);
-        });
+    }
 
+    void Setup()
+    {
         for (int i = 0; i < MenuTrans.childCount; i++)
         {
             int idx = i;
-            float delay = 0.7f + (0.2f * i);
-            MenuTrans.GetChild(idx).DOLocalMoveY(500, 1.5f).SetDelay(delay).From().SetEase(Ease.OutBack).OnStart(() =>
+            float delay = 0.25f * (i + 1);
+            MenuTrans.GetChild(idx).GetComponent<Text>().DOFade(0, 1f).SetDelay(delay).From();
+            MenuTrans.GetChild(idx).DOLocalMoveX(70, 1f).From().SetEase(Ease.OutQuad).SetDelay(delay).OnStart(() =>
             {
-                MenuTrans.GetChild(idx).gameObject.SetActive(true);
+                 MenuTrans.GetChild(idx).gameObject.SetActive(true);
             })
             .OnComplete(() =>
             {
@@ -56,7 +79,7 @@ public class TitleManager : MonoBehaviour
                 entry_PointerEnter.eventID = EventTriggerType.PointerEnter;
                 entry_PointerEnter.callback.AddListener((data) =>
                 {
-                    OnPointerEnterEvent((PointerEventData)data, idx);
+                   OnPointerEnterEvent((PointerEventData)data, idx);
                 });
                 eventTrigger.triggers.Add(entry_PointerEnter);
 
@@ -67,37 +90,36 @@ public class TitleManager : MonoBehaviour
                     OnPointerExitEvent((PointerEventData)data, idx);
                 });
                 eventTrigger.triggers.Add(entry_PointerExit);
+
+                Button menuBtn = MenuTrans.GetChild(idx).GetComponent<Button>();
+                switch (idx)
+                {
+                    case 0:
+                        menuBtn.onClick.AddListener(GameStartBtnEvent);
+                        break;
+
+                    case 4:
+                        Application.Quit();
+                        break;
+                }
             });
         }
     }
-
-    IEnumerator TitleEffCo()
-    {
-        Shield.gameObject.SetActive(false);
-        Knife1.gameObject.SetActive(false);
-        Knife2.gameObject.SetActive(false);
-        CheckKnife.gameObject.SetActive(false);
-        for (int i = 0; i < MenuTrans.childCount; i++)
-        {
-            MenuTrans.GetChild(i).gameObject.SetActive(false);
-        }
-
-        yield return new WaitForSeconds(2f);
-
-        TitleEff();
-    }
-
     void OnPointerEnterEvent(PointerEventData data, int _idx)
     {
-        CheckKnife.gameObject.SetActive(true);
-        CheckKnife.localPosition = MenuTrans.GetChild(_idx).localPosition + new Vector3(900, 23);
-        CheckKnife.DOKill();
-        CheckKnife.DOLocalMoveX(MenuTrans.GetChild(_idx).localPosition.x + 40, 0.5f).SetEase(Ease.OutBack);
+        SelImg.gameObject.SetActive(true);
+        SelImg.transform.position = new Vector2(MenuTrans.GetChild(_idx).position.x + 20, MenuTrans.GetChild(_idx).position.y);
+        MenuTrans.GetChild(_idx).GetComponent<Text>().color = Color.black;
     }
 
     void OnPointerExitEvent(PointerEventData data, int _idx)
     {
-        CheckKnife.gameObject.SetActive(false);
+        SelImg.gameObject.SetActive(false);
+        MenuTrans.GetChild(_idx).GetComponent<Text>().color = new Color(249, 248, 220, 255) / 255;
     }
 
+    void GameStartBtnEvent()
+    {
+        SceneManager.LoadScene("InGame");
+    }
 }
