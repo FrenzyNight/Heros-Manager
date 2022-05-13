@@ -6,25 +6,25 @@ public class FireMgr : CampObjectMgr
     public GameObject FoodObj;
 
     [ContextMenu("OnFire")]
-    void OnFire()
+    public void OnFire()
     {
         FireObj.SetActive(true);
     }
 
     [ContextMenu("NonFire")]
-    void NonFire()
+    public void NonFire()
     {
         FireObj.SetActive(false);
     }
 
     [ContextMenu("OnCook")]
-    void OnCook()
+    public void OnCook()
     {
         FoodObj.SetActive(true);
     }
 
     [ContextMenu("NonCook")]
-    void NonCook()
+    public void NonCook()
     {
         FoodObj.SetActive(false);
     }

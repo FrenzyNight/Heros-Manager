@@ -6,11 +6,17 @@ using UnityEngine.UI;
 public class CampObjectMgr : MonoBehaviour
 {
     public GameObject ObjectUI;
+    public GameObject camera;
+    [HideInInspector]
+    public Camera cameraToLookAt;
 
     void Start()
     {
+        cameraToLookAt = camera.GetComponent<Camera>();
+        
         ObjectUI.transform.LookAt(ObjectUI.transform.position
-            + Camera.main.transform.rotation * Vector3.back, Camera.main.transform.rotation * Vector3.down);
+            + cameraToLookAt.transform.rotation * Vector3.back,
+        cameraToLookAt.transform.rotation * Vector3.down);
     }
 
     [ContextMenu("OpenUI")]
