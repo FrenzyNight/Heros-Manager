@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FireInteractionMgr : CampInteractionMgr
 {
@@ -10,6 +11,9 @@ public class FireInteractionMgr : CampInteractionMgr
     public float hero1Stress, hero2Stress, hero3Stress, hero4Stress;
     public string BonfireID;
     public string NeedItemID;
+
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -19,22 +23,33 @@ public class FireInteractionMgr : CampInteractionMgr
     // Update is called once per frame
     void Update()
     {
-        if(isActive)
+        if(isActive && !isGrace)
         {
-            CampObjMgr.GetComponent<FireMgr>().OnFire();
+            activeTime -= Time.deltaTime;
+            ActiveGage.fillAmount = activeTime / time1;
         }
-        else if(!isActive)
+        else if(isGrace)
         {
+            graceTime -= Time.deltaTime;
+            GraceGage.fillAmount = graceTime / time2;
+        }
+
+        if(isActive && !isGrace && activeTime <= 0)
+        {
+            AvailableButton();
+            isGrace = true;
+        }
+        else if(isGrace && graceTime <= 0)
+        {
+            isGrace = false;
+            isActive = false;
+
             CampObjMgr.GetComponent<FireMgr>().NonFire();
         }
 
-        if((isActive && isGrace) || !isActive)
+        if(!isActive)
         {
             AvailableButton();
-        }
-        else if(!isGrace && isActive)
-        {
-            UnavailableButton();
         }
     }
 
@@ -58,6 +73,8 @@ public class FireInteractionMgr : CampInteractionMgr
         NeedItemID = LoadGameData.Instance.bonfireDatas[BonfireID].NeedItemID;
         needAmount = LoadGameData.Instance.bonfireDatas[BonfireID].NeedAmount;
 
+        StringText.text = needAmount.ToString();
+
         time1 = LoadGameData.Instance.bonfireDatas[BonfireID].Time1;
         time2 = LoadGameData.Instance.bonfireDatas[BonfireID].Time2;
         time3 = LoadGameData.Instance.bonfireDatas[BonfireID].Time3;
@@ -68,10 +85,32 @@ public class FireInteractionMgr : CampInteractionMgr
         hero4Stress = LoadGameData.Instance.bonfireDatas[BonfireID].Hero4_Stress;
     }
 
+    void Grace()
+    {
+        AvailableButton();
+    }
+
+    IEnumerator GetStress()
+    {
+        yield return null;
+    }
+
     public override void ClickButton()
     {
+        Debug.Log("Button Click");
+        if(ItemManager.Instance.GetItemInfo(NeedItemID).num < needAmount)
+            return;
+
+        ItemManager.Instance.AddItem(NeedItemID, -needAmount);
+        
         isActive = true;
         activeTime = time1;
         graceTime = time2;
+
+        ActiveGage.fillAmount = activeTime / time1;
+        GraceGage.fillAmount = graceTime / time2;
+
+        CampObjMgr.GetComponent<FireMgr>().OnFire();
+        UnavailableButton();
     }
 }

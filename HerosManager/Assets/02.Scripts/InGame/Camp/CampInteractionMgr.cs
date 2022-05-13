@@ -9,7 +9,8 @@ public class CampInteractionMgr : MonoBehaviour
     public bool isGrace;
     public GameObject CampObjMgr;
     public GameObject ActiveButton;
-    public GameObject ActiveGage, GraceGage;
+    public Image ActiveGage, GraceGage;
+    public Text StringText;
     // Start is called before the first frame update
    
 

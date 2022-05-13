@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16094433, g: 0.38079113, b: 0.9632314, a: 1}
+  m_IndirectSpecularColor: {r: 0.1518785, g: 0.35675228, b: 0.9668717, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectUI: {fileID: 1367362727}
-  camera: {fileID: 19587341}
+  mainCamera: {fileID: 19587341}
   cameraToLookAt: {fileID: 0}
   FireObj: {fileID: 280208723}
   FoodObj: {fileID: 1590209007}
@@ -3447,7 +3447,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -14813,7 +14813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectUI: {fileID: 1601694168}
-  camera: {fileID: 19587341}
+  mainCamera: {fileID: 19587341}
   cameraToLookAt: {fileID: 0}
   LaundryObject: {fileID: 0}
 --- !u!1 &531800665
@@ -14992,8 +14992,9 @@ MonoBehaviour:
   isGrace: 0
   CampObjMgr: {fileID: 51007921}
   ActiveButton: {fileID: 699913821}
-  ActiveGage: {fileID: 188775955}
-  GraceGage: {fileID: 835880672}
+  ActiveGage: {fileID: 188775957}
+  GraceGage: {fileID: 835880674}
+  StringText: {fileID: 2038622824}
   needAmount: 0
   time1: 0
   time2: 0
@@ -18367,7 +18368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 71, y: 82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &699913823
@@ -18412,7 +18413,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 699913824}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 542564245}
+        m_MethodName: ClickButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &699913824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18427,7 +18439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -21793,11 +21805,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: b420b83f8ca4d6343a555e7aa99aa7be, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillMethod: 0
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -32884,7 +32896,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.55}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 534, y: 104}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1460963784
@@ -36377,7 +36389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectUI: {fileID: 186040424}
-  camera: {fileID: 19587341}
+  mainCamera: {fileID: 19587341}
   cameraToLookAt: {fileID: 0}
 --- !u!1 &1653401967
 GameObject:
@@ -40151,7 +40163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectUI: {fileID: 1409718321}
-  camera: {fileID: 19587341}
+  mainCamera: {fileID: 19587341}
   cameraToLookAt: {fileID: 0}
   WeaponObj: {fileID: 566278312}
 --- !u!1 &1902172471
@@ -42387,13 +42399,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038622822}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1460963783}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -103.53, y: 0.000041962}
@@ -42420,11 +42432,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 5
-    m_MaxSize: 50
+    m_MaxSize: 90
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -43943,7 +43955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectUI: {fileID: 1294733469}
-  camera: {fileID: 19587341}
+  mainCamera: {fileID: 19587341}
   cameraToLookAt: {fileID: 0}
   BigPlant: {fileID: 1959934327}
   MediumPlant: {fileID: 1849138607}
