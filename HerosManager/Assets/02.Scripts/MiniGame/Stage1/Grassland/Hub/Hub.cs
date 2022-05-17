@@ -24,6 +24,8 @@ public class Hub : MiniGameObjectMgr
         Gage = Instantiate(GageImg, tr.position, Quaternion.identity, Mgr.mother.transform);
         Mgr.spawnObjects.Add(Gage);
         Gage.GetComponent<Image>().fillAmount = 0;
+        Gage.transform.SetSiblingIndex(1);
+        gameObject.transform.SetSiblingIndex(1);
         objectType = 2;
     }
 

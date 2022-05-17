@@ -10,6 +10,22 @@ TagManager:
   - MiniGameObj1
   - MiniGameObj2
   - MiniGameObj3
+  - Block
+  - Altar
+  - Observer
+  - Hook
+  - Treasure
+  - Bottom
+  - NormalTree
+  - GoldTree
+  - Arrow
+  - Cactus
+  - BugTree
+  - Fish
+  - GoldFish
+  - Meat
+  - Tree
+  - Water
   layers:
   - Default
   - TransparentFX

@@ -30,7 +30,7 @@ RectTransform:
   m_GameObject: {fileID: 6305170746588889613}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -115,6 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18e2503a163a4f4e88a5f729fee5df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  objectType: 0
+  isGold: 0
   GageImg: {fileID: 5463485822341330499, guid: dfd9861f24d10c449bccbfb600e7fc85, type: 3}
 --- !u!95 &4924084608936414979
 Animator:

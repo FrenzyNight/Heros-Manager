@@ -12,6 +12,7 @@ public class BlockMove : MiniGameObjectMgr
     {
         Mgr = manager.GetComponent<CaveManager>();
         rt = gameObject.GetComponent<RectTransform>();
+        gameObject.transform.SetSiblingIndex(2);
         Destroy(gameObject, 5f);
 
         objectType = 1;
