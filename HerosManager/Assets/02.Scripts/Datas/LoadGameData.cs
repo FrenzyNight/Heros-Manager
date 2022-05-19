@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class LoadGameData : Singleton<LoadGameData>
 {
+    public Dictionary<string, CookData> cookDatas = new Dictionary<string, CookData>();
     public Dictionary<string, BonfireData> bonfireDatas = new Dictionary<string, BonfireData>();
     public Dictionary<string, CollectSpaceData> collectSpaceDatas = new Dictionary<string, CollectSpaceData>();
     public Dictionary<string, CollectData> collectDatas = new Dictionary<string, CollectData>();
@@ -23,6 +24,7 @@ public class LoadGameData : Singleton<LoadGameData>
 
     public void LoadCSVDatas()
     {
+        LoadCookData("CSVData/CookTable");
         LoadBonfireData("CSVData/BonfireTable");
         LoadCollectSpaceData("CSVData/CollectSpaceTable");
         LoadCollectData("CSVData/CollectTable");
@@ -40,6 +42,29 @@ public class LoadGameData : Singleton<LoadGameData>
         LoadStageDayData("CSVData/StageDayTable");
         LoadStageData("CSVData/StageTable");
         LoadStringData("CSVData/StringTable");
+    }
+
+    void LoadCookData(string _path)
+    {
+        cookDatas.Clear();
+        List<Dictionary<string, object>> data = CSVReader.Read(_path);
+        for(int i=0; i<data.Count; i++)
+        {
+            CookData cookData = new CookData();
+            cookData.CookID = CSVConvert.ToString(data[i]["CookID"]);
+            cookData.NeedItem1ID = CSVConvert.ToString(data[i]["NeedItem1ID"]);
+            cookData.NeedItem2ID = CSVConvert.ToString(data[i]["NeedItem2ID"]);
+            cookData.NeedItem3ID = CSVConvert.ToString(data[i]["NeedItem3ID"]);
+            cookData.NeedItem1Amount = CSVConvert.ToInt(data[i]["NeedItem1Amount"]);
+            cookData.NeedItem2Amount = CSVConvert.ToInt(data[i]["NeedItem2Amount"]);
+            cookData.NeedItem3Amount = CSVConvert.ToInt(data[i]["NeedItem3Amount"]);
+            cookData.GetItemID = CSVConvert.ToString(data[i]["GetItemID"]);
+            cookData.GetItemAmount = CSVConvert.ToInt(data[i]["GetItemAmount"]);
+            cookData.CookTime = CSVConvert.ToFloat(data[i]["CookTime"]);
+            cookData.GetTime = CSVConvert.ToFloat(data[i]["GetTime"]);
+
+            cookDatas.Add(cookData.CookID, cookData);
+        }
     }
 
     void LoadBonfireData(string _path)
@@ -407,6 +432,23 @@ public class LoadGameData : Singleton<LoadGameData>
         }
     }
 }
+
+[System.Serializable]
+public class CookData
+{
+    public string CookID;
+    public string NeedItem1ID;
+    public int NeedItem1Amount;
+    public string NeedItem2ID;
+    public int NeedItem2Amount;
+    public string NeedItem3ID;
+    public int NeedItem3Amount;
+    public string GetItemID;
+    public int GetItemAmount;
+    public float CookTime;
+    public float GetTime;
+}
+
 
 [System.Serializable]
 public class BonfireData

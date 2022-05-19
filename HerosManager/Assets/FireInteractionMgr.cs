@@ -53,9 +53,8 @@ public class FireInteractionMgr : CampInteractionMgr
         }
     }
 
-    void Setup()
+    public override void Setup()
     {
-        isActive = false;
         isActive = false;
         switch(InGameMgr.Instance.stage)
         {
@@ -104,6 +103,7 @@ public class FireInteractionMgr : CampInteractionMgr
         ItemManager.Instance.AddItem(NeedItemID, -needAmount);
         
         isActive = true;
+        isGrace = false;
         activeTime = time1;
         graceTime = time2;
 

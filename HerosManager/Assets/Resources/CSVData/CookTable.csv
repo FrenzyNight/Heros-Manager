@@ -1,0 +1,4 @@
+﻿CookID,NeedItem1ID,NeedItem1Amount,NeedItem2ID,NeedItem2Amount,NeedItem3ID,NeedItem3Amount,GetItemID,GetItemAmount,CookTime,GetTime
+Cook_S1,Item_Hub,2,Item_Meat,2,Item_Water,2,Item_Food,1,40,20
+Cook_S2,Item_Hub,4,Item_Meat,4,Item_Water,4,Item_Food,2,40,20
+Cook_S3,Item_Hub,6,Item_Meat,6,Item_Water,6,Item_Food,3,40,20
