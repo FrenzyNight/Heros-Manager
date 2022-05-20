@@ -14,12 +14,12 @@ public class BackgroundMove : MiniGameObjectMgr
 	private float moveLength;
 
 
-	
 
 	// Use this for initialization
 	void Start () 
 	{
-		Mgr = manager.GetComponent<CaveManager>();
+		if(manager != null)
+			Mgr = manager.GetComponent<CaveManager>();
 		rt = gameObject.GetComponent<RectTransform>();
 
 		moveLength = rt.rect.width  * transform.localScale.x;
@@ -27,10 +27,27 @@ public class BackgroundMove : MiniGameObjectMgr
 	
 	void FixedUpdate () 
 	{
-		if(Mgr.isCheck)
+		if(Mgr != null)
 		{
-			rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (speed * Time.deltaTime) , rt.anchoredPosition.y);
-			
+			if(Mgr.isCheck)
+			{
+				rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (speed * Time.deltaTime) , rt.anchoredPosition.y);
+				
+				if(rt.anchoredPosition.x <= - moveLength)
+				{
+					rt.anchoredPosition = new Vector2(Pair.GetComponent<RectTransform>().anchoredPosition.x + (moveLength) - (speed * Time.deltaTime), rt.anchoredPosition.y);
+				}
+			}
+		}
+		
+	}
+
+	void Update()
+	{
+		if(Mgr == null)
+		{
+			rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (speed) , rt.anchoredPosition.y);
+				
 			if(rt.anchoredPosition.x <= - moveLength)
 			{
 				rt.anchoredPosition = new Vector2(Pair.GetComponent<RectTransform>().anchoredPosition.x + (moveLength) - (speed * Time.deltaTime), rt.anchoredPosition.y);

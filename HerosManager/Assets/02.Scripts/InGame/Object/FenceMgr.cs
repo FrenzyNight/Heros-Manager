@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class FenceMgr : Singleton<FenceMgr>
 {
+    AudioSource audioSource;
     FenceData fenceData;
     int fenceLevel = 1;
     bool isLeveling;
@@ -28,11 +29,11 @@ public class FenceMgr : Singleton<FenceMgr>
     [Header("Wood")]
     public Text WoodTxt;
     public Text PrevNum;
-    public Text NextNum;
+    //public Text NextNum;
     [Header("Time")]
     public Text TimeTxt;
     public Text PrevTime;
-    public Text NextTime;
+    //public Text NextTime;
     [Header("Levelup")]
     public Image GuageFillImg;
     public Text LevelingTxt;
@@ -48,6 +49,7 @@ public class FenceMgr : Singleton<FenceMgr>
     void Start()
     {
         InGameMgr.Instance.NextStageAct += LoadStageFence;
+        audioSource = GetComponent<AudioSource>();
 
         FenceBtn.onClick.AddListener(Setup);
         ExitBtn.onClick.AddListener(ClosePanel);
@@ -114,8 +116,8 @@ public class FenceMgr : Singleton<FenceMgr>
 
             NextLevel.text = "-";
             NextRate.text = "-";
-            NextNum.text = "-";
-            NextTime.text = "-";
+            //NextNum.text = "-";
+            //NextTime.text = "-";
 
             StartBtn.interactable = false;
         }
@@ -123,8 +125,8 @@ public class FenceMgr : Singleton<FenceMgr>
         {
             NextLevel.text = NextFenceData.FenceLevel.ToString();
             NextRate.text = NextFenceData.InvadeProb.ToString("P0");
-            NextNum.text = NextFenceData.Amount.ToString();
-            NextTime.text = NextFenceData.NeedTime.ToString();
+            //NextNum.text = NextFenceData.Amount.ToString();
+            //NextTime.text = NextFenceData.NeedTime.ToString();
 
             StartBtn.interactable = true;
         }
@@ -138,6 +140,7 @@ public class FenceMgr : Singleton<FenceMgr>
         if (isLeveling)
         {
             ItemManager.Instance.AddItem(fenceData.NeedItemID, fenceData.Amount);
+            audioSource.Stop();
             StopCoroutine("LevelupCo");
         }
     }
@@ -148,6 +151,7 @@ public class FenceMgr : Singleton<FenceMgr>
             return;
 
         isLeveling = true;
+        
 
         FenceInfo.SetActive(false);
         FenceLevelup.SetActive(true);
@@ -160,6 +164,7 @@ public class FenceMgr : Singleton<FenceMgr>
         LevelingTxt.text = LoadGameData.Instance.GetString("Fence_a2");
         GuageFillImg.fillAmount = 0f;
 
+        audioSource.Play();
         StartCoroutine("LevelupCo");
     }
 

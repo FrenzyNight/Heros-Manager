@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MiniGameAnimalMove : MiniGameObjectMgr
 {
+    AudioSource audioSource;
     public RectTransform rt;
     public Animator ani;
     public int direction;
@@ -21,6 +22,7 @@ public class MiniGameAnimalMove : MiniGameObjectMgr
         rt = gameObject.GetComponent<RectTransform>();
         rt.SetAsLastSibling();
         ani = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         isIdle = false;
     }
 
@@ -77,7 +79,10 @@ public class MiniGameAnimalMove : MiniGameObjectMgr
     {
         if(coll.gameObject.tag == "MiniGameObj3") //arrow
         {
+            audioSource.Play();
             Destroy(coll.gameObject);
+            
+            
             
             animalHP -= 1;
 

@@ -13,9 +13,6 @@ public class TimeController : MonoBehaviour
     private float startHour;
 
     [SerializeField]
-    private TextMeshProUGUI timeText;
-
-    [SerializeField]
     private Light sunLight;
 
     [SerializeField]
@@ -47,6 +44,8 @@ public class TimeController : MonoBehaviour
     private TimeSpan sunriseTime;
 
     private TimeSpan sunsetTime;
+
+   // public float nowTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,12 +65,8 @@ public class TimeController : MonoBehaviour
 
     private void UpdateTimeofDay()
     {
-        currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultipler);
-
-        if (timeText != null)
-        {
-            timeText.text = currentTime.ToString("HH:mm");
-        }
+        currentTime = currentTime.AddSeconds(Time.deltaTime  * (720 / Clock.Instance.dayTime / 60)  * Clock.Instance.AdventureMgr.timeScale );
+        //nowTime += Time.deltaTime * timeMultipler;
     }
 
     private void RotateSun()
@@ -101,6 +96,9 @@ public class TimeController : MonoBehaviour
 
             moonLightRotation = Mathf.Lerp(-360, -180, (float)percentage);
         }
+
+        //sunLightRotation = Math.Abs(Mathf.Sin(nowTime)) * sunLightRotation;
+        //moonLightRotation = Math.Abs(Mathf.Sin(nowTime)) * moonLightRotation;
 
         sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
         moonLight.transform.rotation = Quaternion.AngleAxis(moonLightRotation, Vector3.right);

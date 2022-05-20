@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WaterManager : MiniGameSetMgr
 {
+    AudioSource audioSource;
     public Vector2 SpawnPoint1, SpawnPoint2, SpawnPoint3;
     public Vector2 spawnP1, spawnP2, spawnP3;
     public GameObject Boots, Deadfish, Apple;
@@ -35,6 +36,7 @@ public class WaterManager : MiniGameSetMgr
     public override void SetUp()
     {
         base.SetUp();
+        audioSource = GetComponent<AudioSource>();
 
         Boots.GetComponent<MiniGameObjectMgr>().manager = gameObject;
         Deadfish.GetComponent<MiniGameObjectMgr>().manager = gameObject;
@@ -147,6 +149,7 @@ public class WaterManager : MiniGameSetMgr
     
     public void GetWater()
     {
+        audioSource.Play();
         base.AddItem(item1ID, waterRes);
     }
 

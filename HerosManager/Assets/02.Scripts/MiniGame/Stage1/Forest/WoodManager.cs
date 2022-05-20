@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class WoodManager : MiniGameSetMgr
 {
+    AudioSource audioSource;
+    public AudioClip woodSuccessSound, woodFailSound;
 
     public GameObject NormalWoodPrefab, GoldWoodPrefab;
     private GameObject NowWood;
 
     public GameObject WoodChar;
+
+    public GameObject IdleObj, StunObj, AxeObj;
     
 
     //road
@@ -57,6 +61,9 @@ public class WoodManager : MiniGameSetMgr
     {
         base.SetUp();
         isStun = false;
+        Destroy(NowWood);
+
+        audioSource = gameObject.GetComponent<AudioSource>();
 
         woodStunTime = LoadGameData.Instance.miniGameDatas["game1tree_normal"].Stun;
 
@@ -73,53 +80,73 @@ public class WoodManager : MiniGameSetMgr
 
     void CheckWoodDirection(int input)
     {
-        if(input == 0)
+
+        StartCoroutine(SwingAxe());
+        if(input == 0) // w
         {
             WoodChar.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, charDistance);
-            WoodChar.transform.localScale = new Vector3(1,1,1);
+            WoodChar.transform.localEulerAngles = new Vector3(0,0,180);
         }
-        else if(input == 1)
+        else if(input == 1) //a
         {
             WoodChar.GetComponent<RectTransform>().anchoredPosition = new Vector2(-charDistance,0);
-            WoodChar.transform.localScale = new Vector3(1,1,1);
+            WoodChar.transform.localEulerAngles = new Vector3(0,0,-90);
         }
-        else if(input == 2)
+        else if(input == 2) // s
         {
             WoodChar.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -charDistance);
-            WoodChar.transform.localScale = new Vector3(-1,-1,1);
+            WoodChar.transform.localEulerAngles = new Vector3(0,0,0);
         }
-        else if(input == 3)
+        else if(input == 3) // d
         {
             WoodChar.GetComponent<RectTransform>().anchoredPosition = new Vector2(charDistance,0);
-            WoodChar.transform.localScale = new Vector3(-1,1,1);
+            WoodChar.transform.localEulerAngles = new Vector3(0,0,90);
         }
 
 
         if(woodDirection == input)
         {
-           if(NowWood.CompareTag("NormalTree"))
-           {
-               AddItem(item1ID,woodNormalRes);
-           }
-           else if(NowWood.CompareTag("GoldTree"))
-           {
-               AddItem(item1ID,woodGoldRes);
-           }
+            audioSource.clip = woodSuccessSound;
+            audioSource.Play();
+            if(NowWood.CompareTag("MiniGameObj1"))
+            {
+                AddItem(item1ID,woodNormalRes);
+            }
+            else if(NowWood.CompareTag("MiniGameObj2"))
+            {
+                AddItem(item1ID,woodGoldRes);
+            }
 
            Destroy(NowWood);
            SpawnWood();
         }
         else
         {
+            audioSource.clip = woodFailSound;
+            audioSource.Play();
+            StopCoroutine(SwingAxe());
             StartCoroutine(Stun());
         }
     }
 
+    IEnumerator SwingAxe()
+    {   IdleObj.SetActive(false);
+        AxeObj.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        AxeObj.SetActive(false);
+        IdleObj.SetActive(true);
+    }
+
     IEnumerator Stun()
     {
+        //AxeObj.SetActive(false);
+        StunObj.SetActive(true);
         isStun = true;
         Debug.Log("Wood Stun");
         yield return new WaitForSeconds(woodStunTime);
+        AxeObj.SetActive(false);
+        StunObj.SetActive(false);
+        IdleObj.SetActive(true);
         isStun = false;
     }
 
@@ -137,7 +164,7 @@ public class WoodManager : MiniGameSetMgr
             wood = NormalWoodPrefab;
         }
 
-        NowWood = Instantiate(wood, transform.position, Quaternion.identity,GameObject.Find("Wood").transform);
+        NowWood = Instantiate(wood, transform.position, Quaternion.identity,mother.transform);
 
         //set Direction
         woodDirection = Random.Range(0,4);

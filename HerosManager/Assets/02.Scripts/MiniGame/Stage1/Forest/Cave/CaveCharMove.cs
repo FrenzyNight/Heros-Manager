@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CaveCharMove : MiniGameCharMgr
 {
+    AudioSource audioSource;
+    public AudioClip slidingSound, jumpSound, blockSound, jemSound;
     private CaveManager Mgr;
     public GameObject RunStat;
     public GameObject SlideStat;
@@ -16,6 +18,7 @@ public class CaveCharMove : MiniGameCharMgr
     {
         Mgr = manager.GetComponent<CaveManager>();
         rigid = gameObject.GetComponent<Rigidbody2D>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         rigid.gravityScale = rigid.gravityScale * Mgr.heightScale;
         isCheck = false;
 
@@ -30,6 +33,8 @@ public class CaveCharMove : MiniGameCharMgr
         //Debug.Log("Jump");
         if(!isCheck)
         {
+            audioSource.clip = jumpSound;
+            audioSource.Play();
             rigid.velocity = new Vector3(0, Mgr.realCharJump * Mgr.heightScale, 0);
             isCheck = true;
             Action3();
@@ -40,6 +45,8 @@ public class CaveCharMove : MiniGameCharMgr
     {
         if(!isCheck)
         {
+            audioSource.clip = slidingSound;
+            audioSource.Play();
             RunStat.SetActive(false);
             SlideStat.SetActive(true);
         }
@@ -93,12 +100,16 @@ public class CaveCharMove : MiniGameCharMgr
     {
         if(coll.gameObject.tag == "MiniGameObj2") //block
         {
+            audioSource.clip = blockSound;
+            audioSource.Play();
             StartCoroutine("Stun");
             Destroy(coll.gameObject);
         }
 
         if(coll.gameObject.tag == "MiniGameObj3") //jem
         {
+            audioSource.clip = jemSound;
+            audioSource.Play();
             Jem();
             Destroy(coll.gameObject);
         }

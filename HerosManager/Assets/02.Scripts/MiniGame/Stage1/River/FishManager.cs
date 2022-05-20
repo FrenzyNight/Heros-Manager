@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FishManager : MiniGameSetMgr
 {
+    AudioSource audioSource;
+
     public Vector2 SpawnPoint1, SpawnPoint2, SpawnPoint3;
     public Vector2 spawnP1, spawnP2, spawnP3;
 
@@ -38,6 +40,7 @@ public class FishManager : MiniGameSetMgr
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         LM1 = Log1.GetComponent<LogMove>();
         LM2 = Log2.GetComponent<LogMove>();
 
@@ -140,11 +143,13 @@ public class FishManager : MiniGameSetMgr
 
     public void GetFish()
     {
+        audioSource.Play();
         base.AddItem(item1ID, fishNormalRes);
     }
 
     public void GetGoldFish()
     {
+        audioSource.Play();
         base.AddItem(item1ID, fishGoldRes);
     }
 

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class WaterCharMove : MiniGameCharMgr
 {
+    AudioSource audioSource;
     private WaterManager WM;
     private RectTransform rt;
     private Bucket BK;
@@ -18,6 +20,7 @@ public class WaterCharMove : MiniGameCharMgr
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         WM = manager.GetComponent<WaterManager>();
         rt = gameObject.GetComponent<RectTransform>();
         BK = GameObject.Find("Bucket").GetComponent<Bucket>();
@@ -47,8 +50,12 @@ public class WaterCharMove : MiniGameCharMgr
     IEnumerator Crash()
     {
         isCrash = true;
-        CharImg.sprite = img2;
+        //CharImg.sprite = img2;
         BK.waterTime = 0;
+
+        audioSource.Play();
+        
+        //gameObject.GetComponent<SpriteRenderer>().DOFade(0,1f);
 
         yield return new WaitForSeconds(WM.waterRockInvTime);
 

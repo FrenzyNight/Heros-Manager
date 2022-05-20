@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class PlayerCtrl : MonoBehaviour
 {
+    AudioSource audioSource;
     public MovePosMgr movePosMgr;
 
     NavMeshAgent navAgent;
@@ -15,6 +16,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         navAgent = this.GetComponent<NavMeshAgent>();
         anim = this.GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -61,6 +63,7 @@ public class PlayerCtrl : MonoBehaviour
         StopCoroutine("OnMoveCo");
 
         movePosMgr.MovePosEff(_pos);
+        audioSource.Play();
         anim.SetBool("isMove", true);
         navAgent.SetDestination(_pos);
 
@@ -77,6 +80,7 @@ public class PlayerCtrl : MonoBehaviour
 
                 navAgent.ResetPath();
 
+                audioSource.Stop();
                 anim.SetBool("isMove", false);
 
                 movePosMgr.gameObject.SetActive(false);

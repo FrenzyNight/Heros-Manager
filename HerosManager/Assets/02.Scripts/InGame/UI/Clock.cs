@@ -8,8 +8,8 @@ public class Clock : Singleton<Clock>
     public StageDayData stageDayData;
 
     public int day = 1;
-    float nowTime;
-    float dayTime;
+    public float nowTime;
+    public float dayTime;
     float heroBackTime;
     public bool isStop;
 
@@ -19,6 +19,9 @@ public class Clock : Singleton<Clock>
     public Action NextDayAct;
 
     public AdventureManager AdventureMgr;
+
+    public bool isHeroBack;
+    public bool isChicken;
 
     void Start()
     {
@@ -30,6 +33,8 @@ public class Clock : Singleton<Clock>
     {
         dayTime = LoadGameData.Instance.defineDatas["Define_Day_Time"].value;
         heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value;
+        isHeroBack = false;
+        isChicken = false;
     }
 
     void LoadStageDayData()
@@ -55,6 +60,8 @@ public class Clock : Singleton<Clock>
     void NextDay()
     {
         Time.timeScale = 0f;
+        isHeroBack = false;
+        isChicken = false;
 
         int cnt = 0;
         foreach (var data in LoadGameData.Instance.stageDayDatas)
@@ -91,10 +98,18 @@ public class Clock : Singleton<Clock>
 
         nowTime += Time.deltaTime;
         ClockFillImg.fillAmount = nowTime / (dayTime * 60f);
-        if (nowTime >= (heroBackTime * 60f))
+        if (nowTime >= (heroBackTime * 60f) && !isHeroBack)
         {
             AdventureMgr.EndJourney();
+            isHeroBack = true;
         }
+
+        if(nowTime > 0 && !isChicken)
+        {
+            AdventureMgr.audioSource.Play();
+            isChicken = true;
+        }
+
         if (nowTime >= (dayTime * 60f))
         {
             NextDay();

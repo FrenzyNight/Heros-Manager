@@ -1,7 +1,7 @@
 ObjectID,MinigameID,GetItemID1,GetAmount1,GetItemID2,GetAmount2,GetJemAmount,Probability,Stun,Invincibility,Velocity,CoolTime,GameEnvironment,value1,value2,value3,value4,value5,value6
-game1cage_normal,MG_S1_Cage,-1,-1,-1,-1,-1,0.8,-1,-1,1,1,0,1,-1,-1,-1,-1,-1
-game1cage_stone,MG_S1_Cage,-1,-1,-1,-1,-1,0.09,0.7,0.4,1,1,0,-1,-1,-1,-1,-1,-1
-game1cage_upstone,MG_S1_Cage,-1,-1,-1,-1,-1,0.09,0.7,0.4,1,1,0,-1,-1,-1,-1,-1,-1
+game1cage_normal,MG_S1_Cage,-1,-1,-1,-1,-1,0.7,-1,-1,1,1,0,1,-1,-1,-1,-1,-1
+game1cage_stone,MG_S1_Cage,-1,-1,-1,-1,-1,0.14,0.7,0.4,1,1,0,-1,-1,-1,-1,-1,-1
+game1cage_upstone,MG_S1_Cage,-1,-1,-1,-1,-1,0.14,0.7,0.4,1,1,0,-1,-1,-1,-1,-1,-1
 game1cage_jem,MG_S1_Cage,-1,-1,-1,-1,1,0.02,-1,-1,1,1,0,-1,-1,-1,-1,-1,-1
 game1tree_normal,MG_S1_Tree,Item_Wood,1,-1,-1,-1,0.9,0.7,0.4,-1,-1,0,-1,-1,-1,-1,-1,-1
 game1tree_gold,MG_S1_Tree,Item_Wood,3,-1,-1,-1,0.1,0.7,0.4,-1,-1,0,-1,-1,-1,-1,-1,-1

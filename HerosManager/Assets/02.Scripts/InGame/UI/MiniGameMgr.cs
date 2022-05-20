@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class MiniGameMgr : Singleton<MiniGameMgr>
 {
+    public GameObject MiniGamePanelBack;
     public GameObject MiniGamePanel;
     public Button ExitBtn;
 
@@ -14,7 +15,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
     public Transform[] minigamePlaceTrans;
     public Text[] GuideTexts;
 
-    public Text ItemText;
+    public Text woodText, waterText, meatText, hubText;
 
     int wood;
     int water;
@@ -33,6 +34,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
     public void Setup(string _code)
     {
         InGameMgr.Instance.state = State.MiniGame;
+        MiniGamePanelBack.SetActive(true);
         MiniGamePanel.SetActive(true);
         
         wood = 0;
@@ -105,8 +107,10 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
 
     void SetItemText()
     {
-        ItemText.text = wood.ToString()+ ", " + water.ToString()+ ", "
-                     + meat.ToString()+ ", " + hub.ToString()+ ", " + food.ToString();
+        woodText.text = wood.ToString();
+        waterText.text =  water.ToString();
+        meatText.text = meat.ToString();
+        hubText.text =  hub.ToString();
     }
 
     IEnumerator CycleRandomGameCo()
@@ -217,6 +221,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
     public void CloseMiniGame()
     {
         InGameMgr.Instance.state = State.Camp;
+        MiniGamePanelBack.SetActive(false);
         MiniGamePanel.SetActive(false);
 
         ItemManager.Instance.AddItem(wood, water, meat, hub, food);

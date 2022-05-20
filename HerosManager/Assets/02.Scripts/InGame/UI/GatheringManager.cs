@@ -31,7 +31,7 @@ public class GatheringManager : Singleton<GatheringManager>
             });
         }
 
-        NoticeText.text = LoadGameData.Instance.GetString("");
+        NoticeText.text = LoadGameData.Instance.GetString("MG_a1");
 
         LoadStageGathering();
     }

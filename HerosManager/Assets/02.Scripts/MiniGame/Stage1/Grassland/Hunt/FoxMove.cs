@@ -47,5 +47,6 @@ public class FoxMove : MiniGameAnimalMove
         Debug.Log("Get Meat " + Mgr.huntFoxRes.ToString());
         Mgr.foxNum -= 1;
         Destroy(gameObject);
+
     }   
 }

@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class AdventureManager : MonoBehaviour
 {
+    public float timeScale;
+    public bool isClicked;
+    public GameObject[] Heros;
+
     [Header("Title")]
     public GameObject AdvPanel;
-    public Image TitleImg;
-    public Text TitleText;
+    public Image TitleCharImg;
+    public float delayTime;
+    public float CharTargetX;
     public Text DayText;
 
     [Header("Item")]
@@ -23,10 +29,14 @@ public class AdventureManager : MonoBehaviour
     public Text MinWaterText;
 
     [Header("Info")]
-    public Text ResultTitleText;
-    public Text ResultRateText;
-    public Text ResultText;
+    public Text ResultPerfectRateText;
+    public Text ResultSuccesRateText;
+    public Text ResultFailRateText;
+    //public Text ResultText;
     public Button StartAdvBtn;
+    public Sprite GoodImg, NormalImg, BadImg, DangerImg;
+
+    public Image ResultImg;
     string perfectStr;
     string normalStr;
     string failStr;
@@ -35,24 +45,31 @@ public class AdventureManager : MonoBehaviour
     [Header("EX")]
     public GameObject ExImg;
     
+    [HideInInspector]
+    public Color color;
+    
 
     JourneyData journeyData;
     List<JStateData> jStateDataList = new List<JStateData>();
     List<JResultData> jResultDataList = new List<JResultData>();
 
+    public AudioSource audioSource;
+
+
     void Start()
     {
-        StartAdvBtn.onClick.AddListener(StartAdventure);
+        isClicked = false;
+        StartAdvBtn.onClick.AddListener(StartButton);
+        audioSource = GetComponent<AudioSource>();
 
         WarningText.text = LoadGameData.Instance.GetString("Journey_a1");
-
-        ResultTitleText.text = LoadGameData.Instance.GetString("Journey_t3");
         
-        StartAdvBtn.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString("Journey_t7");
+        //StartAdvBtn.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString("Journey_t7");
     }
 
     public void ReadyAdventure(StageDayData _stageDayData)
     {
+        
         Time.timeScale = 0;
 
         perfectStr = LoadGameData.Instance.GetString("Journey_t4");
@@ -79,13 +96,14 @@ public class AdventureManager : MonoBehaviour
 
         HeroStateManager.Instance.SlideAll(false);
 
-        TitleText.text = LoadGameData.Instance.GetString(journeyData.StageTitleStringID);
         DayText.text = string.Format(LoadGameData.Instance.GetString("Day_t1"), Clock.Instance.day);
 
         ItemNumTexts[0].text = meat.ToString();
         ItemNumTexts[1].text = water.ToString();
         ItemNumTexts[2].text = food.ToString();
         ItemNumTexts[3].text = hub.ToString();
+
+        ItemTextColorSet();
 
         MinMeatText.text = string.Format(LoadGameData.Instance.GetString("Journey_t1"), journeyData.Item1Min);
         MinWaterText.text = string.Format(LoadGameData.Instance.GetString("Journey_t1"), journeyData.Item2Min);
@@ -94,10 +112,32 @@ public class AdventureManager : MonoBehaviour
         CheckAdventureState();
     }
 
+    void StartButton()
+    {
+        if(isClicked)
+            return;
+
+        Time.timeScale = 1;
+        StartCoroutine(StartAdventereCoroutine());
+    }
+
+    IEnumerator StartAdventereCoroutine()
+    {
+        TitleCharImg.transform.DOLocalMoveX(CharTargetX, delayTime);
+        yield return new WaitForSeconds(delayTime);
+        StartAdventure();
+    }
+
     void StartAdventure()
     {
-        Time.timeScale = 1;
+        for(int i=0;i<4;i++)
+        {
+            Heros[i].GetComponent<HeroMove>().SetAdv();
+        }
+        Time.timeScale = timeScale;
+        TitleCharImg.transform.DOLocalMoveX(-CharTargetX, 0);
         AdvPanel.SetActive(false);
+        isClicked = false;
         ItemManager.Instance.AddItem(0, -water, -meat, -hub, -food);
         HeroStateManager.Instance.SlideAll(true);
         InGameMgr.Instance.state = State.Camp;
@@ -119,6 +159,11 @@ public class AdventureManager : MonoBehaviour
             }
         }
 
+        for(int i=0;i<4;i++)
+        {
+            Heros[i].GetComponent<HeroMove>().ComeBackHome();
+        }
+
         string msg = LoadGameData.Instance.GetString(jResultData.JRanStringID);
         Notice.Instance.InstNoticeText(msg);
 
@@ -132,6 +177,30 @@ public class AdventureManager : MonoBehaviour
             (jResultData.Hero4_Stress, jResultData.Hero4_Power, jResultData.Hero4_Hp, jResultData.Hero4_Exp);
 
     }
+
+    public void ItemTextColorSet()
+    {
+        if(meat < journeyData.Item1Min)
+        {
+            ColorUtility.TryParseHtmlString("#f24c36", out color);
+        }
+        else
+        {
+            ColorUtility.TryParseHtmlString("#443b38", out color);
+        }
+        ItemNumTexts[0].color = color;
+
+        if(water < journeyData.Item2Min)
+        {
+            ColorUtility.TryParseHtmlString("#f24c36", out color);
+        }
+        else 
+        {
+            ColorUtility.TryParseHtmlString("#443b38", out color);
+        }
+        ItemNumTexts[1].color = color;
+    }
+    
     public void SubItemBtn(int _idx)
     {
         int num = -1;
@@ -170,6 +239,7 @@ public class AdventureManager : MonoBehaviour
                 break;
         }
 
+        ItemTextColorSet();
         CheckAdventureState();
     }
 
@@ -211,6 +281,7 @@ public class AdventureManager : MonoBehaviour
                 break;
         }
 
+        ItemTextColorSet();
         CheckAdventureState();
     }
 
@@ -235,13 +306,35 @@ public class AdventureManager : MonoBehaviour
                 jResultDataList.Add(data.Value);
         }
 
+        /*
         string str = "";
         str += string.Format(perfectStr, (int)(jResultDataList[0].Prob * 100)) + "\n" +
             string.Format(normalStr, (int)(jResultDataList[1].Prob * 100)) + "\n" +
             string.Format(failStr, (int)(jResultDataList[2].Prob * 100));
+        */
 
-        ResultRateText.text = str;
-        ResultText.text = LoadGameData.Instance.GetString(jStateData.JStateStringID);
+        ResultPerfectRateText.text = (jResultDataList[0].Prob * 100).ToString();
+        ResultSuccesRateText.text = (jResultDataList[1].Prob * 100).ToString();
+        ResultFailRateText.text = (jResultDataList[2].Prob * 100).ToString();
+
+        //ResultText.text = LoadGameData.Instance.GetString(jStateData.JStateStringID);
+
+        if(jStateData.JStateStringID == "JS_t1") //순탄
+        {
+            ResultImg.sprite = GoodImg;
+        }
+        else if(jStateData.JStateStringID == "JS_t2") //보통
+        {
+            ResultImg.sprite = NormalImg;
+        }
+        else if(jStateData.JStateStringID == "JS_t3") // 어려움
+        {
+            ResultImg.sprite = BadImg;
+        }
+        else if(jStateData.JStateStringID == "JS_t4") // 위험
+        {
+            ResultImg.sprite = DangerImg;
+        }
     }
 
     float AdventureValue()

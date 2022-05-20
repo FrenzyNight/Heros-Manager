@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BowAngle : MiniGameCharMgr
 {
+    AudioSource audioSource;
     private HuntManager Mgr;
     private Animator ani;
 
@@ -12,6 +13,7 @@ public class BowAngle : MiniGameCharMgr
     {
         Mgr = manager.GetComponent<HuntManager>();
         ani = gameObject.GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         target = transform.position;
 
         isCheck = false;
@@ -29,6 +31,7 @@ public class BowAngle : MiniGameCharMgr
     IEnumerator ShootArrow()
     {
         isCheck = true;
+        audioSource.Play();
         Instantiate(Mgr.ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward), Mgr.mother.transform);
 
         ani.Play("Bow_ani", -1, 0f);

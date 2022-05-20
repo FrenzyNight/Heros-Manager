@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Hub : MiniGameObjectMgr
 {
+    AudioSource audioSource;
     public bool isGold;
     private HubManager Mgr;
     public GameObject GageImg;
@@ -22,6 +23,7 @@ public class Hub : MiniGameObjectMgr
         Mgr = manager.GetComponent<HubManager>();
         tr = GetComponent<Transform>();
         Gage = Instantiate(GageImg, tr.position, Quaternion.identity, Mgr.mother.transform);
+        audioSource = gameObject.GetComponent<AudioSource>();
         Mgr.spawnObjects.Add(Gage);
         Gage.GetComponent<Image>().fillAmount = 0;
         Gage.transform.SetSiblingIndex(1);
@@ -66,6 +68,7 @@ public class Hub : MiniGameObjectMgr
     {
         if(collision.gameObject.CompareTag("Player"))
         {
+            audioSource.Play();
             isTouch = true;
             hubSpan = 0;
         }
@@ -75,6 +78,7 @@ public class Hub : MiniGameObjectMgr
     {
         if(collision.gameObject.CompareTag("Player"))
         {
+            audioSource.Stop();
             isTouch = false;
         }
     }

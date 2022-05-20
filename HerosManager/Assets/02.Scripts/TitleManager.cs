@@ -13,6 +13,10 @@ public class TitleManager : MonoBehaviour
     public Text TouchTxt;
     public Transform MenuTrans;
     public Transform SelImg;
+    public AudioSource audioSource;
+
+    public AudioClip touchSound;
+    public AudioClip mouseSound;
 
     bool isStart = false;
     bool isEff = false;
@@ -20,6 +24,8 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         LoadGameData.Instance.LoadCSVDatas();
+
+        audioSource = gameObject.GetComponent<AudioSource>();
 
         TouchTxt.gameObject.SetActive(false);
         TouchTxt.DOFade(1, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).SetDelay(2.5f).OnStart(() =>
@@ -43,6 +49,9 @@ public class TitleManager : MonoBehaviour
 
     void TitleEff()
     {
+        audioSource.clip = touchSound;
+        audioSource.Play();
+
         TouchTxt.DOKill();
         TouchTxt.DOFade(0, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
@@ -107,6 +116,8 @@ public class TitleManager : MonoBehaviour
     }
     void OnPointerEnterEvent(PointerEventData data, int _idx)
     {
+        audioSource.clip = mouseSound;
+        audioSource.Play();
         SelImg.gameObject.SetActive(true);
         SelImg.transform.position = new Vector2(MenuTrans.GetChild(_idx).position.x + 20, MenuTrans.GetChild(_idx).position.y);
         MenuTrans.GetChild(_idx).GetComponent<Text>().color = Color.black;
