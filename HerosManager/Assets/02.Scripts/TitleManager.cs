@@ -108,7 +108,10 @@ public class TitleManager : MonoBehaviour
                         break;
 
                     case 4:
-                        Application.Quit();
+                        menuBtn.onClick.AddListener(() =>
+                        {
+                            Application.Quit();
+                        });
                         break;
                 }
             });
