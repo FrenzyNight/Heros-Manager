@@ -20,6 +20,8 @@ public class TitleManager : MonoBehaviour
 
     bool isStart = false;
     bool isEff = false;
+    public GameObject cam;
+    public GameObject panel;
 
     void Start()
     {
@@ -33,10 +35,22 @@ public class TitleManager : MonoBehaviour
             isStart = true;
             TouchTxt.gameObject.SetActive(true);
         });
+        
+        //시연용 bgm 컨트롤
+        isEff = true;
+        Time.timeScale = 0;
     }
 
     private void Update()
     {
+        //시연
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            cam.GetComponent<AudioSource>().Play();
+            Time.timeScale = 1;
+            isEff = false;
+        }
+
         if (Input.anyKeyDown)
         {
             if (!isEff && isStart)
@@ -104,7 +118,7 @@ public class TitleManager : MonoBehaviour
                 switch (idx)
                 {
                     case 0:
-                        menuBtn.onClick.AddListener(GameStartBtnEvent);
+                        menuBtn.onClick.AddListener(Production);
                         break;
 
                     case 4:
@@ -132,8 +146,15 @@ public class TitleManager : MonoBehaviour
         MenuTrans.GetChild(_idx).GetComponent<Text>().color = new Color(249, 248, 220, 255) / 255;
     }
 
+    void Production()
+    {
+        panel.SetActive(true);
+        panel.GetComponent<Image>().DOFade(1,1.5f);
+        Invoke("GameStartBtnEvent", 1.5f);
+    }
+
     void GameStartBtnEvent()
     {
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene("MapTest");
     }
 }

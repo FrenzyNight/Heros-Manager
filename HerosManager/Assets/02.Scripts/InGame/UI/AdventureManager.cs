@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class AdventureManager : MonoBehaviour
 {
+    public GameObject productPanel;
     public float timeScale;
     public bool isClicked;
     public GameObject[] Heros;
@@ -67,10 +68,18 @@ public class AdventureManager : MonoBehaviour
         //StartAdvBtn.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString("Journey_t7");
     }
 
+    void PanelOff()
+    {
+        productPanel.SetActive(false);
+    }
+
     public void ReadyAdventure(StageDayData _stageDayData)
     {
         
         Time.timeScale = 0;
+
+        //productPanel.SetActive(true);
+        //productPanel.GetComponent<Image>().DOFade(0,1.5f);
 
         perfectStr = LoadGameData.Instance.GetString("Journey_t4");
         normalStr = LoadGameData.Instance.GetString("Journey_t5");

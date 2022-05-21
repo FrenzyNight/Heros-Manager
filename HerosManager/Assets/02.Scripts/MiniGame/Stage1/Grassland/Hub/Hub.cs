@@ -64,11 +64,19 @@ public class Hub : MiniGameObjectMgr
         }
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
             audioSource.Play();
+        }
+    }
+
+
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
             isTouch = true;
             hubSpan = 0;
         }

@@ -188,6 +188,7 @@ public class FenceMgr : Singleton<FenceMgr>
 
     void CompleteLevelup()
     {
+        audioSource.Stop();
         isLeveling = false;
         CancelBtn.gameObject.SetActive(false);
         CompleteBtn.gameObject.SetActive(true);

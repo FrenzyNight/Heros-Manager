@@ -11,11 +11,11 @@ public class FishManager : MiniGameSetMgr
 
     public Vector2 TopPoint, BotPoint;
     public float topP, botP;
-    public GameObject Log1,Log2;
+    public GameObject Log1;
     public GameObject FishPrefab, GoldFishPrefab;
     private GameObject SelectedFish;
 
-    private LogMove LM1,LM2;
+    private LogMove LM1;
 
     private float x, y;
 
@@ -42,7 +42,6 @@ public class FishManager : MiniGameSetMgr
     {
         audioSource = GetComponent<AudioSource>();
         LM1 = Log1.GetComponent<LogMove>();
-        LM2 = Log2.GetComponent<LogMove>();
 
         //SetUp();
     }
@@ -55,10 +54,12 @@ public class FishManager : MiniGameSetMgr
             LM1.direction *= -1;
         }
 
+        /*
         if(Input.GetKeyDown(KeyCode.D))
         {
             LM2.direction *= -1;
         }
+        */
     }
 
     public override void SetUp()
