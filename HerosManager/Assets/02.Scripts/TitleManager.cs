@@ -26,6 +26,7 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         LoadGameData.Instance.LoadCSVDatas();
+        SaveDataManager.Instance.LoadDatas();
 
         audioSource = gameObject.GetComponent<AudioSource>();
 
@@ -118,7 +119,22 @@ public class TitleManager : MonoBehaviour
                 switch (idx)
                 {
                     case 0:
-                        menuBtn.onClick.AddListener(Production);
+                        menuBtn.onClick.AddListener(() =>
+                        {
+                            SaveDataManager.Instance.isContinue = false;
+                            SaveDataManager.Instance.SaveDatas(() =>
+                            {
+                                Production();
+                            });
+                        });
+                        break;
+
+                    case 1:
+                        menuBtn.onClick.AddListener(() =>
+                        {
+                            SaveDataManager.Instance.isContinue = true;
+                            Production();
+                        });
                         break;
 
                     case 4:
@@ -130,7 +146,11 @@ public class TitleManager : MonoBehaviour
                 }
             });
         }
+
+        if (!SaveDataManager.Instance.isSaveStage)
+            MenuTrans.GetChild(1).GetComponent<Button>().interactable = false;
     }
+
     void OnPointerEnterEvent(PointerEventData data, int _idx)
     {
         audioSource.clip = mouseSound;

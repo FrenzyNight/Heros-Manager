@@ -13,7 +13,7 @@ public enum State
 public class InGameMgr : Singleton<InGameMgr>
 {
     public StageData stageData;
-    public int stage = 1;
+    public int stage;
 
     public Action NextStageAct;
 
@@ -25,6 +25,11 @@ public class InGameMgr : Singleton<InGameMgr>
     {
         //temp
         LoadGameData.Instance.LoadCSVDatas();
+
+        if (SaveDataManager.Instance.isContinue)
+            stage = SaveDataManager.Instance.saveData.stage;
+        else
+            stage = 1;
 
         LoadStageData();
     }
@@ -60,6 +65,15 @@ public class InGameMgr : Singleton<InGameMgr>
 
         LoadStageData();
         NextStageAct();
+    }
+
+    public void SaveStageData()
+    {
+        SaveData saveData = SaveDataManager.Instance.saveData;
+        saveData.stage = stage;
+        saveData.day = Clock.Instance.day;
+
+        SaveDataManager.Instance.SaveDatas();
     }
 
     void Update()

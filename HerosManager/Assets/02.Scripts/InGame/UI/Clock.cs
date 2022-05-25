@@ -7,7 +7,7 @@ public class Clock : Singleton<Clock>
 {
     public StageDayData stageDayData;
 
-    public int day = 1;
+    public int day;
     public float nowTime;
     public float dayTime;
     float heroBackTime;
@@ -31,6 +31,11 @@ public class Clock : Singleton<Clock>
 
     void Setup()
     {
+        if (SaveDataManager.Instance.isContinue)
+            day = SaveDataManager.Instance.saveData.day;
+        else
+            day = 1;
+
         dayTime = LoadGameData.Instance.defineDatas["Define_Day_Time"].value;
         heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value;
         isHeroBack = false;
@@ -48,6 +53,8 @@ public class Clock : Singleton<Clock>
                 break;
             }
         }
+
+        InGameMgr.Instance.SaveStageData();
 
         nowTime = 0f;
 
