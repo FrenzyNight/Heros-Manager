@@ -43,4 +43,13 @@ public class SaveData
 {
     public int stage = 0;
     public int day;
+
+    public int[] items;
+
+    public float[] hero1Stat;
+    public float[] hero2Stat;
+    public float[] hero3Stat;
+    public float[] hero4Stat;
+
+    public int fenceLevel;
 }

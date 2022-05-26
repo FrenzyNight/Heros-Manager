@@ -122,10 +122,7 @@ public class TitleManager : MonoBehaviour
                         menuBtn.onClick.AddListener(() =>
                         {
                             SaveDataManager.Instance.isContinue = false;
-                            SaveDataManager.Instance.SaveDatas(() =>
-                            {
-                                Production();
-                            });
+                            Production();
                         });
                         break;
 

@@ -54,8 +54,6 @@ public class Clock : Singleton<Clock>
             }
         }
 
-        InGameMgr.Instance.SaveStageData();
-
         nowTime = 0f;
 
         DayText.text = string.Format(LoadGameData.Instance.GetString("Day_t1"), day);
@@ -91,6 +89,8 @@ public class Clock : Singleton<Clock>
             LoadStageDayData();
             NextDayAct();
         }
+
+        InGameMgr.Instance.SaveStageData();
     }
 
     void Update()

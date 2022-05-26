@@ -7,7 +7,7 @@ public class FenceMgr : Singleton<FenceMgr>
 {
     AudioSource audioSource;
     FenceData fenceData;
-    int fenceLevel = 1;
+    public int fenceLevel = 1;
     bool isLeveling;
     float timer;
 
@@ -70,7 +70,11 @@ public class FenceMgr : Singleton<FenceMgr>
 
     void LoadStageFence()
     {
-        fenceLevel = 1;
+        if (SaveDataManager.Instance.isContinue)
+            fenceLevel = SaveDataManager.Instance.saveData.fenceLevel;
+        else
+            fenceLevel = 1;
+
         foreach (var data in LoadGameData.Instance.fenceDatas)
         {
             if (data.Value.FenceGroupID == InGameMgr.Instance.stageData.FenceGroupID &&

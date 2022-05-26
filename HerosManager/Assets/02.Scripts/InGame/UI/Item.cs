@@ -10,9 +10,9 @@ public class Item : MonoBehaviour
 
     Coroutine runningCo;
 
-    public void Setup(ItemData _itemData)
+    public void Setup(int _num)
     {
-        num = _itemData.FirstGive;
+        num = _num;
         NumText.text = num.ToString();
     }
 
