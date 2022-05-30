@@ -38,19 +38,23 @@ public class TitleManager : MonoBehaviour
         });
         
         //시연용 bgm 컨트롤
+        /*
         isEff = true;
         Time.timeScale = 0;
+        */
     }
 
     private void Update()
     {
         //시연
+        /*
         if(Input.GetKeyDown(KeyCode.Space))
         {
             cam.GetComponent<AudioSource>().Play();
             Time.timeScale = 1;
             isEff = false;
         }
+        */
 
         if (Input.anyKeyDown)
         {
