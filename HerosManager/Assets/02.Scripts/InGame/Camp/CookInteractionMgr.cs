@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CookInteractionMgr : CampInteractionMgr
 {
-    public GameObject TrashGage, Button;
+    public GameObject TrashGage;
     public GameObject FireInterMgr;
     public Sprite CookButton, FoodButton, TrashButton;
     public GameObject NeedUI;
@@ -79,7 +79,7 @@ public class CookInteractionMgr : CampInteractionMgr
     public override void Setup()
     {
         isActive = false;
-        ButtonImg = Button.GetComponent<Image>();
+        ButtonImg = ActiveButton.GetComponent<Image>();
         ButtonImg.sprite = CookButton;
         buttonState = 0;
         UnavailableButton();
