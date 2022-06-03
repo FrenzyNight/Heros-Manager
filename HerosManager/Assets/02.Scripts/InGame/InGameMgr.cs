@@ -8,6 +8,7 @@ public enum State
     Gathering,
     Fence,
     MiniGame,
+    Cutscene,
 }
 
 public class InGameMgr : Singleton<InGameMgr>
@@ -20,6 +21,8 @@ public class InGameMgr : Singleton<InGameMgr>
     public State state = State.Camp;
 
     public Pause pause;
+
+    public CutSceneManager cutSceneMgr;
 
     void Awake()
     {
@@ -101,6 +104,20 @@ public class InGameMgr : Singleton<InGameMgr>
             {
                 FenceMgr.Instance.ClosePanel();
             }
+        }
+
+        switch (state)
+        {
+            case State.Cutscene:
+                if (Input.anyKeyDown)
+                {
+                    bool isLast = cutSceneMgr.NextCutscene();
+                    if (isLast)
+                    {
+
+                    }
+                }
+                break;
         }
     }
 }
