@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class FarmInteractionMgr : CampInteractionMgr
 {
-
     public int needAmount;
     public float time1, time2;
     public int repeat;
@@ -32,13 +31,35 @@ public class FarmInteractionMgr : CampInteractionMgr
     // Update is called once per frame
     void Update()
     {
-        
+        if(isActive && !isGrace)
+        {
+            activeTime -= Time.deltaTime;
+            ActiveGage.fillAmount = activeTime / time1;
+    
+        }
+        else if(isGrace)
+        {
+            GraceGage.sprite = Blue;
+            graceTime -= Time.deltaTime;
+            GraceGage.fillAmount = graceTime / time2;
+        }
+
+        if(isActive && !isGrace && activeTime <= 0)
+        {
+            AvailableButton();
+            isGrace = true;
+        }
+        else if(isGrace && graceTime <= 0)
+        {
+            SetTrash();
+        }
     }
 
     void Plant()
     {
         NeedUI.SetActive(true);
         ButtonImg.sprite = WaterButton;
+        GraceGage.sprite = Green;
         UnavailableButton();
 
         isActive = true;
@@ -58,10 +79,13 @@ public class FarmInteractionMgr : CampInteractionMgr
     {
         UnavailableButton();
 
+        ItemManager.Instance.AddItem(NeedItemID, -needAmount);
         isActive = true;
         isGrace = false;
         activeTime = time1;
         graceTime = time2;
+
+        GraceGage.sprite = Green;
 
         RepeatGages[farmState].SetActive(true);
 
@@ -95,6 +119,9 @@ public class FarmInteractionMgr : CampInteractionMgr
         ActiveGage.fillAmount = activeTime / time1;
         GraceGage.fillAmount = graceTime / time2;
 
+        CampObjMgr.GetComponent<FarmMgr>().NonFarm();
+
+        farmState = 0;
         foreach(GameObject repeat in RepeatGages)
         {
             repeat.SetActive(false);
@@ -106,11 +133,47 @@ public class FarmInteractionMgr : CampInteractionMgr
         isActive = false;
         isGrace = false;
         
+        NeedUI.SetActive(false);
+
+        buttonState = 3;
+        ButtonImg.sprite = TrashButton;
+        ActiveGage.sprite = Red;
+        GraceGage.sprite = Red;
+
+        ActiveGage.fillAmount = 1;
+        GraceGage.fillAmount = 1;
+
+        farmState = 0;
+        
+        foreach(GameObject repeat in RepeatGages)
+        {
+            repeat.SetActive(true);
+            repeat.GetComponent<Image>().sprite = Red;
+        }
+
+        AvailableButton();
     }
 
     void ClearTrash()
     {
+        buttonState = 0;
+        ButtonImg.sprite = HubButton;
+        ActiveGage.sprite = Green;
+        GraceGage.sprite = Green;
 
+        activeTime = 0;
+        graceTime = 0;
+
+        ActiveGage.fillAmount = 0;
+        GraceGage.fillAmount = 0;
+
+        CampObjMgr.GetComponent<FarmMgr>().NonFarm();
+
+        foreach(GameObject repeat in RepeatGages)
+        {
+            repeat.GetComponent<Image>().sprite = Green;
+            repeat.SetActive(false);
+        }
     }
 
     public override void Setup()

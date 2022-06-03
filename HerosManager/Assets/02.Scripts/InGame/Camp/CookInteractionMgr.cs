@@ -167,9 +167,15 @@ public class CookInteractionMgr : CampInteractionMgr
         Notice.Instance.InstNoticeText(LoadGameData.Instance.GetString("Cook_a1"));
         buttonState = 2;
         ButtonImg.sprite = TrashButton;
-        TrashGage.SetActive(true);
+        //TrashGage.SetActive(true);
         isActive = false;
         isGrace = false;
+
+        ActiveGage.fillAmount = 1;
+        GraceGage.fillAmount = 1;
+
+        ActiveGage.sprite = Red;
+        GraceGage.sprite = Red;
 
         AvailableButton();
     }
@@ -179,6 +185,12 @@ public class CookInteractionMgr : CampInteractionMgr
         buttonState = 0;
         ButtonImg.sprite = CookButton;
         TrashGage.SetActive(false);
+
+        ActiveGage.fillAmount = 0;
+        GraceGage.fillAmount = 0;
+
+        ActiveGage.sprite = Green;
+        GraceGage.sprite = Green;
 
 
         TrashGage.SetActive(false);

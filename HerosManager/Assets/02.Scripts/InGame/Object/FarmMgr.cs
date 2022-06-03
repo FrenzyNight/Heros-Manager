@@ -27,10 +27,6 @@ public class FarmMgr : CampObjectMgr
                 SmallPlant.SetActive(false);
                 break;
         }
-
-        BigPlant.SetActive(true);
-        MediumPlant.SetActive(true);
-        SmallPlant.SetActive(true);
     }
 
     [ContextMenu("NonFarm")]

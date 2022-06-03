@@ -12,11 +12,13 @@ public class CampObjectMgr : MonoBehaviour
 
     void Start()
     {
+        /*
         cameraToLookAt = mainCamera.GetComponent<Camera>();
         
         ObjectUI.transform.LookAt(ObjectUI.transform.position
             + cameraToLookAt.transform.rotation * Vector3.back,
         cameraToLookAt.transform.rotation * Vector3.down);
+        */
     }
 
     [ContextMenu("OpenUI")]
