@@ -41,6 +41,9 @@ public class SaveDataManager : Singleton<SaveDataManager>
 [Serializable]
 public class SaveData
 {
+    public float EffVolume;
+    public float BgmVolume;
+
     public int stage = 0;
     public int day;
 

@@ -6,6 +6,7 @@ public class LoadGameData : Singleton<LoadGameData>
     public Dictionary<string, EventData> eventDatas = new Dictionary<string, EventData>();
     public Dictionary<string, ChoiceData> choiceDatas = new Dictionary<string, ChoiceData>();
     public Dictionary<string, CookData> cookDatas = new Dictionary<string, CookData>();
+    public Dictionary<string, CutsceneData> cutsceneDatas = new Dictionary<string, CutsceneData>();
     public Dictionary<string, BonfireData> bonfireDatas = new Dictionary<string, BonfireData>();
     public Dictionary<string, CollectSpaceData> collectSpaceDatas = new Dictionary<string, CollectSpaceData>();
     public Dictionary<string, CollectData> collectDatas = new Dictionary<string, CollectData>();
@@ -29,6 +30,7 @@ public class LoadGameData : Singleton<LoadGameData>
         LoadEventData("CSVData/EventTable");
         LoadChoiceData("CSVData/ChoiceTable");
         LoadCookData("CSVData/CookTable");
+        LoadCutsceneData("CSVData/CutsceneTable");
         LoadBonfireData("CSVData/BonfireTable");
         LoadCollectSpaceData("CSVData/CollectSpaceTable");
         LoadCollectData("CSVData/CollectTable");
@@ -68,6 +70,32 @@ public class LoadGameData : Singleton<LoadGameData>
             cookData.GetTime = CSVConvert.ToFloat(data[i]["GetTime"]);
 
             cookDatas.Add(cookData.CookID, cookData);
+        }
+    }
+
+    void LoadCutsceneData(string _path)
+    {
+        cutsceneDatas.Clear();
+        List<Dictionary<string, object>> data = CSVReader.Read(_path);
+        for (int i = 0; i < data.Count; i++)
+        {
+            CutsceneData cutsceneData = new CutsceneData();
+            cutsceneData.CutSceneID = CSVConvert.ToString(data[i]["CutSceneID"]);
+            cutsceneData.OpenID = CSVConvert.ToString(data[i]["OpenID"]);
+            cutsceneData.StringType = CSVConvert.ToInt(data[i]["StringType"]);
+            cutsceneData.StringID = CSVConvert.ToString(data[i]["StringID"]);
+            cutsceneData.StringDelay = CSVConvert.ToFloat(data[i]["StringDelay"]);
+            cutsceneData.value1 = CSVConvert.ToFloat(data[i]["value(1)"]);
+            cutsceneData.ImageType = CSVConvert.ToInt(data[i]["ImageType"]);
+            cutsceneData.ImageResourceID = CSVConvert.ToString(data[i]["ImageResourceID"]);
+            cutsceneData.ImageDelay = CSVConvert.ToFloat(data[i]["ImageDelay"]);
+            cutsceneData.value2 = CSVConvert.ToFloat(data[i]["value(2)"]);
+            cutsceneData.SoundType = CSVConvert.ToInt(data[i]["SoundType"]);
+            cutsceneData.SoundResourceID = CSVConvert.ToString(data[i]["SoundResourceID"]);
+            cutsceneData.SoundDelay = CSVConvert.ToFloat(data[i]["SoundDelay"]);
+            cutsceneData.value3 = CSVConvert.ToFloat(data[i]["value(3)"]);
+
+            cutsceneDatas.Add(cutsceneData.CutSceneID, cutsceneData);
         }
     }
 
@@ -514,6 +542,25 @@ public class CookData
     public int GetItemAmount;
     public float CookTime;
     public float GetTime;
+}
+
+[System.Serializable]
+public class CutsceneData
+{
+    public string CutSceneID;
+    public string OpenID;
+    public int StringType;
+    public string StringID;
+    public float StringDelay;
+    public float value1;
+    public int ImageType;
+    public string ImageResourceID;
+    public float ImageDelay;
+    public float value2;
+    public int SoundType;
+    public string SoundResourceID;
+    public float SoundDelay;
+    public float value3;
 }
 
 
