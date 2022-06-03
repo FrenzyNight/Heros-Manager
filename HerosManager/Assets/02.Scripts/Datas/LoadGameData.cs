@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class LoadGameData : Singleton<LoadGameData>
 {
+    public Dictionary<string, EventData> eventDatas = new Dictionary<string, EventData>();
+    public Dictionary<string, ChoiceData> choiceDatas = new Dictionary<string, ChoiceData>();
     public Dictionary<string, CookData> cookDatas = new Dictionary<string, CookData>();
     public Dictionary<string, BonfireData> bonfireDatas = new Dictionary<string, BonfireData>();
     public Dictionary<string, CollectSpaceData> collectSpaceDatas = new Dictionary<string, CollectSpaceData>();
@@ -24,6 +26,8 @@ public class LoadGameData : Singleton<LoadGameData>
 
     public void LoadCSVDatas()
     {
+        LoadEventData("CSVData/EventTable");
+        LoadChoiceData("CSVData/ChoiceTable");
         LoadCookData("CSVData/CookTable");
         LoadBonfireData("CSVData/BonfireTable");
         LoadCollectSpaceData("CSVData/CollectSpaceTable");
@@ -402,6 +406,69 @@ public class LoadGameData : Singleton<LoadGameData>
         }
     }
 
+    void LoadChoiceData(string _path)
+    {
+        choiceDatas.Clear();
+        List<Dictionary<string, object>> data = CSVReader.Read(_path);
+        for(int i=0;i<data.Count;i++)
+        {
+            ChoiceData choiceData = new ChoiceData();
+
+            choiceData.ChoiceID = CSVConvert.ToString(data[i]["ChoiceID"]);
+            choiceData.ChoiceStringID = CSVConvert.ToString(data[i]["ChoiceStringID"]);
+            choiceData.NeedItemID = CSVConvert.ToString(data[i]["NeeditemID"]);
+            choiceData.NeedAmount = CSVConvert.ToInt(data[i]["NeedAmount"]);
+            choiceData.RewardProb = CSVConvert.ToFloat(data[i]["RewardProb"]);
+            choiceData.RewardType = CSVConvert.ToInt(data[i]["RewardType"]);
+            choiceData.RewardStringID = CSVConvert.ToString(data[i]["RewardStringID"]);
+            choiceData.Hero1ID = CSVConvert.ToString(data[i]["Hero1ID"]);
+            choiceData.H1Reward1Type = CSVConvert.ToString(data[i]["H1Reward1Type"]);
+            choiceData.H1Reward1Amount = CSVConvert.ToInt(data[i]["H1Reward1Amount"]);
+            choiceData.H1Reward2Type = CSVConvert.ToString(data[i]["H1Reward2Type"]);
+            choiceData.H1Reward2Amount = CSVConvert.ToInt(data[i]["H1Reward2Amount"]);
+            choiceData.Hero2ID = CSVConvert.ToString(data[i]["Hero2ID"]);
+            choiceData.H2Reward1Type = CSVConvert.ToString(data[i]["H2Reward1Type"]);
+            choiceData.H2Reward1Amount = CSVConvert.ToInt(data[i]["H2Reward1Amount"]);
+            choiceData.H2Reward2Type = CSVConvert.ToString(data[i]["H2Reward2Type"]);
+            choiceData.H2Reward2Amount = CSVConvert.ToInt(data[i]["H2Reward2Amount"]);
+            choiceData.FailHero1ID = CSVConvert.ToString(data[i]["FailHero1ID"]);
+            choiceData.FailH1Reward1Type = CSVConvert.ToString(data[i]["FailH1Reward1Type"]);
+            choiceData.FailH1Reward1Amount = CSVConvert.ToInt(data[i]["FailH1Reward1Amount"]);
+            choiceData.FailH1Reward2Type = CSVConvert.ToString(data[i]["FailH1Reward2Type"]);
+            choiceData.FailH1Reward2Amount = CSVConvert.ToInt(data[i]["FailH1Reward2Amount"]);
+            choiceData.FailHero2ID = CSVConvert.ToString(data[i]["FailHero2ID"]);
+            choiceData.FailH2Reward1Type = CSVConvert.ToString(data[i]["FailH2Reward1Type"]);
+            choiceData.FailH2Reward1Amount = CSVConvert.ToInt(data[i]["FailH2Reward1Amount"]);
+            choiceData.FailH2Reward2Type = CSVConvert.ToString(data[i]["FailH2Reward2Type"]);
+            choiceData.FailH2Reward2Amount = CSVConvert.ToInt(data[i]["FailH2Reward2Amount"]);
+            choiceData.AddEventID = CSVConvert.ToString(data[i]["AddEventID"]);
+
+            choiceDatas.Add(choiceData.ChoiceID, choiceData);
+        }
+    }
+
+    void LoadEventData(string _path)
+    {
+        eventDatas.Clear();
+        List<Dictionary<string, object>> data = CSVReader.Read(_path);
+        for(int i = 0; i < data.Count; i++)
+        {
+            EventData eventData = new EventData();
+            eventData.EventID = CSVConvert.ToString(data[i]["EventID"]);
+            eventData.OpenType = CSVConvert.ToInt(data[i]["opentype"]);
+            eventData.EventType = CSVConvert.ToInt(data[i]["EventType"]);
+            eventData.H1ImgName = CSVConvert.ToString(data[i]["H1ImageName"]);
+            eventData.H2ImgName = CSVConvert.ToString(data[i]["H2ImageName"]);
+            eventData.ChoiceNum = CSVConvert.ToInt(data[i]["ChoiceNum"]);
+            eventData.EventStringID = CSVConvert.ToString(data[i]["EventStringID"]);
+            eventData.Choice1ID = CSVConvert.ToString(data[i]["Choice1ID"]);
+            eventData.Choice2ID = CSVConvert.ToString(data[i]["Choice2ID"]);
+            eventData.Choice3ID = CSVConvert.ToString(data[i]["Choice3ID"]);
+
+            eventDatas.Add(eventData.EventID, eventData);
+        }
+    }
+
     void LoadStringData(string _path)
     {
         stringDatas.Clear();
@@ -660,6 +727,56 @@ public class StageDayData
     public string InvadeID;
     public string JourneyID;
 }
+
+[System.Serializable]
+public class EventData
+{
+    public string EventID;
+    public int OpenType;
+    public int EventType;
+    public string H1ImgName;
+    public string H2ImgName;
+    public int ChoiceNum;
+    public string EventStringID;
+    public string Choice1ID;
+    public string Choice2ID;
+    public string Choice3ID;
+}
+
+[System.Serializable]
+public class ChoiceData
+{
+    public string ChoiceID;
+    public string ChoiceStringID;
+    public string NeedItemID;
+    public int NeedAmount;
+    public float RewardProb;
+    public int RewardType;
+    public string RewardStringID;
+    public string Hero1ID;
+    public string H1Reward1Type;
+    public int H1Reward1Amount;
+    public string H1Reward2Type;
+    public int H1Reward2Amount;
+    public string Hero2ID;
+    public string H2Reward1Type;
+    public int H2Reward1Amount;
+    public string H2Reward2Type;
+    public int H2Reward2Amount;
+    public string FailHero1ID;
+    public string FailH1Reward1Type;
+    public int FailH1Reward1Amount;
+    public string FailH1Reward2Type;
+    public int FailH1Reward2Amount;
+    public string FailHero2ID;
+    public string FailH2Reward1Type;
+    public int FailH2Reward1Amount;
+    public string FailH2Reward2Type;
+    public int FailH2Reward2Amount;
+    public string AddEventID;
+}
+
+
 
 [System.Serializable]
 public class StageData
