@@ -1,5 +1,6 @@
-﻿EventID,opentype,EventType,Hero1ID,H1ImageResouce,Hero2ID,H2ImageResouce,ChoiceType,EventStringID,Choice1ID,Choice2ID,Choice3ID
-Event_Norm1,1,0,Hero_1,IM_Reynauld_1,-1,-1,1,Event_Norm1_a1,Choice_Norm1_1,Choice_Norm1_2,-1
-Event_Norm2,1,1,Hero_2,IM_Acis_1,Hero_3,IM_Elise_1,1,Event_Norm2_a1,Choice_Norm2_1,Choice_Norm2_2,-1
-Event_Acis1,1,2,Hero_2,IM_Acis_1,-1,-1,2,Event_Acis1_a1,Choice_Acis1_1,Choice_Acis1_2,Choice_Acis1_3
-Event_Acis2,0,2,Hero_2,IM_Acis_1,-1,-1,2,Event_Acis2_a1,Choice_Acis2_1,Choice_Acis2_2,Choice_Acis2_3
+﻿EventID,opentype,EventType,H1ImageResouce,H2ImageResouce,ChoiceType,EventStringID,Choice1ID,Choice2ID,Choice3ID
+Event_Norm1,1,0,IM_Reynauld_1,-1,1,Event_Norm1_a1,Choice_Norm1_1,Choice_Norm1_2,-1
+Event_Norm2,1,1,IM_Acis_2,IM_Elise_2,1,Event_Norm2_a1,Choice_Norm2_1,Choice_Norm2_2,-1
+Event_Acis1,1,2,IM_Acis_1,-1,2,Event_Acis1_a1,Choice_Acis1_1,Choice_Acis1_2,Choice_Acis1_3
+Event_Acis2,0,2,IM_Acis_1,-1,2,Event_Acis2_a1,Choice_Acis2_1,Choice_Acis2_2,Choice_Acis2_3
+Event_Norm3,1,0,IM_Elise_1,-1,1,Event_Norm3_a1,Choice_Norm3_1,Choice_Norm3_2,-1
