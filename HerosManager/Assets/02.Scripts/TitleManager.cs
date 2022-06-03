@@ -122,7 +122,7 @@ public class TitleManager : MonoBehaviour
                 Button menuBtn = MenuTrans.GetChild(idx).GetComponent<Button>();
                 switch (idx)
                 {
-                    case 0:
+                    case 0: //여정시작
                         menuBtn.onClick.AddListener(() =>
                         {
                             SaveDataManager.Instance.isContinue = false;
@@ -130,7 +130,7 @@ public class TitleManager : MonoBehaviour
                         });
                         break;
 
-                    case 1:
+                    case 1: //이어하기
                         menuBtn.onClick.AddListener(() =>
                         {
                             SaveDataManager.Instance.isContinue = true;
@@ -138,7 +138,13 @@ public class TitleManager : MonoBehaviour
                         });
                         break;
 
-                    case 4:
+                    case 2: //도감
+                        break;
+
+                    case 3: //설정
+                        break;
+
+                    case 4: //게임종료
                         menuBtn.onClick.AddListener(() =>
                         {
                             Application.Quit();
