@@ -11,3 +11,5 @@ Choice_Acis2_2,Choice_Acis2_a2,-1,-1,1,0,Choice_Acis2_s2,-1,-1,-1,-1,-1,-1,-1,-1
 Choice_Acis2_3,Choice_Acis2_a3,-1,-1,1,1,Choice_Acis2_s3,Hero_2,exp,15,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
 Choice_Norm3_1,Choice_Norm3_a1,-1,-1,1,1,Choice_Norm3_s1,Hero_3,stress,5,hp,-5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
 Choice_Norm3_2,Choice_Norm3_a2,-1,-1,1,1,Choice_Norm3_s2,Hero_3,stress,-5,hp,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Norm4_1,Choice_Norm4_a1,-1,-1,-1,1,Choice_Norm4_s1,Hero_4,hp,5,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+Choice_Norm4_2,Choice_Norm4_a2,-1,-1,-1,1,Choice_Norm4_s2,Hero_4,stress,-5,exp,2,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
