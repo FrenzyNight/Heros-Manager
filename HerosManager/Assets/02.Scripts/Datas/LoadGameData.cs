@@ -517,14 +517,18 @@ public class LoadGameData : Singleton<LoadGameData>
         if (!stringDatas.ContainsKey(_code))
             return "String Code is Null";
 
+        string rtn;
+
         if (Application.systemLanguage == SystemLanguage.Korean)
         {
-            return stringDatas[_code].KOR;
+            rtn = stringDatas[_code].KOR.Replace("$n", "\n").Replace("\"\"", "\"");
         }
         else
         {
-            return stringDatas[_code].ENG;
+            rtn = stringDatas[_code].ENG.Replace("$n", "\n").Replace("\"\"", "\"");
         }
+
+        return rtn;
     }
 }
 

@@ -32,12 +32,12 @@ public class EventMgr : Singleton<EventMgr>
 
     void SetUp()
     {
-        foreach(var evt in LoadGameData.Instance.eventDatas)
-        {
-            if(evt.OpenType == 1)
-            {
-                EventList.Add(evt.EventID);
-            }
-        }
+        //foreach(var evt in LoadGameData.Instance.eventDatas)
+        //{
+        //    if(evt.OpenType == 1)
+        //    {
+        //        EventList.Add(evt.EventID);
+        //    }
+        //}
     }
 }
