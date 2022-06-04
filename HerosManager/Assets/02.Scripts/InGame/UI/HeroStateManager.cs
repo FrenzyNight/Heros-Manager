@@ -24,7 +24,7 @@
         }
     }
 
-    HeroState GetHeroStatInfo(string _code)
+    public HeroState GetHeroStatInfo(string _code)
     {
         HeroState heroStat = null;
 

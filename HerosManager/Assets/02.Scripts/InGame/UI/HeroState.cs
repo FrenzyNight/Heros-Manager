@@ -111,6 +111,49 @@ public class HeroState : MonoBehaviour
         SetStatText();
     }
 
+    public void AddStat(string statCode ,float amount)
+    {
+        if(statCode == "stress")
+        {
+            stress += amount;
+            if (stress > maxStress)
+                stress = maxStress;
+            if (stress < minStress)
+                stress = minStress;
+        }
+        
+        else if(statCode == "power")
+        {
+            power += amount;
+            if (power > maxPower)
+                power = maxPower;
+            if (power < minPower)
+                power = minPower;
+        }
+
+        else if(statCode == "hp")
+        {
+            hp += amount;
+            if (hp > maxHp)
+                hp = maxHp;
+            if (hp < minHp)
+                hp = minHp;
+        }
+
+        else if(statCode == "exp")
+        {
+            exp += amount;
+            if (exp > maxExp)
+                exp = maxExp;
+            if (exp < minExp)
+                exp = minExp;
+        }
+
+
+        ExpFill.fillAmount = exp / maxExp;
+        SetStatText();
+    }
+
     void SetStatText()
     {
         string str = stressStr;

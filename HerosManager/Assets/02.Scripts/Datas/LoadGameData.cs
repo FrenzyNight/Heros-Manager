@@ -448,7 +448,7 @@ public class LoadGameData : Singleton<LoadGameData>
             choiceData.NeedAmount = CSVConvert.ToInt(data[i]["NeedAmount"]);
             choiceData.RewardProb = CSVConvert.ToFloat(data[i]["RewardProb"]);
             choiceData.RewardType = CSVConvert.ToInt(data[i]["RewardType"]);
-            choiceData.RewardStringID = CSVConvert.ToString(data[i]["RewardStringID"]);
+            choiceData.SuccessRewardStringID = CSVConvert.ToString(data[i]["SuccessRewardStringID"]);
             choiceData.Hero1ID = CSVConvert.ToString(data[i]["Hero1ID"]);
             choiceData.H1Reward1Type = CSVConvert.ToString(data[i]["H1Reward1Type"]);
             choiceData.H1Reward1Amount = CSVConvert.ToInt(data[i]["H1Reward1Amount"]);
@@ -459,6 +459,7 @@ public class LoadGameData : Singleton<LoadGameData>
             choiceData.H2Reward1Amount = CSVConvert.ToInt(data[i]["H2Reward1Amount"]);
             choiceData.H2Reward2Type = CSVConvert.ToString(data[i]["H2Reward2Type"]);
             choiceData.H2Reward2Amount = CSVConvert.ToInt(data[i]["H2Reward2Amount"]);
+            choiceData.FailRewardStringID = CSVConvert.ToString(data[i]["FailRewardStringID"]);
             choiceData.FailHero1ID = CSVConvert.ToString(data[i]["FailHero1ID"]);
             choiceData.FailH1Reward1Type = CSVConvert.ToString(data[i]["FailH1Reward1Type"]);
             choiceData.FailH1Reward1Amount = CSVConvert.ToInt(data[i]["FailH1Reward1Amount"]);
@@ -803,7 +804,7 @@ public class ChoiceData
     public int NeedAmount;
     public float RewardProb;
     public int RewardType;
-    public string RewardStringID;
+    public string SuccessRewardStringID;
     public string Hero1ID;
     public string H1Reward1Type;
     public int H1Reward1Amount;
@@ -814,6 +815,7 @@ public class ChoiceData
     public int H2Reward1Amount;
     public string H2Reward2Type;
     public int H2Reward2Amount;
+    public string FailRewardStringID;
     public string FailHero1ID;
     public string FailH1Reward1Type;
     public int FailH1Reward1Amount;

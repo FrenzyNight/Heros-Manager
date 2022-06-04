@@ -107,8 +107,8 @@ MG_S3_a1,aaa,-1
 MG_S3_a2,aaa,-1
 MG_S3_a3,aaa,-1
 MG_S3_a4,aaa,-1
-Event_Result_a1,{0}의 {1}</color=green> {2}</color>,-1
-Event_Result_a2,{0}의 {1}</color=red> +{2}</color>,-1
+Event_Result_a1,{0}의 스트레스 </color=green>감소</color>,-1
+Event_Result_a2,{0}의 스트레스 </color=red>증가</color>,-1
 Event_Result_a3,{0}의 {1}</color=green> +{2}</color>,-1
 Event_Result_a4,{0}의 {1}</color=red> {2}</color>,-1
 Event_Norm1_a1,"텐트 뒤에서 부스럭 부스럭 수상한 소리가 들립니다. 수상한 소리를 용사들에게 알리려는 순간, 이미 레이널드씨는 칼을 뽑아 순식간에 텐트 뒤로 달려갔습니다. 그곳에는 굶주림에 미쳐 정신없이 배낭을 뒤지고 있는 새끼 늑대가 있었습니다. 레이널드씨는 차가운 눈빛으로 칼을 높이 들었고, 새끼 늑대를 벨 준비를 하고 있습니다.",-1

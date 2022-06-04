@@ -64,6 +64,7 @@ public class Clock : Singleton<Clock>
 
     void NextDay()
     {
+        nowTime = 0;
         Time.timeScale = 0f;
         isHeroBack = false;
         isChicken = false;
@@ -87,9 +88,11 @@ public class Clock : Singleton<Clock>
             day++;
             FenceMgr.Instance.Invade();
             LoadStageDayData();
-            NextDayAct();
+            //NextDayAct();
         }
 
+
+        EventMgr.Instance.EventButton.GetComponent<Button>().interactable = false;
         InGameMgr.Instance.SaveStageData();
     }
 
@@ -120,6 +123,11 @@ public class Clock : Singleton<Clock>
         if (nowTime >= (dayTime * 60f))
         {
             NextDay();
+        }
+
+        if(nowTime >= (dayTime * 60f)/2) //night
+        {
+            EventMgr.Instance.EventButton.GetComponent<Button>().interactable = true;
         }
     }
 }

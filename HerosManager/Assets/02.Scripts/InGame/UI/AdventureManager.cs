@@ -151,6 +151,11 @@ public class AdventureManager : MonoBehaviour
         HeroStateManager.Instance.SlideAll(true);
         InGameMgr.Instance.state = State.Camp;
 
+        for(int i=0;i<4;i++)
+        {
+            Heros[i].GetComponent<HeroMove>().SetAdv();
+        }
+
         EventMgr.Instance.ChoseEvent();
     }
 
