@@ -40,15 +40,6 @@ public class EventMgr : Singleton<EventMgr>
 
     void SetUp()
     {
-<<<<<<< Updated upstream
-        //foreach(var evt in LoadGameData.Instance.eventDatas)
-        //{
-        //    if(evt.OpenType == 1)
-        //    {
-        //        EventList.Add(evt.EventID);
-        //    }
-        //}
-=======
         foreach(var evt in LoadGameData.Instance.eventDatas)
         {
             if(evt.Value.OpenType == 1)
@@ -153,6 +144,5 @@ public class EventMgr : Singleton<EventMgr>
     public void ChoiceButtonAction(string choiceID)
     {
         Debug.Log("Button Click");
->>>>>>> Stashed changes
     }
 }

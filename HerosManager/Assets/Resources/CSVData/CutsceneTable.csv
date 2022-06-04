@@ -1,5 +1,5 @@
 CutSceneID,OpenID,StringType,StringID,StringDelay,value(1),ImageType,ImageResourceID,ImageDelay,value(2),SoundType,SoundResourceID,SoundDelay,value(3)
-CS_Lay_1_1,open_Lay,1,CS_Lay_1_s1,0.7,-1,1,Image_CS_Lay_1,0,0.7,0,-1,-1,-1
+CS_Lay_1_1,open_Lay,1,CS_Lay_1_s1,1.4,-1,1,Image_CS_Lay_1,0.7,0.7,0,-1,-1,-1
 CS_Lay_1_2,open_Lay,1,CS_Lay_1_s2,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_1_3,open_Lay,1,CS_Lay_1_s3,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_2_1,open_Lay,1,CS_Lay_2_s1,0,-1,2,Image_CS_Lay_2,0,0.7,0,-1,-1,-1

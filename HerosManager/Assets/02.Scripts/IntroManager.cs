@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class IntroManager : MonoBehaviour
 {
     public CutSceneManager cutSceneMgr;
 
+    public Button SkipBtn;
+
     void Start()
     {
-        LoadGameData.Instance.LoadCSVDatas();
+        SkipBtn.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("MapTest");
+        });
+
         cutSceneMgr.LoadCutscene("open_Lay");
         cutSceneMgr.NextCutscene();
     }
@@ -19,7 +26,7 @@ public class IntroManager : MonoBehaviour
             bool isLast = cutSceneMgr.NextCutscene();
             if (isLast)
             {
-                SceneManager.LoadScene("InGame");
+                SceneManager.LoadScene("MapTest");
             }
         }
     }

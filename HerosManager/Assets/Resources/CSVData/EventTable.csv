@@ -1,6 +1,6 @@
 ﻿EventID,opentype,EventType,H1ImageName,H2ImageName,ChoiceNum,EventStringID,Choice1ID,Choice2ID,Choice3ID
-Event_Norm1,1,0,IM_Event_Reynauld_3,-1,2,Event_Norm1_a1,Choice_Norm1_1,Choice_Norm1_2,-1
-Event_Norm2,0,1,IM_Event_Acis_1,IM_Event_Elise_2,2,Event_Norm2_a1,Choice_Norm2_1,Choice_Norm2_2,-1
+Event_Norm1,0,0,IM_Event_Reynauld_3,-1,2,Event_Norm1_a1,Choice_Norm1_1,Choice_Norm1_2,-1
+Event_Norm2,1,1,IM_Event_Acis_1,IM_Event_Elise_2,2,Event_Norm2_a1,Choice_Norm2_1,Choice_Norm2_2,-1
 Event_Acis1,0,2,IM_Event_Acis_3,-1,3,Event_Acis1_a1,Choice_Acis1_1,Choice_Acis1_2,Choice_Acis1_3
 Event_Acis2,0,2,IM_Event_Acis_3,-1,3,Event_Acis2_a1,Choice_Acis2_1,Choice_Acis2_2,Choice_Acis2_3
 Event_Norm3,0,0,IM_Event_Elise_3,-1,2,Event_Norm3_a1,Choice_Norm3_1,Choice_Norm3_2,-1

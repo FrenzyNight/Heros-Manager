@@ -521,11 +521,11 @@ public class LoadGameData : Singleton<LoadGameData>
 
         if (Application.systemLanguage == SystemLanguage.Korean)
         {
-            rtn = stringDatas[_code].KOR.Replace("$n", "\n").Replace("\"\"", "\"");
+            rtn = stringDatas[_code].KOR.Replace("$n", "\n").Replace("\"\"", "\"").Replace("\"\"\"", "\"");
         }
         else
         {
-            rtn = stringDatas[_code].ENG.Replace("$n", "\n").Replace("\"\"", "\"");
+            rtn = stringDatas[_code].ENG.Replace("$n", "\n").Replace("\"\"", "\"").Replace("\"\"\"", "\"");
         }
 
         return rtn;
