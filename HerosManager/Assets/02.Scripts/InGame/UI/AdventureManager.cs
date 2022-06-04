@@ -150,6 +150,8 @@ public class AdventureManager : MonoBehaviour
         ItemManager.Instance.AddItem(0, -water, -meat, -hub, -food);
         HeroStateManager.Instance.SlideAll(true);
         InGameMgr.Instance.state = State.Camp;
+
+        EventMgr.Instance.ChoseEvent();
     }
 
     public void EndJourney()
