@@ -10,7 +10,8 @@ public class TitleManager : MonoBehaviour
 {
     public Image LogoImg;
     public Image EffImg;
-    public Text TouchTxt;
+    //public Text TouchTxt;
+    public Image ClickAny;
     public Transform MenuTrans;
     public Transform SelImg;
     public AudioSource audioSource;
@@ -33,11 +34,12 @@ public class TitleManager : MonoBehaviour
 
         audioSource = gameObject.GetComponent<AudioSource>();
 
-        TouchTxt.gameObject.SetActive(false);
-        TouchTxt.DOFade(1, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).SetDelay(2.5f).OnStart(() =>
+        //TouchTxt.gameObject.SetActive(false);
+        ClickAny.gameObject.SetActive(false);
+        ClickAny.DOFade(1, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).SetDelay(2.5f).OnStart(() =>
         {
             isStart = true;
-            TouchTxt.gameObject.SetActive(true);
+            ClickAny.gameObject.SetActive(true);
         });
         
         //시연용 bgm 컨트롤
@@ -74,11 +76,13 @@ public class TitleManager : MonoBehaviour
         audioSource.clip = touchSound;
         audioSource.Play();
 
-        TouchTxt.DOKill();
-        TouchTxt.DOFade(0, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+        ClickAny.DOKill();
+        ClickAny.DOFade(0, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            TouchTxt.gameObject.SetActive(false);
+            ClickAny.gameObject.SetActive(false);
         });
+
+
         LogoImg.DOFade(0, 1.5f).SetEase(Ease.Linear).OnComplete(() =>
         {
             LogoImg.transform.localPosition = new Vector2(650, 200);

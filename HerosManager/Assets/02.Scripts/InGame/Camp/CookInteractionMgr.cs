@@ -117,7 +117,8 @@ public class CookInteractionMgr : CampInteractionMgr
 
     public override void NextDayAction()
     {
-        SetTrash();
+        if(isActive)
+            SetTrash();
     }
 
     void StartCook()

@@ -22,7 +22,7 @@ public class Clock : Singleton<Clock>
     public AdventureManager AdventureMgr;
 
     public bool isHeroBack;
-    public bool isChicken;
+    public bool isProduct;
 
     void Start()
     {
@@ -40,10 +40,11 @@ public class Clock : Singleton<Clock>
         dayTime = LoadGameData.Instance.defineDatas["Define_Day_Time"].value;
         heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value;
         isHeroBack = false;
-        isChicken = false;
+        isProduct = false;
+        //isChicken = false;
     }
 
-    void LoadStageDayData()
+    public void LoadStageDayData()
     {
         foreach (var data in LoadGameData.Instance.stageDayDatas)
         {
@@ -63,12 +64,19 @@ public class Clock : Singleton<Clock>
         AdventureMgr.ReadyAdventure(stageDayData);
     }
 
-    void NextDay()
+    public void NextDay()
     {
         nowTime = 0;
         Time.timeScale = 0f;
+
+        ProductMgr.Instance.UIInProduct();
+        isProduct =false;
+
         isHeroBack = false;
-        isChicken = false;
+        //isChicken = false;
+
+        //Panel Exit
+        
 
         int cnt = 0;
         foreach (var data in LoadGameData.Instance.stageDayDatas)
@@ -119,15 +127,24 @@ public class Clock : Singleton<Clock>
             isHeroBack = true;
         }
 
+        /*
         if(nowTime > 0 && !isChicken)
         {
             AdventureMgr.audioSource.Play();
             isChicken = true;
         }
+        */
 
-        if (nowTime >= (dayTime * 60f))
+        if (nowTime >= (dayTime * 60f) && !isProduct)
         {
-            NextDay();
+            GatheringManager.Instance.CloseGatheringPannel();
+            MiniGameMgr.Instance.CloseMiniGame();
+            FenceMgr.Instance.ClosePanel();
+            EventMgr.Instance.ClosePanel();
+            //nowTime = 0;
+            isProduct = true;
+            ProductMgr.Instance.UIOutProduct();
+            //NextDay();
         }
 
         if(nowTime >= (dayTime * 60f)/2) //night

@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class AdventureManager : MonoBehaviour
+public class AdventureManager : Singleton<AdventureManager>
 {
-    public GameObject productPanel;
+    public GameObject BlackPanel;
     public float timeScale;
     public bool isClicked;
     public GameObject[] Heros;
@@ -45,6 +45,12 @@ public class AdventureManager : MonoBehaviour
 
     [Header("EX")]
     public GameObject ExImg;
+
+    [Header("NightProduct")]
+    public GameObject NightSky;
+    public GameObject NightStar;
+    public GameObject NightGob1, NightGob2;
+    public GameObject NightFilter;
     
     [HideInInspector]
     public Color color;
@@ -54,14 +60,19 @@ public class AdventureManager : MonoBehaviour
     List<JStateData> jStateDataList = new List<JStateData>();
     List<JResultData> jResultDataList = new List<JResultData>();
 
+    [HideInInspector]
     public AudioSource audioSource;
 
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
         isClicked = false;
         StartAdvBtn.onClick.AddListener(StartButton);
-        audioSource = GetComponent<AudioSource>();
+        
 
         WarningText.text = LoadGameData.Instance.GetString("Journey_a1");
         
@@ -70,13 +81,14 @@ public class AdventureManager : MonoBehaviour
 
     void PanelOff()
     {
-        productPanel.SetActive(false);
+        BlackPanel.SetActive(false);
     }
 
     public void ReadyAdventure(StageDayData _stageDayData)
     {
         
         Time.timeScale = 0;
+        isClicked = true;
 
         //productPanel.SetActive(true);
         //productPanel.GetComponent<Image>().DOFade(0,1.5f);
@@ -119,6 +131,82 @@ public class AdventureManager : MonoBehaviour
 
 
         CheckAdventureState();
+
+        if(Clock.Instance.day != 1)
+        {
+            StartCoroutine(NightProduct());
+        }
+        
+    }
+
+    IEnumerator NightProduct()
+    {
+        Color color;
+        color = NightFilter.GetComponent<Image>().color;
+        color.a = 0.8f;
+        NightFilter.GetComponent<Image>().color = color;
+
+        color.a = 1f;
+
+        NightSky.GetComponent<Image>().color = color;
+        NightStar.GetComponent<Image>().color = color;
+        NightGob1.GetComponent<RectTransform>().anchoredPosition = new Vector2(-250f,15f);
+        NightGob2.GetComponent<RectTransform>().anchoredPosition = new Vector2(330f,15f);
+
+        color = AdvPanel.GetComponent<Image>().color;
+        color.a = 0f;
+        AdvPanel.GetComponent<Image>().color = color;
+
+        color.a = 0.6f;
+
+        yield return new WaitForSecondsRealtime(3f);
+        
+        if(FenceMgr.Instance.isInvade)
+        {
+            NightGob1.GetComponent<RectTransform>().DOAnchorPosX(300, 1f).SetUpdate(true).OnComplete(() => 
+            {
+                NightGob2.GetComponent<RectTransform>().DOAnchorPosX(-400, 1f).SetDelay(1f).SetUpdate(true).OnComplete(() => 
+                {
+                    //yield return new WaitForSecondsRealtime(0.5f);
+                    
+                    BlackPanel.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true).OnStart(() =>
+                    {
+                        audioSource.Play();
+                        ProductMgr.Instance.MainCam.GetComponent<AudioSource>().DOFade(1, 0.5f).SetUpdate(true);
+                        AdvPanel.GetComponent<Image>().color = color;
+                    });
+                    NightFilter.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true);
+                    NightSky.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true);
+                    NightStar.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true).OnComplete(() =>
+                    {
+                        //
+                        isClicked = false;
+                        BlackPanel.SetActive(false);
+                        
+
+                    });
+                });
+            });
+        }
+        else
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+            audioSource.Play();
+            ProductMgr.Instance.MainCam.GetComponent<AudioSource>().DOFade(1, 0.5f).SetUpdate(true);
+            BlackPanel.GetComponent<Image>().DOFade(0,1f).SetUpdate(true);
+            NightFilter.GetComponent<Image>().DOFade(0,1f).SetUpdate(true);
+            NightSky.GetComponent<Image>().DOFade(0,1f).SetUpdate(true);
+            AdvPanel.GetComponent<Image>().color = color;
+            NightStar.GetComponent<Image>().DOFade(0,1f).SetUpdate(true).OnComplete(() =>
+            {
+                //
+                isClicked = false;
+                BlackPanel.SetActive(false);
+                
+            });
+        }
+
+        yield return null;
     }
 
     void StartButton()

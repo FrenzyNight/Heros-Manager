@@ -47,6 +47,9 @@ public class FenceMgr : Singleton<FenceMgr>
     public GameObject fenceLv4;
     public GameObject fenceLv5;
 
+    [HideInInspector]
+    public bool isInvade;
+
     void Start()
     {
         InGameMgr.Instance.NextStageAct += LoadStageFence;
@@ -218,7 +221,8 @@ public class FenceMgr : Singleton<FenceMgr>
         InvadeData invadeData = LoadGameData.Instance.invadeDatas[Clock.Instance.stageDayData.InvadeID];
 
         string msg = "";
-        if (CheckInvade())
+        isInvade = CheckInvade();
+        if (isInvade)
         {
             msg = LoadGameData.Instance.GetString("Invade_a1");
 

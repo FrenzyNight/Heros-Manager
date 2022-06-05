@@ -9,6 +9,8 @@ public enum State
     Fence,
     MiniGame,
     Cutscene,
+    Event,
+    Adventure
 }
 
 public class InGameMgr : Singleton<InGameMgr>
@@ -104,6 +106,10 @@ public class InGameMgr : Singleton<InGameMgr>
             else if (state == State.Fence)
             {
                 FenceMgr.Instance.ClosePanel();
+            }
+            else if (state == State.Event)
+            {
+                EventMgr.Instance.ClosePanel();
             }
         }
 

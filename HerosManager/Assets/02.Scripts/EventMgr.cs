@@ -39,11 +39,6 @@ public class EventMgr : Singleton<EventMgr>
         SetUp();
     }
 
-    void Update()
-    {
-        
-    }
-
     void SetUp()
     {
         foreach(var evt in LoadGameData.Instance.eventDatas)
@@ -60,6 +55,12 @@ public class EventMgr : Singleton<EventMgr>
         botCharImg = botImgObj.GetComponent<Image>();
     }
 
+    public void ClosePanel()
+    {
+        EventPanel.SetActive(false);
+        InGameMgr.Instance.state = State.Camp;
+    }
+
     public void ChoseEvent()
     {
         int idx = Random.Range(0, EventList.Count);
@@ -72,6 +73,9 @@ public class EventMgr : Singleton<EventMgr>
     public void EventButtonAction()
     {
         EventPanel.SetActive(true);
+
+        //
+        InGameMgr.Instance.state = State.Event;
 
         if(isClicked)
             return;
@@ -194,16 +198,27 @@ public class EventMgr : Singleton<EventMgr>
                     if(LoadGameData.Instance.choiceDatas[choiceID].H1Reward1Type == "stress")
                     {
                         statID = "HeroState_w1";
+                        stringID = "Event_Result_a1";
+
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero1ID].HeroStringID)));
+                        
                         if(LoadGameData.Instance.choiceDatas[choiceID].H1Reward1Amount < 0) //스트레스 음수
                         {
-                            stringID = "Event_Result_a1";
+                            //stringID = "Event_Result_a1";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a1_increase"));
+                            optionRT.Append("</color>");
+
                         }
                         else //스트레스 양수
                         {
-                            stringID = "Event_Result_a2";
+                            //stringID = "Event_Result_a2";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a2_increase"));
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero1ID].HeroStringID)));
+                    
                     }
                     else
                     {
@@ -220,17 +235,27 @@ public class EventMgr : Singleton<EventMgr>
                             statID = "HeroState_w4";
                         }
 
+                        stringID = "Event_Result_a3";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero1ID].HeroStringID), LoadGameData.Instance.GetString(statID)));
+
 
                         if(LoadGameData.Instance.choiceDatas[choiceID].H1Reward1Amount > 0) //비 스트레스 양수
                         {
-                            stringID = "Event_Result_a3";
+                            //stringID = "Event_Result_a3";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a3_increase"));
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].H1Reward1Amount.ToString());
+                            optionRT.Append("</color>");
                         }
                         else //비 스트레스 음수
                         {
-                            stringID = "Event_Result_a4";
+                            //stringID = "Event_Result_a4";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].H1Reward1Amount.ToString());
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero1ID].HeroStringID), LoadGameData.Instance.GetString(statID) ,LoadGameData.Instance.choiceDatas[choiceID].H1Reward1Amount.ToString()));
+                        
                     }
                     // {0}의 {1} /color +{2} /color
                     
@@ -242,17 +267,26 @@ public class EventMgr : Singleton<EventMgr>
                     optionRT.Append("\n");
                     if(LoadGameData.Instance.choiceDatas[choiceID].H1Reward2Type == "stress")
                     {
-                        //statID = "HeroStat_w1"
+                        stringID = "Event_Result_a1";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero1ID].HeroStringID)));
+
+
                         if(LoadGameData.Instance.choiceDatas[choiceID].H1Reward2Amount < 0) //스트레스 음수
                         {
-                            stringID = "Event_Result_a1";
+                            //stringID = "Event_Result_a1";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a1_increase"));
+                            optionRT.Append("</color>");
                         }
                         else //스트레스 양수
                         {
-                            stringID = "Event_Result_a2";
+                            //stringID = "Event_Result_a2";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a2_increase"));
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero1ID].HeroStringID)));
+                        
                     }
                     else
                     {
@@ -269,17 +303,25 @@ public class EventMgr : Singleton<EventMgr>
                             statID = "HeroState_w4";
                         }
 
+                        stringID = "Event_Result_a3";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero1ID].HeroStringID), LoadGameData.Instance.GetString(statID) ));
+
 
                         if(LoadGameData.Instance.choiceDatas[choiceID].H1Reward2Amount > 0) //비 스트레스 양수
                         {
-                            stringID = "Event_Result_a3";
+                            //stringID = "Event_Result_a3";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a3_increase"));
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].H1Reward2Amount.ToString());
+                            optionRT.Append("</color>");
                         }
                         else //비 스트레스 음수
                         {
-                            stringID = "Event_Result_a4";
+                            //stringID = "Event_Result_a4";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].H1Reward2Amount.ToString());
+                            optionRT.Append("</color>");
                         }
-
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero1ID].HeroStringID), LoadGameData.Instance.GetString(statID) ,LoadGameData.Instance.choiceDatas[choiceID].H1Reward2Amount.ToString()));
                     }
                 }
             }
@@ -295,17 +337,26 @@ public class EventMgr : Singleton<EventMgr>
                     
                     if(LoadGameData.Instance.choiceDatas[choiceID].H2Reward1Type == "stress")
                     {
+                        stringID = "Event_Result_a1";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero2ID].HeroStringID)));
+
                         //statID = "HeroStat_w1"
                         if(LoadGameData.Instance.choiceDatas[choiceID].H2Reward1Amount < 0) //스트레스 음수
                         {
-                            stringID = "Event_Result_a1";
+                            //stringID = "Event_Result_a1";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a1_increase"));
+                            optionRT.Append("</color>");
                         }
                         else //스트레스 양수
                         {
-                            stringID = "Event_Result_a2";
+                            //stringID = "Event_Result_a2";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a2_increase"));
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero2ID].HeroStringID)));
+                        
                     }
                     else
                     {
@@ -322,17 +373,27 @@ public class EventMgr : Singleton<EventMgr>
                             statID = "HeroState_w4";
                         }
 
+                        stringID = "Event_Result_a3";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero2ID].HeroStringID), LoadGameData.Instance.GetString(statID)));
+
 
                         if(LoadGameData.Instance.choiceDatas[choiceID].H2Reward1Amount > 0) //비 스트레스 양수
                         {
-                            stringID = "Event_Result_a3";
+                            //stringID = "Event_Result_a3";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a3_increase"));
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].H2Reward1Amount.ToString());
+                            optionRT.Append("</color>");
                         }
                         else //비 스트레스 음수
                         {
-                            stringID = "Event_Result_a4";
+                            //stringID = "Event_Result_a4";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].H2Reward1Amount.ToString());
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero2ID].HeroStringID), LoadGameData.Instance.GetString(statID) ,LoadGameData.Instance.choiceDatas[choiceID].H2Reward1Amount.ToString()));
+                        
                     }
                     
                 }
@@ -343,17 +404,24 @@ public class EventMgr : Singleton<EventMgr>
                     optionRT.Append("\n");
                     if(LoadGameData.Instance.choiceDatas[choiceID].H2Reward2Type == "stress")
                     {
+                        stringID = "Event_Result_a1";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero2ID].HeroStringID)));
                         //statID = "HeroStat_w1"
                         if(LoadGameData.Instance.choiceDatas[choiceID].H2Reward2Amount < 0) //스트레스 음수
                         {
-                            stringID = "Event_Result_a1";
+                            //stringID = "Event_Result_a1";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a1_increase"));
+                            optionRT.Append("</color>");
                         }
                         else //스트레스 양수
                         {
-                            stringID = "Event_Result_a2";
+                            //stringID = "Event_Result_a2";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a2_increase"));
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero2ID].HeroStringID)));
                     }
                     else
                     {
@@ -370,17 +438,25 @@ public class EventMgr : Singleton<EventMgr>
                             statID = "HeroState_w4";
                         }
 
+                        stringID = "Event_Result_a3";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero2ID].HeroStringID), LoadGameData.Instance.GetString(statID)));
 
                         if(LoadGameData.Instance.choiceDatas[choiceID].H2Reward2Amount > 0) //비 스트레스 양수
                         {
-                            stringID = "Event_Result_a3";
+                            //stringID = "Event_Result_a3";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a3_increase"));
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].H2Reward2Amount.ToString());
+                            optionRT.Append("</color>");
                         }
                         else //비 스트레스 음수
                         {
-                            stringID = "Event_Result_a4";
+                            //stringID = "Event_Result_a4";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].H2Reward2Amount.ToString());
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].Hero2ID].HeroStringID), LoadGameData.Instance.GetString(statID) ,LoadGameData.Instance.choiceDatas[choiceID].H2Reward2Amount.ToString()));
                     }
                 }
             }
@@ -401,17 +477,24 @@ public class EventMgr : Singleton<EventMgr>
                     
                     if(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward1Type == "stress")
                     {
-                        statID = "HeroState_w1";
+                        stringID = "Event_Result_a1";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero1ID].HeroStringID)));
+                        //statID = "HeroState_w1";
                         if(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward1Amount < 0) //스트레스 음수
                         {
-                            stringID = "Event_Result_a1";
+                            //stringID = "Event_Result_a1";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a1_increase"));
+                            optionRT.Append("</color>");
                         }
                         else //스트레스 양수
                         {
-                            stringID = "Event_Result_a2";
+                            //stringID = "Event_Result_a2";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a2_increase"));
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero1ID].HeroStringID)));
                     }
                     else
                     {
@@ -428,17 +511,27 @@ public class EventMgr : Singleton<EventMgr>
                             statID = "HeroState_w4";
                         }
 
+                        stringID = "Event_Result_a3";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero1ID].HeroStringID), LoadGameData.Instance.GetString(statID) ));
+
 
                         if(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward1Amount > 0) //비 스트레스 양수
                         {
-                            stringID = "Event_Result_a3";
+                            //stringID = "Event_Result_a3";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a3_increase"));
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward1Amount.ToString());
+                            optionRT.Append("</color>");
                         }
                         else //비 스트레스 음수
                         {
-                            stringID = "Event_Result_a4";
+                            //stringID = "Event_Result_a4";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward1Amount.ToString());
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero1ID].HeroStringID), LoadGameData.Instance.GetString(statID) ,LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward1Amount.ToString()));
+                        
                     }
                     // {0}의 {1} /color +{2} /color
                     
@@ -450,17 +543,24 @@ public class EventMgr : Singleton<EventMgr>
                     optionRT.Append("\n");
                     if(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward2Type == "stress")
                     {
+                        stringID = "Event_Result_a1";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero1ID].HeroStringID)));
                         //statID = "HeroStat_w1"
                         if(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward2Amount < 0) //스트레스 음수
                         {
-                            stringID = "Event_Result_a1";
+                            //stringID = "Event_Result_a1";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a1_increase"));
+                            optionRT.Append("</color>");
                         }
                         else //스트레스 양수
                         {
-                            stringID = "Event_Result_a2";
+                            //stringID = "Event_Result_a2";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a2_increase"));
+                            optionRT.Append("</color>");
                         }
-
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero1ID].HeroStringID)));
+                        
                     }
                     else
                     {
@@ -477,17 +577,26 @@ public class EventMgr : Singleton<EventMgr>
                             statID = "HeroState_w4";
                         }
 
+                        stringID = "Event_Result_a3";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero1ID].HeroStringID), LoadGameData.Instance.GetString(statID) ));
+
 
                         if(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward2Amount > 0) //비 스트레스 양수
                         {
-                            stringID = "Event_Result_a3";
+                            //stringID = "Event_Result_a3";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a3_increase"));
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward2Amount.ToString());
+                            optionRT.Append("</color>");
                         }
                         else //비 스트레스 음수
                         {
-                            stringID = "Event_Result_a4";
+                            //stringID = "Event_Result_a4";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward2Amount.ToString());
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero1ID].HeroStringID), LoadGameData.Instance.GetString(statID) ,LoadGameData.Instance.choiceDatas[choiceID].FailH1Reward2Amount.ToString()));
                     }
                 }
             }
@@ -503,17 +612,25 @@ public class EventMgr : Singleton<EventMgr>
                     
                     if(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward1Type == "stress")
                     {
+                        stringID = "Event_Result_a1";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero2ID].HeroStringID)));
                         //statID = "HeroStat_w1"
                         if(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward1Amount < 0) //스트레스 음수
                         {
-                            stringID = "Event_Result_a1";
+                            //stringID = "Event_Result_a1";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a1_increase"));
+                            optionRT.Append("</color>");
                         }
                         else //스트레스 양수
                         {
-                            stringID = "Event_Result_a2";
+                            //stringID = "Event_Result_a2";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a2_increase"));
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero2ID].HeroStringID)));
+                        
                     }
                     else
                     {
@@ -530,17 +647,25 @@ public class EventMgr : Singleton<EventMgr>
                             statID = "HeroState_w4";
                         }
 
+                        stringID = "Event_Result_a3";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero2ID].HeroStringID), LoadGameData.Instance.GetString(statID)));
+
 
                         if(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward1Amount > 0) //비 스트레스 양수
                         {
-                            stringID = "Event_Result_a3";
+                            //stringID = "Event_Result_a3";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a3_increase"));
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward1Amount.ToString());
+                            optionRT.Append("</color>");
                         }
                         else //비 스트레스 음수
                         {
-                            stringID = "Event_Result_a4";
+                            //stringID = "Event_Result_a4";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward1Amount.ToString());
+                            optionRT.Append("</color>");
                         }
-
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero2ID].HeroStringID), LoadGameData.Instance.GetString(statID) ,LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward1Amount.ToString()));
                     }
                     
                 }
@@ -551,17 +676,25 @@ public class EventMgr : Singleton<EventMgr>
                     optionRT.Append("\n");
                     if(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward2Type == "stress")
                     {
+                        stringID = "Event_Result_a1";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero2ID].HeroStringID)));
                         //statID = "HeroStat_w1"
                         if(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward2Amount < 0) //스트레스 음수
                         {
-                            stringID = "Event_Result_a1";
+                            //stringID = "Event_Result_a1";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a1_increase"));
+                            optionRT.Append("</color>");
                         }
                         else //스트레스 양수
                         {
-                            stringID = "Event_Result_a2";
+                            //stringID = "Event_Result_a2";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a2_increase"));
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero2ID].HeroStringID)));
+                        
                     }
                     else
                     {
@@ -577,18 +710,26 @@ public class EventMgr : Singleton<EventMgr>
                         {
                             statID = "HeroState_w4";
                         }
-
+                        
+                        stringID = "Event_Result_a3";
+                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero2ID].HeroStringID), LoadGameData.Instance.GetString(statID)));
 
                         if(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward2Amount > 0) //비 스트레스 양수
                         {
-                            stringID = "Event_Result_a3";
+                            //stringID = "Event_Result_a3";
+                            optionRT.Append("<color=green>");
+                            optionRT.Append(LoadGameData.Instance.GetString("Event_Result_a3_increase"));
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward2Amount.ToString());
+                            optionRT.Append("</color>");
                         }
                         else //비 스트레스 음수
                         {
-                            stringID = "Event_Result_a4";
+                            //stringID = "Event_Result_a4";
+                            optionRT.Append("<color=red>");
+                            optionRT.Append(LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward2Amount.ToString());
+                            optionRT.Append("</color>");
                         }
 
-                        optionRT.Append(string.Format(LoadGameData.Instance.GetString(stringID), LoadGameData.Instance.GetString(LoadGameData.Instance.heroDatas[LoadGameData.Instance.choiceDatas[choiceID].FailHero2ID].HeroStringID), LoadGameData.Instance.GetString(statID) ,LoadGameData.Instance.choiceDatas[choiceID].FailH2Reward2Amount.ToString()));
                     }
                 }
             }
