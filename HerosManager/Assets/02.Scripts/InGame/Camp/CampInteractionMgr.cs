@@ -29,4 +29,5 @@ public class CampInteractionMgr : MonoBehaviour
 
     public virtual void ClickButton() {}
     public virtual void Setup() {}
+    public virtual void NextDayAction() {}
 }

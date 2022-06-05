@@ -115,6 +115,11 @@ public class CookInteractionMgr : CampInteractionMgr
         
     }
 
+    public override void NextDayAction()
+    {
+        SetTrash();
+    }
+
     void StartCook()
     {
         if(ItemManager.Instance.GetItemInfo(needItem1ID).num < needItem1Amount || ItemManager.Instance.GetItemInfo(needItem2ID).num < needItem2Amount ||ItemManager.Instance.GetItemInfo(needItem3ID).num < needItem3Amount)

@@ -77,7 +77,8 @@ public class InGameMgr : Singleton<InGameMgr>
         saveData.day = Clock.Instance.day;
         for (int i = 0; i < ItemManager.Instance.items.Length; i++)
         {
-            saveData.items[i] = ItemManager.Instance.items[i].num;
+            //saveData.items[i] = ItemManager.Instance.items[i].num;
+            //임시로 주석처리함
         }
         saveData.fenceLevel = FenceMgr.Instance.fenceLevel;
 

@@ -69,6 +69,18 @@ public class FireInteractionMgr : CampInteractionMgr
 
     }
 
+    public override void NextDayAction()
+    {
+        isGrace = false;
+        isActive = false;
+        activeTime = 0;
+        graceTime = 0;
+        CampObjMgr.GetComponent<FireMgr>().NonFire();
+        AvailableButton();
+        ActiveGage.fillAmount = 0;
+        GraceGage.fillAmount = 0;
+    }
+
     public override void Setup()
     {
         audioSource = GetComponent<AudioSource>();

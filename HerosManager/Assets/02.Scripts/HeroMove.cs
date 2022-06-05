@@ -5,28 +5,27 @@ using DG.Tweening;
 
 public class HeroMove : MonoBehaviour
 {
+    public GameObject model;
+    [HideInInspector]
+    public Sprite3DAnimator sprite3D;
+
+    public float minMoveTime, maxMoveTime;
+    [HideInInspector]
     public float moveTime;
+    public float minStandTime, maxStandTime;
+    [HideInInspector]
     public float standTime;
-    public float speed;
     public float maxX, maxY;
     public float minX, minY;
+    [HideInInspector]
     public float moveX, moveY;
-    public GameObject CharSprite;
-    public GameObject parent;
-    private Animator ani;
 
     // Start is called before the first frame update
     void Start()
     {
-        ani = CharSprite.GetComponent<Animator>();
+        sprite3D = model.GetComponent<Sprite3DAnimator>();
         SetAdv();
         //StartCoroutine(Move());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator Move()
@@ -39,37 +38,39 @@ public class HeroMove : MonoBehaviour
 
             if(gameObject.transform.position.x - moveX < 0) // 왼쪽
             {
-                parent.transform.DORotate(new Vector3(30,180,0), 0.5f);
+                sprite3D.animationIndex = 0;
             }
             else
             {
-                parent.transform.DORotate(new Vector3(-30,0,0), 0.5f);
+                sprite3D.animationIndex = 1;
             }
 
-            ani.SetBool("isMove", true);
-            transform.DOMove(new Vector3(moveX,gameObject.transform.position.y, moveY), moveTime);
+            sprite3D.isMove = true;
+            moveTime = Random.Range(minMoveTime, maxMoveTime);
+            transform.DOMove(new Vector3(moveX,gameObject.transform.position.y, moveY), moveTime).SetId("HeroMoveTween");
             yield return new WaitForSeconds(moveTime);
 
-            ani.SetBool("isMove", false);
+            
+            sprite3D.SetIdle();
+            standTime = Random.Range(minStandTime, maxStandTime);
             yield return new WaitForSeconds(standTime);
         }
     }
 
+    Coroutine coroutine;
     public void ComeBackHome()
     {
-        /*
-        moveX = Random.Range(20, 22);
-        moveY = Random.Range(19, 21);
-
-        transform.DOMove(new Vector3(moveX, 0.5f, moveY),2f);
-        */
-        StartCoroutine(Move());
+        coroutine = StartCoroutine(Move());
     }
 
     public void SetAdv()
     {
-
-        StopCoroutine(Move());
-        transform.position = new Vector3(21, 0.5f, 40);
+        DOTween.Kill("HeroMoveTween");
+        transform.position = new Vector3(21, 0.5f, 45);
+        
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
     }
 }

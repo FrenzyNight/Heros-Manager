@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Clock : Singleton<Clock>
 {
+    public GameObject[] CampObjs;
     public StageDayData stageDayData;
 
     public int day;
@@ -88,6 +89,10 @@ public class Clock : Singleton<Clock>
             day++;
             FenceMgr.Instance.Invade();
             LoadStageDayData();
+            foreach(GameObject campobj in CampObjs)
+            {
+                campobj.GetComponent<CampInteractionMgr>().NextDayAction();
+            }
             //NextDayAct();
         }
 

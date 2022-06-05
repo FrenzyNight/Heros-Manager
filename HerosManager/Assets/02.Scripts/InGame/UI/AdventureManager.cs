@@ -139,9 +139,9 @@ public class AdventureManager : MonoBehaviour
 
     void StartAdventure()
     {
-        for(int i=0;i<4;i++)
+        foreach(GameObject hero in Heros)
         {
-            Heros[i].GetComponent<HeroMove>().SetAdv();
+            hero.GetComponent<HeroMove>().SetAdv();
         }
         Time.timeScale = timeScale;
         TitleCharImg.transform.DOLocalMoveX(-CharTargetX, 0);

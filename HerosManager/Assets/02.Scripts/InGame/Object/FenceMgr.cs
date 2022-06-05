@@ -45,6 +45,7 @@ public class FenceMgr : Singleton<FenceMgr>
     public GameObject fenceLv2;
     public GameObject fenceLv3;
     public GameObject fenceLv4;
+    public GameObject fenceLv5;
 
     void Start()
     {
@@ -303,6 +304,7 @@ public class FenceMgr : Singleton<FenceMgr>
         fenceLv2.SetActive(false);
         fenceLv3.SetActive(false);
         fenceLv4.SetActive(false);
+        fenceLv5.SetActive(false);
     }
 
     void FenceLv2()
@@ -311,6 +313,7 @@ public class FenceMgr : Singleton<FenceMgr>
         fenceLv2.SetActive(true);
         fenceLv3.SetActive(false);
         fenceLv4.SetActive(false);
+        fenceLv5.SetActive(false);
     }
 
     void FenceLv3()
@@ -319,6 +322,7 @@ public class FenceMgr : Singleton<FenceMgr>
         fenceLv2.SetActive(false);
         fenceLv3.SetActive(true);
         fenceLv4.SetActive(false);
+        fenceLv5.SetActive(false);
     }
 
     void FenceLv4()
@@ -327,6 +331,7 @@ public class FenceMgr : Singleton<FenceMgr>
         fenceLv2.SetActive(false);
         fenceLv3.SetActive(false);
         fenceLv4.SetActive(true);
+        fenceLv5.SetActive(false);
     }
 
     void FenceLv5()
@@ -335,5 +340,6 @@ public class FenceMgr : Singleton<FenceMgr>
         fenceLv2.SetActive(false);
         fenceLv3.SetActive(false);
         fenceLv4.SetActive(false);
+        fenceLv5.SetActive(true);
     }
 }
