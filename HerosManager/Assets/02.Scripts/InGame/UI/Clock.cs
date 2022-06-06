@@ -32,10 +32,7 @@ public class Clock : Singleton<Clock>
 
     void Setup()
     {
-        if (SaveDataManager.Instance.isContinue)
-            day = SaveDataManager.Instance.saveData.day;
-        else
-            day = 1;
+        day = SaveDataManager.Instance.saveGameData.day;
 
         dayTime = LoadGameData.Instance.defineDatas["Define_Day_Time"].value;
         heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value;

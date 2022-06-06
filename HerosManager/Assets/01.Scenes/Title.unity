@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -534,7 +534,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_SizeDelta: {x: 32.4, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &151890447
 MonoBehaviour:
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 533f373ac68a7564ebe8a9dd74c06c0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff8ac7c86c03b1f499a4d1ca4f5949a7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -706,10 +706,10 @@ MonoBehaviour:
   WinBtn: {fileID: 1077994497}
   SelTrans: {fileID: 2146086884}
   SoundText: {fileID: 530775062}
-  BgmText: {fileID: 0}
-  SfxText: {fileID: 0}
-  BgmSlider: {fileID: 0}
-  SfxSlider: {fileID: 0}
+  BgmText: {fileID: 1518509915}
+  SfxText: {fileID: 1354333489}
+  BgmSlider: {fileID: 2119431339}
+  SfxSlider: {fileID: 1582049764}
 --- !u!1 &349885283
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,7 +990,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1979653081}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1069,7 +1069,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_SizeDelta: {x: 32.399994, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &511794509
 MonoBehaviour:
@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 533f373ac68a7564ebe8a9dd74c06c0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff8ac7c86c03b1f499a4d1ca4f5949a7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2822,7 +2822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2941,7 +2941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3712,6 +3712,7 @@ MonoBehaviour:
   MenuTrans: {fileID: 1729474981}
   SelImg: {fileID: 458508878}
   audioSource: {fileID: 0}
+  bgmAudioSource: {fileID: 963194229}
   touchSound: {fileID: 8300000, guid: a2957292ce942f64b8630e74829b45a5, type: 3}
   mouseSound: {fileID: 8300000, guid: 869e08eebf8f94a44bce3ab4ca2295ff, type: 3}
   cam: {fileID: 963194225}
@@ -4420,7 +4421,18 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1388186480}
+        m_MethodName: set_volume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1584181917
 GameObject:
   m_ObjectHideFlags: 0
@@ -4681,7 +4693,7 @@ RectTransform:
   - {fileID: 1743568981}
   - {fileID: 1495410321}
   m_Father: {fileID: 1979653081}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -5290,19 +5302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf1e485ed6e88745bc64d655d487a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  saveData:
-    EffVolume: 0
-    BgmVolume: 0
-    stage: 0
-    day: 0
-    items: 
-    hero1Stat: []
-    hero2Stat: []
-    hero3Stat: []
-    hero4Stat: []
-    fenceLevel: 0
-  isSaveStage: 0
-  isContinue: 0
 --- !u!1 &1953156098
 GameObject:
   m_ObjectHideFlags: 0
@@ -5569,8 +5568,8 @@ RectTransform:
   - {fileID: 668536191}
   - {fileID: 1027264800}
   - {fileID: 349885284}
-  - {fileID: 1729474981}
   - {fileID: 458508878}
+  - {fileID: 1729474981}
   - {fileID: 200519264}
   - {fileID: 2088229223}
   - {fileID: 1443125272}
@@ -5793,6 +5792,7 @@ MonoBehaviour:
   OkBtn: {fileID: 22449146}
   CloseBtn1: {fileID: 534824173}
   CloseBtn2: {fileID: 824056488}
+  titleMgr: {fileID: 1388186479}
 --- !u!114 &2088229225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5918,7 +5918,18 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 963194229}
+        m_MethodName: set_volume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2142835276
 GameObject:
   m_ObjectHideFlags: 0

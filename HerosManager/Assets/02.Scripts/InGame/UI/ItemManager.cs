@@ -16,20 +16,9 @@ public class ItemManager : Singleton<ItemManager>
     void Setup()
     {
         //0-wood 1-water 2-meat 3-hub 4-food
-        if (SaveDataManager.Instance.isContinue)
+        for (int i = 0; i < items.Length; i++)
         {
-            for (int i = 0; i < items.Length; i++)
-            {
-                items[i].Setup(SaveDataManager.Instance.saveData.items[i]);
-            }
-        }
-        else
-        {
-            items[0].Setup(LoadGameData.Instance.itemDatas["Item_Wood"].FirstGive);
-            items[1].Setup(LoadGameData.Instance.itemDatas["Item_Water"].FirstGive);
-            items[2].Setup(LoadGameData.Instance.itemDatas["Item_Meat"].FirstGive);
-            items[3].Setup(LoadGameData.Instance.itemDatas["Item_Hub"].FirstGive);
-            items[4].Setup(LoadGameData.Instance.itemDatas["Item_Food"].FirstGive);
+            items[i].Setup(SaveDataManager.Instance.saveGameData.items[i]);
         }
     }
 

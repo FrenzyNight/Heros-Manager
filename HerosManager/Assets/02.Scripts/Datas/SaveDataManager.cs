@@ -4,33 +4,75 @@ using System;
 
 public class SaveDataManager : Singleton<SaveDataManager>
 {
-    public SaveData saveData = new SaveData();
+    public SaveGameData saveGameData = new SaveGameData();
+    public SaveOptionData saveOptionData = new SaveOptionData();
 
-    const string savePath = "/SaveData.Json";
+    const string saveGamePath = "/SaveGameData.Json";
+    const string saveOptionPath = "/SaveOptionData.Json";
 
-    public bool isSaveStage = false;
-    public bool isContinue = false;
-
-    public void LoadDatas(Action _callback = null)
+    public bool LoadGameDatas(Action _callback = null)
     {
-        string path = Application.dataPath + savePath;
+        string path = Application.dataPath + saveGamePath;
         if (!File.Exists(path))
-            return;
+            return false;
 
         string json = File.ReadAllText(path);
-        saveData = JsonUtility.FromJson<SaveData>(json);
-        if (saveData.stage != 0)
-            isSaveStage = true;
+        saveGameData = JsonUtility.FromJson<SaveGameData>(json);
+
+        if (_callback != null)
+            _callback();
+
+        return true;
+    }
+
+    public void SaveGameDatas(Action _callback = null)
+    {
+        string json = JsonUtility.ToJson(saveGameData);
+
+        string path = Application.dataPath + saveGamePath;
+        File.WriteAllText(path, json);
 
         if (_callback != null)
             _callback();
     }
 
-    public void SaveDatas(Action _callback = null)
+    public void NewGameData()
     {
-        string json = JsonUtility.ToJson(saveData);
+        saveGameData.stage = 1;
+        saveGameData.day = 1;
 
-        string path = Application.dataPath + savePath;
+        saveGameData.items = new int[5];
+        saveGameData.items[0] = LoadGameData.Instance.itemDatas["Item_Wood"].FirstGive;
+        saveGameData.items[1] = LoadGameData.Instance.itemDatas["Item_Water"].FirstGive;
+        saveGameData.items[2] = LoadGameData.Instance.itemDatas["Item_Meat"].FirstGive;
+        saveGameData.items[3] = LoadGameData.Instance.itemDatas["Item_Hub"].FirstGive;
+        saveGameData.items[4] = LoadGameData.Instance.itemDatas["Item_Food"].FirstGive;
+
+        saveGameData.fenceLevel = 1;
+    }
+
+    public void LoadOptionDatas(Action _callback = null)
+    {
+        string path = Application.dataPath + saveOptionPath;
+        if (!File.Exists(path))
+        {
+            SaveOptionDatas();
+
+            return;
+        }
+
+        string json = File.ReadAllText(path);
+        saveOptionData = JsonUtility.FromJson<SaveOptionData>(json);
+
+        if (_callback != null)
+            _callback();
+    }
+
+    public void SaveOptionDatas(Action _callback = null)
+    {
+        string json = JsonUtility.ToJson(saveOptionData);
+
+        string path = Application.dataPath + saveOptionPath;
         File.WriteAllText(path, json);
 
         if (_callback != null)
@@ -38,13 +80,9 @@ public class SaveDataManager : Singleton<SaveDataManager>
     }
 }
 
-[Serializable]
-public class SaveData
+public class SaveGameData
 {
-    public float EffVolume;
-    public float BgmVolume;
-
-    public int stage = 0;
+    public int stage;
     public int day;
 
     public int[] items;
@@ -55,4 +93,19 @@ public class SaveData
     public float[] hero4Stat;
 
     public int fenceLevel;
+}
+
+public class SaveOptionData
+{
+    public bool isWindow;
+
+    public float EffVolume;
+    public float BgmVolume;
+
+    public SaveOptionData()
+    {
+        isWindow = true;
+        EffVolume = 1;
+        BgmVolume = 1;
+    }
 }

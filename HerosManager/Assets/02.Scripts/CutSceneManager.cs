@@ -13,6 +13,8 @@ public class CutSceneManager : MonoBehaviour
     public TextMeshProUGUI StringText;
     public GameObject Wating;
     public AudioSource audioSource;
+    public AudioSource typingAS;
+    public AudioClip typingSound;
 
     List<CutsceneData> cutSceneList = new List<CutsceneData>();
     int idx;
@@ -27,8 +29,9 @@ public class CutSceneManager : MonoBehaviour
         cutSceneList.Clear();
         idx = 0;
         isSkip = true;
-        //vol = SaveDataManager.Instance.saveData.EffVolume;
-        vol = 1;
+        typingAS.clip = typingSound;
+        vol = SaveDataManager.Instance.saveOptionData.EffVolume;
+        typingAS.volume = SaveDataManager.Instance.saveOptionData.EffVolume;
         foreach (var data in LoadGameData.Instance.cutsceneDatas)
         {
             if (data.Value.OpenID == _code)
@@ -160,6 +163,7 @@ public class CutSceneManager : MonoBehaviour
         for (int i = 0; i < str.Length; i++)
         {
             StringText.text = str.Substring(0, i + 1);
+            typingAS.Play();
             yield return new WaitForSecondsRealtime(0.1f);
         }
 

@@ -40,25 +40,62 @@ public class OptionManager : MonoBehaviour
     public void OpenPanel()
     {
         BackPanel.SetActive(true);
+
+        Color color = new Color(255, 255, 255, 127) / 255;
+        FullBtn.image.color = color;
+        WinBtn.image.color = color;
+        if (!SaveDataManager.Instance.saveOptionData.isWindow)
+        {
+            FullBtn.image.color = Color.white;
+            SelTrans.position = FullBtn.transform.position;
+        }
+        else
+        {
+            WinBtn.image.color = Color.white;
+            SelTrans.position = WinBtn.transform.position;
+        }
+
+        BgmSlider.value = SaveDataManager.Instance.saveOptionData.BgmVolume;
+        SfxSlider.value = SaveDataManager.Instance.saveOptionData.EffVolume;
     }
 
     void FullBtnEvent()
     {
         SelTrans.position = FullBtn.transform.position;
+
+        FullBtn.image.color = Color.white;
+        WinBtn.image.color = new Color(255, 255, 255, 127) / 255;
+
+        SaveDataManager.Instance.saveOptionData.isWindow = false;
+        Screen.fullScreen = true;
     }
 
     void WinBtnEvent()
     {
         SelTrans.position = WinBtn.transform.position;
+
+        FullBtn.image.color = new Color(255, 255, 255, 127) / 255;
+        WinBtn.image.color = Color.white;
+
+        SaveDataManager.Instance.saveOptionData.isWindow = true;
+        Screen.SetResolution(1600, 900, FullScreenMode.Windowed);
     }
 
     void OkBtnEvent()
     {
         BackPanel.SetActive(false);
+
+        SaveDataManager.Instance.saveOptionData.BgmVolume = BgmSlider.value;
+        SaveDataManager.Instance.saveOptionData.EffVolume = SfxSlider.value;
+        SaveDataManager.Instance.SaveOptionDatas();
     }
 
     void CloseBtnEvent()
     {
         BackPanel.SetActive(false);
+
+        SaveDataManager.Instance.saveOptionData.BgmVolume = BgmSlider.value;
+        SaveDataManager.Instance.saveOptionData.EffVolume = SfxSlider.value;
+        SaveDataManager.Instance.SaveOptionDatas();
     }
 }

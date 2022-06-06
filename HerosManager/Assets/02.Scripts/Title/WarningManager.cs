@@ -10,6 +10,8 @@ public class WarningManager : MonoBehaviour
     public Button CloseBtn1;
     public Button CloseBtn2;
 
+    public TitleManager titleMgr;
+
     void Start()
     {
         OkBtn.onClick.AddListener(OkBtnEvent);
@@ -29,7 +31,10 @@ public class WarningManager : MonoBehaviour
 
     void OkBtnEvent()
     {
-        BackPanel.SetActive(false);
+        SaveDataManager.Instance.NewGameData();
+        SaveDataManager.Instance.SaveGameDatas();
+
+        titleMgr.Production("Intro");
     }
 
     void CloseBtnEvent()

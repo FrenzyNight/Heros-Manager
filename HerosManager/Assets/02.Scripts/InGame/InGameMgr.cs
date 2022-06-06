@@ -31,10 +31,7 @@ public class InGameMgr : Singleton<InGameMgr>
         //temp
         LoadGameData.Instance.LoadCSVDatas();
 
-        if (SaveDataManager.Instance.isContinue)
-            stage = SaveDataManager.Instance.saveData.stage;
-        else
-            stage = 1;
+        stage = SaveDataManager.Instance.saveGameData.stage;
 
         LoadStageData();
     }
@@ -74,17 +71,17 @@ public class InGameMgr : Singleton<InGameMgr>
 
     public void SaveStageData()
     {
-        SaveData saveData = SaveDataManager.Instance.saveData;
-        saveData.stage = stage;
-        saveData.day = Clock.Instance.day;
+        SaveGameData savegameData = SaveDataManager.Instance.saveGameData;
+        savegameData.stage = stage;
+        savegameData.day = Clock.Instance.day;
         for (int i = 0; i < ItemManager.Instance.items.Length; i++)
         {
             //saveData.items[i] = ItemManager.Instance.items[i].num;
             //임시로 주석처리함
         }
-        saveData.fenceLevel = FenceMgr.Instance.fenceLevel;
+        savegameData.fenceLevel = FenceMgr.Instance.fenceLevel;
 
-        SaveDataManager.Instance.SaveDatas();
+        SaveDataManager.Instance.SaveGameDatas();
     }
 
     void Update()

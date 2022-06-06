@@ -15,6 +15,7 @@ public class TitleManager : MonoBehaviour
     public Transform MenuTrans;
     public Transform SelImg;
     public AudioSource audioSource;
+    public AudioSource bgmAudioSource;
 
     public AudioClip touchSound;
     public AudioClip mouseSound;
@@ -30,9 +31,16 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         LoadGameData.Instance.LoadCSVDatas();
-        SaveDataManager.Instance.LoadDatas();
+        SaveDataManager.Instance.LoadGameDatas();
+        SaveDataManager.Instance.LoadOptionDatas();
+
+#if !UNITY_EDITOR
+        StartCoroutine(SetResolution());
+#endif
 
         audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.volume = SaveDataManager.Instance.saveOptionData.EffVolume;
+        bgmAudioSource.volume = SaveDataManager.Instance.saveOptionData.BgmVolume;
 
         //TouchTxt.gameObject.SetActive(false);
         ClickAny.gameObject.SetActive(false);
@@ -132,15 +140,13 @@ public class TitleManager : MonoBehaviour
                     case 0: //여정시작
                         menuBtn.onClick.AddListener(() =>
                         {
-                            SaveDataManager.Instance.isContinue = false;
-                            Production("Intro");
+                            warningMgr.OpenPanel();
                         });
                         break;
 
                     case 1: //이어하기
                         menuBtn.onClick.AddListener(() =>
                         {
-                            SaveDataManager.Instance.isContinue = true;
                             Production("InGame");
                         });
                         break;
@@ -165,7 +171,7 @@ public class TitleManager : MonoBehaviour
             });
         }
 
-        if (!SaveDataManager.Instance.isSaveStage)
+        //if (!SaveDataManager.Instance.LoadGameDatas())
             MenuTrans.GetChild(1).GetComponent<Button>().interactable = false;
     }
 
@@ -184,7 +190,7 @@ public class TitleManager : MonoBehaviour
         MenuTrans.GetChild(_idx).GetComponent<Text>().color = new Color(249, 248, 220, 255) / 255;
     }
 
-    void Production(string _scName)
+    public void Production(string _scName)
     {
         panel.SetActive(true);
         panel.GetComponent<Image>().DOFade(1,1.5f).OnComplete(() =>
@@ -196,5 +202,19 @@ public class TitleManager : MonoBehaviour
     void GameStartBtnEvent(string _scName)
     {
         SceneManager.LoadScene(_scName);
+    }
+
+    IEnumerator SetResolution()
+    {
+        yield return null;
+
+        if (!SaveDataManager.Instance.saveOptionData.isWindow)
+        {
+            Screen.fullScreen = true;
+        }
+        else
+        {
+            Screen.SetResolution(1600, 900, FullScreenMode.Windowed);
+        }
     }
 }

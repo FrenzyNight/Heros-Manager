@@ -74,10 +74,7 @@ public class FenceMgr : Singleton<FenceMgr>
 
     void LoadStageFence()
     {
-        if (SaveDataManager.Instance.isContinue)
-            fenceLevel = SaveDataManager.Instance.saveData.fenceLevel;
-        else
-            fenceLevel = 1;
+        fenceLevel = SaveDataManager.Instance.saveGameData.fenceLevel;
 
         foreach (var data in LoadGameData.Instance.fenceDatas)
         {
