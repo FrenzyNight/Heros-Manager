@@ -15,7 +15,7 @@ CS_Lay_3_5,open_Lay,1,CS_Lay_3_s5,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_3_6,open_Lay,1,CS_Lay_3_s6,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_4_1,open_Lay,1,CS_Lay_4_s1,0,-1,2,Image_CS_Lay_4,0,0.7,3,-1,0,1.5
 CS_Lay_4_2,open_Lay,1,CS_Lay_4_s2,0,-1,0,-1,-1,-1,0,-1,-1,-1
-CS_Lay_4_3,open_Lay,1,CS_Lay_4_s3,0,-1,0,-1,-1,-1,1,Sound_CS_Lay_4,-1,-1
+CS_Lay_4_3,open_Lay,1,CS_Lay_4_s3,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_4_4,open_Lay,1,CS_Lay_4_s4,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_5_1,open_Lay,1,CS_Lay_5_s1,0.7,-1,3,-1,0,0.7,4,-1,0,-1
 CS_Lay_5_2,open_Lay,1,CS_Lay_5_s2,0.7,-1,1,Image_CS_Lay_5,0,0.7,1,Sound_CS_Lay_5,0,-1
@@ -25,7 +25,7 @@ CS_Lay_5_5,open_Lay,1,CS_Lay_5_s5,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_6_1,open_Lay,1,CS_Lay_6_s1,0,-1,2,Image_CS_Lay_6,0,0.7,0,-1,-1,-1
 CS_Lay_6_2,open_Lay,1,CS_Lay_6_s2,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_6_3,open_Lay,1,CS_Lay_6_s3,0,-1,0,-1,-1,-1,0,-1,-1,-1
-CS_Lay_7_1,open_Lay,1,CS_Lay_7_s1,0.7,-1,3,-1,0,0.7,0,-1,-1,-1
+CS_Lay_7_1,open_Lay,1,CS_Lay_7_s1,0.7,-1,3,-1,0,0.7,1,Sound_CS_Lay_7,0.7,-1
 CS_Lay_7_2,open_Lay,1,CS_Lay_7_s2,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_7_3,open_Lay,1,CS_Lay_7_s3,0.7,-1,1,Image_CS_Lay_7,0,0.7,0,-1,-1,-1
 CS_Lay_7_4,open_Lay,1,CS_Lay_7_s4,0,-1,0,-1,-1,-1,0,-1,-1,-1
@@ -65,11 +65,12 @@ CS_Lay_16_1,open_Lay,1,CS_Lay_16_s1,0,-1,2,Image_CS_Lay_16,0,0.7,0,-1,-1,-1
 CS_Lay_16_2,open_Lay,1,CS_Lay_16_s2,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_16_3,open_Lay,1,CS_Lay_16_s3,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_17_1,open_Lay,1,CS_Lay_17_s1,0.7,-1,3,-1,0,0.7,0,-1,-1,-1
-CS_Lay_17_2,open_Lay,1,CS_Lay_17_s2,0.7,-1,1,Image_CS_Lay_17,0,0.7,0,-1,-1,-1
+CS_Lay_17_2,open_Lay,1,CS_Lay_17_s2,0.7,-1,1,Image_CS_Lay_17,0,0.7,2,Sound_CS_Lay_17,0,0.7
 CS_Lay_17_3,open_Lay,1,CS_Lay_17_s3,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_17_4,open_Lay,1,CS_Lay_17_s4,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_17_5,open_Lay,1,CS_Lay_17_s5,0,-1,0,-1,-1,-1,0,-1,-1,-1
-CS_Lay_18_1,open_Lay,1,CS_Lay_18_s1,0.7,-1,3,-1,0,0.7,0,-1,-1,-1
+CS_Lay_17_6,open_Lay,1,CS_Lay_17_s6,0,-1,0,-1,-1,-1,3,-1,0,0.7
+CS_Lay_18_1,open_Lay,1,CS_Lay_18_s1,0.7,-1,3,-1,0,0.7,1,Sound_CS_Lay_18,0.7,-1
 CS_Lay_18_2,open_Lay,1,CS_Lay_18_s2,0.7,-1,1,Image_CS_Lay_18,0,0.7,0,-1,-1,-1
 CS_Lay_18_3,open_Lay,1,CS_Lay_18_s3,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_18_4,open_Lay,1,CS_Lay_18_s4,0,-1,0,-1,-1,-1,0,-1,-1,-1
@@ -87,8 +88,8 @@ CS_Lay_20_7,open_Lay,1,CS_Lay_20_s7,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_20_8,open_Lay,1,CS_Lay_20_s8,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_21_1,open_Lay,1,CS_Lay_21_s1,0.7,-1,3,-1,0,0.7,0,-1,-1,-1
 CS_Lay_21_2,open_Lay,1,CS_Lay_21_s2,0,-1,0,-1,-1,-1,0,-1,-1,-1
-CS_Lay_21_3,open_Lay,1,CS_Lay_21_s3,0,-1,0,-1,-1,-1,0,-1,-1,-1
-CS_Lay_21_4,open_Lay,1,CS_Lay_21_s4,0.7,-1,1,Image_CS_Lay_21,0,0.7,0,-1,-1,-1
+CS_Lay_21_3,open_Lay,1,CS_Lay_21_s3,0.7,-1,1,Image_CS_Lay_21,0,0.7,1,Sound_CS_Lay_21,0,0.7
+CS_Lay_21_4,open_Lay,1,CS_Lay_21_s4,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_21_5,open_Lay,1,CS_Lay_21_s5,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_21_6,open_Lay,1,CS_Lay_21_s6,0,-1,0,-1,-1,-1,0,-1,-1,-1
 CS_Lay_21_7,open_Lay,1,CS_Lay_21_s7,0,-1,0,-1,-1,-1,0,-1,-1,-1
