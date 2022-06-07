@@ -140,7 +140,21 @@ public class TitleManager : MonoBehaviour
                     case 0: //여정시작
                         menuBtn.onClick.AddListener(() =>
                         {
-                            warningMgr.OpenPanel();
+                            //if (SaveDataManager.Instance.LoadGameDatas())
+                            //{
+                            //    warningMgr.OpenPanel();
+                            //}
+                            //else
+                            //{
+                            //    SaveDataManager.Instance.NewGameData();
+                            //    SaveDataManager.Instance.SaveGameDatas();
+
+                            //    Production("Intro");
+                            //}
+                            SaveDataManager.Instance.NewGameData();
+                            SaveDataManager.Instance.SaveGameDatas();
+
+                            Production("Intro");
                         });
                         break;
 
