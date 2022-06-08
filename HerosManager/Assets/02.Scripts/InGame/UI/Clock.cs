@@ -138,6 +138,7 @@ public class Clock : Singleton<Clock>
             MiniGameMgr.Instance.CloseMiniGame();
             FenceMgr.Instance.ClosePanel();
             EventMgr.Instance.ClosePanel();
+            AmuletManager.Instance.CloseList();
             //nowTime = 0;
             isProduct = true;
             ProductMgr.Instance.UIOutProduct();

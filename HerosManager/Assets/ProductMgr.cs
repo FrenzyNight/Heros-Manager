@@ -57,7 +57,7 @@ public class ProductMgr : Singleton<ProductMgr>
 
         //step3
         HeroUIs[2].transform.DOLocalMoveX(220,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        JewelUI.GetComponent<RectTransform>().DOAnchorPosY(50,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
+        JewelUI.GetComponent<RectTransform>().DOAnchorPosY(75,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
         GatheringButtonUI.GetComponent<RectTransform>().DOAnchorPosY(-97.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
 
         yield return new WaitForSecondsRealtime(timeInterval);
@@ -97,7 +97,7 @@ public class ProductMgr : Singleton<ProductMgr>
         yield return new WaitForSecondsRealtime(timeInterval);
         //step3
         HeroUIs[2].transform.DOLocalMoveX(30,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        JewelUI.GetComponent<RectTransform>().DOAnchorPosY(-50,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
+        JewelUI.GetComponent<RectTransform>().DOAnchorPosY(-75,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
         GatheringButtonUI.GetComponent<RectTransform>().DOAnchorPosY(97.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
 
         yield return new WaitForSecondsRealtime(timeInterval);
