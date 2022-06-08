@@ -10,14 +10,22 @@ public class FenceMgr : Singleton<FenceMgr>
     public int fenceLevel = 1;
     bool isLeveling;
     float timer;
+    public float charWaitTime;
+    [HideInInspector]
+    float charTimer;
 
+    [Header("UI")]
     public Button FenceBtn;
     public GameObject FencePanel;
-    public Image TitleImg;
+    public Image TitleCharImg;
+    public Image TitleFenceImg;
     public Button ExitBtn;
     public GameObject FenceInfo;
     public GameObject FenceLevelup;
     public Button StartBtn;
+    [Header("UI Img")]
+    public Sprite[] TitleFenceImgs;
+    public Sprite[] TitleCharImgs;
     [Header("Level")]
     public Text LevelTxt;
     public Text PrevLevel;
@@ -103,6 +111,9 @@ public class FenceMgr : Singleton<FenceMgr>
         PrevNum.text = fenceData.Amount.ToString();
         PrevTime.text = fenceData.NeedTime.ToString();
 
+        TitleFenceImg.sprite = TitleFenceImgs[fenceLevel-1];
+        TitleCharImg.sprite = TitleCharImgs[0];
+
         FenceData NextFenceData = null;
         int tempLevel = fenceLevel + 1;
         foreach (var data in LoadGameData.Instance.fenceDatas)
@@ -166,6 +177,7 @@ public class FenceMgr : Singleton<FenceMgr>
         ItemManager.Instance.AddItem(fenceData.NeedItemID, -fenceData.Amount);
 
         timer = 0f;
+        charTimer = 0f;
         LevelingTxt.text = LoadGameData.Instance.GetString("Fence_a2");
         GuageFillImg.fillAmount = 0f;
 
@@ -175,9 +187,14 @@ public class FenceMgr : Singleton<FenceMgr>
 
     IEnumerator LevelupCo()
     {
+        int idx = 0;
+        int rnd = NewRandomNum(idx);
+        TitleCharImg.sprite = TitleCharImgs[rnd];
+        idx = rnd;
         while (true)
         {
             timer += Time.deltaTime;
+            charTimer += Time.deltaTime;
             GuageFillImg.fillAmount = timer / fenceData.NeedTime;
             if (timer >= fenceData.NeedTime)
             {
@@ -185,10 +202,33 @@ public class FenceMgr : Singleton<FenceMgr>
                 break;
             }
 
+            if(charTimer >= charWaitTime)
+            {
+                charTimer = 0;
+
+                rnd = NewRandomNum(idx);
+                TitleCharImg.sprite = TitleCharImgs[rnd];
+                idx = rnd;
+            }
+
             yield return null;
         }
 
+        TitleCharImg.sprite = TitleCharImgs[0];
+
         CompleteLevelup();
+    }
+
+    int NewRandomNum(int prev)
+    {
+        int rnd = Random.Range(1,6);
+
+        while(rnd == prev)
+        {
+            rnd = Random.Range(1,6);
+        }
+
+        return rnd;
     }
 
     void CompleteLevelup()
@@ -200,6 +240,7 @@ public class FenceMgr : Singleton<FenceMgr>
         LevelingTxt.text = LoadGameData.Instance.GetString("Fence_a3");
 
         fenceLevel++;
+        TitleFenceImg.sprite = TitleFenceImgs[fenceLevel-1];
         foreach (var data in LoadGameData.Instance.fenceDatas)
         {
             if (data.Value.FenceGroupID == InGameMgr.Instance.stageData.FenceGroupID &&
