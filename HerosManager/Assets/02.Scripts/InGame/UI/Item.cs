@@ -36,10 +36,9 @@ public class Item : MonoBehaviour
         RectTransform rectTrans = EffNum.GetComponent<RectTransform>();
 
         string str = "";
-        if (_addNum < 0)
-            str = "-";
-        else
+        if (_addNum >= 0)
             str = "+";
+
         EffNum.text = str + _addNum;
         rectTrans.anchoredPosition = Vector2.zero;
         EffNum.color = Color.white;
