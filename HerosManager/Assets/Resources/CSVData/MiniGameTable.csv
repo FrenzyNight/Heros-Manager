@@ -6,8 +6,8 @@ game1cage_jem,MG_S1_Cage,-1,-1,-1,-1,1,0.02,-1,-1,1,1,0,-1,-1,-1,-1,-1,-1
 game1tree_normal,MG_S1_Tree,Item_Wood,1,-1,-1,-1,0.9,0.7,0.4,-1,-1,0,-1,-1,-1,-1,-1,-1
 game1tree_gold,MG_S1_Tree,Item_Wood,3,-1,-1,-1,0.1,0.7,0.4,-1,-1,0,-1,-1,-1,-1,-1,-1
 game1arrow,MG_S1_Hunt,-1,-1,-1,-1,-1,-1,-1,-1,4,0.5,0,-1,-1,-1,-1,-1,-1
-game1monster_fox,MG_S1_Hunt,Item_Meat,1,-1,-1,-1,0.6,-1,-1,1,2,1,1,-1,2,3,5,4
-game1monster_bear,MG_S1_Hunt,Item_Meat,3,-1,-1,-1,0.4,-1,-1,1,2,2,2,1.4,2,3,5,4
+game1monster_fox,MG_S1_Hunt,Item_Meat,1,-1,-1,-1,0.6,-1,-1,1,1.3,1,1,-1,2,3,5,4
+game1monster_bear,MG_S1_Hunt,Item_Meat,3,-1,-1,-1,0.4,-1,-1,1,1.3,2,2,1.4,2,3,5,4
 game1hub_normal,MG_S1_Hub,Item_Hub,1,-1,-1,-1,0.7,-1,-1,-1,2,3,1,3,2,-1,-1,-1
 game1hub_gold,MG_S1_Hub,Item_Hub,2,-1,-1,-1,0.3,-1,-1,-1,2,3,-1,3,2,-1,-1,-1
 game1water,MG_S1_Water,Item_Water,5,-1,-1,-1,-1,-1,-1,-1,-1,5,4,-1,-1,-1,-1,-1
