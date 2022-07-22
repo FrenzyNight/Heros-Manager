@@ -24,6 +24,7 @@ public class LoadGameData : Singleton<LoadGameData>
     public Dictionary<string, StageDayData> stageDayDatas = new Dictionary<string, StageDayData>();
     public Dictionary<string, StageData> stageDatas = new Dictionary<string, StageData>();
     public Dictionary<string, StringData> stringDatas = new Dictionary<string, StringData>();
+    public Dictionary<string, JemData> jemDatas = new Dictionary<string, JemData>();
 
     public void LoadCSVDatas()
     {
@@ -48,6 +49,7 @@ public class LoadGameData : Singleton<LoadGameData>
         LoadStageDayData("CSVData/StageDayTable");
         LoadStageData("CSVData/StageTable");
         LoadStringData("CSVData/StringTable");
+        LoadJemData("CSVData/JemTable");
     }
 
     void LoadCookData(string _path)
@@ -476,6 +478,29 @@ public class LoadGameData : Singleton<LoadGameData>
         }
     }
 
+    void LoadJemData(string _path)
+    {
+        jemDatas.Clear();
+        List<Dictionary<string,object>> data = CSVReader.Read(_path);
+        for(int i=0; i<data.Count;i++)
+        {
+            JemData jemData = new JemData();
+            jemData.JemID = CSVConvert.ToString(data[i]["JemID"]);
+            jemData.JemImageID = CSVConvert.ToString(data[i]["JemImageID"]);
+            jemData.JemNameString = CSVConvert.ToString(data[i]["JemNameString"]);
+            jemData.JemExplainString = CSVConvert.ToString(data[i]["JemExplainString"]);
+            jemData.JemType = CSVConvert.ToInt(data[i]["JemType"]);
+            jemData.StartLevel = CSVConvert.ToInt(data[i]["StartLevel"]);
+            jemData.MaxLevel = CSVConvert.ToInt(data[i]["MaxLevel"]);
+            jemData.Value1 = CSVConvert.ToFloat(data[i]["Value(1)"]);
+            jemData.Value2 = CSVConvert.ToFloat(data[i]["Value(2)"]);
+            jemData.LevelUpAmount = CSVConvert.ToFloat(data[i]["LevelUpAmount"]);
+            jemData.CutsceneOpenID = CSVConvert.ToString(data[i]["CutsceneOpenID"]);
+
+            jemDatas.Add(jemData.JemID, jemData);
+        }
+    }
+
     void LoadEventData(string _path)
     {
         eventDatas.Clear();
@@ -842,6 +867,22 @@ public class StageData
     public string FenceGroupID;
     public string CollectID;
     public string FieldID;
+}
+
+[System.Serializable]
+public class JemData
+{
+    public string JemID;
+    public string JemImageID;
+    public string JemNameString;
+    public string JemExplainString;
+    public int JemType;
+    public int StartLevel;
+    public int MaxLevel;
+    public float Value1;
+    public float Value2;
+    public float LevelUpAmount;
+    public string CutsceneOpenID;
 }
 
 [System.Serializable]
