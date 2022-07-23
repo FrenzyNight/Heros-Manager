@@ -15,6 +15,8 @@ public class AmuletManager : Singleton<AmuletManager>
     public GameObject JewelList;
     public bool isSlide;
 
+    public List<Amulet> JewelInven = new List<Amulet>();    
+
     void Start()
     {
         Setup();
