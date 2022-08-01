@@ -102,7 +102,8 @@ public class Clock : Singleton<Clock>
         }
 
 
-        EventMgr.Instance.EventButton.GetComponent<Button>().interactable = false;
+        //EventMgr.Instance.EventButton.GetComponent<Button>().interactable = false;
+        EventMgr.Instance.EventButtonDeActive();
         InGameMgr.Instance.SaveStageData();
     }
 
@@ -147,7 +148,8 @@ public class Clock : Singleton<Clock>
 
         if(nowTime >= (dayTime * 60f)/2) //night
         {
-            EventMgr.Instance.EventButton.GetComponent<Button>().interactable = true;
+            //EventMgr.Instance.EventButton.GetComponent<Button>().interactable = true;
+            EventMgr.Instance.EventButtonActive();
         }
     }
 }

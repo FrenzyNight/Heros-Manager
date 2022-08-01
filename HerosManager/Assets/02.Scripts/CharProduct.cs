@@ -9,13 +9,17 @@ public class CharProduct : MonoBehaviour
 {
     AudioSource audioSource;
     public GameObject PadePanel;
-    public GameObject[] HerosSprite;
+    //public GameObject[] HerosSprite;
+    public GameObject[] Heros;
+    
 
     public float target;
     public float waitTime;
     public float moveTime;
+    public float speed;
     public Ease ease;
     public AudioClip birdSound1, birdSound2;
+    public bool isMove = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +34,15 @@ public class CharProduct : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //
+    }
+    void FixedUpdate()
+    {
+        if(isMove)
+        {
+           //Heros[0].GetComponent<Rigidbody>().AddForce(new Vector3(0,0,-1) * speed);
+           Heros[0].GetComponent<Rigidbody>().velocity = new Vector3(0,0,-1) * speed;
+        }
     }
 
     void SoundStart()
@@ -41,16 +53,22 @@ public class CharProduct : MonoBehaviour
     void HerosMove()
     {
         Debug.Log("Move");
-        gameObject.transform.DOMove(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, target), moveTime).SetEase(ease);
+        isMove = true;
+
+        //gameObject.transform.DOMove(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, target), moveTime).SetEase(ease);
+        //Heros[0].GetComponent<Rigidbody>().AddForce(new Vector3(0,0,-1) * speed);
+        //Heros[0].GetComponent<Rigidbody>().velocity = new Vector3(0,0,-1) * speed;
+        
         Invoke("HeroStop", moveTime);
         Invoke("FadeIn", moveTime + 0.5f);
     }
 
     void HeroStop()
     {
+        isMove = false;
         for(int i=0; i<5; i++)
         {
-            HerosSprite[i].GetComponent<Animator>().SetBool("isMove", false);
+            //HerosSprite[i].GetComponent<Animator>().SetBool("isMove", false);
         }
     }
 

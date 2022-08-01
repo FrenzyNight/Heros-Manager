@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class EventMgr : Singleton<EventMgr>
 {
     public GameObject EventButton;
+    public Image EventNumberImg;
+    public Text EventNumberText;
     public GameObject OptionButtonPrefab;
     public GameObject EventPanel;
     public Text mainText;
@@ -33,6 +35,9 @@ public class EventMgr : Singleton<EventMgr>
     [HideInInspector]
     public bool isClicked;
 
+    //DoubleEvent
+
+    public GameObject[] EventPanels;
 
     void Start()
     {
@@ -53,6 +58,36 @@ public class EventMgr : Singleton<EventMgr>
         fullCharImg = fullImgObj.GetComponent<Image>();
         topCharImg = topImgObj.GetComponent<Image>();
         botCharImg = botImgObj.GetComponent<Image>();
+    }
+
+    public void EventButtonActive()
+    {
+        EventButton.GetComponent<Button>().interactable = true;
+        Color imgColor = EventNumberImg.color;
+        imgColor.a = 1f;
+
+        Color textColor = EventNumberText.color;
+        textColor.a = 1f;
+
+        EventNumberImg.color = imgColor;
+        EventNumberText.color = textColor;
+
+        EventNumberText.text = "2/2";
+    }
+
+    public void EventButtonDeActive()
+    {
+        EventButton.GetComponent<Button>().interactable = false;
+        Color imgColor = EventNumberImg.color;
+        imgColor.a = 0.5f;
+
+        Color textColor = EventNumberText.color;
+        textColor.a = 0.5f;
+
+        EventNumberImg.color = imgColor;
+        EventNumberText.color = textColor;
+
+        EventNumberText.text = "0/2";
     }
 
     public void ClosePanel()
