@@ -12,13 +12,13 @@ public class EventMgr : Singleton<EventMgr>
     public GameObject OptionButtonPrefab;
     public GameObject EventPanel;
     public Text mainText;
-    public GameObject Fullchar;
-    public GameObject fullImgObj;
-    public GameObject HalfChar;
-    public GameObject topImgObj, botImgObj;
-    public GameObject Option;
-    public GameObject[] OptionButtons;
-    public GameObject OptionResultText;
+    //public GameObject Fullchar;
+    //public GameObject fullImgObj;
+    //public GameObject HalfChar;
+    //public GameObject topImgObj, botImgObj;
+    //public GameObject Option;
+    //public GameObject[] OptionButtons;
+    //public GameObject OptionResultText;
 
     public Sprite[] itemImgs;
 
@@ -26,18 +26,27 @@ public class EventMgr : Singleton<EventMgr>
     public List<string> EventList = new List<string>();
     
     
+    /*
     [HideInInspector]
     public string nextEventID;
     [HideInInspector]
     public Image topCharImg, botCharImg;
     [HideInInspector]
     public Image fullCharImg;
+    */
     [HideInInspector]
     public bool isClicked;
 
     //DoubleEvent
 
     public GameObject[] EventPanels;
+    [HideInInspector]
+    public string nextEventID1, nextEventID2;
+
+    public GameObject nextButton;
+    public GameObject prevButton;
+
+    public int setedEventNum;
 
     void Start()
     {
@@ -55,9 +64,32 @@ public class EventMgr : Singleton<EventMgr>
         }
 
         isClicked = false;
-        fullCharImg = fullImgObj.GetComponent<Image>();
-        topCharImg = topImgObj.GetComponent<Image>();
-        botCharImg = botImgObj.GetComponent<Image>();
+        
+        SetEventNumberText();
+        PrevButtonAction();
+    }
+
+    public void NextButtonAction()
+    {
+        nextButton.SetActive(false);
+        EventPanels[0].SetActive(false);
+        
+        prevButton.SetActive(true);
+        EventPanels[1].SetActive(true);
+    }
+
+    public void PrevButtonAction()
+    {
+        prevButton.SetActive(false);
+        EventPanels[1].SetActive(false);
+        
+        nextButton.SetActive(true);
+        EventPanels[0].SetActive(true);
+    }
+
+    public void SetEventNumberText()
+    {
+        EventNumberText.text = setedEventNum.ToString() + "/2";
     }
 
     public void EventButtonActive()
@@ -72,7 +104,8 @@ public class EventMgr : Singleton<EventMgr>
         EventNumberImg.color = imgColor;
         EventNumberText.color = textColor;
 
-        EventNumberText.text = "2/2";
+        //EventNumberText.text = "2/2";
+        EventNumberText.text = setedEventNum.ToString() + "/2";
     }
 
     public void EventButtonDeActive()
@@ -87,7 +120,8 @@ public class EventMgr : Singleton<EventMgr>
         EventNumberImg.color = imgColor;
         EventNumberText.color = textColor;
 
-        EventNumberText.text = "0/2";
+        EventNumberText.text = setedEventNum.ToString() + "/2";
+        //EventNumberText.text = "0/2";
     }
 
     public void ClosePanel()
@@ -101,8 +135,21 @@ public class EventMgr : Singleton<EventMgr>
         int idx = Random.Range(0, EventList.Count);
 
         isClicked = false;
-        nextEventID = EventList[idx];
+        
+        //nextEventID = EventList[idx];
+        //EventList.RemoveAt(idx);
+
+        nextEventID1 = EventList[idx];
         EventList.RemoveAt(idx);
+        
+        idx = Random.Range(0, EventList.Count);
+        nextEventID2 = EventList[idx];
+        EventList.RemoveAt(idx);
+
+        setedEventNum = 2;
+        
+        EventPanels[0].GetComponent<EventPanel>().nextEventID = nextEventID1;
+        EventPanels[1].GetComponent<EventPanel>().nextEventID = nextEventID2;
     }
 
     public void EventButtonAction()
@@ -115,6 +162,12 @@ public class EventMgr : Singleton<EventMgr>
         if(isClicked)
             return;
         
+        //Panel
+        
+        EventPanels[0].GetComponent<EventPanel>().SetEventPanel();
+        EventPanels[1].GetComponent<EventPanel>().SetEventPanel();
+        
+        /*
         Option.SetActive(true);
         OptionResultText.SetActive(false);
         foreach(var btn in OptionButtons)
@@ -156,10 +209,12 @@ public class EventMgr : Singleton<EventMgr>
         {
             SetChoiceButton(OptionButtons[2], LoadGameData.Instance.eventDatas[nextEventID].Choice3ID);
         }
+        */
         
         isClicked = true;
     }
 
+    /*
     public void SetChoiceButton(GameObject choiceBtn, string choiceID)
     {
         choiceBtn.SetActive(true);
@@ -206,7 +261,9 @@ public class EventMgr : Singleton<EventMgr>
         choiceBtn.GetComponent<Button>().onClick.RemoveAllListeners();
         choiceBtn.GetComponent<Button>().onClick.AddListener(() => ChoiceButtonAction(choiceID));
     }
+    */
 
+    /*
     public void ChoiceButtonAction(string choiceID)
     {
         if(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID != "-1")
@@ -776,4 +833,5 @@ public class EventMgr : Singleton<EventMgr>
         OptionResultText.GetComponent<Text>().text = optionRT.ToString();
         Option.SetActive(false);
     }
+    */
 }
