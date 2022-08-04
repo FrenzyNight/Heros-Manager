@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -62998,11 +62998,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AmuletNotice: {fileID: 1925330085}
   NoticeText: {fileID: 1570703890}
-  AmuletObj: {fileID: 0}
+  AmuletPrefab: {fileID: 0}
   JewelButton: {fileID: 2133644832}
   JewelList: {fileID: 1531515151}
   isSlide: 0
   JewelInven: []
+  jemIDList: []
 --- !u!1001 &2055801213
 PrefabInstance:
   m_ObjectHideFlags: 0

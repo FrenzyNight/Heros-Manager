@@ -15,15 +15,16 @@ public class Amulet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int JemLevel;
     public float value1, value2;
     public int JemMaxLevel;
-    public 
+    
 
     void Start()
     {
         isMouseOn = false;
     }
 
-    public void Setup()
+    public void Setup(string jemID)
     {
+        JemID = jemID;
         JemStringID = LoadGameData.Instance.jemDatas[JemID].JemNameString;
         JemExplainStringID = LoadGameData.Instance.jemDatas[JemID].JemExplainString;
         JemImageID = LoadGameData.Instance.jemDatas[JemID].JemImageID;
@@ -33,6 +34,16 @@ public class Amulet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         value2 = LoadGameData.Instance.jemDatas[JemID].Value2;
 
         JemExplainString = LoadGameData.Instance.GetString(JemStringID);
+
+        if (LoadGameData.Instance.jemDatas[JemID].CutsceneOpenID != "-1")
+        {
+            EventMgr.Instance.EventList.Add(LoadGameData.Instance.jemDatas[JemID].CutsceneOpenID);
+        }
+    }
+
+    public void LevelUp()
+    {
+        
     }
 
     void Update()
@@ -45,7 +56,7 @@ public class Amulet : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         isMouseOn = true;
 
-        AmuletManager.Instance.NoticeText.text = "";
+        AmuletManager.Instance.NoticeText.text = JemExplainString;
     }
 
     public void OnPointerExit(PointerEventData eventData)

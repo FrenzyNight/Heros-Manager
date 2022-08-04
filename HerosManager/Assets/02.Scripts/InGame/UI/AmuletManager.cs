@@ -9,14 +9,17 @@ public class AmuletManager : Singleton<AmuletManager>
     public GameObject AmuletNotice;
     public Text NoticeText;
 
-    public GameObject AmuletObj;
+    public GameObject AmuletPrefab;
 
     public Button JewelButton;
     public GameObject JewelList;
     public bool isSlide;
 
-    public List<Amulet> JewelInven = new List<Amulet>();    
+    public List<GameObject> JewelInven = new List<GameObject>();
+    public List<string> jemIDList = new List<string>();
 
+    //public bool isMouseOn = false;
+    
     void Start()
     {
         Setup();
@@ -28,10 +31,34 @@ public class AmuletManager : Singleton<AmuletManager>
         JewelListSlide();
     }
 
-    void SpawnAmulet()
+    public void GetAmulet(string jemID)
     {
-        GameObject obj = Instantiate(AmuletObj, this.transform);
-        obj.GetComponent<Amulet>().Setup();
+        if (jemIDList.Contains(jemID))
+        {
+            //LevelUp
+            //
+            foreach (GameObject var in JewelInven)
+            {
+                if (var.GetComponent<Amulet>().JemID == jemID)
+                {
+                    var.GetComponent<Amulet>().LevelUp();
+                    break;
+                }
+            }
+        }
+        else
+        {
+            //Swpan
+            SpawnAmulet(jemID);
+            jemIDList.Add(jemID);
+        }
+    }
+
+    void SpawnAmulet(string jemID)
+    {
+        GameObject obj = Instantiate(AmuletPrefab, this.transform);
+        obj.GetComponent<Amulet>().Setup(jemID);
+        JewelInven.Add(obj);
     }
 
     public void JewelListSlide()
