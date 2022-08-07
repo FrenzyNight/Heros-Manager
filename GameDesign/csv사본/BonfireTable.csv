@@ -1,0 +1,4 @@
+﻿BonfireID,NeedItemID,NeedAmount,Time1,Time2,Time3,Hero1_Stress,Hero2_Stress,Hero3_Stress,Hero4_Stress
+Bonfire_S1,Item_Wood,15,50,10,5,2,2,2,2
+Bonfire_S2,Item_Wood,15,50,10,5,2,2,2,2
+Bonfire_S3,Item_Wood,15,50,10,5,2,2,2,2

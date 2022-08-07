@@ -1,0 +1,13 @@
+﻿JourneyID,Item1Min,Item2Min,StageTitleStringID,MeatValue,WaterValue,HubValue,FoodValue,HStressValue,HPowerValue,JStateGroupID
+J_S1_D1,5,5,Stage_title_1,15,10,12.5,25,-2,1,JS_S1_D1
+J_S1_D2,6,6,Stage_title_1,15,10,12.5,25,-2,1,JS_S1_D2
+J_S1_D3,7,7,Stage_title_1,15,10,12.5,25,-2,1,JS_S1_D3
+J_S1_D4,8,8,Stage_title_1,15,10,12.5,25,-2,1,JS_S1_D4
+J_S2_D1,9,9,Stage_title_2,15,10,12.5,25,-2,1,JS_S2_D1
+J_S2_D2,10,10,Stage_title_2,15,10,12.5,25,-2,1,JS_S2_D2
+J_S2_D3,11,11,Stage_title_2,15,10,12.5,25,-2,1,JS_S2_D3
+J_S2_D4,12,12,Stage_title_2,15,10,12.5,25,-2,1,JS_S2_D4
+J_S3_D1,13,13,Stage_title_3,15,10,12.5,25,-2,1,JS_S3_D1
+J_S3_D2,14,14,Stage_title_3,15,10,12.5,25,-2,1,JS_S3_D2
+J_S3_D3,15,15,Stage_title_3,15,10,12.5,25,-2,1,JS_S3_D3
+J_S3_D4,16,16,Stage_title_3,15,10,12.5,25,-2,1,JS_S3_D4

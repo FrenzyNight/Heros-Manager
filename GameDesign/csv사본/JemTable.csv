@@ -1,0 +1,6 @@
+﻿JemID,JemImageID,JemNameString,JemExplainString,JemType,StartLevel,MaxLevel,Value1,Value2,LevelUpAmount,CutsceneOpenID
+Jem_InfiniteFire,Jem_InfiniteFire_Image,Jem_InfiniteFire_t1,Jem_InfiniteFire_a1,0,1,3,3,-1,3,-1
+Jem_Angel,Jem_Angel_Image,Jem_Angel_t1,Jem_Angel_a1,0,1,3,4,-1,1,-1
+Jem_MetalDetector,Jem_MetalDetector_Image,Jem_MetalDetector_t1,Jem_MetalDetector_a1,0,1,3,0.03,-1,0.01,-1
+Jem_LayDiary1,Jem_LayDiary1_Image,Jem_LayDiary1_t1,Jem_LayDiary1_a1,1,-1,-1,0.1,-1,-1,open_Lay_1
+Jem_LayDiary2,Jem_LayDiary2_Image,Jem_LayDiary2_t1,Jem_LayDiary2_a1,1,-1,-1,0.5,-1,-1,open_Lay_2

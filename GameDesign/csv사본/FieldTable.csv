@@ -1,0 +1,4 @@
+﻿FieldID,NeedItemID,NeedAmount,Time1,Time2,Repeat,GetItemID,GetAmount
+Field_S1,Item_Water,5,50,10,3,Item_Hub,20
+Field_S2,Item_Water,5,50,10,3,Item_Hub,20
+Field_S3,Item_Water,5,50,10,3,Item_Hub,20

@@ -1,0 +1,16 @@
+﻿FenceID,FenceGroupID,FenceLevel,InvadeProb,NeedItemID,Amount,NeedTime
+Fence_S1_1,Fence_S1,1,0.4,Item_Wood,35,10
+Fence_S1_2,Fence_S1,2,0.2,Item_Wood,40,12
+Fence_S1_3,Fence_S1,3,0.1,Item_Wood,45,14
+Fence_S1_4,Fence_S1,4,0.05,Item_Wood,50,16
+Fence_S1_5,Fence_S1,5,0,-1,-1,-1
+Fence_S2_1,Fence_S2,1,0.4,Item_Wood,40,10
+Fence_S2_2,Fence_S2,2,0.2,Item_Wood,45,12
+Fence_S2_3,Fence_S2,3,0.1,Item_Wood,50,14
+Fence_S2_4,Fence_S2,4,0.05,Item_Wood,55,16
+Fence_S2_5,Fence_S2,5,0,-1,-1,-1
+Fence_S3_1,Fence_S3,1,0.4,Item_Wood,45,10
+Fence_S3_2,Fence_S3,2,0.2,Item_Wood,50,12
+Fence_S3_3,Fence_S3,3,0.1,Item_Wood,55,14
+Fence_S3_4,Fence_S3,4,0.05,Item_Wood,60,16
+Fence_S3_5,Fence_S3,5,0,-1,-1,-1

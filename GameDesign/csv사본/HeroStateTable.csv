@@ -1,0 +1,17 @@
+﻿HeroStateID,HeroStateGroupID,HeroStateStringID,FirstGive,Min,Max
+HeroState_H1_Stress,HeroState_H1,HeroState_t1,0,0,100
+HeroState_H1_Power,HeroState_H1,HeroState_t2,100,0,9999
+HeroState_H1_Hp,HeroState_H1,HeroState_t3,100,0,100
+HeroState_H1_Exp,HeroState_H1,HeroState_t4,0,0,100
+HeroState_H2_Stress,HeroState_H2,HeroState_t1,0,0,100
+HeroState_H2_Power,HeroState_H2,HeroState_t2,100,0,9999
+HeroState_H2_Hp,HeroState_H2,HeroState_t3,100,0,100
+HeroState_H2_Exp,HeroState_H2,HeroState_t4,0,0,100
+HeroState_H3_Stress,HeroState_H3,HeroState_t1,0,0,100
+HeroState_H3_Power,HeroState_H3,HeroState_t2,100,0,9999
+HeroState_H3_Hp,HeroState_H3,HeroState_t3,100,0,100
+HeroState_H3_Exp,HeroState_H3,HeroState_t4,0,0,100
+HeroState_H4_Stress,HeroState_H4,HeroState_t1,0,0,100
+HeroState_H4_Power,HeroState_H4,HeroState_t2,100,0,9999
+HeroState_H4_Hp,HeroState_H4,HeroState_t3,100,0,100
+HeroState_H4_Exp,HeroState_H4,HeroState_t4,0,0,100

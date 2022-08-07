@@ -1,0 +1,5 @@
+﻿HeroID,HeroStringID,HeroStateGroupID
+Hero_1,Hero_1_t1,HeroState_H1
+Hero_2,Hero_1_t2,HeroState_H2
+Hero_3,Hero_1_t3,HeroState_H3
+Hero_4,Hero_1_t4,HeroState_H4

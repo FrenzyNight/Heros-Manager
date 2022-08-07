@@ -1,0 +1,6 @@
+﻿ItemID,ItemStringID,FirstGive
+Item_Meat,Item_t1,10
+Item_Water,Item_t2,10
+Item_Hub,Item_t3,10
+Item_Wood,Item_t4,0
+Item_Food,Item_t5,0
