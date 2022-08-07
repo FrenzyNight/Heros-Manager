@@ -1,0 +1,137 @@
+[
+  {
+    "FenceID": "Fence_S1_1",
+    "FenceGroupID": "Fence_S1",
+    "FenceLevel": 1,
+    "InvadeProb": 0.4,
+    "NeedItemID": "Item_Wood",
+    "Amount": 35,
+    "NeedTime": 10
+  },
+  {
+    "FenceID": "Fence_S1_2",
+    "FenceGroupID": "Fence_S1",
+    "FenceLevel": 2,
+    "InvadeProb": 0.2,
+    "NeedItemID": "Item_Wood",
+    "Amount": 40,
+    "NeedTime": 12
+  },
+  {
+    "FenceID": "Fence_S1_3",
+    "FenceGroupID": "Fence_S1",
+    "FenceLevel": 3,
+    "InvadeProb": 0.1,
+    "NeedItemID": "Item_Wood",
+    "Amount": 45,
+    "NeedTime": 14
+  },
+  {
+    "FenceID": "Fence_S1_4",
+    "FenceGroupID": "Fence_S1",
+    "FenceLevel": 4,
+    "InvadeProb": 0.05,
+    "NeedItemID": "Item_Wood",
+    "Amount": 50,
+    "NeedTime": 16
+  },
+  {
+    "FenceID": "Fence_S1_5",
+    "FenceGroupID": "Fence_S1",
+    "FenceLevel": 5,
+    "InvadeProb": 0,
+    "NeedItemID": -1,
+    "Amount": -1,
+    "NeedTime": -1
+  },
+  {
+    "FenceID": "Fence_S2_1",
+    "FenceGroupID": "Fence_S2",
+    "FenceLevel": 1,
+    "InvadeProb": 0.4,
+    "NeedItemID": "Item_Wood",
+    "Amount": 40,
+    "NeedTime": 10
+  },
+  {
+    "FenceID": "Fence_S2_2",
+    "FenceGroupID": "Fence_S2",
+    "FenceLevel": 2,
+    "InvadeProb": 0.2,
+    "NeedItemID": "Item_Wood",
+    "Amount": 45,
+    "NeedTime": 12
+  },
+  {
+    "FenceID": "Fence_S2_3",
+    "FenceGroupID": "Fence_S2",
+    "FenceLevel": 3,
+    "InvadeProb": 0.1,
+    "NeedItemID": "Item_Wood",
+    "Amount": 50,
+    "NeedTime": 14
+  },
+  {
+    "FenceID": "Fence_S2_4",
+    "FenceGroupID": "Fence_S2",
+    "FenceLevel": 4,
+    "InvadeProb": 0.05,
+    "NeedItemID": "Item_Wood",
+    "Amount": 55,
+    "NeedTime": 16
+  },
+  {
+    "FenceID": "Fence_S2_5",
+    "FenceGroupID": "Fence_S2",
+    "FenceLevel": 5,
+    "InvadeProb": 0,
+    "NeedItemID": -1,
+    "Amount": -1,
+    "NeedTime": -1
+  },
+  {
+    "FenceID": "Fence_S3_1",
+    "FenceGroupID": "Fence_S3",
+    "FenceLevel": 1,
+    "InvadeProb": 0.4,
+    "NeedItemID": "Item_Wood",
+    "Amount": 45,
+    "NeedTime": 10
+  },
+  {
+    "FenceID": "Fence_S3_2",
+    "FenceGroupID": "Fence_S3",
+    "FenceLevel": 2,
+    "InvadeProb": 0.2,
+    "NeedItemID": "Item_Wood",
+    "Amount": 50,
+    "NeedTime": 12
+  },
+  {
+    "FenceID": "Fence_S3_3",
+    "FenceGroupID": "Fence_S3",
+    "FenceLevel": 3,
+    "InvadeProb": 0.1,
+    "NeedItemID": "Item_Wood",
+    "Amount": 55,
+    "NeedTime": 14
+  },
+  {
+    "FenceID": "Fence_S3_4",
+    "FenceGroupID": "Fence_S3",
+    "FenceLevel": 4,
+    "InvadeProb": 0.05,
+    "NeedItemID": "Item_Wood",
+    "Amount": 60,
+    "NeedTime": 16
+  },
+  {
+    "FenceID": "Fence_S3_5",
+    "FenceGroupID": "Fence_S3",
+    "FenceLevel": 5,
+    "InvadeProb": 0,
+    "NeedItemID": -1,
+    "Amount": -1,
+    "NeedTime": -1
+  }
+]

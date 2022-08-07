@@ -1,0 +1,22 @@
+[
+  {
+    "HeroID": "Hero_1",
+    "HeroStringID": "Hero_1_t1",
+    "HeroStateGroupID": "HeroState_H1"
+  },
+  {
+    "HeroID": "Hero_2",
+    "HeroStringID": "Hero_1_t2",
+    "HeroStateGroupID": "HeroState_H2"
+  },
+  {
+    "HeroID": "Hero_3",
+    "HeroStringID": "Hero_1_t3",
+    "HeroStateGroupID": "HeroState_H3"
+  },
+  {
+    "HeroID": "Hero_4",
+    "HeroStringID": "Hero_1_t4",
+    "HeroStateGroupID": "HeroState_H4"
+  }
+]

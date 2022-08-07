@@ -1,0 +1,27 @@
+[
+  {
+    "ItemID": "Item_Meat",
+    "ItemStringID": "Item_t1",
+    "FirstGive": 10
+  },
+  {
+    "ItemID": "Item_Water",
+    "ItemStringID": "Item_t2",
+    "FirstGive": 10
+  },
+  {
+    "ItemID": "Item_Hub",
+    "ItemStringID": "Item_t3",
+    "FirstGive": 10
+  },
+  {
+    "ItemID": "Item_Wood",
+    "ItemStringID": "Item_t4",
+    "FirstGive": 0
+  },
+  {
+    "ItemID": "Item_Food",
+    "ItemStringID": "Item_t5",
+    "FirstGive": 0
+  }
+]

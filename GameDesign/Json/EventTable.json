@@ -1,0 +1,74 @@
+[
+  {
+    "EventID": "Event_Norm1",
+    "opentype": 1,
+    "EventType": 0,
+    "H1ImageName": "IM_Event_Reynauld_3",
+    "H2ImageName": -1,
+    "ChoiceNum": 2,
+    "EventStringID": "Event_Norm1_a1",
+    "Choice1ID": "Choice_Norm1_1",
+    "Choice2ID": "Choice_Norm1_2",
+    "Choice3ID": -1
+  },
+  {
+    "EventID": "Event_Norm2",
+    "opentype": 1,
+    "EventType": 1,
+    "H1ImageName": "IM_Event_Acis_1",
+    "H2ImageName": "IM_Event_Elise_2",
+    "ChoiceNum": 2,
+    "EventStringID": "Event_Norm2_a1",
+    "Choice1ID": "Choice_Norm2_1",
+    "Choice2ID": "Choice_Norm2_2",
+    "Choice3ID": -1
+  },
+  {
+    "EventID": "Event_Acis1",
+    "opentype": 0,
+    "EventType": 2,
+    "H1ImageName": "IM_Event_Acis_3",
+    "H2ImageName": -1,
+    "ChoiceNum": 3,
+    "EventStringID": "Event_Acis1_a1",
+    "Choice1ID": "Choice_Acis1_1",
+    "Choice2ID": "Choice_Acis1_2",
+    "Choice3ID": "Choice_Acis1_3"
+  },
+  {
+    "EventID": "Event_Acis2",
+    "opentype": 0,
+    "EventType": 2,
+    "H1ImageName": "IM_Event_Acis_3",
+    "H2ImageName": -1,
+    "ChoiceNum": 3,
+    "EventStringID": "Event_Acis2_a1",
+    "Choice1ID": "Choice_Acis2_1",
+    "Choice2ID": "Choice_Acis2_2",
+    "Choice3ID": "Choice_Acis2_3"
+  },
+  {
+    "EventID": "Event_Norm3",
+    "opentype": 1,
+    "EventType": 0,
+    "H1ImageName": "IM_Event_Elise_3",
+    "H2ImageName": -1,
+    "ChoiceNum": 2,
+    "EventStringID": "Event_Norm3_a1",
+    "Choice1ID": "Choice_Norm3_1",
+    "Choice2ID": "Choice_Norm3_2",
+    "Choice3ID": -1
+  },
+  {
+    "EventID": "Event_Norm4",
+    "opentype": 1,
+    "EventType": 0,
+    "H1ImageName": "IM_Event_Shua_3",
+    "H2ImageName": -1,
+    "ChoiceNum": 2,
+    "EventStringID": "Event_Norm4_a1",
+    "Choice1ID": "Choice_Norm4_1",
+    "Choice2ID": "Choice_Norm4_2",
+    "Choice3ID": -1
+  }
+]

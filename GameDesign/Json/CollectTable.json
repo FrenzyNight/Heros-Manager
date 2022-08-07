@@ -1,0 +1,47 @@
+[
+  {
+    "CollectID": "Collect_S1",
+    "CollectSpaceID1": "CS_S1_Forest",
+    "StringID1": "CS_S1_t1",
+    "CollectSpaceID2": "CS_S1_Grassland",
+    "StringID2": "CS_S1_t2",
+    "CollectSpaceID3": "CS_S1_Lake",
+    "StringID3": "CS_S1_t3",
+    "RanPos": 0,
+    "CollectSpaceID4": -1,
+    "StringID4": -1,
+    "StartTime": -1,
+    "EndTime": -1,
+    "ContinueTime": -1
+  },
+  {
+    "CollectID": "Collect_S2",
+    "CollectSpaceID1": "CS_S2_Ruins",
+    "StringID1": "CS_S2_t1",
+    "CollectSpaceID2": "CS_S2_Desertfield",
+    "StringID2": "CS_S2_t2",
+    "CollectSpaceID3": "CS_S2_Desertlake",
+    "StringID3": "CS_S2_t3",
+    "RanPos": 1,
+    "CollectSpaceID4": "CS_S2_Oasis",
+    "StringID4": "CS_S2_t4",
+    "StartTime": 60,
+    "EndTime": 140,
+    "ContinueTime": 10
+  },
+  {
+    "CollectID": "Collect_S3",
+    "CollectSpaceID1": "CS_S3_Magicspring",
+    "StringID1": "CS_S3_t1",
+    "CollectSpaceID2": "CS_S3_Fairywarehouse",
+    "StringID2": "CS_S3_t2",
+    "CollectSpaceID3": "CS_S3_Portal",
+    "StringID3": "CS_S3_t3",
+    "RanPos": 0,
+    "CollectSpaceID4": "CS_S3_Worldtree",
+    "StringID4": "CS_S3_t4",
+    "StartTime": -1,
+    "EndTime": -1,
+    "ContinueTime": -1
+  }
+]

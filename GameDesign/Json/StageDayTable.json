@@ -1,0 +1,86 @@
+[
+  {
+    "StageDayID": "Day_S1_D1",
+    "StageDayGroupID": "Day_S1",
+    "Day": 1,
+    "InvadeID": "Invade_S1_D1",
+    "JourneyID": "J_S1_D1"
+  },
+  {
+    "StageDayID": "Day_S1_D2",
+    "StageDayGroupID": "Day_S1",
+    "Day": 2,
+    "InvadeID": "Invade_S1_D2",
+    "JourneyID": "J_S1_D2"
+  },
+  {
+    "StageDayID": "Day_S1_D3",
+    "StageDayGroupID": "Day_S1",
+    "Day": 3,
+    "InvadeID": "Invade_S1_D3",
+    "JourneyID": "J_S1_D3"
+  },
+  {
+    "StageDayID": "Day_S1_D4",
+    "StageDayGroupID": "Day_S1",
+    "Day": 4,
+    "InvadeID": -1,
+    "JourneyID": "J_S1_D4"
+  },
+  {
+    "StageDayID": "Day_S2_D1",
+    "StageDayGroupID": "Day_S2",
+    "Day": 1,
+    "InvadeID": "Invade_S2_D1",
+    "JourneyID": "J_S2_D1"
+  },
+  {
+    "StageDayID": "Day_S2_D2",
+    "StageDayGroupID": "Day_S2",
+    "Day": 2,
+    "InvadeID": "Invade_S2_D2",
+    "JourneyID": "J_S2_D2"
+  },
+  {
+    "StageDayID": "Day_S2_D3",
+    "StageDayGroupID": "Day_S2",
+    "Day": 3,
+    "InvadeID": "Invade_S2_D3",
+    "JourneyID": "J_S2_D3"
+  },
+  {
+    "StageDayID": "Day_S2_D4",
+    "StageDayGroupID": "Day_S2",
+    "Day": 4,
+    "InvadeID": -1,
+    "JourneyID": "J_S2_D4"
+  },
+  {
+    "StageDayID": "Day_S3_D1",
+    "StageDayGroupID": "Day_S3",
+    "Day": 1,
+    "InvadeID": "Invade_S3_D1",
+    "JourneyID": "J_S3_D1"
+  },
+  {
+    "StageDayID": "Day_S3_D2",
+    "StageDayGroupID": "Day_S3",
+    "Day": 2,
+    "InvadeID": "Invade_S3_D2",
+    "JourneyID": "J_S3_D2"
+  },
+  {
+    "StageDayID": "Day_S3_D3",
+    "StageDayGroupID": "Day_S3",
+    "Day": 3,
+    "InvadeID": "Invade_S3_D3",
+    "JourneyID": "J_S3_D3"
+  },
+  {
+    "StageDayID": "Day_S3_D4",
+    "StageDayGroupID": "Day_S3",
+    "Day": 4,
+    "InvadeID": -1,
+    "JourneyID": "J_S3_D4"
+  }
+]

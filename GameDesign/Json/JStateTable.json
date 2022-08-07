@@ -1,0 +1,338 @@
+[
+  {
+    "JStateID": "JS_S1_D1_Good",
+    "JStateGroupID": "JS_S1_D1",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 450,
+    "JResultGroupID": "JR_S1_Good"
+  },
+  {
+    "JStateID": "JS_S1_D1_Normal",
+    "JStateGroupID": "JS_S1_D1",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 400,
+    "JResultGroupID": "JR_S1_Normal"
+  },
+  {
+    "JStateID": "JS_S1_D1_Bad",
+    "JStateGroupID": "JS_S1_D1",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 350,
+    "JResultGroupID": "JR_S1_Bad"
+  },
+  {
+    "JStateID": "JS_S1_D1_Danger",
+    "JStateGroupID": "JS_S1_D1",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S1_Danger"
+  },
+  {
+    "JStateID": "JS_S1_D2_Good",
+    "JStateGroupID": "JS_S1_D2",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 650,
+    "JResultGroupID": "JR_S1_Good"
+  },
+  {
+    "JStateID": "JS_S1_D2_Normal",
+    "JStateGroupID": "JS_S1_D2",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 600,
+    "JResultGroupID": "JR_S1_Normal"
+  },
+  {
+    "JStateID": "JS_S1_D2_Bad",
+    "JStateGroupID": "JS_S1_D2",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 550,
+    "JResultGroupID": "JR_S1_Bad"
+  },
+  {
+    "JStateID": "JS_S1_D2_Danger",
+    "JStateGroupID": "JS_S1_D2",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S1_Danger"
+  },
+  {
+    "JStateID": "JS_S1_D3_Good",
+    "JStateGroupID": "JS_S1_D3",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 700,
+    "JResultGroupID": "JR_S1_Good"
+  },
+  {
+    "JStateID": "JS_S1_D3_Normal",
+    "JStateGroupID": "JS_S1_D3",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 650,
+    "JResultGroupID": "JR_S1_Normal"
+  },
+  {
+    "JStateID": "JS_S1_D3_Bad",
+    "JStateGroupID": "JS_S1_D3",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 600,
+    "JResultGroupID": "JR_S1_Bad"
+  },
+  {
+    "JStateID": "JS_S1_D3_Danger",
+    "JStateGroupID": "JS_S1_D3",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S1_Danger"
+  },
+  {
+    "JStateID": "JS_S1_D4_Good",
+    "JStateGroupID": "JS_S1_D4",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 800,
+    "JResultGroupID": "JR_S1_Good"
+  },
+  {
+    "JStateID": "JS_S1_D4_Normal",
+    "JStateGroupID": "JS_S1_D4",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 750,
+    "JResultGroupID": "JR_S1_Normal"
+  },
+  {
+    "JStateID": "JS_S1_D4_Bad",
+    "JStateGroupID": "JS_S1_D4",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 700,
+    "JResultGroupID": "JR_S1_Bad"
+  },
+  {
+    "JStateID": "JS_S1_D4_Danger",
+    "JStateGroupID": "JS_S1_D4",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S1_Danger"
+  },
+  {
+    "JStateID": "JS_S2_D1_Good",
+    "JStateGroupID": "JS_S2_D1",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 850,
+    "JResultGroupID": "JR_S2_Good"
+  },
+  {
+    "JStateID": "JS_S2_D1_Normal",
+    "JStateGroupID": "JS_S2_D1",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 800,
+    "JResultGroupID": "JR_S2_Normal"
+  },
+  {
+    "JStateID": "JS_S2_D1_Bad",
+    "JStateGroupID": "JS_S2_D1",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 750,
+    "JResultGroupID": "JR_S2_Bad"
+  },
+  {
+    "JStateID": "JS_S2_D1_Danger",
+    "JStateGroupID": "JS_S2_D1",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S2_Danger"
+  },
+  {
+    "JStateID": "JS_S2_D2_Good",
+    "JStateGroupID": "JS_S2_D2",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 900,
+    "JResultGroupID": "JR_S2_Good"
+  },
+  {
+    "JStateID": "JS_S2_D2_Normal",
+    "JStateGroupID": "JS_S2_D2",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 850,
+    "JResultGroupID": "JR_S2_Normal"
+  },
+  {
+    "JStateID": "JS_S2_D2_Bad",
+    "JStateGroupID": "JS_S2_D2",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 800,
+    "JResultGroupID": "JR_S2_Bad"
+  },
+  {
+    "JStateID": "JS_S2_D2_Danger",
+    "JStateGroupID": "JS_S2_D2",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S2_Danger"
+  },
+  {
+    "JStateID": "JS_S2_D3_Good",
+    "JStateGroupID": "JS_S2_D3",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 950,
+    "JResultGroupID": "JR_S2_Good"
+  },
+  {
+    "JStateID": "JS_S2_D3_Normal",
+    "JStateGroupID": "JS_S2_D3",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 900,
+    "JResultGroupID": "JR_S2_Normal"
+  },
+  {
+    "JStateID": "JS_S2_D3_Bad",
+    "JStateGroupID": "JS_S2_D3",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 850,
+    "JResultGroupID": "JR_S2_Bad"
+  },
+  {
+    "JStateID": "JS_S2_D3_Danger",
+    "JStateGroupID": "JS_S2_D3",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S2_Danger"
+  },
+  {
+    "JStateID": "JS_S2_D4_Good",
+    "JStateGroupID": "JS_S2_D4",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 1050,
+    "JResultGroupID": "JR_S2_Good"
+  },
+  {
+    "JStateID": "JS_S2_D4_Normal",
+    "JStateGroupID": "JS_S2_D4",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 1000,
+    "JResultGroupID": "JR_S2_Normal"
+  },
+  {
+    "JStateID": "JS_S2_D4_Bad",
+    "JStateGroupID": "JS_S2_D4",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 950,
+    "JResultGroupID": "JR_S2_Bad"
+  },
+  {
+    "JStateID": "JS_S2_D4_Danger",
+    "JStateGroupID": "JS_S2_D4",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S2_Danger"
+  },
+  {
+    "JStateID": "JS_S3_D1_Good",
+    "JStateGroupID": "JS_S3_D1",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 1100,
+    "JResultGroupID": "JR_S3_Good"
+  },
+  {
+    "JStateID": "JS_S3_D1_Normal",
+    "JStateGroupID": "JS_S3_D1",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 1050,
+    "JResultGroupID": "JR_S3_Normal"
+  },
+  {
+    "JStateID": "JS_S3_D1_Bad",
+    "JStateGroupID": "JS_S3_D1",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 1000,
+    "JResultGroupID": "JR_S3_Bad"
+  },
+  {
+    "JStateID": "JS_S3_D1_Danger",
+    "JStateGroupID": "JS_S3_D1",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S3_Danger"
+  },
+  {
+    "JStateID": "JS_S3_D2_Good",
+    "JStateGroupID": "JS_S3_D2",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 1150,
+    "JResultGroupID": "JR_S3_Good"
+  },
+  {
+    "JStateID": "JS_S3_D2_Normal",
+    "JStateGroupID": "JS_S3_D2",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 1100,
+    "JResultGroupID": "JR_S3_Normal"
+  },
+  {
+    "JStateID": "JS_S3_D2_Bad",
+    "JStateGroupID": "JS_S3_D2",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 1050,
+    "JResultGroupID": "JR_S3_Bad"
+  },
+  {
+    "JStateID": "JS_S3_D2_Danger",
+    "JStateGroupID": "JS_S3_D2",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S3_Danger"
+  },
+  {
+    "JStateID": "JS_S3_D3_Good",
+    "JStateGroupID": "JS_S3_D3",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 1200,
+    "JResultGroupID": "JR_S3_Good"
+  },
+  {
+    "JStateID": "JS_S3_D3_Normal",
+    "JStateGroupID": "JS_S3_D3",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 1150,
+    "JResultGroupID": "JR_S3_Normal"
+  },
+  {
+    "JStateID": "JS_S3_D3_Bad",
+    "JStateGroupID": "JS_S3_D3",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 1100,
+    "JResultGroupID": "JR_S3_Bad"
+  },
+  {
+    "JStateID": "JS_S3_D3_Danger",
+    "JStateGroupID": "JS_S3_D3",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S3_Danger"
+  },
+  {
+    "JStateID": "JS_S3_D4_Good",
+    "JStateGroupID": "JS_S3_D4",
+    "JStateStringID": "JS_t1",
+    "ValueMin": 1300,
+    "JResultGroupID": "JR_S3_Good"
+  },
+  {
+    "JStateID": "JS_S3_D4_Normal",
+    "JStateGroupID": "JS_S3_D4",
+    "JStateStringID": "JS_t2",
+    "ValueMin": 1250,
+    "JResultGroupID": "JR_S3_Normal"
+  },
+  {
+    "JStateID": "JS_S3_D4_Bad",
+    "JStateGroupID": "JS_S3_D4",
+    "JStateStringID": "JS_t3",
+    "ValueMin": 1200,
+    "JResultGroupID": "JR_S3_Bad"
+  },
+  {
+    "JStateID": "JS_S3_D4_Danger",
+    "JStateGroupID": "JS_S3_D4",
+    "JStateStringID": "JS_t4",
+    "ValueMin": 0,
+    "JResultGroupID": "JR_S3_Danger"
+  }
+]

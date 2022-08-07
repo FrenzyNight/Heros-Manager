@@ -1,0 +1,130 @@
+[
+  {
+    "HeroStateID": "HeroState_H1_Stress",
+    "HeroStateGroupID": "HeroState_H1",
+    "HeroStateStringID": "HeroState_t1",
+    "FirstGive": 0,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H1_Power",
+    "HeroStateGroupID": "HeroState_H1",
+    "HeroStateStringID": "HeroState_t2",
+    "FirstGive": 100,
+    "Min": 0,
+    "Max": 9999
+  },
+  {
+    "HeroStateID": "HeroState_H1_Hp",
+    "HeroStateGroupID": "HeroState_H1",
+    "HeroStateStringID": "HeroState_t3",
+    "FirstGive": 100,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H1_Exp",
+    "HeroStateGroupID": "HeroState_H1",
+    "HeroStateStringID": "HeroState_t4",
+    "FirstGive": 0,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H2_Stress",
+    "HeroStateGroupID": "HeroState_H2",
+    "HeroStateStringID": "HeroState_t1",
+    "FirstGive": 0,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H2_Power",
+    "HeroStateGroupID": "HeroState_H2",
+    "HeroStateStringID": "HeroState_t2",
+    "FirstGive": 100,
+    "Min": 0,
+    "Max": 9999
+  },
+  {
+    "HeroStateID": "HeroState_H2_Hp",
+    "HeroStateGroupID": "HeroState_H2",
+    "HeroStateStringID": "HeroState_t3",
+    "FirstGive": 100,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H2_Exp",
+    "HeroStateGroupID": "HeroState_H2",
+    "HeroStateStringID": "HeroState_t4",
+    "FirstGive": 0,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H3_Stress",
+    "HeroStateGroupID": "HeroState_H3",
+    "HeroStateStringID": "HeroState_t1",
+    "FirstGive": 0,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H3_Power",
+    "HeroStateGroupID": "HeroState_H3",
+    "HeroStateStringID": "HeroState_t2",
+    "FirstGive": 100,
+    "Min": 0,
+    "Max": 9999
+  },
+  {
+    "HeroStateID": "HeroState_H3_Hp",
+    "HeroStateGroupID": "HeroState_H3",
+    "HeroStateStringID": "HeroState_t3",
+    "FirstGive": 100,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H3_Exp",
+    "HeroStateGroupID": "HeroState_H3",
+    "HeroStateStringID": "HeroState_t4",
+    "FirstGive": 0,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H4_Stress",
+    "HeroStateGroupID": "HeroState_H4",
+    "HeroStateStringID": "HeroState_t1",
+    "FirstGive": 0,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H4_Power",
+    "HeroStateGroupID": "HeroState_H4",
+    "HeroStateStringID": "HeroState_t2",
+    "FirstGive": 100,
+    "Min": 0,
+    "Max": 9999
+  },
+  {
+    "HeroStateID": "HeroState_H4_Hp",
+    "HeroStateGroupID": "HeroState_H4",
+    "HeroStateStringID": "HeroState_t3",
+    "FirstGive": 100,
+    "Min": 0,
+    "Max": 100
+  },
+  {
+    "HeroStateID": "HeroState_H4_Exp",
+    "HeroStateGroupID": "HeroState_H4",
+    "HeroStateStringID": "HeroState_t4",
+    "FirstGive": 0,
+    "Min": 0,
+    "Max": 100
+  }
+]

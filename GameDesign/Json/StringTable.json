@@ -1,0 +1,1472 @@
+[
+  {
+    "StringID": "Title_a1",
+    "KOR": "화면을 눌러주세요",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_a2",
+    "KOR": "기존 게임 데이터가 남아있습니다.\n그래도 새 여정을 떠나시겠습니까?",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t1",
+    "KOR": "새 여정",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t2",
+    "KOR": "이어하기",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t3",
+    "KOR": "도감",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t4",
+    "KOR": "설정",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t5",
+    "KOR": "게임종료",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t6",
+    "KOR": "경고",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t7",
+    "KOR": "네",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t8",
+    "KOR": "아니오",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t10",
+    "KOR": "창 모드",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t11",
+    "KOR": "전체 화면",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t12",
+    "KOR": "창 모드",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t13",
+    "KOR": "음향",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t14",
+    "KOR": "배경음",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t15",
+    "KOR": "효과음",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t16",
+    "KOR": "확인",
+    "ENG": -1
+  },
+  {
+    "StringID": "Title_t17",
+    "KOR": "취소",
+    "ENG": -1
+  },
+  {
+    "StringID": "StageMove_t1",
+    "KOR": "SKIP",
+    "ENG": -1
+  },
+  {
+    "StringID": "Pause_t1",
+    "KOR": "일시정지",
+    "ENG": -1
+  },
+  {
+    "StringID": "Pause_t2",
+    "KOR": "돌아가기",
+    "ENG": -1
+  },
+  {
+    "StringID": "Pause_t3",
+    "KOR": "메인화면",
+    "ENG": -1
+  },
+  {
+    "StringID": "Stage_t1",
+    "KOR": "초원",
+    "ENG": -1
+  },
+  {
+    "StringID": "Stage_t2",
+    "KOR": "사막",
+    "ENG": -1
+  },
+  {
+    "StringID": "Stage_t3",
+    "KOR": "요정 숲",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_title_a1",
+    "KOR": "평화롭지만 음산한 초원입니다..",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_title_a2",
+    "KOR": "햇빛이 작렬하는 사막입니다..",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_title_a3",
+    "KOR": "신비한 기운이 웃도는 숲입니다..",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_a1",
+    "KOR": "최소 개수를 만족 시키지 못하면 여정 결과에 큰 영향을 미치게 됩니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_t1",
+    "KOR": "최소 개수 : {0}개",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_t2",
+    "KOR": "최소 개수 : {0}개",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_t3",
+    "KOR": "여정 결과 확률",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_t4",
+    "KOR": "대성공 확률 : {0} %",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_t5",
+    "KOR": "성공 확률 : {0} %",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_t6",
+    "KOR": "실패 확률 : {0} %",
+    "ENG": -1
+  },
+  {
+    "StringID": "Journey_t7",
+    "KOR": "여정 출발",
+    "ENG": -1
+  },
+  {
+    "StringID": "JR_a1",
+    "KOR": "용사들이 의기양양한 모습으로 돌아옵니다!!",
+    "ENG": -1
+  },
+  {
+    "StringID": "JR_a2",
+    "KOR": "용사들이 도착했습니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "JR_a3",
+    "KOR": "용사들이 많이 지쳐 보입니다…",
+    "ENG": -1
+  },
+  {
+    "StringID": "Day_t1",
+    "KOR": "{0}일차",
+    "ENG": -1
+  },
+  {
+    "StringID": "JS_t1",
+    "KOR": "순탄",
+    "ENG": -1
+  },
+  {
+    "StringID": "JS_t2",
+    "KOR": "보통",
+    "ENG": -1
+  },
+  {
+    "StringID": "JS_t3",
+    "KOR": "부실",
+    "ENG": -1
+  },
+  {
+    "StringID": "JS_t4",
+    "KOR": "위험",
+    "ENG": -1
+  },
+  {
+    "StringID": "Item_t1",
+    "KOR": "고기",
+    "ENG": -1
+  },
+  {
+    "StringID": "Item_t2",
+    "KOR": "물",
+    "ENG": -1
+  },
+  {
+    "StringID": "Item_t3",
+    "KOR": "허브",
+    "ENG": -1
+  },
+  {
+    "StringID": "Item_t4",
+    "KOR": "목재",
+    "ENG": -1
+  },
+  {
+    "StringID": "Item_t5",
+    "KOR": "요리된 음식",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_a1",
+    "KOR": "다음 날로 넘어갈 때, 몬스터들에게 야영지를 침략받을 확률 입니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_t1",
+    "KOR": "울타리 단계",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_t2",
+    "KOR": "침략 확률",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_t3",
+    "KOR": "필요 목재량",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_t4",
+    "KOR": "소모시간(초)",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_b1",
+    "KOR": "강화하기",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_b2",
+    "KOR": "취소",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_b3",
+    "KOR": "완료",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_a2",
+    "KOR": "강화 중..",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_a3",
+    "KOR": "강화 완료",
+    "ENG": -1
+  },
+  {
+    "StringID": "Fence_a4",
+    "KOR": "더 이상 강화할 수 없습니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Invade_a1",
+    "KOR": "지난 밤 몬스터 들에게 침략 당했습니다. $n일부 아이템들을 도둑질 해 갔습니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Invade_a2",
+    "KOR": ": {0}개",
+    "ENG": -1
+  },
+  {
+    "StringID": "Invade_a3",
+    "KOR": "무사히 아침이 밝았습니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "laundry_t1",
+    "KOR": "빨래 시작",
+    "ENG": ""
+  },
+  {
+    "StringID": "laundry_t2",
+    "KOR": "그만 하기",
+    "ENG": ""
+  },
+  {
+    "StringID": "laundry_a1",
+    "KOR": "빨래를 그만하면 소모한 물은 돌려 받지 못합니다. $n 그래도 그만 하시겠습니까?",
+    "ENG": ""
+  },
+  {
+    "StringID": "laundry_a2",
+    "KOR": "세균을 마우스로 클릭해서 없애세요.",
+    "ENG": ""
+  },
+  {
+    "StringID": "laundry_a3",
+    "KOR": "A와 D키를 번갈아 가며 눌러 빨래감을 밟으세요.",
+    "ENG": ""
+  },
+  {
+    "StringID": "laundry_a4",
+    "KOR": "활성화되는 키를 꾹 눌러 물기를 짜내세요.",
+    "ENG": ""
+  },
+  {
+    "StringID": "laundry_a5",
+    "KOR": "번갈아 가며 연타",
+    "ENG": ""
+  },
+  {
+    "StringID": "laundry_a6",
+    "KOR": "꾹 누르세요",
+    "ENG": ""
+  },
+  {
+    "StringID": "Hero_1_t1",
+    "KOR": "레이널드",
+    "ENG": -1
+  },
+  {
+    "StringID": "Hero_1_t2",
+    "KOR": "아시스",
+    "ENG": -1
+  },
+  {
+    "StringID": "Hero_1_t3",
+    "KOR": "엘리스",
+    "ENG": -1
+  },
+  {
+    "StringID": "Hero_1_t4",
+    "KOR": "슈아",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_t1",
+    "KOR": "스트레스 :",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_a1",
+    "KOR": "낮음",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_a2",
+    "KOR": "보통",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_a3",
+    "KOR": "높음",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_t2",
+    "KOR": "전투력 : {0}",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_t3",
+    "KOR": "체력 : {0} / {1}",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_t4",
+    "KOR": "용사도",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_w1",
+    "KOR": "스트레스",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_w2",
+    "KOR": "전투력",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_w3",
+    "KOR": "체력",
+    "ENG": -1
+  },
+  {
+    "StringID": "HeroState_w4",
+    "KOR": "용사도",
+    "ENG": -1
+  },
+  {
+    "StringID": "BonFire_a1",
+    "KOR": "용사들이 추위에 떨고 있습니다. 용사들의 스트레스가 증가합니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Cook_a1",
+    "KOR": "무언가 탄 냄새가 납니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S1_t1",
+    "KOR": "숲",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S1_t2",
+    "KOR": "초원",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S1_t3",
+    "KOR": "냇가",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S2_t1",
+    "KOR": "버려진 마을",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S2_t2",
+    "KOR": "사막평야",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S2_t3",
+    "KOR": "우물",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S2_t4",
+    "KOR": "오아시스",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S3_t1",
+    "KOR": "마법샘",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S3_t2",
+    "KOR": "요정창고",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S3_t3",
+    "KOR": "차원문",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_S3_t4",
+    "KOR": "세계수",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S1_a1",
+    "KOR": "금이 간 부분을 WASD로 찾아가 나무를 베세요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S1_a2",
+    "KOR": "장애물을 방향키를 이용해 피하세요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S1_a3",
+    "KOR": "WASD로 레이를 움직여 약초를 캐세요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S1_a4",
+    "KOR": "마우스로 활을 조준해 동물을 사냥하세요",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S1_a5",
+    "KOR": "A로 통나무를 움직여 물고기를 획득하세요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S1_a6",
+    "KOR": "방향키로 떠내려오는 쓰레기 부터 물을 지키세요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S2_a1",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S2_a2",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S2_a3",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S2_a4",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S2_a5",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S2_a6",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S2_a7",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S3_a1",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S3_a2",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S3_a3",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_S3_a4",
+    "KOR": "aaa",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Result_a1",
+    "KOR": "{0}의 스트레스",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Result_a1_increase",
+    "KOR": "감소",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Result_a2",
+    "KOR": "{0}의 스트레스",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Result_a2_increase",
+    "KOR": "증가",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Result_a3",
+    "KOR": "{0}의 {1}",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Result_a3_increase",
+    "KOR": "+",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Result_a4",
+    "KOR": "{0}의 {1}",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Norm1_a1",
+    "KOR": "텐트 뒤에서 부스럭 부스럭 수상한 소리가 들립니다. 수상한 소리를 용사들에게 알리려는 순간, 이미 레이널드씨는 칼을 뽑아 순식간에 텐트 뒤로 달려갔습니다. 그곳에는 굶주림에 미쳐 정신없이 배낭을 뒤지고 있는 새끼 늑대가 있었습니다. 레이널드씨는 차가운 눈빛으로 칼을 높이 들었고, 새끼 늑대를 벨 준비를 하고 있습니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm1_a1",
+    "KOR": "잠깐…!!! 고기를 몇 개 내주어서 돌려 보냅시다!",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm1_a2",
+    "KOR": "죽을 짓을 했네.. 암..",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm1_s1",
+    "KOR": "저는 레이널드씨 앞을 막았고, 레이널드씨를 설득한 후 고기를 몇 덩이 잘라서 새끼 늑대에게 던져주었습니다. 새끼 늑대는 몇 초 동안 경계를 하다가 고기를 입에 물고 수풀로 달려갔고, 마중 나와있는 어미 늑대의 품으로 돌아갔습니다. 레이널드씨는 아무 말 없이 멀어지는 늑대 가족을 쳐다 보고 있네요. 어떤 생각을 하고 있는 걸까요?",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm1_s2",
+    "KOR": "레이널드씨의 칼날은 무자비 했습니다. 단 한번의 휘두름에 새끼 늑대는 두동강 났고, 그 자리는 새끼 늑대의 피로 젖게되었습니다. 레이널드씨는 칼날에 묻은 피를 닦으며 뒤돌아섰습니다. 그의 눈빛은 너무나도 차가웠습니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Norm2_a1",
+    "KOR": "저기 엘리스씨가 화난 표정으로 다가 오고 있네요. 씩씩 대며 옷을 제 앞에 던지고 말했어요.  $n  \" 빨래를 어떤 식으로 한거야? 여기 얼룩 안보여? \" $n 이런.. 많은 양의 옷을 한번에 빨다보니 실수를 하고 말았네요. 죄송하다고 하고 옷을 주었어요. $n \"어이 아가씨, 성질좀 죽이지? \" $n 맞은편에 앉아있는 아시스씨가 기분나쁜 미소를 지으며 놀리듯이 말했어요. $n \" 뭐? 거지같이 생긴 양아치가, 참견 끄시지?\" $n 아시스의 얼굴은 순식간에 차가워지고 살기가 돌기 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm2_a1",
+    "KOR": "에..엘리스님, 말씀이 너무 지나치시네요!!",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm2_a2",
+    "KOR": "(아시스 앞을 막으며) 하하 제가 후딱 가서 빨래를 다시 해 올게요!!",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm2_s1",
+    "KOR": "저의 말을 들은 엘리스씨는 깜짝 놀라며 얼굴이 붉어지기 시작했어요. 아시스씨는 언제 화가났냐는 듯 통쾌하게 웃기 시작했어요. 엘리스씨는 잔뜩 화가난 채 씩씩대며 텐트로 돌아갔어요. 아무래도 엘리스씨는 화를 죽일 필요가 있어보여요..",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm2_s2",
+    "KOR": "아시스씨의 살기를 느낀 저는 후딱 둘 사이를 막았어요. 옷을 들고 빨래를 다시 해오겠다고 엘리스씨를 감싸며 둘 사이를 떨어뜨려놨어요. $n \" 흥 \" $n엘리스씨는 자신의 편을 들어줘서인지 만족스런 표정으로 돌아섰어요. 아시스씨는 살기는 없어졌지만 못마땅한 눈빛으로 지켜보고 있네요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Norm3_a1",
+    "KOR": "엘리스가 무언가를 열심히 준비 중이다. 무엇을 하고 있는 걸까? 가까이서 보니 엘리스가 새로운 기술을 연습 중인 것 같은데, 엘리스의 몰골을 보니 여러 번 연습하고도 잘 안된 것 같다. $n1..2... 펑!$n 내가 보기에도 저 기술을 하기에는 엘리스의 능력이 부족해 보인다. 유심히 쳐다보던 와중에 엘리스와 눈이 마주쳤다. $n\"뭘봐..!”$n 황급히 엘리스는 자신이 하던 것을 감췄다. 연습하는 것을 봤다고 말을 했다. 그러자 엘리스가 부끄러워하는 것 같다. $n\"잘 안되지만 기다려봐.. 꼭 성공해낼 거야”$n 잘 안될 것 같지만 엘리스를 위해 어떤 말을 해주어야 할까?",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm3_a1",
+    "KOR": "영 안 될 것 같은데 휴식한 후에 다른 기술을 연마하는 건 어때?",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm3_a2",
+    "KOR": "넌 잘 할 수 있어!",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm3_s1",
+    "KOR": "네가 뭔데 날 평가해. 힘드니까 오늘은 여기까지만 한다..\"$n엘리스는 분했지만 그래도 조금은 조언이 되었는지 다른 기술의 주문을 확인하며 휴식하러 갔다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm3_s2",
+    "KOR": "내일 와서 다시 봐봐 꼭 성공해서 보여줄 테니까.\"$n엘리스는 지쳐 보였지만 그래도 표정은 뿌듯해 보였다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Norm4_a1",
+    "KOR": "슈아가 나를 바라보고 있다. 그리고 땅이 꺼지도록 한숨을 내쉰다. … 내가 못생겼나?라고 생각하며 고민하는 참에 슈아가 다가왔다.$n\"우리.. 마왕 무찌를 수 있겠죠?”$n다른 용사분들과 내가 못 미더웠나보다. 아무래도 틈만 나면 티격태격인 용사들에 용사 시험 5수생이 관리사로 있으니 그럴 만도.$n\"마왕을 무찌르지 못하면… 우리 마을과.. 제 신부님은 어떻게..”$n슈아가 걱정거리가 많아 보이고 너무 자신감 없이 있다. 그런데 사실 나도 걱정스럽다. 우리가 마왕을 무찌를 수 있을지. 용사 관리사로서 슈아의 부담감을 줄여야 할까 아니면 같이 시련을 공유하고 풀어야 할까.. 고민이다..$n그래도 나는!",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm4_a1",
+    "KOR": "너무 걱정하지말아요! 저희는 잘 될 겁니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm4_a2",
+    "KOR": "실은 저도 비슷한 고민이 있습니다..",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm4_s1",
+    "KOR": "슈아는 자신감에 찬 내 모습을 보고 나니 한시름 놓였는지 한층 불안이 나아진 것 같다. 파이팅 포즈를 취한 후 휴식을 취하러 돌아갔다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Norm4_s2",
+    "KOR": "나 또한 이 여정을 성공시킬 수 있을지. 용사들과 좋은 합을 맞출 수 있을지 겁이 난다고 말했다. 하지만 용사 관리사로써 책임을 끝까지 다 해야 한다고 말을 했고 슈아에게 지금처럼 고민이 있다면 언제든 와 달라고 말을 했다.$n서로의 얘기를 듣고 난 후 우리 둘 모두 걱정이 한시름 놓이게 되었다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Acis1_a1",
+    "KOR": "아시스 연계 퀘스트1",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis1_a1",
+    "KOR": "무엇이",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis1_a2",
+    "KOR": "정답",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis1_a3",
+    "KOR": "일까요?(이게정답)",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis1_s1",
+    "KOR": "와 이걸틀리네",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis1_s2",
+    "KOR": "와 이걸틀리네",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis1_s3",
+    "KOR": "굿",
+    "ENG": -1
+  },
+  {
+    "StringID": "Event_Acis1_a2",
+    "KOR": "아시스 연계 퀘스트2",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis2_a1",
+    "KOR": "무엇이",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis2_a2",
+    "KOR": "정답",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis2_a3",
+    "KOR": "일까요?(이게정답)",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis2_s1",
+    "KOR": "와 이걸틀리네",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis2_s2",
+    "KOR": "와 이걸틀리네",
+    "ENG": -1
+  },
+  {
+    "StringID": "Choice_Acis2_s3",
+    "KOR": "굿",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_t1",
+    "KOR": "Lv.{0}",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_InfiniteFire_t1",
+    "KOR": "켈베로스의 비늘",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_Angel_t1",
+    "KOR": "핑커벨",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_MetalDetector_t1",
+    "KOR": "탐지기",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_LayDiary1_t1",
+    "KOR": "레이의 일기장1",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_LayDiary2_t1",
+    "KOR": "레이의 일기장2",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_InfiniteFire_a1",
+    "KOR": "모닥불 지속시간을 {0}초 늘려줍니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_Angel_a1",
+    "KOR": "날이 바뀔 때 마다 아이템 하나를 {0}개 얻습니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_MetalDetector_a1",
+    "KOR": "레이가 야영지 안을 돌아다닐 때 마다 {0}%확률로 랜덤 아이템을 얻습니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_LayDiary1_a1",
+    "KOR": "레이의 야영지 안의 이동속도를 {0}%만큼 증가 시킵니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "Jem_LayDiary2_a1",
+    "KOR": "레이의 크기를 {0}%만큼 증가 시킵니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_1_s1",
+    "KOR": "여기 한 꼬마가 씩씩하게 서있네요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_1_s2",
+    "KOR": "이 꼬마아이의 이름은 레이.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_1_s3",
+    "KOR": "레이는 평범한 가정, 평범한 농부 집안에서 자란 아주 평범한 친구에요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_2_s1",
+    "KOR": "하늘에서는 따사로운 햇살이 내려오고",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_2_s2",
+    "KOR": "농작물들은 보란듯이 힘차게 자라나고",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_2_s3",
+    "KOR": "레이의 가족은 이를 소중히 가꿔가며 하루하루를 보냈어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_2_s4",
+    "KOR": "아주 평범하고 행복한 나날들의 연속이였죠.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_2_s5",
+    "KOR": "그 만남이 일어나기 전까지는 말이죠.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_3_s1",
+    "KOR": "여느때와 다름없이 레이와 아버지는 약초와 열매를 따러 숲에 들어왔어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_3_s2",
+    "KOR": "레이는 아버지의 뒤를 씩씩하게 따라갔어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_3_s3",
+    "KOR": "그런데 느낌이 좋지 않아요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_3_s4",
+    "KOR": "평상시에는 잘 보이던 약초와 열매는 그날따라 보이지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_3_s5",
+    "KOR": "결국 두 부자는 계속해서 걷게 되었고",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_3_s6",
+    "KOR": "숲 깊숙히 까지 들어가게 되요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_4_s1",
+    "KOR": "얼마쯤 걸었을까요…",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_4_s2",
+    "KOR": "무언가가 쳐다보는 느낌이 들기 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_4_s3",
+    "KOR": "소름돋는 웃음 소리도 조금씩 들리는 것 같아요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_4_s4",
+    "KOR": "레이와 아버지는 점점 불안해 하기 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_5_s1",
+    "KOR": "불길한 예감은 틀리지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_5_s2",
+    "KOR": "다,여섯마리 정도 되는 고블린 무리가 갑자기 수풀에서 튀어 나왔어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_5_s3",
+    "KOR": "레이의 아버지는 레이를 서둘러 뒤로 숨겼어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_5_s4",
+    "KOR": "레이가 잡고있는 아버지의 다리는 공포와 두려움에 떨고있었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_5_s5",
+    "KOR": "고블린들은 침을 흘리며 점점 둘에게로 다가가고 있었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_6_s1",
+    "KOR": "레이는 눈을 질끈 감았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_6_s2",
+    "KOR": "처음 느껴보는 죽음에 두려움은 레이에겐 너무나도 큰 공포였어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_6_s3",
+    "KOR": "이렇게 레이는 고블린에 의해 허무하게 죽게되는 걸까요?",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_7_s1",
+    "KOR": " 서겅 ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_7_s2",
+    "KOR": " … ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_7_s3",
+    "KOR": "이게 무슨 소리일까요?",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_7_s4",
+    "KOR": "레이는 조심스레 눈을 떠보았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_8_s1",
+    "KOR": "레이의 눈앞에는 한 사내가 서 있었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_8_s2",
+    "KOR": "그 사내의 칼에는 피가 묻어있었고, 그의 앞에는 고블린이 쓰러져 있었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_8_s3",
+    "KOR": "또한 그의 망토는 정의라는 바람에 휘날리는 듯 힘차게 펄럭이고 있었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_9_s1",
+    "KOR": "고블린들이 소리를 지르며 용사에게 달려들기 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_9_s2",
+    "KOR": " 서겅 ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_9_s3",
+    "KOR": "그 사내는 바람처럼 움직여 순식간에 고블린 사이를 지나갔어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_9_s4",
+    "KOR": "지나간 자리에는 빛나는 검기와 고블린의 시체밖에 남지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_10_s1",
+    "KOR": "레이는 가슴이 뜨거워지기 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_10_s2",
+    "KOR": "그가 움직일 때마다 펄럭이는 망토, 악을 베어내는 검은 레이의 가슴을 더욱더 뛰게 했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_10_s3",
+    "KOR": "레이는 처음 느껴보는 감정에 흥분을 감출 수 없었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s1",
+    "KOR": "사내가 고블린을 모두 처리하는 건 몇 초 걸리지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s2",
+    "KOR": "레이는 사내에게 말을 걸었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s3",
+    "KOR": " 아저씨는.. 누구에요..? ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s4",
+    "KOR": "사내는 떨리는 목소리로 물어보는 꼬마 아이를 보고 대답했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s5",
+    "KOR": " 아저씨는 세상을 구하는 용사란다 ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s6",
+    "KOR": " 저도 아저씨처럼 멋있는 용사가 될 수 있을까요? ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s7",
+    "KOR": "용사는 씨익 웃으며 대답했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s8",
+    "KOR": " 글쎄.. ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_11_s9",
+    "KOR": " 우리 꼬마 친구가 하기에 달려있지 않을까? ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_12_s1",
+    "KOR": "감사 인사를 한 후, 멀어지는 용사를 보며 레이는 다짐했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_12_s2",
+    "KOR": " 나는 … ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_12_s3",
+    "KOR": " 기필코 세상을 구하는 용사가 되겠어 ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_13_s1",
+    "KOR": "레이는 용사가 되기 위한 훈련을 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_13_s2",
+    "KOR": "그러나 레이에겐 그렇다 할 스승이 없었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_13_s3",
+    "KOR": "레이는 혼자서 검술을 연습하고, 책을 보며 마법을 공부할 수밖에 없었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_14_s1",
+    "KOR": "레이는 수없이 넘어지고, 실패했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_14_s2",
+    "KOR": "그러나 레이는 좌절하지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_14_s3",
+    "KOR": "100번 넘어지면 100번 일어서고 1000번 넘어지면 다시 1000번 일어났어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_14_s4",
+    "KOR": "오로지 '용사'가 되겠다는 마음가짐 하나만으로 말이죠.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_15_s1",
+    "KOR": "어느덧 10년이라는 많은 시간이 흘렀어요..",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_15_s2",
+    "KOR": "귀여운 꼬맹이는 온데간데없고 여기 듬직한 한 청년이 서있네요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_15_s3",
+    "KOR": "레이는 드디어 용사 모집 시험을 치를 수 있는 나이가 되었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_16_s1",
+    "KOR": "드디어 기다리고 기다리던 용사 모집 시험 기간이 다가왔어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_16_s2",
+    "KOR": "레이는 만반의 준비를 끝낸 후 집 밖을 나섰어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_16_s3",
+    "KOR": "가족들과 뜨거운 포옹을 한 후, 용사가 되겠다는 부푼 기대를 가지고 수도를 향해 나아갔어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_17_s1",
+    "KOR": "레이는 시험장 앞에 도착했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_17_s2",
+    "KOR": "시험장 주변은 다양한 직업, 나이, 성별의 참가자들로 가득했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_17_s3",
+    "KOR": "그러나 이 참가자들은 하나같이 용사가 되겠다는 비장한 눈빛들을 하고 있었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_17_s4",
+    "KOR": "그런 참가자들을 본 레이는 비록 겁이 나긴 했지만",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_17_s5",
+    "KOR": "본인과 같은 꿈을 향해 도전하는 많은 참가자들을 보니 가슴이 뛰기 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_17_s6",
+    "KOR": "레이는 과연 이 무시무시한 참가자들을 상대로 시험을 무사히 통과할 수 있을까요?",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_18_s1",
+    "KOR": "털썩..",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_18_s2",
+    "KOR": "용사라는 벽은 생각보다 높았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_18_s3",
+    "KOR": "참가자들은 하나같이 강하고, 하나같이 뛰어난 재능을 갖고 있었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_18_s4",
+    "KOR": "그들이 휘두르는 검은 커다란 바위같이 무거웠고, 그들이 사용하는 마법은 하나같이 아름답고 세련되었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_18_s5",
+    "KOR": "지금의 레이는 그들에게 견주어지기엔 너무나도 약했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_19_s1",
+    "KOR": "그러나 시험에 떨어진 레이는 좌절하지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_19_s2",
+    "KOR": "큰 패배를 맛본 레이는 자신의 한계치를 뚫어야만 가능성이 있다는 것을 체감했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_19_s3",
+    "KOR": "레이는 다시 내년에 있을 시험을 위해 뼈와 살을 깎는 훈련을 계속했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_20_s1",
+    "KOR": "그러나 시험은 여전히 벽이 높았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_20_s2",
+    "KOR": "여전히 참가자들은 강했고, 재능의 차이는 좁혀지지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_20_s3",
+    "KOR": "그러나 레이는 포기하지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_20_s4",
+    "KOR": "참가자들을 분석하고 더욱더 혹독하게 훈련했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_20_s5",
+    "KOR": "그리고 1년..",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_20_s6",
+    "KOR": "2년…",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_20_s7",
+    "KOR": "매년 용사 시험에 참가하며 레이는 눈에 띄게 성장하기 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_20_s8",
+    "KOR": "레이는 드디어 희망이 조금씩 보이기 시작했고 용사라는 꿈이 가까워짐을 느꼈어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s1",
+    "KOR": "그러나.. 레이가 25살이 되던 해",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s2",
+    "KOR": "이번에 떨어지면 용사는 포기하거라",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s3",
+    "KOR": "깜짝 놀란 레이는 밥 먹던 숟가락을 떨어뜨리며 자리를 박차 일어났어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s4",
+    "KOR": "그게 무슨 말이에요 아버지!",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s5",
+    "KOR": "다치고 망가져서 돌아오는 너를 더 이상 두고 볼 수 없다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s6",
+    "KOR": "이번 시험에서 떨어지면 그만 마음 접고 농사일을 배워라",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s7",
+    "KOR": "아버지는 매년 다쳐서 돌아오는 레이를 좋게 볼리 없었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s8",
+    "KOR": "그치만..",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s9",
+    "KOR": "아버지는 마음을 굳히신 듯 완고한 표정을 지으셨어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s10",
+    "KOR": "레이는 더 이상 아버지를 설득시키지 못한다는 것을 알았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s11",
+    "KOR": "레이는 이번이 마지막 기회라는 걸 받아들였어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_21_s12",
+    "KOR": "이번엔 꼭 통과하고 말겠어..!'",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_22_s1",
+    "KOR": "마지막 용사 시험이 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_22_s2",
+    "KOR": "레이는 참가자들과의 결투에서 한 합, 한 합을 신중하게 임했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_22_s3",
+    "KOR": "다년간 다져온 몸과 수많은 훈련과 경험은 결코 레이를 배신하지 않았어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_22_s4",
+    "KOR": "한 명..",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_22_s5",
+    "KOR": "또 한 명...",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_22_s6",
+    "KOR": "수많은 강자들을 힘겹게 이기며 레이는 시험을 이어갔어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_23_s1",
+    "KOR": "드디어 레이는 처음으로 최종 선발 단계까지 올라가는데 성공했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_23_s2",
+    "KOR": "레이를 포함한 총 다섯 명의 참가자가 심사대에 올라갔어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_23_s3",
+    "KOR": "고위 관료들과 심사위원들은 이 다섯 명의 참가자 중 최종 선발 인원 4명을 추려내기 시작했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_23_s4",
+    "KOR": "레이는 여기서 떨어지면 더 이상 용사라는 꿈을 포기해야 된다는 생각에 너무나도 초조했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_24_s1",
+    "KOR": "그러나 세상은 재능 있고 강한 자들을 원했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_24_s2",
+    "KOR": "결국 레이는 마지막 최종 선발에서 뽑히지 못했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_24_s3",
+    "KOR": "이상으로 이번 연도 용사 모집 시험을 종료합니다!",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_25_s1",
+    "KOR": "레이는 고개를 떨궜어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_25_s2",
+    "KOR": "용사가 더 이상 되지 못한다는 생각에 가슴이 미어지고 손이 떨렸어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_25_s3",
+    "KOR": "떨리는 손에는 지금까지의 노력이 담겨있는 굳은살이 남아있어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_25_s4",
+    "KOR": "지금까지 레이는 최선을 다했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_25_s5",
+    "KOR": "그러나 현실은 너무나도 가혹했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_26_s1",
+    "KOR": "하지만 다년간 꿈꿔온 용사라는 꿈은 절대 포기하기 싫었어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_26_s2",
+    "KOR": "세상을 구하는 게 용사라면… '",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_26_s3",
+    "KOR": "레이는 순간 번뜩이는 아이디어가 떠올랐어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_27_s1",
+    "KOR": " 잠시만요..!! ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_27_s2",
+    "KOR": "레이는 큰소리로 말했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_27_s3",
+    "KOR": "모든 관중들과 고위 관료들, 그리고 심사위원들이 레이에게 집중했어요.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_27_s4",
+    "KOR": " … ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Lay_27_s5",
+    "KOR": " 혹시 여정을 떠나실 때 짐꾼이 필요하시지 않나요? ",
+    "ENG": -1
+  },
+  {
+    "StringID": "MG_a1",
+    "KOR": "채집 장소를 선택하세요",
+    "ENG": -1
+  }
+]

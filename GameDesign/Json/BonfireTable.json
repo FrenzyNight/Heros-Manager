@@ -1,0 +1,38 @@
+[
+  {
+    "BonfireID": "Bonfire_S1",
+    "NeedItemID": "Item_Wood",
+    "NeedAmount": 15,
+    "Time1": 50,
+    "Time2": 10,
+    "Time3": 5,
+    "Hero1_Stress": 2,
+    "Hero2_Stress": 2,
+    "Hero3_Stress": 2,
+    "Hero4_Stress": 2
+  },
+  {
+    "BonfireID": "Bonfire_S2",
+    "NeedItemID": "Item_Wood",
+    "NeedAmount": 15,
+    "Time1": 50,
+    "Time2": 10,
+    "Time3": 5,
+    "Hero1_Stress": 2,
+    "Hero2_Stress": 2,
+    "Hero3_Stress": 2,
+    "Hero4_Stress": 2
+  },
+  {
+    "BonfireID": "Bonfire_S3",
+    "NeedItemID": "Item_Wood",
+    "NeedAmount": 15,
+    "Time1": 50,
+    "Time2": 10,
+    "Time3": 5,
+    "Hero1_Stress": 2,
+    "Hero2_Stress": 2,
+    "Hero3_Stress": 2,
+    "Hero4_Stress": 2
+  }
+]
