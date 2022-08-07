@@ -56,9 +56,9 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         }
 
         MiniGameInfo miniGameInfo;
-        if (collectSpaceData.MiniGameLeftID1 != "-1")
+        if (collectSpaceData.MiniGameID1 != "-1")
         {
-            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameLeftID1);
+            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameID1);
             miniGameInfo.obj.SetActive(true);
             miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
 
@@ -68,9 +68,9 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             GuideTexts[0].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID1);
             GuideTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
         }
-        if (collectSpaceData.MiniGameRightID2 != "-1")
+        if (collectSpaceData.MiniGameID2 != "-1")
         {
-            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameRightID2);
+            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameID2);
             miniGameInfo.obj.SetActive(true);
             miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
 
@@ -120,14 +120,14 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         List<CollectSpaceData> randomGameList = new List<CollectSpaceData>();
         foreach (var data in LoadGameData.Instance.collectSpaceDatas)
         {
-            if (data.Value.MiniGameLeftID1 != "-1" && data.Value.MiniGameRightID2 != "-1")
+            if (data.Value.MiniGameID1 != "-1" && data.Value.MiniGameID1 != "-1")
             {
                 randomGameList.Add(data.Value);
             }
         }
 
         ChangeRandomGame(randomGameList);
-        float changeTime = LoadGameData.Instance.defineDatas[""].value;
+        float changeTime = LoadGameData.Instance.defineDatas[""].value1;
         float timer = 0f;
 
         while (true)
@@ -157,7 +157,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         MiniGameInfo miniGameInfo;
 
         int rand = UnityEngine.Random.Range(0, _randomGameList.Count);
-        miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameLeftID1);
+        miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameID1);
         miniGameInfo.obj.SetActive(true);
         miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
         GuideTexts[0].gameObject.SetActive(true);
@@ -165,7 +165,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         GuideTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
 
         rand = UnityEngine.Random.Range(0, _randomGameList.Count);
-        miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameRightID2);
+        miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameID2);
         miniGameInfo.obj.SetActive(true);
         miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
         GuideTexts[1].gameObject.SetActive(true);

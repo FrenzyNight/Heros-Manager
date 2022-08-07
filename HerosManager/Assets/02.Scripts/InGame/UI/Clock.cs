@@ -34,8 +34,8 @@ public class Clock : Singleton<Clock>
     {
         day = SaveDataManager.Instance.saveGameData.day;
 
-        dayTime = LoadGameData.Instance.defineDatas["Define_Day_Time"].value;
-        heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value;
+        dayTime = LoadGameData.Instance.defineDatas["Define_Day_Time"].value1;
+        heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value1;
         isHeroBack = false;
         isProduct = false;
         //isChicken = false;

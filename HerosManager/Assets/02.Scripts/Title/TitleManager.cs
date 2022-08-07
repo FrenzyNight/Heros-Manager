@@ -30,7 +30,7 @@ public class TitleManager : MonoBehaviour
 
     void Start()
     {
-        LoadGameData.Instance.LoadCSVDatas();
+        LoadGameData.Instance.LoadTitleDatas();
         SaveDataManager.Instance.LoadGameDatas();
         SaveDataManager.Instance.LoadOptionDatas();
 

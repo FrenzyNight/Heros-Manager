@@ -1,0 +1,41 @@
+[
+  {
+    "CookID": "Cook_S1",
+    "NeedItem1ID": "Item_Hub",
+    "NeedItem1Amount": 2,
+    "NeedItem2ID": "Item_Meat",
+    "NeedItem2Amount": 2,
+    "NeedItem3ID": "Item_Water",
+    "NeedItem3Amount": 2,
+    "GetItemID": "Item_Food",
+    "GetItemAmount": 1,
+    "CookTime": 40,
+    "GetTime": 20
+  },
+  {
+    "CookID": "Cook_S2",
+    "NeedItem1ID": "Item_Hub",
+    "NeedItem1Amount": 4,
+    "NeedItem2ID": "Item_Meat",
+    "NeedItem2Amount": 4,
+    "NeedItem3ID": "Item_Water",
+    "NeedItem3Amount": 4,
+    "GetItemID": "Item_Food",
+    "GetItemAmount": 2,
+    "CookTime": 40,
+    "GetTime": 20
+  },
+  {
+    "CookID": "Cook_S3",
+    "NeedItem1ID": "Item_Hub",
+    "NeedItem1Amount": 6,
+    "NeedItem2ID": "Item_Meat",
+    "NeedItem2Amount": 6,
+    "NeedItem3ID": "Item_Water",
+    "NeedItem3Amount": 6,
+    "GetItemID": "Item_Food",
+    "GetItemAmount": 3,
+    "CookTime": 40,
+    "GetTime": 20
+  }
+]

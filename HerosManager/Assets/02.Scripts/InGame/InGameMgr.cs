@@ -29,7 +29,7 @@ public class InGameMgr : Singleton<InGameMgr>
     void Awake()
     {
         //temp
-        LoadGameData.Instance.LoadCSVDatas();
+        LoadGameData.Instance.LoadTitleDatas();
 
         stage = SaveDataManager.Instance.saveGameData.stage;
 

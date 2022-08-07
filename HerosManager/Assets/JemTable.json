@@ -1,0 +1,67 @@
+[
+  {
+    "JemID": "Jem_InfiniteFire",
+    "JemImageID": "Jem_InfiniteFire_Image",
+    "JemNameString": "Jem_InfiniteFire_t1",
+    "JemExplainString": "Jem_InfiniteFire_a1",
+    "JemType": 0,
+    "StartLevel": 1,
+    "MaxLevel": 3,
+    "Value1": 3,
+    "Value2": -1,
+    "LevelUpAmount": 3,
+    "CutsceneOpenID": -1
+  },
+  {
+    "JemID": "Jem_Angel",
+    "JemImageID": "Jem_Angel_Image",
+    "JemNameString": "Jem_Angel_t1",
+    "JemExplainString": "Jem_Angel_a1",
+    "JemType": 0,
+    "StartLevel": 1,
+    "MaxLevel": 3,
+    "Value1": 4,
+    "Value2": -1,
+    "LevelUpAmount": 1,
+    "CutsceneOpenID": -1
+  },
+  {
+    "JemID": "Jem_MetalDetector",
+    "JemImageID": "Jem_MetalDetector_Image",
+    "JemNameString": "Jem_MetalDetector_t1",
+    "JemExplainString": "Jem_MetalDetector_a1",
+    "JemType": 0,
+    "StartLevel": 1,
+    "MaxLevel": 3,
+    "Value1": 0.03,
+    "Value2": -1,
+    "LevelUpAmount": 0.01,
+    "CutsceneOpenID": -1
+  },
+  {
+    "JemID": "Jem_LayDiary1",
+    "JemImageID": "Jem_LayDiary1_Image",
+    "JemNameString": "Jem_LayDiary1_t1",
+    "JemExplainString": "Jem_LayDiary1_a1",
+    "JemType": 1,
+    "StartLevel": -1,
+    "MaxLevel": -1,
+    "Value1": 0.1,
+    "Value2": -1,
+    "LevelUpAmount": -1,
+    "CutsceneOpenID": "open_Lay_1"
+  },
+  {
+    "JemID": "Jem_LayDiary2",
+    "JemImageID": "Jem_LayDiary2_Image",
+    "JemNameString": "Jem_LayDiary2_t1",
+    "JemExplainString": "Jem_LayDiary2_a1",
+    "JemType": 1,
+    "StartLevel": -1,
+    "MaxLevel": -1,
+    "Value1": 0.5,
+    "Value2": -1,
+    "LevelUpAmount": -1,
+    "CutsceneOpenID": "open_Lay_2"
+  }
+]

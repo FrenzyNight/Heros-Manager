@@ -57,7 +57,7 @@ public class EventMgr : Singleton<EventMgr>
     {
         foreach(var evt in LoadGameData.Instance.eventDatas)
         {
-            if(evt.Value.OpenType == 1)
+            if(evt.Value.opentype == 1)
             {
                 EventList.Add(evt.Value.EventID);
             }

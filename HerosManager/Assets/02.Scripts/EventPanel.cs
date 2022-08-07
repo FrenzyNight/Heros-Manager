@@ -57,15 +57,15 @@ public class EventPanel : MonoBehaviour
             Fullchar.SetActive(false);
             HalfChar.SetActive(true);
 
-            topCharImg.sprite = Resources.Load<Sprite>("Chars/" + LoadGameData.Instance.eventDatas[nextEventID].H1ImgName);
-            botCharImg.sprite = Resources.Load<Sprite>("Chars/" + LoadGameData.Instance.eventDatas[nextEventID].H2ImgName);
+            topCharImg.sprite = Resources.Load<Sprite>("Chars/" + LoadGameData.Instance.eventDatas[nextEventID].H1ImageName);
+            botCharImg.sprite = Resources.Load<Sprite>("Chars/" + LoadGameData.Instance.eventDatas[nextEventID].H2ImageName);
         }
         else //일반(0), 연계(2)
         {
             HalfChar.SetActive(false);
             Fullchar.SetActive(true);
 
-            fullCharImg.sprite = Resources.Load<Sprite>("Chars/" + LoadGameData.Instance.eventDatas[nextEventID].H1ImgName);
+            fullCharImg.sprite = Resources.Load<Sprite>("Chars/" + LoadGameData.Instance.eventDatas[nextEventID].H1ImageName);
         }
         //Load Event Text;
         mainText.text = LoadGameData.Instance.GetString(LoadGameData.Instance.eventDatas[nextEventID].EventStringID);
@@ -95,36 +95,36 @@ public class EventPanel : MonoBehaviour
         choiceBtn.transform.GetChild(0).GetComponent<Text>().text = LoadGameData.Instance.GetString(LoadGameData.Instance.choiceDatas[choiceID].ChoiceStringID);
          
 
-        if(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID != "-1")
+        if(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID != "-1")
         {
             choiceBtn.transform.GetChild(1).gameObject.SetActive(true);
 
             choiceBtn.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "-" + LoadGameData.Instance.choiceDatas[choiceID].NeedAmount.ToString();
 
-            if(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID == "Item_Wood")
+            if(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID == "Item_Wood")
             {
                 choiceBtn.transform.GetChild(1).transform.GetChild(1).GetComponent<Image>().sprite = EventMgr.Instance.itemImgs[0];
             }
-            else if(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID == "Item_Water")
+            else if(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID == "Item_Water")
             {
                 choiceBtn.transform.GetChild(1).transform.GetChild(1).GetComponent<Image>().sprite = EventMgr.Instance.itemImgs[1];
             }
-            else if(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID == "Item_Meat")
+            else if(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID == "Item_Meat")
             {
                 choiceBtn.transform.GetChild(1).transform.GetChild(1).GetComponent<Image>().sprite = EventMgr.Instance.itemImgs[2];
             }
-            else if(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID == "Item_Hub")
+            else if(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID == "Item_Hub")
             {
                 choiceBtn.transform.GetChild(1).transform.GetChild(1).GetComponent<Image>().sprite = EventMgr.Instance.itemImgs[3];
             }
-            else if(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID == "Item_Food")
+            else if(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID == "Item_Food")
             {
                 choiceBtn.transform.GetChild(1).transform.GetChild(1).GetComponent<Image>().sprite = EventMgr.Instance.itemImgs[4];
             }
 
 
 
-            if(LoadGameData.Instance.choiceDatas[choiceID].NeedAmount > ItemManager.Instance.GetItemInfo(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID).num)
+            if(LoadGameData.Instance.choiceDatas[choiceID].NeedAmount > ItemManager.Instance.GetItemInfo(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID).num)
             {
                 choiceBtn.GetComponent<Button>().interactable = false;
             }
@@ -137,9 +137,9 @@ public class EventPanel : MonoBehaviour
     
     public void ChoiceButtonAction(string choiceID)
     {
-        if(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID != "-1")
+        if(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID != "-1")
         {
-            ItemManager.Instance.AddItem(LoadGameData.Instance.choiceDatas[choiceID].NeedItemID, -LoadGameData.Instance.choiceDatas[choiceID].NeedAmount);
+            ItemManager.Instance.AddItem(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID, -LoadGameData.Instance.choiceDatas[choiceID].NeedAmount);
         }
 
         int rnd = Random.Range(1,101);

@@ -1,0 +1,90 @@
+[
+  {
+    "CollectSpaceID": "CS_S1_Forest",
+    "MiniGameID1": "MG_S1_Tree",
+    "MiniGameHelpStringID1": "MG_S1_a1",
+    "MiniGameID2": "MG_S1_Cage",
+    "MiniGameHelpStringID2": "MG_S1_a2",
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S1_Grassland",
+    "MiniGameID1": "MG_S1_Hub",
+    "MiniGameHelpStringID1": "MG_S1_a3",
+    "MiniGameID2": "MG_S1_Hunt",
+    "MiniGameHelpStringID2": "MG_S1_a4",
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S1_Lake",
+    "MiniGameID1": "MG_S1_Fish",
+    "MiniGameHelpStringID1": "MG_S1_a5",
+    "MiniGameID2": "MG_S1_Water",
+    "MiniGameHelpStringID2": "MG_S1_a6",
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S2_Ruins",
+    "MiniGameID1": "MG_S2_Tree",
+    "MiniGameHelpStringID1": "MG_S2_a1",
+    "MiniGameID2": "MG_S2_Maze",
+    "MiniGameHelpStringID2": "MG_S2_a2",
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S2_Desertfield",
+    "MiniGameID1": "MG_S2_Hub",
+    "MiniGameHelpStringID1": "MG_S2_a3",
+    "MiniGameID2": "MG_S2_Hunt",
+    "MiniGameHelpStringID2": "MG_S2_a4",
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S2_Desertlake",
+    "MiniGameID1": "MG_S2_Fish",
+    "MiniGameHelpStringID1": "MG_S2_a5",
+    "MiniGameID2": "MG_S2_Water",
+    "MiniGameHelpStringID2": "MG_S2_a6",
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S2_Oasis",
+    "MiniGameID1": "MG_S2_Oasis",
+    "MiniGameHelpStringID1": "MG_S2_a7",
+    "MiniGameID2": -1,
+    "MiniGameHelpStringID2": -1,
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S3_Magicspring",
+    "MiniGameID1": "MG_S3_Magicspring",
+    "MiniGameHelpStringID1": "MG_S3_a1",
+    "MiniGameID2": -1,
+    "MiniGameHelpStringID2": -1,
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S3_Fairywarehouse",
+    "MiniGameID1": "MG_S3_FairyWarehouse",
+    "MiniGameHelpStringID1": "MG_S3_a2",
+    "MiniGameID2": -1,
+    "MiniGameHelpStringID2": -1,
+    "FunctionID": -1
+  },
+  {
+    "CollectSpaceID": "CS_S3_Portal",
+    "MiniGameID1": "MG_S3_Portal",
+    "MiniGameHelpStringID1": "MG_S3_a3",
+    "MiniGameID2": -1,
+    "MiniGameHelpStringID2": -1,
+    "FunctionID": "MG_S3_Rand_Portal"
+  },
+  {
+    "CollectSpaceID": "CS_S3_Worldtree",
+    "MiniGameID1": "MG_S3_Worldtree",
+    "MiniGameHelpStringID1": "MG_S3_a4",
+    "MiniGameID2": -1,
+    "MiniGameHelpStringID2": -1,
+    "FunctionID": -1
+  }
+]

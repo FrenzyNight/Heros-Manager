@@ -1,0 +1,32 @@
+[
+  {
+    "StageID": "Stage_Grassland",
+    "StageDayGroupID": "Day_S1",
+    "Index": 1,
+    "StageStringID": "Stage_t1",
+    "BonfireID": "Bonfire_S1",
+    "FenceGroupID": "Fence_S1",
+    "CollectID": "Collect_S1",
+    "FieldID": "Field_S1"
+  },
+  {
+    "StageID": "Stage_Desert",
+    "StageDayGroupID": "Day_S2",
+    "Index": 2,
+    "StageStringID": "Stage_t2",
+    "BonfireID": "Bonfire_S2",
+    "FenceGroupID": "Fence_S2",
+    "CollectID": "Collect_S2",
+    "FieldID": "Field_S2"
+  },
+  {
+    "StageID": "Stage_Forest",
+    "StageDayGroupID": "Day_S3",
+    "Index": 3,
+    "StageStringID": "Stage_t3",
+    "BonfireID": "Bonfire_S3",
+    "FenceGroupID": "Fence_S3",
+    "CollectID": "Collect_S3",
+    "FieldID": "Field_S3"
+  }
+]

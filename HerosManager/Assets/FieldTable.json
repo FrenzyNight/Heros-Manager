@@ -1,0 +1,32 @@
+[
+  {
+    "FieldID": "Field_S1",
+    "NeedItemID": "Item_Water",
+    "NeedAmount": 5,
+    "Time1": 50,
+    "Time2": 10,
+    "Repeat": 3,
+    "GetItemID": "Item_Hub",
+    "GetAmount": 20
+  },
+  {
+    "FieldID": "Field_S2",
+    "NeedItemID": "Item_Water",
+    "NeedAmount": 5,
+    "Time1": 50,
+    "Time2": 10,
+    "Repeat": 3,
+    "GetItemID": "Item_Hub",
+    "GetAmount": 20
+  },
+  {
+    "FieldID": "Field_S3",
+    "NeedItemID": "Item_Water",
+    "NeedAmount": 5,
+    "Time1": 50,
+    "Time2": 10,
+    "Repeat": 3,
+    "GetItemID": "Item_Hub",
+    "GetAmount": 20
+  }
+]
