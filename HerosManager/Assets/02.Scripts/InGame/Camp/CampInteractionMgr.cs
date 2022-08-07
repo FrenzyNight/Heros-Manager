@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CampInteractionMgr : MonoBehaviour
 {
+    [Header("InterObject")]
     public bool isActive;
     public bool isGrace;
     public float activeTime, graceTime;
@@ -12,11 +13,8 @@ public class CampInteractionMgr : MonoBehaviour
     public GameObject ActiveButton;
     public Image ActiveGage, GraceGage;
     public Text StringText;
-
     public Sprite Green, Red, Blue;
-    // Start is called before the first frame update
-   
-
+    
     public void AvailableButton()
     {
         ActiveButton.GetComponent<Button>().interactable = true;

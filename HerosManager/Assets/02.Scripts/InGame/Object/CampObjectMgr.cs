@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CampObjectMgr : MonoBehaviour
 {
     public GameObject ObjectUI;
-    public GameObject mainCamera;
+    //public GameObject mainCamera;
     [HideInInspector]
     public Camera cameraToLookAt;
 
