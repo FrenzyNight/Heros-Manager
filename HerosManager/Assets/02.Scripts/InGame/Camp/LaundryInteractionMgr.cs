@@ -9,11 +9,12 @@ public class LaundryInteractionMgr : CampInteractionMgr
     //Laundry Data
     [HideInInspector] public string laundryID;
     [HideInInspector] public int needWaterAmount;
-    [HideInInspector] public int l1CountValue;
+    [HideInInspector] public int l1CountNum;
     [HideInInspector] public float l1ExitTime;
     [HideInInspector] public float l1MinTime;
     [HideInInspector] public float l1MaxTime;
-    [HideInInspector] public float l2CountValue;
+    [HideInInspector] public float l2CountNum;
+    [HideInInspector] public float l2DelayTime;
     [HideInInspector] public float l3MinTime;
     [HideInInspector] public float l3MaxTime;
     [HideInInspector] public float l3TotalTime;
@@ -21,11 +22,13 @@ public class LaundryInteractionMgr : CampInteractionMgr
     [HideInInspector] public int hero2Stress;
     [HideInInspector] public int hero3Stress;
     [HideInInspector] public int hero4Stress;
-    
-    [Header("LaundryUI")]
+
+    [Header("LaundryUI")] 
+    public Button laundryInterButton;
     public GameObject laundryUIPanel;
     public Button laundryUIButton;
     public Text laundryUIButtonText;
+    public GameObject laundryNeedItemUI;
     public Text laundryNeedItemText;
     public GameObject laundryGauge;
     public GameObject[] laundryGauges;
@@ -54,9 +57,14 @@ public class LaundryInteractionMgr : CampInteractionMgr
         Setup();
     }
 
-    void Update()
+    public void ActiveLaundry()
     {
-        
+        laundryInterButton.interactable = true;
+    }
+
+    public void DeactiveLaundry()
+    {
+        laundryInterButton.interactable = false;
     }
 
     public void LaundryUIButtonClick()
@@ -67,8 +75,10 @@ public class LaundryInteractionMgr : CampInteractionMgr
                 L1Active();
                 break;
             case 1:
+                L2Active();
                 break;
             case 2:
+                L3Active();
                 break;
             case 3:
                 break;
@@ -87,18 +97,38 @@ public class LaundryInteractionMgr : CampInteractionMgr
         switch (InGameMgr.Instance.stage)
         {
             case 1:
-                //
+                laundryID = "Laundry_1";
                 break;
             case 2:
-                //
+                laundryID = "Laundry_2";
                 break;
             case 3:
-                //
+                laundryID = "Laundry_3";
                 break;
             default:
                 break;
-
         }
+
+        needWaterAmount = LoadGameData.Instance.laundryDatas[laundryID].NeedWaterAmount;
+        l1CountNum = LoadGameData.Instance.laundryDatas[laundryID].L1_GermCount;
+        l1ExitTime = LoadGameData.Instance.laundryDatas[laundryID].L1_GermTime;
+        l1MinTime = LoadGameData.Instance.laundryDatas[laundryID].L1_JenTimeMin;
+        l1MaxTime = LoadGameData.Instance.laundryDatas[laundryID].L1_JenTimeMax;
+
+        l2CountNum = LoadGameData.Instance.laundryDatas[laundryID].L2_RinseCount;
+        l2DelayTime = LoadGameData.Instance.laundryDatas[laundryID].L2_DelayTime;
+
+        l3MinTime = LoadGameData.Instance.laundryDatas[laundryID].L3_MinTime;
+        l3MaxTime = LoadGameData.Instance.laundryDatas[laundryID].L3_MaxTime;
+        l3TotalTime = LoadGameData.Instance.laundryDatas[laundryID].L3_TotalTime;
+
+        hero1Stress = LoadGameData.Instance.laundryDatas[laundryID].Hero1_Stress;
+        hero2Stress = LoadGameData.Instance.laundryDatas[laundryID].Hero2_Stress;
+        hero3Stress = LoadGameData.Instance.laundryDatas[laundryID].Hero3_Stress;
+        hero4Stress = LoadGameData.Instance.laundryDatas[laundryID].Hero4_Stress;
+
+        laundryNeedItemUI.SetActive(true);
+        laundryNeedItemText.text = "-" + needWaterAmount.ToString();
     }
 
     public void L1Active()
@@ -106,6 +136,20 @@ public class LaundryInteractionMgr : CampInteractionMgr
         l1Panel.SetActive(true);
         laundryState = 1;
         laundryUIButton.interactable = false;
+        laundryNeedItemUI.SetActive(false);
+        StartCoroutine(GrimeSpawn());
+    }
+
+    IEnumerator GrimeSpawn()
+    {
+        while (true)
+        {
+            float rndTime = Random.Range(l1MinTime, l1MaxTime);
+            
+            L1SpawnGrime();
+
+            yield return new WaitForSeconds(rndTime);
+        }
     }
 
     public void L1SpawnGrime()
@@ -116,15 +160,13 @@ public class LaundryInteractionMgr : CampInteractionMgr
         //random transform;
     }
 
-    public void L1CleanGrime()
+    public void L1GrimeClick()
     {
         l1Count += 1;
-        
-        
 
-        laundryGageImg.fillAmount = l1Count / l1CountValue;
+        laundryGageImg.fillAmount = l1Count / l1CountNum;
 
-        if (l1Count == l1CountValue)
+        if (l1Count == l1CountNum)
         {
             L1Clear();
         }
@@ -133,19 +175,42 @@ public class LaundryInteractionMgr : CampInteractionMgr
     public void L1Clear()
     {
         l1ClearImage.SetActive(true);
+        StopCoroutine(GrimeSpawn());
         foreach (GameObject obj in l1Grimes)
         {
             Destroy(obj);
         }
 
         l1Grimes.Clear();
+        laundryGauges[0].SetActive(true);
         laundryUIButton.interactable = true;
+    }
+
+    public void L2Active()
+    {
+        
+    }
+
+    public void L2Clear()
+    {
+        
+    }
+
+    public void L3Active()
+    {
+        
+    }
+
+    public void L3Clear()
+    {
+        
     }
 
     public override void ClickButton()
     {
         laundryUIPanel.SetActive(true);
         //InGameMgr.Instance.state = State.MiniGame;
+        //set first scene
     }
 
     public override void NextDayAction()

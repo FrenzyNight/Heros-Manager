@@ -15030,7 +15030,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 334380605}
   m_OnClick:
     m_PersistentCalls:
@@ -19526,11 +19526,12 @@ MonoBehaviour:
   Blue: {fileID: 0}
   laundryID: 
   needWaterAmount: 0
-  l1CountValue: 0
+  l1CountNum: 0
   l1ExitTime: 0
   l1MinTime: 0
   l1MaxTime: 0
-  l2CountValue: 0
+  l2CountNum: 0
+  l2DelayTime: 0
   l3MinTime: 0
   l3MaxTime: 0
   l3TotalTime: 0
@@ -19538,9 +19539,11 @@ MonoBehaviour:
   hero2Stress: 0
   hero3Stress: 0
   hero4Stress: 0
+  laundryInterButton: {fileID: 334380604}
   laundryUIPanel: {fileID: 187446556}
   laundryUIButton: {fileID: 1475358655}
   laundryUIButtonText: {fileID: 1184354320}
+  laundryNeedItemUI: {fileID: 0}
   laundryNeedItemText: {fileID: 1094617746}
   laundryGauge: {fileID: 1228734808}
   laundryGauges:
@@ -19553,7 +19556,7 @@ MonoBehaviour:
   - {fileID: 1993081037212054225, guid: cbb05c3037563fc4295638415b408452, type: 3}
   - {fileID: 6946422552550768824, guid: 48a5c755bfcedf748be7d55b627f6c7c, type: 3}
   l1GrimeArea: {fileID: 1574029737}
-  l1ClearImage: {fileID: 0}
+  l1ClearImage: {fileID: 1261634222}
   l1Count: 0
   l1Grimes: []
   l2Panel: {fileID: 968867974}

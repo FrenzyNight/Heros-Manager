@@ -27,6 +27,7 @@ public class LoadGameData : Singleton<LoadGameData>
     public Dictionary<string, StageData> stageDatas = new Dictionary<string, StageData>();
     public Dictionary<string, StringData> stringDatas = new Dictionary<string, StringData>();
     public Dictionary<string, JemData> jemDatas = new Dictionary<string, JemData>();
+    public Dictionary<string, LaundryData> laundryDatas = new Dictionary<string, LaundryData>();
 
     public void LoadTitleDatas()
     {
@@ -52,6 +53,7 @@ public class LoadGameData : Singleton<LoadGameData>
         LoadStageData("/StageTable.Json");
         LoadStringData("/StringTable.Json");
         LoadJemData("/JemTable.Json");
+        LoadLaundryData("/LaundryTable.Json");
     }
 
     void LoadCookData(string _path)
@@ -781,6 +783,23 @@ public class LoadGameData : Singleton<LoadGameData>
         //}
     }
 
+    void LoadLaundryData(string _path)
+    {
+        laundryDatas.Clear();
+
+        string path = Application.dataPath + _path;
+        if (!File.Exists(path))
+            return;
+
+        string json = File.ReadAllText(path);
+
+        var laundryDataList = JsonUtilityHelper.FromJson<LaundryData>(json);
+        foreach (var data in laundryDataList)
+        {
+            laundryDatas.Add(data.LaundryID, data);
+        }
+    }
+
     void LoadEventData(string _path)
     {
         eventDatas.Clear();
@@ -1190,6 +1209,28 @@ public class JemData
     public float LevelUpAmount;
     public string CutsceneOpenID;
 }
+
+[System.Serializable]
+public class LaundryData
+{
+    public string LaundryID;
+    public string StageID;
+    public int NeedWaterAmount;
+    public int L1_GermCount;
+    public float L1_GermTime;
+    public float L1_JenTimeMin;
+    public float L1_JenTimeMax;
+    public int L2_RinseCount;
+    public float L2_DelayTime;
+    public float L3_MinTime;
+    public float L3_MaxTime;
+    public float L3_TotalTime;
+    public int Hero1_Stress;
+    public int Hero2_Stress;
+    public int Hero3_Stress;
+    public int Hero4_Stress;
+}
+
 
 [System.Serializable]
 public class StringData
