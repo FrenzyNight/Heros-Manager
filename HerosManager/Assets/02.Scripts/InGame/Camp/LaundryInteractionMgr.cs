@@ -30,6 +30,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
     public Text laundryUIButtonText;
     public GameObject laundryNeedItemUI;
     public Text laundryNeedItemText;
+    public GameObject laundryGaugeUI;
     public GameObject laundryGauge;
     public GameObject[] laundryGauges;
     [HideInInspector] public int laundryState; 
@@ -41,7 +42,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
     public GameObject l1ClearImage;
     public int l1Count;
     [HideInInspector] public List<GameObject> l1Grimes = new List<GameObject>();
-
+    [HideInInspector] public BoxCollider2D areaCol;
+    
     [Header("L2 Objects")] 
     public GameObject l2Panel;
     public GameObject l2PressA;
@@ -55,6 +57,15 @@ public class LaundryInteractionMgr : CampInteractionMgr
     void Start()
     {
         Setup();
+    }
+
+    void Update()
+    {
+        if (Clock.Instance.isHeroBack && laundryState == -1)
+        {
+            laundryState = 0;
+            ActiveLaundry();
+        }
     }
 
     public void ActiveLaundry()
@@ -92,7 +103,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
     {
         laundryGageImg = laundryGauge.GetComponent<Image>();
         l1Count = 0;
-        laundryState = 0;
+        laundryState = -1;
         
         switch (InGameMgr.Instance.stage)
         {
@@ -129,6 +140,19 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
         laundryNeedItemUI.SetActive(true);
         laundryNeedItemText.text = "-" + needWaterAmount.ToString();
+        laundryGaugeUI.SetActive(false);
+        laundryGauge.GetComponent<Image>().fillAmount = 0;
+        laundryUIButton.onClick.AddListener(LaundryUIButtonClick);
+
+        laundryInterButton.onClick.AddListener(ClickButton);
+        
+        areaCol = l1GrimeArea.GetComponent<BoxCollider2D>();
+
+        foreach (GameObject obj in laundryGauges)
+        {
+            obj.SetActive(false);
+        }
+        
     }
 
     public void L1Active()
@@ -137,6 +161,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
         laundryState = 1;
         laundryUIButton.interactable = false;
         laundryNeedItemUI.SetActive(false);
+        laundryGaugeUI.SetActive(true);
         StartCoroutine(GrimeSpawn());
     }
 
@@ -156,13 +181,37 @@ public class LaundryInteractionMgr : CampInteractionMgr
     {
         int rnd = Random.Range(0, 2);
         GameObject grime = l1GrimePrefab[rnd];
-        l1Grimes.Add(Instantiate(grime, l1GrimeArea.transform));
+        GameObject obj = Instantiate(grime,GrimeRandomPos() ,Quaternion.identity,l1GrimeArea.transform);
+
+        obj.GetComponent<LaundryGrimeScript>().InterMgr = gameObject;
+        obj.GetComponent<LaundryGrimeScript>().GrimeSet(l1ExitTime);
+        
+        //obj.GetComponent<Button>().onClick.AddListener(L1GrimeClick);
+        l1Grimes.Add(obj);
         //random transform;
+    }
+
+    public Vector3 GrimeRandomPos()
+    {
+        Vector3 oriPos = l1GrimeArea.transform.position;
+
+        float rangeX = areaCol.bounds.size.x;
+        float rangeY = areaCol.bounds.size.y;
+        
+        rangeX = Random.Range( (rangeX / 2) * -1, rangeX / 2);
+        rangeY = Random.Range( (rangeY / 2) * -1, rangeY / 2);
+
+        Vector3 randomPos = new Vector3(rangeX, rangeY, 0);
+
+        Vector3 spawnPos = oriPos + randomPos;
+
+        return spawnPos;
     }
 
     public void L1GrimeClick()
     {
         l1Count += 1;
+        Debug.Log("Grime Click");
 
         laundryGageImg.fillAmount = l1Count / l1CountNum;
 
@@ -176,19 +225,24 @@ public class LaundryInteractionMgr : CampInteractionMgr
     {
         l1ClearImage.SetActive(true);
         StopCoroutine(GrimeSpawn());
+        
         foreach (GameObject obj in l1Grimes)
         {
             Destroy(obj);
         }
-
         l1Grimes.Clear();
+        
         laundryGauges[0].SetActive(true);
         laundryUIButton.interactable = true;
     }
 
     public void L2Active()
     {
+        l1ClearImage.SetActive(false);
+        l1Panel.SetActive(false);
+        laundryUIButton.interactable = false;
         
+        l2Panel.SetActive(true);
     }
 
     public void L2Clear()
@@ -215,6 +269,9 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public override void NextDayAction()
     {
+        //clear
         
+        //fail
+        //increase stress
     }
 }

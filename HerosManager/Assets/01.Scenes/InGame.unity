@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5331,7 +5331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &187446557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18375,7 +18375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 0
+  m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -19543,8 +19543,9 @@ MonoBehaviour:
   laundryUIPanel: {fileID: 187446556}
   laundryUIButton: {fileID: 1475358655}
   laundryUIButtonText: {fileID: 1184354320}
-  laundryNeedItemUI: {fileID: 0}
+  laundryNeedItemUI: {fileID: 101031729}
   laundryNeedItemText: {fileID: 1094617746}
+  laundryGaugeUI: {fileID: 2005388595}
   laundryGauge: {fileID: 1228734808}
   laundryGauges:
   - {fileID: 1205078845}
@@ -19559,6 +19560,7 @@ MonoBehaviour:
   l1ClearImage: {fileID: 1261634222}
   l1Count: 0
   l1Grimes: []
+  areaCol: {fileID: 0}
   l2Panel: {fileID: 968867974}
   l2PressA: {fileID: 1958625182}
   l2PressD: {fileID: 1416078650}
@@ -42918,7 +42920,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -52270,6 +52272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1574029738}
+  - component: {fileID: 1574029739}
   m_Layer: 5
   m_Name: L1GrimeSpawn
   m_TagString: Untagged
@@ -52293,9 +52296,35 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.9, y: 6.9}
-  m_SizeDelta: {x: 292.70984, y: 375.26642}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 375}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!61 &1574029739
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574029737}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 300, y: 375}
+  m_EdgeRadius: 0
 --- !u!1 &1579340781
 GameObject:
   m_ObjectHideFlags: 0
