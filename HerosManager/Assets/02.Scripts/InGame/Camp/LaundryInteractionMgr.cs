@@ -13,7 +13,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
     [HideInInspector] public float l1ExitTime;
     [HideInInspector] public float l1MinTime;
     [HideInInspector] public float l1MaxTime;
-    [HideInInspector] public float l2CountNum;
+    [HideInInspector] public int l2CountNum;
     [HideInInspector] public float l2DelayTime;
     [HideInInspector] public float l3MinTime;
     [HideInInspector] public float l3MaxTime;
@@ -48,6 +48,11 @@ public class LaundryInteractionMgr : CampInteractionMgr
     public GameObject l2Panel;
     public GameObject l2PressA;
     public GameObject l2PressD;
+    public int l2Count;
+    public int l2NextButton; // 0 == A . 1 == D
+    [HideInInspector] public Image l2ButtonAImg;
+    [HideInInspector] public Image l2ButtonDImg;
+    [HideInInspector] public bool l2CanPress;
 
     [Header("L3 Objects")]
     public GameObject l3Panel;
@@ -65,6 +70,19 @@ public class LaundryInteractionMgr : CampInteractionMgr
         {
             laundryState = 0;
             ActiveLaundry();
+        }
+        
+        else if (laundryState == 2 && l2CanPress)
+        {
+            if (Input.GetKeyDown(KeyCode.A) && l2NextButton == 0)
+            {
+                L2PressKey(0);
+            }
+            
+            else if (Input.GetKeyDown(KeyCode.D) && l2NextButton == 1)
+            {
+                L2PressKey(1);
+            }
         }
     }
 
@@ -103,6 +121,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
     {
         laundryGageImg = laundryGauge.GetComponent<Image>();
         l1Count = 0;
+        l2Count = 0;
         laundryState = -1;
         
         switch (InGameMgr.Instance.stage)
@@ -153,6 +172,10 @@ public class LaundryInteractionMgr : CampInteractionMgr
             obj.SetActive(false);
         }
         
+        //l2
+        l2ButtonAImg = l2PressA.GetComponent<Image>();
+        l2ButtonDImg = l2PressD.GetComponent<Image>();
+        l2CanPress = false;
     }
 
     public void L1Active()
@@ -167,7 +190,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     IEnumerator GrimeSpawn()
     {
-        while (true)
+        while (l1Count < l1CountNum)
         {
             float rndTime = Random.Range(l1MinTime, l1MaxTime);
             
@@ -213,7 +236,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
         l1Count += 1;
         Debug.Log("Grime Click");
 
-        laundryGageImg.fillAmount = l1Count / l1CountNum;
+        laundryGageImg.fillAmount = (float)l1Count / l1CountNum;
 
         if (l1Count == l1CountNum)
         {
@@ -243,11 +266,49 @@ public class LaundryInteractionMgr : CampInteractionMgr
         laundryUIButton.interactable = false;
         
         l2Panel.SetActive(true);
+        l2NextButton = 0; // A
+        laundryState = 2;
+    }
+
+    public void L2PressKey(int button)
+    {
+        l2CanPress = false;
+        
+        if (button == 0) // press A
+        {
+            l2NextButton = 1;
+        }
+        else if (button == 1)
+        {
+            l2NextButton = 0;
+        }
+        
+        l2Count += 1;
+
+        laundryGageImg.fillAmount = (float)l2Count / l2CountNum;
+
+        if (l2Count == l2CountNum)
+        {
+            L2Clear();
+        }
+        else
+        {
+            StartCoroutine(L2PressDelay());
+        }
+    }
+
+    IEnumerator L2PressDelay()
+    {
+        yield return new WaitForSeconds(l2DelayTime);
+        l2CanPress = true;
+        yield return null;
     }
 
     public void L2Clear()
     {
-        
+        l2CanPress = false;
+        laundryGauges[1].SetActive(true);
+        laundryUIButton.interactable = true;
     }
 
     public void L3Active()

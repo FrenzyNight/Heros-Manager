@@ -16,7 +16,13 @@ public class LaundryGrimeScript : MonoBehaviour
     public void GrimeSet(float _time)
     {
         laundryMgr = InterMgr.GetComponent<LaundryInteractionMgr>();
-        gameObject.transform.GetComponent<Button>().onClick.AddListener(laundryMgr.L1GrimeClick);
+        gameObject.transform.GetComponent<Button>().onClick.AddListener(GrimeClick);
         Destroy(gameObject, _time);
+    }
+
+    public void GrimeClick()
+    {
+        laundryMgr.L1GrimeClick();
+        Destroy(gameObject);
     }
 }
