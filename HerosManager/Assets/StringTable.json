@@ -1460,13 +1460,98 @@
     "ENG": -1
   },
   {
-    "StringID": "CS_Opening_1_s1",
-    "KOR": "\" … \"",
+    "StringID": "CS_Lay_27_s5",
+    "KOR": "\" 혹시 여정을 떠나실 때 짐꾼이 필요하시지 않나요? \"",
     "ENG": -1
   },
   {
-    "StringID": "CS_Lay_27_s5",
-    "KOR": "\" 혹시 여정을 떠나실 때 짐꾼이 필요하시지 않나요? \"",
+    "StringID": "CS_Opening_1_s1",
+    "KOR": " … ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_1_s2",
+    "KOR": " 지금 해가 막 하늘 위로 올라왔으니 ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_1_s3",
+    "KOR": " 오늘은 이쯤에서 야영을 하면 되겠다 ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_1_s4",
+    "KOR": " 속도를 어느정도 내야되니 용사님들께 여쭤... ",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_1_s5",
+    "KOR": "\"야!! 빨리 안따라와??\"",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_2_s1",
+    "KOR": "\"네!! 바로 갑니다..!!\"",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_2_s2",
+    "KOR": "\"짐꾼이라고해서 데리고는 가는데..\"",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_2_s3",
+    "KOR": "\"짐꾼은 커녕 짐만 될 것 같은데..나 참\"",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_2_s4",
+    "KOR": "저분들은 세상을 구하기 위해 여정을 떠나는 용사님들입니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_2_s5",
+    "KOR": "모두들 실력으로는 각 분야에서 정점에 서 계신 분들이에요",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_3_s1",
+    "KOR": "저는 저분들 처럼 실력이 뛰어나지 않습니다",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_3_s2",
+    "KOR": "근데 저는 왜 따라가냐구요??",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_3_s3",
+    "KOR": "음...",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_3_s4",
+    "KOR": "저도 시험..은 통과 했거든요..!",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_4_s1",
+    "KOR": "자!",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_4_s2",
+    "KOR": "이제부터 세상을 구하기 위한 긴 여정이 시작됩니다.",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_4_s3",
+    "KOR": "짐꾼!! 아 아니..",
+    "ENG": -1
+  },
+  {
+    "StringID": "CS_Opening_4_s4",
+    "KOR": "용사 관리사로써 말이죠!",
     "ENG": -1
   },
   {
