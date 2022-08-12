@@ -31,42 +31,38 @@ public class LoadGameData : Singleton<LoadGameData>
 
     public void LoadTitleDatas()
     {
-        LoadEventData("/EventTable.Json");
-        LoadChoiceData("/ChoiceTable.Json");
-        LoadCookData("/CookTable.Json");
-        LoadCutsceneData("/CutsceneTable.Json");
-        LoadBonfireData("/BonfireTable.Json");
-        LoadCollectSpaceData("/CollectSpaceTable.Json");
-        LoadCollectData("/CollectTable.Json");
-        LoadDefineData("/DefineTable.Json");
-        LoadFenceData("/FenceTable.Json");
-        LoadFieldData("/FieldTable.Json");
-        LoadHeroStateData("/HeroStateTable.Json");
-        LoadHeroData("/HeroTable.Json");
-        LoadInvadeData("/InvadeTable.Json");
-        LoadItemData("/ItemTable.Json");
-        LoadJourneyData("/JourneyTable.Json");
-        LoadJResultData("/JResultTable.Json");
-        LoadJStateData("/JStateTable.Json");
-        LoadMiniGameData("/MiniGameTable.Json");
-        LoadStageDayData("/StageDayTable.Json");
-        LoadStageData("/StageTable.Json");
-        LoadStringData("/StringTable.Json");
-        LoadJemData("/JemTable.Json");
-        LoadLaundryData("/LaundryTable.Json");
+        LoadEventData("Json/EventTable");
+        LoadChoiceData("Json/ChoiceTable");
+        LoadCookData("Json/CookTable");
+        LoadCutsceneData("Json/CutsceneTable");
+        LoadBonfireData("Json/BonfireTable");
+        LoadCollectSpaceData("Json/CollectSpaceTable");
+        LoadCollectData("Json/CollectTable");
+        LoadDefineData("Json/DefineTable");
+        LoadFenceData("Json/FenceTable");
+        LoadFieldData("Json/FieldTable");
+        LoadHeroStateData("Json/HeroStateTable");
+        LoadHeroData("Json/HeroTable");
+        LoadInvadeData("Json/InvadeTable");
+        LoadItemData("Json/ItemTable");
+        LoadJourneyData("Json/JourneyTable");
+        LoadJResultData("Json/JResultTable");
+        LoadJStateData("Json/JStateTable");
+        LoadMiniGameData("Json/MiniGameTable");
+        LoadStageDayData("Json/StageDayTable");
+        LoadStageData("Json/StageTable");
+        LoadStringData("Json/StringTable");
+        LoadJemData("Json/JemTable");
+        LoadLaundryData("Json/LaundryTable");
     }
 
     void LoadCookData(string _path)
     {
         cookDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var cookDataList = JsonUtilityHelper.FromJson<CookData>(json);
+        var cookDataList = JsonUtilityHelper.FromJson<CookData>(json.ToString());
         foreach (var data in cookDataList)
         {
             cookDatas.Add(data.CookID, data);
@@ -96,13 +92,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         cutsceneDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
-
-        string json = File.ReadAllText(path);
-
-        var cutsceneDataList = JsonUtilityHelper.FromJson<CutsceneData>(json);
+        var json = Resources.Load<TextAsset>(_path);
+        
+        var cutsceneDataList = JsonUtilityHelper.FromJson<CutsceneData>(json.ToString());
         foreach (var data in cutsceneDataList)
         {
             cutsceneDatas.Add(data.CutSceneID, data);
@@ -135,14 +127,17 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadBonfireData(string _path)
     {
         bonfireDatas.Clear();
-
+    
+        var json = Resources.Load<TextAsset>(_path);
+        /*
         string path = Application.dataPath + _path;
         if (!File.Exists(path))
             return;
 
-        string json = File.ReadAllText(path);
-
-        var bonfireDataList = JsonUtilityHelper.FromJson<BonfireData>(json);
+        //string json = File.ReadAllText(path);
+        var json = Resources.Load<TextAsset>(_path);
+        */
+        var bonfireDataList = JsonUtilityHelper.FromJson<BonfireData>(json.ToString());
         foreach (var data in bonfireDataList)
         {
             bonfireDatas.Add(data.BonfireID, data);
@@ -172,13 +167,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         collectSpaceDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var collectSpaceDataList = JsonUtilityHelper.FromJson<CollectSpaceData>(json);
+        var collectSpaceDataList = JsonUtilityHelper.FromJson<CollectSpaceData>(json.ToString());
         foreach (var data in collectSpaceDataList)
         {
             collectSpaceDatas.Add(data.CollectSpaceID, data);
@@ -206,13 +197,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         collectDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var collectDataList = JsonUtilityHelper.FromJson<CollectData>(json);
+        var collectDataList = JsonUtilityHelper.FromJson<CollectData>(json.ToString());
         foreach (var data in collectDataList)
         {
             collectDatas.Add(data.CollectID, data);
@@ -245,13 +232,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         defineDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var defineDataList = JsonUtilityHelper.FromJson<DefineData>(json);
+        var defineDataList = JsonUtilityHelper.FromJson<DefineData>(json.ToString());
         foreach (var data in defineDataList)
         {
             defineDatas.Add(data.DefineID, data);
@@ -274,13 +257,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         fenceDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var fenceDataList = JsonUtilityHelper.FromJson<FenceData>(json);
+        var fenceDataList = JsonUtilityHelper.FromJson<FenceData>(json.ToString());
         foreach (var data in fenceDataList)
         {
             fenceDatas.Add(data.FenceID, data);
@@ -307,13 +286,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         fieldDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var fieldDataList = JsonUtilityHelper.FromJson<FieldData>(json);
+        var fieldDataList = JsonUtilityHelper.FromJson<FieldData>(json.ToString());
         foreach (var data in fieldDataList)
         {
             fieldDatas.Add(data.FieldID, data);
@@ -341,13 +316,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         heroStateDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var heroStateDataList = JsonUtilityHelper.FromJson<HeroStateData>(json);
+        var heroStateDataList = JsonUtilityHelper.FromJson<HeroStateData>(json.ToString());
         foreach (var data in heroStateDataList)
         {
             heroStateDatas.Add(data.HeroStateID, data);
@@ -373,13 +344,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         heroDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var heroDataList = JsonUtilityHelper.FromJson<HeroData>(json);
+        var heroDataList = JsonUtilityHelper.FromJson<HeroData>(json.ToString());
         foreach (var data in heroDataList)
         {
             heroDatas.Add(data.HeroID, data);
@@ -402,13 +369,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         invadeDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var invadeDataList = JsonUtilityHelper.FromJson<InvadeData>(json);
+        var invadeDataList = JsonUtilityHelper.FromJson<InvadeData>(json.ToString());
         foreach (var data in invadeDataList)
         {
             invadeDatas.Add(data.InvadeID, data);
@@ -441,13 +404,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         itemDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var itemDataList = JsonUtilityHelper.FromJson<ItemData>(json);
+        var itemDataList = JsonUtilityHelper.FromJson<ItemData>(json.ToString());
         foreach (var data in itemDataList)
         {
             itemDatas.Add(data.ItemID, data);
@@ -470,13 +429,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         journeyDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var journeyDataList = JsonUtilityHelper.FromJson<JourneyData>(json);
+        var journeyDataList = JsonUtilityHelper.FromJson<JourneyData>(json.ToString());
         foreach (var data in journeyDataList)
         {
             journeyDatas.Add(data.JourneyID, data);
@@ -507,13 +462,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         jResultDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var jResultDataList = JsonUtilityHelper.FromJson<JResultData>(json);
+        var jResultDataList = JsonUtilityHelper.FromJson<JResultData>(json.ToString());
         foreach (var data in jResultDataList)
         {
             jResultDatas.Add(data.JResultID, data);
@@ -552,14 +503,10 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadJStateData(string _path)
     {
         jStateDatas.Clear();
+        var json = Resources.Load<TextAsset>(_path);
+        
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
-
-        string json = File.ReadAllText(path);
-
-        var jStateDataList = JsonUtilityHelper.FromJson<JStateData>(json);
+        var jStateDataList = JsonUtilityHelper.FromJson<JStateData>(json.ToString());
         foreach (var data in jStateDataList)
         {
             jStateDatas.Add(data.JStateID, data);
@@ -583,14 +530,9 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadMiniGameData(string _path)
     {
         miniGameDatas.Clear();
+        var json = Resources.Load<TextAsset>(_path);
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
-
-        string json = File.ReadAllText(path);
-
-        var miniGameDataList = JsonUtilityHelper.FromJson<MiniGameData>(json);
+        var miniGameDataList = JsonUtilityHelper.FromJson<MiniGameData>(json.ToString());
         foreach (var data in miniGameDataList)
         {
             miniGameDatas.Add(data.ObjectID, data);
@@ -629,13 +571,9 @@ public class LoadGameData : Singleton<LoadGameData>
     {
         stageDayDatas.Clear();
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var stageDayDataList = JsonUtilityHelper.FromJson<StageDayData>(json);
+        var stageDayDataList = JsonUtilityHelper.FromJson<StageDayData>(json.ToString());
         foreach (var data in stageDayDataList)
         {
             stageDayDatas.Add(data.StageDayID, data);
@@ -659,14 +597,9 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadStageData(string _path)
     {
         stageDatas.Clear();
+        var json = Resources.Load<TextAsset>(_path);
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
-
-        string json = File.ReadAllText(path);
-
-        var stageDataList = JsonUtilityHelper.FromJson<StageData>(json);
+        var stageDataList = JsonUtilityHelper.FromJson<StageData>(json.ToString());
         foreach (var data in stageDataList)
         {
             stageDatas.Add(data.StageID, data);
@@ -693,14 +626,8 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadChoiceData(string _path)
     {
         choiceDatas.Clear();
-
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
-
-        string json = File.ReadAllText(path);
-
-        var choiceDataList = JsonUtilityHelper.FromJson<ChoiceData>(json);
+        var json = Resources.Load<TextAsset>(_path);
+        var choiceDataList = JsonUtilityHelper.FromJson<ChoiceData>(json.ToString());
         foreach (var data in choiceDataList)
         {
             choiceDatas.Add(data.ChoiceID, data);
@@ -749,14 +676,9 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadJemData(string _path)
     {
         jemDatas.Clear();
+        var json = Resources.Load<TextAsset>(_path);
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
-
-        string json = File.ReadAllText(path);
-
-        var jemDataList = JsonUtilityHelper.FromJson<JemData>(json);
+        var jemDataList = JsonUtilityHelper.FromJson<JemData>(json.ToString());
         foreach (var data in jemDataList)
         {
             jemDatas.Add(data.JemID, data);
@@ -786,14 +708,9 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadLaundryData(string _path)
     {
         laundryDatas.Clear();
+        var json = Resources.Load<TextAsset>(_path);
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
-
-        string json = File.ReadAllText(path);
-
-        var laundryDataList = JsonUtilityHelper.FromJson<LaundryData>(json);
+        var laundryDataList = JsonUtilityHelper.FromJson<LaundryData>(json.ToString());
         foreach (var data in laundryDataList)
         {
             laundryDatas.Add(data.LaundryID, data);
@@ -803,14 +720,10 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadEventData(string _path)
     {
         eventDatas.Clear();
+        var json = Resources.Load<TextAsset>(_path);
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
 
-        string json = File.ReadAllText(path);
-
-        var eventDataList = JsonUtilityHelper.FromJson<EventData>(json);
+        var eventDataList = JsonUtilityHelper.FromJson<EventData>(json.ToString());
         foreach (var data in eventDataList)
         {
             eventDatas.Add(data.EventID, data);
@@ -839,14 +752,16 @@ public class LoadGameData : Singleton<LoadGameData>
     void LoadStringData(string _path)
     {
         stringDatas.Clear();
+        var json = Resources.Load<TextAsset>(_path);
+        
+        //string path = Application.dataPath + _path;
+        //if (!File.Exists(path))
+        //    return;
 
-        string path = Application.dataPath + _path;
-        if (!File.Exists(path))
-            return;
+        //string json = File.ReadAllText(path);
+        //var json = Resources.Load<TextAsset>(_path);
 
-        string json = File.ReadAllText(path);
-
-        var stringDataList = JsonUtilityHelper.FromJson<StringData>(json);
+        var stringDataList = JsonUtilityHelper.FromJson<StringData>(json.ToString());
         foreach (var data in stringDataList)
         {
             stringDatas.Add(data.StringID, data);

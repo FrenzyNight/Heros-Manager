@@ -2,11 +2,11 @@
   {
     "Index": 1,
     "DefineID": "Define_Day_Time",
-    "value1": 3
+    "value1": 4
   },
   {
     "Index": 2,
     "DefineID": "Define_HeroBack_Time",
-    "value1": 0.996
+    "value1": 1.3
   }
 ]
