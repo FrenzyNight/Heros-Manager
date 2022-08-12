@@ -5,15 +5,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_1_s1",
     "StringDelay": 1.4,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_1",
     "ImageDelay": 0.7,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_1_2",
@@ -21,15 +21,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_1_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_1_3",
@@ -37,15 +37,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_1_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_2_1",
@@ -53,15 +53,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_2_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_2",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_2_2",
@@ -69,15 +69,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_2_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_2_3",
@@ -85,15 +85,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_2_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_2_4",
@@ -101,15 +101,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_2_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_2_5",
@@ -117,15 +117,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_2_s5",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 3,
     "ImageResourceID": -1,
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_3_1",
@@ -133,15 +133,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_3_s1",
     "StringDelay": 1.4,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_3",
     "ImageDelay": 0.7,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 2,
     "SoundResourceID": "Sound_CS_Lay_3",
     "SoundDelay": 0.7,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_3_2",
@@ -149,15 +149,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_3_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_3_3",
@@ -165,15 +165,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_3_s3",
     "StringDelay": 0.3,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_3_4",
@@ -181,15 +181,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_3_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_3_5",
@@ -197,15 +197,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_3_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_3_6",
@@ -213,15 +213,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_3_s6",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_4_1",
@@ -229,15 +229,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_4_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_4",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 3,
     "SoundResourceID": -1,
     "SoundDelay": 0,
-    "value(3)": 1.5
+    "value3": 1.5
   },
   {
     "CutSceneID": "CS_Lay_4_2",
@@ -245,15 +245,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_4_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_4_3",
@@ -261,15 +261,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_4_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_4_4",
@@ -277,15 +277,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_4_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_5_1",
@@ -293,15 +293,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_5_s1",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 3,
     "ImageResourceID": -1,
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 4,
     "SoundResourceID": -1,
     "SoundDelay": 0,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_5_2",
@@ -309,15 +309,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_5_s2",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_5",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 1,
     "SoundResourceID": "Sound_CS_Lay_5",
     "SoundDelay": 0,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_5_3",
@@ -325,15 +325,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_5_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_5_4",
@@ -341,15 +341,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_5_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_5_5",
@@ -357,15 +357,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_5_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_6_1",
@@ -373,15 +373,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_6_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_6",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_6_2",
@@ -389,15 +389,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_6_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_6_3",
@@ -405,15 +405,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_6_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_7_1",
@@ -421,15 +421,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_7_s1",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 3,
     "ImageResourceID": -1,
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 1,
     "SoundResourceID": "Sound_CS_Lay_7",
     "SoundDelay": 0.7,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_7_2",
@@ -437,15 +437,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_7_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_7_3",
@@ -453,15 +453,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_7_s3",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_7",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_7_4",
@@ -469,15 +469,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_7_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_8_1",
@@ -485,15 +485,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_8_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_8",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_8_2",
@@ -501,15 +501,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_8_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_8_3",
@@ -517,15 +517,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_8_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_9_1",
@@ -533,15 +533,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_9_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_9",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_9_2",
@@ -549,15 +549,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_9_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_9_3",
@@ -565,15 +565,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_9_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_9_4",
@@ -581,15 +581,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_9_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_10_1",
@@ -597,15 +597,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_10_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_10",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_10_2",
@@ -613,15 +613,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_10_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_10_3",
@@ -629,15 +629,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_10_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_1",
@@ -645,15 +645,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_11",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_2",
@@ -661,15 +661,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_3",
@@ -677,15 +677,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_4",
@@ -693,15 +693,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_5",
@@ -709,15 +709,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_6",
@@ -725,15 +725,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s6",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_7",
@@ -741,15 +741,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s7",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_8",
@@ -757,15 +757,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s8",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_11_9",
@@ -773,15 +773,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_11_s9",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_12_1",
@@ -789,15 +789,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_12_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_12",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_12_2",
@@ -805,15 +805,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_12_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_12_3",
@@ -821,15 +821,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_12_s3",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 3,
     "ImageResourceID": -1,
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_13_1",
@@ -837,15 +837,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_13_s1",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_13",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_13_2",
@@ -853,15 +853,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_13_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_13_3",
@@ -869,15 +869,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_13_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_14_1",
@@ -885,15 +885,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_14_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_14",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_14_2",
@@ -901,15 +901,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_14_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_14_3",
@@ -917,15 +917,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_14_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_14_4",
@@ -933,15 +933,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_14_s4",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 3,
     "ImageResourceID": -1,
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_15_1",
@@ -949,15 +949,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_15_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_15_2",
@@ -965,15 +965,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_15_s2",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_15",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_15_3",
@@ -981,15 +981,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_15_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_16_1",
@@ -997,15 +997,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_16_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_16",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_16_2",
@@ -1013,15 +1013,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_16_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_16_3",
@@ -1029,15 +1029,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_16_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_17_1",
@@ -1045,15 +1045,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_17_s1",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 3,
     "ImageResourceID": -1,
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_17_2",
@@ -1061,15 +1061,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_17_s2",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_17",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 2,
     "SoundResourceID": "Sound_CS_Lay_17",
     "SoundDelay": 0,
-    "value(3)": 0.7
+    "value3": 0.7
   },
   {
     "CutSceneID": "CS_Lay_17_3",
@@ -1077,15 +1077,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_17_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_17_4",
@@ -1093,15 +1093,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_17_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_17_5",
@@ -1109,15 +1109,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_17_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_17_6",
@@ -1125,15 +1125,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_17_s6",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 3,
     "SoundResourceID": -1,
     "SoundDelay": 0,
-    "value(3)": 0.7
+    "value3": 0.7
   },
   {
     "CutSceneID": "CS_Lay_18_1",
@@ -1141,15 +1141,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_18_s1",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 3,
     "ImageResourceID": -1,
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 1,
     "SoundResourceID": "Sound_CS_Lay_18",
     "SoundDelay": 0.7,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_18_2",
@@ -1157,15 +1157,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_18_s2",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_18",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_18_3",
@@ -1173,15 +1173,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_18_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_18_4",
@@ -1189,15 +1189,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_18_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_18_5",
@@ -1205,15 +1205,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_18_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_19_1",
@@ -1221,15 +1221,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_19_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_19",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_19_2",
@@ -1237,15 +1237,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_19_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_19_3",
@@ -1253,15 +1253,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_19_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_20_1",
@@ -1269,15 +1269,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_20_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_20",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_20_2",
@@ -1285,15 +1285,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_20_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_20_3",
@@ -1301,15 +1301,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_20_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_20_4",
@@ -1317,15 +1317,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_20_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_20_5",
@@ -1333,15 +1333,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_20_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_20_6",
@@ -1349,15 +1349,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_20_s6",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_20_7",
@@ -1365,15 +1365,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_20_s7",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_20_8",
@@ -1381,15 +1381,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_20_s8",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_1",
@@ -1397,15 +1397,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s1",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 3,
     "ImageResourceID": -1,
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_2",
@@ -1413,15 +1413,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_3",
@@ -1429,15 +1429,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s3",
     "StringDelay": 0.7,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Lay_21",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 1,
     "SoundResourceID": "Sound_CS_Lay_21",
     "SoundDelay": 0,
-    "value(3)": 0.7
+    "value3": 0.7
   },
   {
     "CutSceneID": "CS_Lay_21_4",
@@ -1445,15 +1445,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_5",
@@ -1461,15 +1461,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_6",
@@ -1477,15 +1477,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s6",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_7",
@@ -1493,15 +1493,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s7",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_8",
@@ -1509,15 +1509,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s8",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_9",
@@ -1525,15 +1525,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s9",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_10",
@@ -1541,15 +1541,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s10",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_11",
@@ -1557,15 +1557,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s11",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_21_12",
@@ -1573,15 +1573,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_21_s12",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_22_1",
@@ -1589,15 +1589,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_22_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_22",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_22_2",
@@ -1605,15 +1605,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_22_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_22_3",
@@ -1621,15 +1621,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_22_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_22_4",
@@ -1637,15 +1637,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_22_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_22_5",
@@ -1653,15 +1653,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_22_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_22_6",
@@ -1669,15 +1669,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_22_s6",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_23_1",
@@ -1685,15 +1685,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_23_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_23",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_23_2",
@@ -1701,15 +1701,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_23_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_23_3",
@@ -1717,15 +1717,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_23_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_23_4",
@@ -1733,15 +1733,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_23_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_24_1",
@@ -1749,15 +1749,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_24_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_24",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_24_2",
@@ -1765,15 +1765,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_24_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_24_3",
@@ -1781,15 +1781,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_24_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_25_1",
@@ -1797,15 +1797,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_25_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_25",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_25_2",
@@ -1813,15 +1813,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_25_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_25_3",
@@ -1829,15 +1829,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_25_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_25_4",
@@ -1845,15 +1845,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_25_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_25_5",
@@ -1861,15 +1861,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_25_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_26_1",
@@ -1877,15 +1877,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_26_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_26",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_26_2",
@@ -1893,15 +1893,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_26_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_26_3",
@@ -1909,15 +1909,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_26_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_27_1",
@@ -1925,15 +1925,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_27_s1",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 2,
     "ImageResourceID": "Image_CS_Lay_27",
     "ImageDelay": 0,
-    "value(2)": 0.7,
+    "value2": 0.7,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_27_2",
@@ -1941,15 +1941,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_27_s2",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_27_3",
@@ -1957,15 +1957,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_27_s3",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_27_4",
@@ -1973,15 +1973,15 @@
     "StringType": 1,
     "StringID": "CS_Lay_27_s4",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
     "CutSceneID": "CS_Lay_27_5",
@@ -1989,30 +1989,302 @@
     "StringType": 1,
     "StringID": "CS_Lay_27_s5",
     "StringDelay": 0,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 0,
     "ImageResourceID": -1,
     "ImageDelay": -1,
-    "value(2)": -1,
+    "value2": -1,
     "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
   },
   {
-    "CutSceneID": "CS_Opening_1",
+    "CutSceneID": "CS_Opening_1_1",
     "OpenID": "open_Lay",
     "StringType": 1,
     "StringID": "CS_Opening_1_s1",
     "StringDelay": 1.4,
-    "value(1)": -1,
+    "value1": -1,
     "ImageType": 1,
     "ImageResourceID": "Image_CS_Opening_1",
     "ImageDelay": 0,
-    "value(2)": 0.7,
-    "SoundType": -1,
+    "value2": 0.7,
+    "SoundType": 0,
     "SoundResourceID": -1,
     "SoundDelay": -1,
-    "value(3)": -1
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_1_2",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_1_s2",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_1_3",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_1_s3",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_1_4",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_1_s4",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_1_5",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_1_s5",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_2_1",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_2_s1",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 2,
+    "ImageResourceID": "Image_CS_Opening_2",
+    "ImageDelay": 0,
+    "value2": 0.7,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_2_2",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_2_s2",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_2_3",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_2_s3",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_2_4",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_2_s4",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_2_5",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_2_s5",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_3_1",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_3_s1",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 2,
+    "ImageResourceID": "Image_CS_Opening_3",
+    "ImageDelay": 0,
+    "value2": 0.7,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_3_2",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_3_s2",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_3_3",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_3_s3",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_3_4",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_3_s4",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_4_1",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_4_s1",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 2,
+    "ImageResourceID": "Image_CS_Opening_4",
+    "ImageDelay": 0,
+    "value2": 0.7,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_4_2",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_4_s2",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_4_3",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_4_s3",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
+  },
+  {
+    "CutSceneID": "CS_Opening_4_4",
+    "OpenID": "open_Lay",
+    "StringType": 1,
+    "StringID": "CS_Opening_4_s4",
+    "StringDelay": 0,
+    "value1": -1,
+    "ImageType": 0,
+    "ImageResourceID": -1,
+    "ImageDelay": -1,
+    "value2": -1,
+    "SoundType": 0,
+    "SoundResourceID": -1,
+    "SoundDelay": -1,
+    "value3": -1
   }
 ]
