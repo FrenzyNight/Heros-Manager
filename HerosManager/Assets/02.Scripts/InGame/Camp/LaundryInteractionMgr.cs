@@ -268,6 +268,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
         l2Panel.SetActive(true);
         l2NextButton = 0; // A
         laundryState = 2;
+        laundryGageImg.fillAmount = 0;
+        l2CanPress = true;
     }
 
     public void L2PressKey(int button)
@@ -313,7 +315,13 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void L3Active()
     {
+        l2Panel.SetActive(false);
+        laundryUIButton.interactable = false;
         
+        l3Panel.SetActive(true);
+        l2NextButton = -1; // A
+        laundryState = 3;
+        laundryGageImg.fillAmount = 0;
     }
 
     public void L3Clear()
