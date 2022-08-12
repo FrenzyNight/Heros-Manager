@@ -5,13 +5,13 @@ public class LaundryMgr : CampObjectMgr
     public GameObject LaundryObject;
 
     [ContextMenu("OnWash")]
-    void OnWash()
+    public void OnWash()
     {
         LaundryObject.SetActive(true);
     }
 
     [ContextMenu("NonWash")]
-    void NonWash()
+    public void NonWash()
     {
         LaundryObject.SetActive(false);
     }

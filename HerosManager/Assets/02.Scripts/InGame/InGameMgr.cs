@@ -10,7 +10,8 @@ public enum State
     MiniGame,
     Cutscene,
     Event,
-    Adventure
+    Adventure,
+    Laundry
 }
 
 public class InGameMgr : Singleton<InGameMgr>
@@ -107,6 +108,10 @@ public class InGameMgr : Singleton<InGameMgr>
             else if (state == State.Event)
             {
                 EventMgr.Instance.ClosePanel();
+            }
+            else if(state == State.Laundry)
+            {
+                 
             }
         }
 
