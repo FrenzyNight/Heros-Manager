@@ -551,9 +551,6 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void Reset()
     {
-        laundryGaugeUI.SetActive(false);
-        laundryNeedItemUI.SetActive(true);
-        laundryGageImg.fillAmount = 0;
 
         foreach (var obj in laundryGauges)
         {
@@ -576,6 +573,13 @@ public class LaundryInteractionMgr : CampInteractionMgr
         
         //l3
         l3Panel.SetActive(false);
+        isLaundryClear = false;
+        
+        laundryNeedItemUI.SetActive(true);
+        laundryNeedItemText.text = "-" + needWaterAmount.ToString();
+        laundryGaugeUI.SetActive(false);
+        laundryGageImg.fillAmount = 0;
+        
     }
 
     public override void ClickButton()
@@ -597,6 +601,10 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public override void NextDayAction()
     {
+
+        Reset();
+        laundryClearPanel.SetActive(false);
+        laundryState = -1;
         //fail
         if (!isLaundryClear)
         {
