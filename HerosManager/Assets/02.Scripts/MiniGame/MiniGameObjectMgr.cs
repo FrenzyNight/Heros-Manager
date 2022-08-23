@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MiniGameObjectMgr : MonoBehaviour
 {
+    [Header("MiniGameObjMgr")]
     public GameObject manager;
 
     public int objectType;

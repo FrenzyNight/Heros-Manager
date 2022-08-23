@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class MiniGameSetMgr : MonoBehaviour
 {
+    [Header("MiniGame Standard")]
     public GameObject mother;
     public float widthScale;
     public float heightScale;
     public int rnd;
     public bool isCheck;
-
     public Vector2 BlockSpawnPoint;
     [HideInInspector]public Vector2 RealSpawnPoint;
 
@@ -19,12 +19,6 @@ public class MiniGameSetMgr : MonoBehaviour
     public string item2ID;
 
     public List<GameObject> spawnObjects = new List<GameObject>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public virtual void SetUp()
     {

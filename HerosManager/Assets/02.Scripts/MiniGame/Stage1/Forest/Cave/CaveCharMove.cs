@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CaveCharMove : MiniGameCharMgr
 {
+    [Header("For Cave")]
     AudioSource audioSource;
     public AudioClip slidingSound, jumpSound, blockSound, jemSound;
     private CaveManager Mgr;
@@ -33,11 +35,11 @@ public class CaveCharMove : MiniGameCharMgr
         //Debug.Log("Jump");
         if(!isCheck)
         {
+            Action3();
+            //isCheck = true;
             audioSource.clip = jumpSound;
             audioSource.Play();
             rigid.velocity = new Vector3(0, Mgr.realCharJump * Mgr.heightScale, 0);
-            isCheck = true;
-            Action3();
         }
     }
 
@@ -69,7 +71,9 @@ public class CaveCharMove : MiniGameCharMgr
     {
         RunStat.SetActive(false);
         SlideStat.SetActive(false);
+        
         StunStat.SetActive(true);
+        isStun = true;
         isCheck = false;
         Mgr.isCheck = false;
         yield return new WaitForSeconds(Mgr.stunTime);
@@ -77,6 +81,7 @@ public class CaveCharMove : MiniGameCharMgr
         StunStat.SetActive(false);
         RunStat.SetActive(true);
         isCheck = true;
+        isStun = false;
         Mgr.isCheck = true;
         yield return null;
     }
@@ -90,15 +95,23 @@ public class CaveCharMove : MiniGameCharMgr
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("MiniGameObj1"))
+        if(collision.gameObject.CompareTag("MiniGameObj1") && isCheck) //land
         {
             isCheck = false;
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("MiniGameObj1") && !isCheck) //land
+        {
+            isCheck = true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        if(coll.gameObject.tag == "MiniGameObj2") //block
+        if(coll.CompareTag("MiniGameObj2")) //block
         {
             audioSource.clip = blockSound;
             audioSource.Play();
@@ -106,7 +119,7 @@ public class CaveCharMove : MiniGameCharMgr
             Destroy(coll.gameObject);
         }
 
-        if(coll.gameObject.tag == "MiniGameObj3") //jem
+        if(coll.CompareTag("MiniGameObj3")) //jem
         {
             audioSource.clip = jemSound;
             audioSource.Play();

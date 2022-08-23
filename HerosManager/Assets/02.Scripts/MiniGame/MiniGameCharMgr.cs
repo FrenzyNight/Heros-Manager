@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MiniGameCharMgr : MiniGameObjectMgr
 {
+    [Header("MiniGameCharMgr")]
     public int moveType;
     public bool isStun;
     public bool isCheck;

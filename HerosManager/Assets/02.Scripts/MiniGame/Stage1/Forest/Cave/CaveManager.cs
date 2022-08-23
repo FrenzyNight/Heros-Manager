@@ -8,27 +8,26 @@ public class CaveManager : MiniGameSetMgr
 {
     //public GameObject GuidText, GuidPanel;
     //private Vector2 TextTarget;
-    
+    [Header("Cave Mgr")]
     public GameObject JemPrefab, DownStonePrefab, UpStonePrefab;
     public GameObject Char;
     private float standardSpeed = 500f;
     private float standardJump = 1700f;
 
-    public float realSpeed;
-    public float realCharJump;
+    [HideInInspector]public float realSpeed;
+    [HideInInspector]public float realCharJump;
 
     //road data
-    public float varSpeed;
-    public float coolTime;
-
-    public float stunTime;
-    public float downStonePer;
-    public float upStonePer;
+    [HideInInspector]public float varSpeed;
+    [HideInInspector]public float coolTime;
+    [HideInInspector]public float stunTime;
+    [HideInInspector]public float downStonePer;
+    [HideInInspector]public float upStonePer;
     
-    public float jemResource;
-    public float jemPer;
+    [HideInInspector]public float jemResource;
+    [HideInInspector]public float jemPer;
 
-    public float charJump;
+    [HideInInspector]public float charJump;
     
     // Start is called before the first frame update
     void Start()
