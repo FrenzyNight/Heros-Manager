@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class WaterManager : MiniGameSetMgr
 {
+    [Header("Water Mgr")]
     AudioSource audioSource;
     public Vector2 SpawnPoint1, SpawnPoint2, SpawnPoint3;
     public Vector2 spawnP1, spawnP2, spawnP3;
@@ -28,11 +31,8 @@ public class WaterManager : MiniGameSetMgr
     //real
     public float realRockSpeed;
 
-    void Start()
-    {
-        //SetUp();
-    }
-
+    [HideInInspector] public Coroutine coroutine;
+    
     public override void SetUp()
     {
         base.SetUp();
@@ -57,7 +57,8 @@ public class WaterManager : MiniGameSetMgr
         SpawnPoint1 = new Vector2(spawnP1.x * widthScale + transform.position.x, spawnP1.y * heightScale + transform.position.y);
         SpawnPoint2 = new Vector2(spawnP2.x * widthScale + transform.position.x, spawnP2.y * heightScale + transform.position.y);
         SpawnPoint3 = new Vector2(spawnP3.x * widthScale + transform.position.x, spawnP3.y * heightScale + transform.position.y);
-   
+
+     
         StartGame();
    }
 
@@ -152,6 +153,17 @@ public class WaterManager : MiniGameSetMgr
         audioSource.Play();
         base.AddItem(item1ID, waterRes);
     }
+
+    /*
+    private void OnEnable()
+    {
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            StartGame();
+        }
+    }
+    */
 
     void OnDrawGizmos()
     {

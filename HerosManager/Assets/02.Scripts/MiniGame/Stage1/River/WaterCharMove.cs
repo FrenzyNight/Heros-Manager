@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,7 @@ using DG.Tweening;
 
 public class WaterCharMove : MiniGameCharMgr
 {
+    [Header("Water Char")]
     AudioSource audioSource;
     private WaterManager WM;
     private RectTransform rt;
@@ -17,6 +19,8 @@ public class WaterCharMove : MiniGameCharMgr
     public Sprite img1, img2;
 
     public float moveVar;
+
+    [HideInInspector] public Coroutine coroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -63,12 +67,22 @@ public class WaterCharMove : MiniGameCharMgr
         CharImg.sprite = img1;
     }
 
+    private void OnDisable()
+    {
+        if (coroutine != null)
+        {
+            BK.waterTime = 0;
+            StopCoroutine(coroutine);
+            isCrash = false;
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D coll)
     {
         if(coll.gameObject.CompareTag("MiniGameObj1") && !isCrash)
         {
             Destroy(coll.gameObject);
-            StartCoroutine(Crash());
+            coroutine = StartCoroutine(Crash());
         }
     }
 }

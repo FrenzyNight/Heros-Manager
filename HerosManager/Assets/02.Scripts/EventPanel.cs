@@ -26,17 +26,7 @@ public class EventPanel : MonoBehaviour
     public string nextEventID;
     
     //public Sprite[] itemImgs;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public void SetEventPanel()
     {
@@ -121,13 +111,16 @@ public class EventPanel : MonoBehaviour
             {
                 choiceBtn.transform.GetChild(1).transform.GetChild(1).GetComponent<Image>().sprite = EventMgr.Instance.itemImgs[4];
             }
-
-
+            
 
             if(LoadGameData.Instance.choiceDatas[choiceID].NeedAmount > ItemManager.Instance.GetItemInfo(LoadGameData.Instance.choiceDatas[choiceID].NeeditemID).num)
             {
                 choiceBtn.GetComponent<Button>().interactable = false;
             }
+        }
+        else // need item is empty
+        {
+            choiceBtn.transform.GetChild(1).gameObject.SetActive(false);
         }
  
         
