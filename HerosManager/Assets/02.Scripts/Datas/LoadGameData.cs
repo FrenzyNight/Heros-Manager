@@ -28,7 +28,8 @@ public class LoadGameData : Singleton<LoadGameData>
     public Dictionary<string, StringData> stringDatas = new Dictionary<string, StringData>();
     public Dictionary<string, JemData> jemDatas = new Dictionary<string, JemData>();
     public Dictionary<string, LaundryData> laundryDatas = new Dictionary<string, LaundryData>();
-
+    public Dictionary<string, TutorialData> tutorialDatas = new Dictionary<string, TutorialData>();
+    
     public void LoadTitleDatas()
     {
         LoadEventData("Json/EventTable");
@@ -54,6 +55,7 @@ public class LoadGameData : Singleton<LoadGameData>
         LoadStringData("Json/StringTable");
         LoadJemData("Json/JemTable");
         LoadLaundryData("Json/LaundryTable");
+        LoadTutorialData("Json/TutorialTable");
     }
 
     void LoadCookData(string _path)
@@ -748,6 +750,18 @@ public class LoadGameData : Singleton<LoadGameData>
         //    eventDatas.Add(eventData.EventID, eventData);
         //}
     }
+    
+    void LoadTutorialData(string _path)
+    {
+        tutorialDatas.Clear();
+        var json = Resources.Load<TextAsset>(_path);
+
+        var tutorialDataList = JsonUtilityHelper.FromJson<TutorialData>(json.ToString());
+        foreach (var data in tutorialDataList)
+        {
+            tutorialDatas.Add(data.TutorialID, data);
+        }
+    }
 
     void LoadStringData(string _path)
     {
@@ -1146,6 +1160,17 @@ public class LaundryData
     public int Hero4_Stress;
 }
 
+[System.Serializable]
+public class TutorialData
+{
+    public string TutorialID;
+    public string OpenID;
+    public int TutorialType;
+    public int Index;
+    public int ImageType;
+    public string ImageID;
+    public string StringID;
+}
 
 [System.Serializable]
 public class StringData
