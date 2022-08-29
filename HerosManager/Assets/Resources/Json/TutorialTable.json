@@ -28,7 +28,7 @@
   },
   {
     "TutorialID": "Tutorial_Journey_4",
-    "OpenID": "Open_Tutorial_Journey_2",
+    "OpenID": "Open_Tutorial_Journey_1",
     "TutorialType": 2,
     "Index": 1,
     "ImageType": -1,
@@ -37,7 +37,7 @@
   },
   {
     "TutorialID": "Tutorial_Journey_5",
-    "OpenID": "Open_Tutorial_Journey_2",
+    "OpenID": "Open_Tutorial_Journey_1",
     "TutorialType": 2,
     "Index": 2,
     "ImageType": -1,
@@ -46,7 +46,7 @@
   },
   {
     "TutorialID": "Tutorial_Journey_6",
-    "OpenID": "Open_Tutorial_Journey_2",
+    "OpenID": "Open_Tutorial_Journey_1",
     "TutorialType": 2,
     "Index": 3,
     "ImageType": -1,
@@ -82,7 +82,7 @@
   },
   {
     "TutorialID": "Tutorial_Collect_4",
-    "OpenID": "Open_Tutorial_Collect_2",
+    "OpenID": "Open_Tutorial_Collect_1",
     "TutorialType": 2,
     "Index": 1,
     "ImageType": -1,
@@ -91,7 +91,7 @@
   },
   {
     "TutorialID": "Tutorial_Collect_5",
-    "OpenID": "Open_Tutorial_Collect_2",
+    "OpenID": "Open_Tutorial_Collect_1",
     "TutorialType": 2,
     "Index": 2,
     "ImageType": -1,
@@ -100,7 +100,7 @@
   },
   {
     "TutorialID": "Tutorial_Collect_6",
-    "OpenID": "Open_Tutorial_Collect_2",
+    "OpenID": "Open_Tutorial_Collect_1",
     "TutorialType": 2,
     "Index": 3,
     "ImageType": -1,
@@ -109,7 +109,7 @@
   },
   {
     "TutorialID": "Tutorial_Collect_7",
-    "OpenID": "Open_Tutorial_Collect_2",
+    "OpenID": "Open_Tutorial_Collect_1",
     "TutorialType": 2,
     "Index": 4,
     "ImageType": -1,
@@ -118,7 +118,7 @@
   },
   {
     "TutorialID": "Tutorial_Collect_8",
-    "OpenID": "Open_Tutorial_Collect_2",
+    "OpenID": "Open_Tutorial_Collect_1",
     "TutorialType": 2,
     "Index": 5,
     "ImageType": -1,
@@ -154,7 +154,7 @@
   },
   {
     "TutorialID": "Tutorial_Camp_4",
-    "OpenID": "Open_Tutorial_Camp_2",
+    "OpenID": "Open_Tutorial_Camp_1",
     "TutorialType": 2,
     "Index": 2,
     "ImageType": -1,
@@ -163,7 +163,7 @@
   },
   {
     "TutorialID": "Tutorial_Camp_5",
-    "OpenID": "Open_Tutorial_Camp_2",
+    "OpenID": "Open_Tutorial_Camp_1",
     "TutorialType": 2,
     "Index": 3,
     "ImageType": -1,
@@ -172,7 +172,7 @@
   },
   {
     "TutorialID": "Tutorial_Camp_6",
-    "OpenID": "Open_Tutorial_Camp_2",
+    "OpenID": "Open_Tutorial_Camp_1",
     "TutorialType": 2,
     "Index": 4,
     "ImageType": -1,
@@ -181,7 +181,7 @@
   },
   {
     "TutorialID": "Tutorial_Camp_7",
-    "OpenID": "Open_Tutorial_Camp_2",
+    "OpenID": "Open_Tutorial_Camp_1",
     "TutorialType": 2,
     "Index": 5,
     "ImageType": -1,
