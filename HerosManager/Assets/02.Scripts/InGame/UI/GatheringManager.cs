@@ -15,11 +15,16 @@ public class GatheringManager : Singleton<GatheringManager>
     public Transform[] gatheringPlaceTrans;
 
     IEnumerator gathering4Co;
+    [HideInInspector] public bool isFirst;
+    [HideInInspector] public bool isMini;
 
     void Start()
     {
         InGameMgr.Instance.NextStageAct += LoadStageGathering;
 
+        isFirst = true;
+        isMini = false;
+        
         GatheringBtn.onClick.AddListener(Setup);
         ExitBtn.onClick.AddListener(CloseGatheringPannel);
         for (int i = 0; i < gatheringObjs.Length; i++)
@@ -108,7 +113,7 @@ public class GatheringManager : Singleton<GatheringManager>
         gatherObj.obj.SetActive(false);
     }
 
-    void Setup()
+    public void Setup()
     {
         InGameMgr.Instance.state = State.Gathering;
         GatheringPanel.SetActive(true);
@@ -116,6 +121,7 @@ public class GatheringManager : Singleton<GatheringManager>
 
     void StartMiniGame(string _code)
     {
+        isMini = true;
         CloseGatheringPannel();
 
         MiniGameMgr.Instance.Setup(_code);
@@ -125,6 +131,12 @@ public class GatheringManager : Singleton<GatheringManager>
     {
         InGameMgr.Instance.state = State.Camp;
         GatheringPanel.SetActive(false);
+
+        if (isFirst && !isMini)
+        {
+            isFirst = false;
+            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Camp_1");
+        }
     }
 }
 

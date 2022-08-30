@@ -13,7 +13,8 @@ public class IntroManager : MonoBehaviour
     {
         SkipBtn.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("MapTest");
+            //SceneManager.LoadScene("MapTest");
+            SceneManager.LoadScene("InGame");
         });
 
         cutSceneMgr.LoadCutscene("open_Lay");
@@ -27,7 +28,8 @@ public class IntroManager : MonoBehaviour
             bool isLast = cutSceneMgr.NextCutscene();
             if (isLast)
             {
-                SceneManager.LoadScene("MapTest");
+                //SceneManager.LoadScene("MapTest");
+                SceneManager.LoadScene("InGame");
             }
         }
     }

@@ -145,7 +145,7 @@
   },
   {
     "TutorialID": "Tutorial_Camp_3",
-    "OpenID": "Open_Tutorial_Camp_2",
+    "OpenID": "Open_Tutorial_Camp_1",
     "TutorialType": 2,
     "Index": 1,
     "ImageType": -1,
@@ -270,7 +270,7 @@
     "StringID": "Tutorial_Laundry_s3"
   },
   {
-    "TutorialID": "Tuorial_Event_1",
+    "TutorialID": "Tutorial_Event_1",
     "OpenID": "Open_Tutorial_Event_1",
     "TutorialType": 2,
     "Index": 1,
@@ -279,7 +279,7 @@
     "StringID": "Tutorial_Event_s1"
   },
   {
-    "TutorialID": "Tuorial_Event_2",
+    "TutorialID": "Tutorial_Event_2",
     "OpenID": "Open_Tutorial_Event_1",
     "TutorialType": 2,
     "Index": 2,
@@ -288,7 +288,7 @@
     "StringID": "Tutorial_Event_s2"
   },
   {
-    "TutorialID": "Tuorial_Event_3",
+    "TutorialID": "Tutorial_Event_3",
     "OpenID": "Open_Tutorial_Event_1",
     "TutorialType": 2,
     "Index": 3,

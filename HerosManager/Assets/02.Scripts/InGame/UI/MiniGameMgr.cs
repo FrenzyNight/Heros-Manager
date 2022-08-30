@@ -230,6 +230,12 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         {
             StopCoroutine(cycleRandomGameCo);
         }
+
+        if (GatheringManager.Instance.isFirst)
+        {
+            GatheringManager.Instance.isFirst = false;
+            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Camp_1");
+        }
     }
 }
 

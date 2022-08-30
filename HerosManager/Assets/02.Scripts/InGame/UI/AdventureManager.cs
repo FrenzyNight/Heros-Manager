@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UniJSON;
 
 public class AdventureManager : Singleton<AdventureManager>
 {
@@ -38,9 +39,6 @@ public class AdventureManager : Singleton<AdventureManager>
     public Sprite GoodImg, NormalImg, BadImg, DangerImg;
 
     public Image ResultImg;
-    string perfectStr;
-    string normalStr;
-    string failStr;
 
 
     [Header("EX")]
@@ -63,14 +61,21 @@ public class AdventureManager : Singleton<AdventureManager>
     [HideInInspector]
     public AudioSource audioSource;
 
+    [HideInInspector] public bool isFirstAdventure;
+    [HideInInspector] public bool isFirstMini;
+   // [HideInInspector] public bool isFirstHeroBack;
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        isFirstAdventure = true;
+        isFirstMini = true;
+        //isFirstHeroBack = true;
     }
 
     void Start()
     {
         isClicked = false;
+        
         StartAdvBtn.onClick.AddListener(StartButton);
         
 
@@ -93,9 +98,9 @@ public class AdventureManager : Singleton<AdventureManager>
         //productPanel.SetActive(true);
         //productPanel.GetComponent<Image>().DOFade(0,1.5f);
 
-        perfectStr = LoadGameData.Instance.GetString("Journey_t4");
-        normalStr = LoadGameData.Instance.GetString("Journey_t5");
-        failStr = LoadGameData.Instance.GetString("Journey_t6");
+        //perfectStr = LoadGameData.Instance.GetString("Journey_t4");
+        //normalStr = LoadGameData.Instance.GetString("Journey_t5");
+        //failStr = LoadGameData.Instance.GetString("Journey_t6");
 
 
         journeyData = LoadGameData.Instance.journeyDatas[_stageDayData.JourneyID];
@@ -136,7 +141,13 @@ public class AdventureManager : Singleton<AdventureManager>
         {
             StartCoroutine(NightProduct());
         }
-        
+
+        if(isFirstAdventure)
+        {
+            isFirstAdventure = false;
+            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Journey_1");
+        }
+
     }
 
     IEnumerator NightProduct()
@@ -205,7 +216,8 @@ public class AdventureManager : Singleton<AdventureManager>
                 
             });
         }
-
+        
+        
         yield return null;
     }
 
@@ -245,6 +257,14 @@ public class AdventureManager : Singleton<AdventureManager>
         }
 
         EventMgr.Instance.ChoseEvent();
+
+        if (isFirstMini)
+        {
+            isFirstMini = false;
+            TutorialMgr.Instance.isCollect = true;
+            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Collect_1");
+            
+        }
     }
 
     public void EndJourney()
@@ -280,7 +300,10 @@ public class AdventureManager : Singleton<AdventureManager>
         HeroStateManager.Instance.heroStates[3].AddStat
             (jResultData.Hero4_Stress, jResultData.Hero4_Power, jResultData.Hero4_Hp, jResultData.Hero4_Exp);
 
+        
     }
+
+    
 
     public void ItemTextColorSet()
     {

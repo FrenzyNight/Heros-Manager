@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,8 @@ public class Clock : Singleton<Clock>
 
     public bool isHeroBack;
     public bool isProduct;
-
+    [HideInInspector] public bool isFirstHeroBack;
+    
     void Start()
     {
         Setup();
@@ -38,6 +40,7 @@ public class Clock : Singleton<Clock>
         heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value1;
         isHeroBack = false;
         isProduct = false;
+        isFirstHeroBack = true;
         //isChicken = false;
     }
 
@@ -112,6 +115,13 @@ public class Clock : Singleton<Clock>
         Timer();
     }
 
+    IEnumerator HeroBackTutorialDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Back_1");
+    }
+    
+    
     void Timer()
     {
         if (isStop)
@@ -123,6 +133,12 @@ public class Clock : Singleton<Clock>
         {
             AdventureMgr.EndJourney();
             isHeroBack = true;
+
+            if (isFirstHeroBack)
+            {
+                isFirstHeroBack = false;
+                StartCoroutine(HeroBackTutorialDelay());
+            }
         }
 
         /*
@@ -152,4 +168,6 @@ public class Clock : Singleton<Clock>
             EventMgr.Instance.EventButtonActive();
         }
     }
+    
+    
 }

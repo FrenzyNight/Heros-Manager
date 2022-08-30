@@ -58,10 +58,13 @@ public class FenceMgr : Singleton<FenceMgr>
     [HideInInspector]
     public bool isInvade;
 
+    [HideInInspector] public bool isFirstFence;
+
     void Start()
     {
         InGameMgr.Instance.NextStageAct += LoadStageFence;
         audioSource = GetComponent<AudioSource>();
+        isFirstFence = true;
 
         FenceBtn.onClick.AddListener(Setup);
         ExitBtn.onClick.AddListener(ClosePanel);
@@ -145,6 +148,12 @@ public class FenceMgr : Singleton<FenceMgr>
             //NextTime.text = NextFenceData.NeedTime.ToString();
 
             StartBtn.interactable = true;
+        }
+
+        if (isFirstFence)
+        {
+            isFirstFence = false;
+            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Fence_1");
         }
     }
 

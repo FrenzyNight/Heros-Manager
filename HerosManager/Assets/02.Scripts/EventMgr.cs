@@ -24,7 +24,8 @@ public class EventMgr : Singleton<EventMgr>
 
     [HideInInspector]
     public List<string> EventList = new List<string>();
-    
+
+    [HideInInspector] public bool isFirstEvent;
     
     /*
     [HideInInspector]
@@ -64,6 +65,7 @@ public class EventMgr : Singleton<EventMgr>
         }
 
         isClicked = false;
+        isFirstEvent = true;
         
         SetEventNumberText();
         PrevButtonAction();
@@ -170,5 +172,11 @@ public class EventMgr : Singleton<EventMgr>
         
         
         isClicked = true;
+
+        if (isFirstEvent)
+        {
+            isFirstEvent = false;
+            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Event_1");
+        }
     }
 }
