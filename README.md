@@ -8,4 +8,4 @@
 개발인원 : 8인 (프로그래밍 2인)   
 담당업무 : 미니게임 파트 및 인게임 로직   
    
-플레이 영상 : https://youtu.be/dZTkY7knFEs
+플레이 영상 : https://youtu.be/PaLmw5Qeb40
