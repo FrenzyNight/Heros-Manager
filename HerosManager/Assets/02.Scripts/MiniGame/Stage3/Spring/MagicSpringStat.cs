@@ -12,7 +12,7 @@ public class MagicSpringStat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SM = GameObject.Find("MagicSpringManager").GetComponent<MagicSpringManager>();
+        SM = MiniGameReferences.Manager<MagicSpringManager>(this);
         isActive= false;
         activeTime = 0;
         graceCount = 0;

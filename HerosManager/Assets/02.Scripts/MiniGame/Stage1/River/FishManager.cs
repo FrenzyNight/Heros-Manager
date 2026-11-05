@@ -68,27 +68,25 @@ public class FishManager : MiniGameSetMgr
         audioSource = GetComponent<AudioSource>();
         LM1 = Log1.GetComponent<LogMove>();
 
-        FishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        GoldFishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
-        fishLogSpeed = LoadGameData.Instance.miniGameDatas["game1log"].Velocity;
+        fishLogSpeed = GameData("game1log").Velocity;
 
-        fishCoolTime = LoadGameData.Instance.miniGameDatas["game1fish_normal"].CoolTime;
-        fishVarSpeed = LoadGameData.Instance.miniGameDatas["game1fish_normal"].Velocity;
+        fishCoolTime = GameData("game1fish_normal").CoolTime;
+        fishVarSpeed = GameData("game1fish_normal").Velocity;
 
-        fishGoldPer = LoadGameData.Instance.miniGameDatas["game1fish_gold"].Probability * 100;
-        fishGoldRes = (int)LoadGameData.Instance.miniGameDatas["game1fish_gold"].GetAmount1;
+        fishGoldPer = GameData("game1fish_gold").Probability * 100;
+        fishGoldRes = (int)GameData("game1fish_gold").GetAmount1;
 
-        fishNormalRes = (int)LoadGameData.Instance.miniGameDatas["game1fish_normal"].GetAmount1;
+        fishNormalRes = (int)GameData("game1fish_normal").GetAmount1;
 
         realFishSpeed = standardFishSpeed * fishVarSpeed;
         realLogSpeed = standardFishSpeed * fishLogSpeed;
 
-        item1ID = LoadGameData.Instance.miniGameDatas["game1fish_normal"].GetItemID1;
+        item1ID = GameData("game1fish_normal").GetItemID1;
 
-        SpawnPoint1 = new Vector2(spawnP1.x * widthScale + transform.position.x, spawnP1.y * heightScale + transform.position.y);
-        SpawnPoint2 = new Vector2(spawnP2.x * widthScale + transform.position.x, spawnP2.y * heightScale + transform.position.y);
-        SpawnPoint3 = new Vector2(spawnP3.x * widthScale + transform.position.x, spawnP3.y * heightScale + transform.position.y);
+        SpawnPoint1 = ScreenPoint(spawnP1);
+        SpawnPoint2 = ScreenPoint(spawnP2);
+        SpawnPoint3 = ScreenPoint(spawnP3);
     
         TopPoint = new Vector2(transform.position.x, topP * heightScale + transform.position.y);
         BotPoint = new Vector2(transform.position.x, botP * heightScale + transform.position.y);
@@ -110,7 +108,7 @@ public class FishManager : MiniGameSetMgr
         {
 
             rnd = Random.Range(1,101);
-            if(rnd <= fishGoldPer)
+            if(MiniGameRules.PercentHit(rnd, fishGoldPer))
             {
                 SelectedFish = GoldFishPrefab;
             }
@@ -123,18 +121,18 @@ public class FishManager : MiniGameSetMgr
 
             if(rnd == 1)
             {
-                TrackSpawn(Instantiate(SelectedFish, SpawnPoint1, Quaternion.identity, mother.transform));
+                Spawn(SelectedFish, SpawnPoint1, Quaternion.identity);
             }
             else if(rnd == 2)
             {
-                TrackSpawn(Instantiate(SelectedFish, SpawnPoint2, Quaternion.identity, mother.transform));
+                Spawn(SelectedFish, SpawnPoint2, Quaternion.identity);
             }
             else if(rnd == 3)
             {
-                TrackSpawn(Instantiate(SelectedFish, SpawnPoint3, Quaternion.identity, mother.transform));
+                Spawn(SelectedFish, SpawnPoint3, Quaternion.identity);
             }
 
-            yield return new WaitForSeconds(fishCoolTime);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(fishCoolTime));
         }
     }
 

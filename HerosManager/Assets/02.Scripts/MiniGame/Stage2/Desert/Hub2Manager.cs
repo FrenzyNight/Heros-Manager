@@ -45,26 +45,26 @@ public class Hub2Manager : MiniGameSetMgr
         base.SetUp();
         CacList.Clear();
 
-        hubCharSpeed = LoadGameData.Instance.miniGameDatas["game2hub_normal"].Velocity;
-        hubCoolTime = LoadGameData.Instance.miniGameDatas["game2hub_normal"].CoolTime;
-        hubGetTime = LoadGameData.Instance.miniGameDatas["game2hub_normal"].value2;
+        hubCharSpeed = GameData("game2hub_normal").Velocity;
+        hubCoolTime = GameData("game2hub_normal").CoolTime;
+        hubGetTime = GameData("game2hub_normal").value2;
         
-        hubGoldPer = LoadGameData.Instance.miniGameDatas["game2hub_gold"].Probability * 100;
-        hubGoldRes = (int)LoadGameData.Instance.miniGameDatas["game2hub_gold"].GetAmount1;
+        hubGoldPer = GameData("game2hub_gold").Probability * 100;
+        hubGoldRes = (int)GameData("game2hub_gold").GetAmount1;
         
-        hubNormalRes = (int)LoadGameData.Instance.miniGameDatas["game2hub_normal"].GetAmount1;
-        hubSpanTime = LoadGameData.Instance.miniGameDatas["game2hub_normal"].value1;
+        hubNormalRes = (int)GameData("game2hub_normal").GetAmount1;
+        hubSpanTime = GameData("game2hub_normal").value1;
 
-        hubCactusInv = LoadGameData.Instance.miniGameDatas["game2hubcactus"].Invincibility;
-        hubCactusNum = LoadGameData.Instance.miniGameDatas["game2hubcactus"].value1;
-        hubCactusStun = LoadGameData.Instance.miniGameDatas["game2hubcactus"].Stun;
+        hubCactusInv = GameData("game2hubcactus").Invincibility;
+        hubCactusNum = GameData("game2hubcactus").value1;
+        hubCactusStun = GameData("game2hubcactus").Stun;
         
         realHubCharSpeed = standardHubSpeed * hubCharSpeed;
 
-        item1ID = LoadGameData.Instance.miniGameDatas["game2hub_normal"].GetItemID1;
+        item1ID = GameData("game2hub_normal").GetItemID1;
         
-        StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
+        StartPoint = ScreenPoint(StartP);
+        EndPoint = ScreenPoint(EndP);
     
         StartGame();
     }
@@ -77,28 +77,28 @@ public class Hub2Manager : MiniGameSetMgr
             x = Random.Range(transform.position.x + quater-plusmin, transform.position.x + quater+plusmin);
             y = Random.Range(transform.position.y + quater-plusmin, transform.position.y + quater+plusmin);
 
-            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform)));
+            CacList.Add(Spawn(Cactus, new Vector2(x,y), Quaternion.identity));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // +-
         {
             x = Random.Range(transform.position.x + quater-plusmin, transform.position.x + quater+plusmin);
             y = Random.Range(transform.position.y -quater-plusmin, transform.position.y-quater+plusmin);
 
-            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform)));
+            CacList.Add(Spawn(Cactus, new Vector2(x,y), Quaternion.identity));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // --
         {
             x = Random.Range(transform.position.x-quater-plusmin, transform.position.x-quater+plusmin);
             y = Random.Range(transform.position.y-quater-plusmin, transform.position.y-quater+plusmin);
 
-            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform)));
+            CacList.Add(Spawn(Cactus, new Vector2(x,y), Quaternion.identity));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // -+
         {
             x = Random.Range(transform.position.x-quater-plusmin, transform.position.x-quater+plusmin);
             y = Random.Range(transform.position.y+ quater-plusmin, transform.position.y+ quater+plusmin);
 
-            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform)));
+            CacList.Add(Spawn(Cactus, new Vector2(x,y), Quaternion.identity));
         }
         
     }
@@ -128,16 +128,16 @@ public class Hub2Manager : MiniGameSetMgr
             y = Random.Range(StartPoint.y, EndPoint.y);
 
             rnd = Random.Range(1, 101);
-            if(rnd <= hubGoldPer)
+            if(MiniGameRules.PercentHit(rnd, hubGoldPer))
             {
-                TrackSpawn(Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform));
+                Spawn(GoldHub, new Vector2(x,y), Quaternion.identity,SpawnContainer("Hub2"));
             }
             else
             {
-                TrackSpawn(Instantiate(Hub, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform));
+                Spawn(Hub, new Vector2(x,y), Quaternion.identity,SpawnContainer("Hub2"));
             }
             
-            yield return new WaitForSeconds(hubCoolTime);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(hubCoolTime));
         }
     }
 

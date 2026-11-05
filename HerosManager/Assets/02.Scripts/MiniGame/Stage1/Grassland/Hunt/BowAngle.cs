@@ -32,7 +32,7 @@ public class BowAngle : MiniGameCharMgr
     {
         isCheck = true;
         audioSource.Play();
-        Mgr.spawnObjects.Add(Instantiate(Mgr.ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward), Mgr.mother.transform));
+        Mgr.Spawn(Mgr.ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward));
 
         ani.Play("Bow_ani", -1, 0f);
         yield return new WaitForSeconds(Mgr.huntArrowCoolTime);

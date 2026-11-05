@@ -21,10 +21,10 @@ public class FairyBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FM = GameObject.Find("FairyWarehouseManager").GetComponent<FairyWarehouseManager>();
+        FM = MiniGameReferences.Manager<FairyWarehouseManager>(this);
         rt = gameObject.GetComponent<RectTransform>();
 
-        Gage = Instantiate(GageImg, rt.position, Quaternion.identity, GameObject.Find("FairyWarehouse").transform);
+        Gage = FM.Spawn(GageImg, rt.position, Quaternion.identity, MiniGameReferences.Container(this, "FairyWarehouse"));
         Gage.GetComponent<Image>().fillAmount = 0;
         
         if(boxType == 1)

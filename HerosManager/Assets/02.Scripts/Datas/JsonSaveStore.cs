@@ -12,6 +12,13 @@ public static class JsonSaveStore
     public static bool TryLoad<T>(string path, Func<T, bool> validate, out T value, out string error)
         where T : class, new()
     {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            value = null;
+            error = "A save path is required.";
+            return false;
+        }
+        if (validate == null) throw new ArgumentNullException(nameof(validate));
         lock (Sync)
         {
             if (TryRead(path, validate, out value, out error))
@@ -30,6 +37,12 @@ public static class JsonSaveStore
     public static bool TrySave<T>(string path, T value, Func<T, bool> validate, out string error)
         where T : class, new()
     {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            error = "A save path is required.";
+            return false;
+        }
+        if (validate == null) throw new ArgumentNullException(nameof(validate));
         lock (Sync)
         {
             error = null;
@@ -39,7 +52,7 @@ public static class JsonSaveStore
                 return false;
             }
 
-            string temporaryPath = path + ".tmp";
+            string temporaryPath = path + ".tmp-" + Guid.NewGuid().ToString("N");
             try
             {
                 string directory = Path.GetDirectoryName(path);

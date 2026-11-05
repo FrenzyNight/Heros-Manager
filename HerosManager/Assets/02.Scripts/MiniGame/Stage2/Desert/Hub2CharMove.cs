@@ -16,7 +16,7 @@ public class Hub2CharMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("Hub2Manager").GetComponent<Hub2Manager>();
+        HM = MiniGameReferences.Manager<Hub2Manager>(this);
         rt = gameObject.GetComponent<RectTransform>();
         
         isMove = false;
@@ -32,70 +32,14 @@ public class Hub2CharMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(Input.GetKey(KeyCode.W))
-        {
-            isW = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.A))
-        {
-            isA = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.S))
-        {
-            isS = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            isD = true;
-            isMove = true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-            SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            SetDirection();
-        }
-
-        if(Input.GetKeyUp(KeyCode.W))
-        {
-            isW =false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.A))
-        {
-            isA = false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.S))
-        {
-            isS = false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.D))
-        {
-            isD = false;
-            isMove = false;
-            SetDirection();
-        }
-        
+        if (Time.timeScale <= 0f)
+            return;
+        isW = Input.GetKey(KeyCode.W);
+        isA = Input.GetKey(KeyCode.A);
+        isS = Input.GetKey(KeyCode.S);
+        isD = Input.GetKey(KeyCode.D);
+        isMove = MiniGameMovement.Direction(isW, isA, isS, isD) != Vector2.zero;
+        SetDirection();
     }
 
     void FixedUpdate()
@@ -114,58 +58,26 @@ public class Hub2CharMove : MonoBehaviour
 
     void SetDirection()
     {
-        if(isW && !isA && !isS && !isD) // only w
-        {
-            direction = 90;
-        }
-        else if(!isW && isA && !isS && !isD) // only a
-        {
-            direction = 180;
-        }
-        else if(!isW && !isA && isS && !isD) // only a
-        {
-            direction = 270;
-        }
-        else if(!isW && !isA && !isS && isD) // only d
-        {
-            direction = 0;
-        }
-
-        else if(isW && !isA && !isS && isD) // w & d
-        {
-            direction = 45;
-        }
-        else if(isW && isA && !isS && !isD) // w & a
-        {
-            direction = 135;
-        }
-        else if(!isW && isA && isS && !isD) // a & s
-        {
-            direction = 225;
-        }
-        else if(!isW && !isA && isS && isD) // d & s
-        {
-            direction = 315;
-        }
-
-
-        x = HM.realHubCharSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
-        y = HM.realHubCharSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
-
-
-        if(x >= 0)
-        {
-            transform.localScale = new Vector3(1,1,1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-1,1,1);
-        }
+        Vector2 velocity = MiniGameMovement.Direction(isW, isA, isS, isD) * HM.realHubCharSpeed;
+        x = velocity.x;
+        y = velocity.y;
+        MiniGameMovement.FaceHorizontal(transform, x);
     }
 
     public void StartStun()
     {
+        if (isInv || isStun)
+            return;
         StartCoroutine(Stun());
+    }
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        isMove = false;
+        isInv = false;
+        isStun = false;
+        isW = isA = isS = isD = false;
     }
 
     IEnumerator Stun()

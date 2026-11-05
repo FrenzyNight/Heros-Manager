@@ -77,35 +77,35 @@ public class Hunt2Manager : MiniGameSetMgr
         goldFoxNum = 0;
         isShoot = false;
         
-        huntArrowSpeed = LoadGameData.Instance.miniGameDatas["game2arrow"].Velocity;
-        huntArrowCoolTime = LoadGameData.Instance.miniGameDatas["game2arrow"].CoolTime;
+        huntArrowSpeed = GameData("game2arrow").Velocity;
+        huntArrowCoolTime = GameData("game2arrow").CoolTime;
 
-        huntCactusNum = LoadGameData.Instance.miniGameDatas["game2cactus"].value1;
+        huntCactusNum = GameData("game2cactus").value1;
 
-        huntMonsterCoolTime = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].CoolTime;
-        huntMonsterMinMoveTime = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value4;
-        huntMonsterMaxMoveTime = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value5;
-        huntMonsterIdleTime= LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value3;
+        huntMonsterCoolTime = GameData("game2monster_weasel").CoolTime;
+        huntMonsterMinMoveTime = GameData("game2monster_weasel").value4;
+        huntMonsterMaxMoveTime = GameData("game2monster_weasel").value5;
+        huntMonsterIdleTime= GameData("game2monster_weasel").value3;
 
-        huntWeaselSpeed = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].Velocity;
-        huntWeaselRes = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].GetAmount1;
-        huntWeaselPer = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].Probability * 100;
-        huntWeaselHP = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value1;
-        huntWeaselMaxNum = LoadGameData.Instance.miniGameDatas["game2monster_weasel"].value6;
+        huntWeaselSpeed = GameData("game2monster_weasel").Velocity;
+        huntWeaselRes = GameData("game2monster_weasel").GetAmount1;
+        huntWeaselPer = GameData("game2monster_weasel").Probability * 100;
+        huntWeaselHP = GameData("game2monster_weasel").value1;
+        huntWeaselMaxNum = GameData("game2monster_weasel").value6;
 
-        huntFoxSpeed = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].Velocity;
-        huntFoxRes = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].GetAmount1;
-        huntFoxPer = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].Probability * 100;
-        huntFoxHP = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].value1;
-        huntFoxAngrySpeed = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].value2;
-        huntFoxMaxNum = LoadGameData.Instance.miniGameDatas["game2monster_fennec"].value6;
+        huntFoxSpeed = GameData("game2monster_fennec").Velocity;
+        huntFoxRes = GameData("game2monster_fennec").GetAmount1;
+        huntFoxPer = GameData("game2monster_fennec").Probability * 100;
+        huntFoxHP = GameData("game2monster_fennec").value1;
+        huntFoxAngrySpeed = GameData("game2monster_fennec").value2;
+        huntFoxMaxNum = GameData("game2monster_fennec").value6;
 
-        huntGoldFoxSpeed = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].Velocity;
-        huntGoldFoxRes = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].GetAmount1;
-        huntGoldFoxPer = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].Probability * 100;
-        huntGoldFoxHP = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].value1;
-        huntGoldFoxAngrySpeed = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].value2;
-        huntGoldFoxMaxNum = LoadGameData.Instance.miniGameDatas["game2monser_gfennec"].value6;
+        huntGoldFoxSpeed = GameData("game2monser_gfennec").Velocity;
+        huntGoldFoxRes = GameData("game2monser_gfennec").GetAmount1;
+        huntGoldFoxPer = GameData("game2monser_gfennec").Probability * 100;
+        huntGoldFoxHP = GameData("game2monser_gfennec").value1;
+        huntGoldFoxAngrySpeed = GameData("game2monser_gfennec").value2;
+        huntGoldFoxMaxNum = GameData("game2monser_gfennec").value6;
 
         realArrowSpeed = huntArrowSpeed * standardHuntSpeed;
 
@@ -114,10 +114,10 @@ public class Hunt2Manager : MiniGameSetMgr
         realWeaselSpeed = huntWeaselSpeed * standardHuntSpeed;
 
 
-        StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
-        StartPoint2 = new Vector2(StartP2.x * widthScale + transform.position.x , StartP2.y * heightScale + transform.position.y);
-        EndPoint2 = new Vector2(EndP2.x * widthScale + transform.position.x , EndP2.y * heightScale + transform.position.y);
+        StartPoint = ScreenPoint(StartP);
+        EndPoint = ScreenPoint(EndP);
+        StartPoint2 = ScreenPoint(StartP2);
+        EndPoint2 = ScreenPoint(EndP2);
         SpawnCactus();
  }
 
@@ -129,28 +129,28 @@ public class Hunt2Manager : MiniGameSetMgr
             x = Random.Range(transform.position.x + quater-plusmin, transform.position.x + quater+plusmin);
             y = Random.Range(transform.position.y + quater-plusmin, transform.position.y + quater+plusmin);
 
-           CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hunt2").transform)));
+           CacList.Add(Spawn(Cactus, new Vector2(x,y), Quaternion.identity,SpawnContainer("Hunt2")));
         }
         for(int j=0;j<(int)huntCactusNum/4;j++) // +-
         {
             x = Random.Range(transform.position.x + quater-plusmin, transform.position.x + quater+plusmin);
             y = Random.Range(transform.position.y -quater-plusmin, transform.position.y-quater+plusmin);
 
-            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hunt2").transform)));
+            CacList.Add(Spawn(Cactus, new Vector2(x,y), Quaternion.identity,SpawnContainer("Hunt2")));
         }
         for(int j=0;j<(int)huntCactusNum/4;j++) // --
         {
             x = Random.Range(transform.position.x-quater-plusmin, transform.position.x-quater+plusmin);
             y = Random.Range(transform.position.y-quater-plusmin, transform.position.y-quater+plusmin);
 
-            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hunt2").transform)));
+            CacList.Add(Spawn(Cactus, new Vector2(x,y), Quaternion.identity,SpawnContainer("Hunt2")));
         }
         for(int j=0;j<(int)huntCactusNum/4;j++) // -+
         {
             x = Random.Range(transform.position.x-quater-plusmin, transform.position.x-quater+plusmin);
             y = Random.Range(transform.position.y+ quater-plusmin, transform.position.y+ quater+plusmin);
 
-            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hunt2").transform)));
+            CacList.Add(Spawn(Cactus, new Vector2(x,y), Quaternion.identity,SpawnContainer("Hunt2")));
         }
         
     }
@@ -185,91 +185,91 @@ public class Hunt2Manager : MiniGameSetMgr
 
             if(foxNum < huntFoxMaxNum && weaselNum < huntWeaselMaxNum && goldFoxNum < huntGoldFoxMaxNum)
             {
-                if(rnd <= huntGoldFoxPer)
+                if(MiniGameRules.PercentHit(rnd, huntGoldFoxPer))
                 {
                     //Gold fox Spawn
-                    TrackSpawn(Instantiate(GoldFoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(GoldFoxPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     goldFoxNum++;
                 }
-                else if(rnd <= huntFoxPer+huntGoldFoxPer)
+                else if(MiniGameRules.PercentHit(rnd, huntFoxPer+huntGoldFoxPer))
                 {
                     //Fox Spawn
-                    TrackSpawn(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(FoxPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     foxNum++;
                 }
                 else
                 {
                     //Weasel Spawn
-                    TrackSpawn(Instantiate(WeaselPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(WeaselPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     weaselNum++;
                 }
             }
             else if(foxNum < huntFoxMaxNum && weaselNum == huntWeaselMaxNum &&  goldFoxNum == huntGoldFoxMaxNum)
             {
                 //fox
-                TrackSpawn(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                Spawn(FoxPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                 foxNum++;
             }
 
             else if(foxNum == huntFoxMaxNum && weaselNum < huntWeaselMaxNum &&  goldFoxNum == huntGoldFoxMaxNum)
             {
                 //weasel
-                TrackSpawn(Instantiate(WeaselPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                Spawn(WeaselPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                 weaselNum++;
             }
             else if(foxNum == huntFoxMaxNum && weaselNum == huntWeaselMaxNum && goldFoxNum < huntGoldFoxMaxNum)
             {
                 //Gold fox Spawn
-                TrackSpawn(Instantiate(GoldFoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                Spawn(GoldFoxPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                 goldFoxNum++;
             }
             else if(foxNum < huntFoxMaxNum && weaselNum == huntWeaselMaxNum &&  goldFoxNum < huntGoldFoxMaxNum)
             {
-                if(rnd <= huntGoldFoxPer)
+                if(MiniGameRules.PercentHit(rnd, huntGoldFoxPer))
                 {
                     //Gold fox Spawn
-                    TrackSpawn(Instantiate(GoldFoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(GoldFoxPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     goldFoxNum++;
                 }
                 else
                 {
                     //Fox Spawn
-                    TrackSpawn(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(FoxPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     foxNum++;
                 }
             }
             else if(foxNum == huntFoxMaxNum && weaselNum < huntWeaselMaxNum &&  goldFoxNum < huntGoldFoxMaxNum)
             {
-                if(rnd <= huntGoldFoxPer)
+                if(MiniGameRules.PercentHit(rnd, huntGoldFoxPer))
                 {
                     //Gold fox Spawn
-                    TrackSpawn(Instantiate(GoldFoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(GoldFoxPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     goldFoxNum++;
                 }
                 else
                 {
                     //weasel
-                    TrackSpawn(Instantiate(WeaselPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(WeaselPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     weaselNum++;
                 }
             }
             else if(foxNum < huntFoxMaxNum && weaselNum < huntWeaselMaxNum &&  goldFoxNum == huntGoldFoxMaxNum)
             {
-                if(rnd <= huntFoxPer)
+                if(MiniGameRules.PercentHit(rnd, huntFoxPer))
                 {
                     //fox Spawn
-                    TrackSpawn(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(FoxPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     foxNum++;
                 }
                 else
                 {
                     //weasel
-                    TrackSpawn(Instantiate(WeaselPrefab, new Vector2(x,y), Quaternion.identity, GameObject.Find("Hunt2").transform));
+                    Spawn(WeaselPrefab, new Vector2(x,y), Quaternion.identity, SpawnContainer("Hunt2"));
                     weaselNum++;
                 }
             }
 
-            yield return new WaitForSeconds(huntMonsterCoolTime);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(huntMonsterCoolTime));
         }
     }
 

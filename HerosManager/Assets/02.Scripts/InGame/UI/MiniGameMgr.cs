@@ -14,74 +14,134 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
     public Text[] GuideTexts;
     public Text woodText, waterText, meatText, hubText;
 
-    // The original DefineTable has no portal interval. Tune this in the Inspector.
     [SerializeField, Min(1f)] float randomGameInterval = 15f;
-    readonly int[] rewards = new int[5];
-    static readonly string[] ItemCodes =
-        { "Item_Wood", "Item_Water", "Item_Meat", "Item_Hub", "Item_Food" };
-    Coroutine cycleRandomGameCo;
-    bool sessionOpen;
+    private const string PortalFunction = "MG_S3_Rand_Portal";
+    private readonly MiniGameRewardLedger ledger = new MiniGameRewardLedger();
+    private readonly Dictionary<string, MiniGameInfo> catalog = new Dictionary<string, MiniGameInfo>(StringComparer.Ordinal);
+    private readonly Dictionary<GameObject, MiniGameSetMgr> controllers = new Dictionary<GameObject, MiniGameSetMgr>();
+    private readonly List<GameObject> activatedAncestors = new List<GameObject>();
+    private Coroutine cycleRandomGameCo;
+    private bool closing;
 
     void Start()
     {
-        ExitBtn.onClick.AddListener(CloseMiniGame);
+        if (ExitBtn != null)
+            ExitBtn.onClick.AddListener(CloseMiniGame);
     }
 
     public void Setup(string _code)
     {
-        if (!LoadGameData.Instance.collectSpaceDatas.TryGetValue(_code, out var data))
+        if (closing || ledger.IsOpen)
+            return;
+        if (string.IsNullOrEmpty(_code) || !LoadGameData.Instance.collectSpaceDatas.TryGetValue(_code, out var data))
         {
-            Debug.LogError($"Unknown collecting area: {_code}");
+            Debug.LogError($"Unknown collecting area: {_code}", this);
             return;
         }
-        if (sessionOpen)
+        if (MiniGamePanelBack == null || MiniGamePanel == null || !BuildCatalog())
+        {
+            Debug.LogError("Minigame panel or game configuration is incomplete.", this);
             return;
+        }
+        List<CollectSpaceData> candidates = null;
+        if (data.FunctionID == PortalFunction)
+        {
+            candidates = PortalCandidates();
+            if (candidates.Count == 0)
+            {
+                Debug.LogWarning("No configured minigame pairs are available for the portal.", this);
+                return;
+            }
+        }
+        else if (!CanShowPair(data))
+        {
+            Debug.LogWarning($"Collecting area {_code} has an unavailable minigame or slot.", this);
+            return;
+        }
 
         StopRandomCycle();
-        Array.Clear(rewards, 0, rewards.Length);
         HideGames();
-        sessionOpen = true;
+        ledger.Begin();
         InGameMgr.Instance.state = State.MiniGame;
         MiniGamePanelBack.SetActive(true);
         MiniGamePanel.SetActive(true);
-
-        if (data.FunctionID == "MG_S3_Rand_Portal")
-            cycleRandomGameCo = StartCoroutine(CycleRandomGameCo());
-        else
-        {
-            ShowGame(data.MiniGameID1, data.MiniGameHelpStringID1, 0);
-            ShowGame(data.MiniGameID2, data.MiniGameHelpStringID2, 1);
-        }
+        if (candidates != null)
+            cycleRandomGameCo = StartCoroutine(CycleRandomGameCo(candidates));
+        else if (!ShowPair(data))
+            CancelSession();
         SetItemText();
     }
 
-    MiniGameInfo FindGame(string code)
+    private bool BuildCatalog()
     {
-        if (string.IsNullOrEmpty(code) || code == "-1" || miniGames == null)
-            return null;
-        return Array.Find(miniGames, game => game != null && game.code == code && game.obj != null);
+        catalog.Clear();
+        controllers.Clear();
+        if (miniGames == null)
+            return false;
+        foreach (MiniGameInfo game in miniGames)
+        {
+            if (game == null || IsEmptyCode(game.code) || game.obj == null)
+                continue;
+            if (!catalog.TryAdd(game.code, game))
+            {
+                Debug.LogError($"Duplicate minigame code: {game.code}", this);
+                return false;
+            }
+            var found = game.obj.GetComponentsInChildren<MiniGameSetMgr>(true);
+            if (found.Length != 1)
+            {
+                Debug.LogWarning($"Minigame {game.code} requires exactly one controller.", game.obj);
+                continue;
+            }
+            controllers[game.obj] = found[0];
+        }
+        return catalog.Count > 0;
     }
 
-    void ShowGame(string code, string helpCode, int slot)
+    private static bool IsEmptyCode(string code) => string.IsNullOrWhiteSpace(code) || code == "-1";
+
+    private bool CanShow(string code, int slot)
     {
-        if (string.IsNullOrEmpty(code) || code == "-1")
-            return;
-        var game = FindGame(code);
-        if (game == null || minigamePlaceTrans == null || slot >= minigamePlaceTrans.Length ||
-            minigamePlaceTrans[slot] == null)
+        return IsEmptyCode(code) || (catalog.TryGetValue(code, out var game) && controllers.ContainsKey(game.obj) &&
+            minigamePlaceTrans != null && slot < minigamePlaceTrans.Length && minigamePlaceTrans[slot] != null);
+    }
+
+    private bool CanShowPair(CollectSpaceData data)
+    {
+        if (!CanShow(data.MiniGameID1, 0) || !CanShow(data.MiniGameID2, 1))
+            return false;
+        if (IsEmptyCode(data.MiniGameID1))
+            return !IsEmptyCode(data.MiniGameID2);
+        if (IsEmptyCode(data.MiniGameID2))
+            return true;
+        return catalog[data.MiniGameID1].obj != catalog[data.MiniGameID2].obj;
+    }
+
+    private bool ShowPair(CollectSpaceData data)
+    {
+        try
         {
-            Debug.LogWarning($"Minigame {code} is not configured for slot {slot}.");
-            return;
+            ShowGame(data.MiniGameID1, data.MiniGameHelpStringID1, 0);
+            ShowGame(data.MiniGameID2, data.MiniGameHelpStringID2, 1);
+            return true;
         }
-        var controller = game.obj.GetComponentInChildren<MiniGameSetMgr>(true);
-        if (controller == null)
+        catch (Exception exception)
         {
-            Debug.LogError($"Minigame {code} has no MiniGameSetMgr.");
-            return;
+            Debug.LogException(exception, this);
+            return false;
         }
+    }
+
+    private void ShowGame(string code, string helpCode, int slot)
+    {
+        if (IsEmptyCode(code))
+            return;
+        MiniGameInfo game = catalog[code];
         game.obj.transform.position = minigamePlaceTrans[slot].position;
-        game.obj.SetActive(true);
-        controller.SetUp();
+        MiniGameReferences.ActivateWithin(game.obj, MiniGamePanel.transform, activatedAncestors);
+        if (!controllers[game.obj].isActiveAndEnabled)
+            throw new InvalidOperationException($"Minigame {code} has an inactive controller.");
+        controllers[game.obj].SetUp();
         if (GuideTexts != null && slot < GuideTexts.Length && GuideTexts[slot] != null)
         {
             GuideTexts[slot].text = LoadGameData.Instance.GetString(helpCode);
@@ -89,85 +149,106 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         }
     }
 
-    void HideGames()
+    private void HideGames()
     {
         if (miniGames != null)
-            foreach (var game in miniGames)
+            foreach (MiniGameInfo game in miniGames)
                 if (game != null && game.obj != null)
                     game.obj.SetActive(false);
+        for (int index = activatedAncestors.Count - 1; index >= 0; index--)
+            if (activatedAncestors[index] != null)
+                activatedAncestors[index].SetActive(false);
+        activatedAncestors.Clear();
         if (GuideTexts != null)
-            foreach (var guide in GuideTexts)
+            foreach (Text guide in GuideTexts)
                 if (guide != null)
                     guide.gameObject.SetActive(false);
     }
 
-    void SetItemText()
+    private void SetItemText()
     {
-        if (woodText != null) woodText.text = rewards[0].ToString();
-        if (waterText != null) waterText.text = rewards[1].ToString();
-        if (meatText != null) meatText.text = rewards[2].ToString();
-        if (hubText != null) hubText.text = rewards[3].ToString();
+        if (woodText != null) woodText.text = ledger[0].ToString();
+        if (waterText != null) waterText.text = ledger[1].ToString();
+        if (meatText != null) meatText.text = ledger[2].ToString();
+        if (hubText != null) hubText.text = ledger[3].ToString();
     }
 
-    IEnumerator CycleRandomGameCo()
+    private List<CollectSpaceData> PortalCandidates()
     {
         var candidates = new List<CollectSpaceData>();
-        foreach (var area in LoadGameData.Instance.collectSpaceDatas.Values)
-        {
-            if (area.FunctionID != "MG_S3_Rand_Portal" &&
-                area.MiniGameID1 != area.MiniGameID2 &&
-                FindGame(area.MiniGameID1) != null && FindGame(area.MiniGameID2) != null)
+        foreach (CollectSpaceData area in LoadGameData.Instance.collectSpaceDatas.Values)
+            if (area.FunctionID != PortalFunction && !IsEmptyCode(area.MiniGameID1) &&
+                !IsEmptyCode(area.MiniGameID2) && CanShowPair(area))
                 candidates.Add(area);
-        }
-        if (candidates.Count == 0)
-        {
-            Debug.LogWarning("No configured minigame pairs are available for the portal.");
-            yield break;
-        }
-        while (sessionOpen)
+        return candidates;
+    }
+
+    private IEnumerator CycleRandomGameCo(List<CollectSpaceData> candidates)
+    {
+        while (ledger.IsOpen)
         {
             HideGames();
             var area = candidates[UnityEngine.Random.Range(0, candidates.Count)];
-            ShowGame(area.MiniGameID1, area.MiniGameHelpStringID1, 0);
-            ShowGame(area.MiniGameID2, area.MiniGameHelpStringID2, 1);
-            yield return new WaitForSeconds(Mathf.Max(1f, randomGameInterval));
+            if (!ShowPair(area))
+            {
+                CancelSession();
+                yield break;
+            }
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(randomGameInterval, 1f));
         }
     }
 
     public void AddTempItem(string _item1Code, int _amount1)
     {
-        if (!sessionOpen)
-            return;
-        int index = Array.IndexOf(ItemCodes, _item1Code);
-        if (index < 0)
-            return;
-        rewards[index] = (int)Math.Max(0L, Math.Min(int.MaxValue, (long)rewards[index] + _amount1));
-        SetItemText();
+        if (ledger.Add(_item1Code, _amount1))
+            SetItemText();
     }
 
     public void CloseMiniGame()
     {
-        if (!sessionOpen)
+        if (closing || !ledger.TryComplete(out int[] rewards))
             return;
-        // Consume the session before callbacks or deactivation can close it again.
-        sessionOpen = false;
-        StopRandomCycle();
-        ItemManager.Instance.AddItem(rewards[0], rewards[1], rewards[2], rewards[3], rewards[4]);
-        Array.Clear(rewards, 0, rewards.Length);
-        HideGames();
-        MiniGamePanelBack.SetActive(false);
-        MiniGamePanel.SetActive(false);
-        if (InGameMgr.Instance.state == State.MiniGame)
-            InGameMgr.Instance.state = State.Camp;
-
-        if (GatheringManager.Instance.isFirst)
+        closing = true;
+        try
         {
-            GatheringManager.Instance.isFirst = false;
-            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Camp_1");
+            // End UI/producers first. Callbacks cannot pay or reopen this session twice.
+            StopRandomCycle();
+            HideGames();
+            if (MiniGamePanelBack != null) MiniGamePanelBack.SetActive(false);
+            if (MiniGamePanel != null) MiniGamePanel.SetActive(false);
+            RestoreCampState();
+            SetItemText();
+            ItemManager.Instance.AddItem(rewards[0], rewards[1], rewards[2], rewards[3], rewards[4]);
+            if (GatheringManager.IsCreateInstance() && GatheringManager.Instance.isFirst)
+            {
+                GatheringManager.Instance.isFirst = false;
+                TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Camp_1");
+            }
         }
+        finally { closing = false; }
     }
 
-    void StopRandomCycle()
+    private void CancelSession()
+    {
+        ledger.Cancel();
+        StopRandomCycle();
+        HideGames();
+        if (MiniGamePanelBack != null) MiniGamePanelBack.SetActive(false);
+        if (MiniGamePanel != null) MiniGamePanel.SetActive(false);
+        RestoreCampState();
+        SetItemText();
+    }
+
+    private static void RestoreCampState()
+    {
+        if (!InGameMgr.IsCreateInstance())
+            return;
+        var inGame = InGameMgr.Instance;
+        if (inGame != null && inGame.state == State.MiniGame)
+            inGame.state = State.Camp;
+    }
+
+    private void StopRandomCycle()
     {
         if (cycleRandomGameCo == null)
             return;
@@ -177,7 +258,16 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
 
     void OnDisable()
     {
-        StopRandomCycle();
+        // Scene teardown discards only uncommitted session rewards.
+        if (!closing)
+            CancelSession();
+    }
+
+    protected override void OnDestroy()
+    {
+        if (ExitBtn != null)
+            ExitBtn.onClick.RemoveListener(CloseMiniGame);
+        base.OnDestroy();
     }
 }
 

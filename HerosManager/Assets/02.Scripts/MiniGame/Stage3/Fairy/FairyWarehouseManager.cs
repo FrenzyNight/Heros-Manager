@@ -58,32 +58,32 @@ public class FairyWarehouseManager : MiniGameSetMgr
     {
         base.SetUp();
         
-        fwTreasure1ResMeat = LoadGameData.Instance.miniGameDatas["game3treasure1"].GetAmount1;
-        fwTreasure1ResHub = LoadGameData.Instance.miniGameDatas["game3treasure1"].GetAmount2;
-        fwTreasure1CoolTime = LoadGameData.Instance.miniGameDatas["game3treasure1"].CoolTime;
-        fwTreasure1GetTime = LoadGameData.Instance.miniGameDatas["game3treasure1"].value1;
+        fwTreasure1ResMeat = GameData("game3treasure1").GetAmount1;
+        fwTreasure1ResHub = GameData("game3treasure1").GetAmount2;
+        fwTreasure1CoolTime = GameData("game3treasure1").CoolTime;
+        fwTreasure1GetTime = GameData("game3treasure1").value1;
 
-        fwTreasure2ResMeat= LoadGameData.Instance.miniGameDatas["game3treasure2"].GetAmount1;
-        fwTreasure2ResHub= LoadGameData.Instance.miniGameDatas["game3treasure2"].GetAmount2;
-        fwTreasure2CoolTime= LoadGameData.Instance.miniGameDatas["game3treasure2"].CoolTime;
-        fwTreasure2GetTime = LoadGameData.Instance.miniGameDatas["game3treasure2"].value1;
+        fwTreasure2ResMeat= GameData("game3treasure2").GetAmount1;
+        fwTreasure2ResHub= GameData("game3treasure2").GetAmount2;
+        fwTreasure2CoolTime= GameData("game3treasure2").CoolTime;
+        fwTreasure2GetTime = GameData("game3treasure2").value1;
 
-        fwTreasure3ResMeat= LoadGameData.Instance.miniGameDatas["game3treasure3"].GetAmount1;
-        fwTreasure3ResHub= LoadGameData.Instance.miniGameDatas["game3treasure3"].GetAmount2;
-        fwTreasure3CoolTime= LoadGameData.Instance.miniGameDatas["game3treasure3"].CoolTime;
-        fwTreasure3GetTime = LoadGameData.Instance.miniGameDatas["game3treasure3"].value1;
+        fwTreasure3ResMeat= GameData("game3treasure3").GetAmount1;
+        fwTreasure3ResHub= GameData("game3treasure3").GetAmount2;
+        fwTreasure3CoolTime= GameData("game3treasure3").CoolTime;
+        fwTreasure3GetTime = GameData("game3treasure3").value1;
 
-        fwLaySpeed= LoadGameData.Instance.miniGameDatas["game3Lay"].Velocity;
+        fwLaySpeed= GameData("game3Lay").Velocity;
 
-        fwFairy1Speed= LoadGameData.Instance.miniGameDatas["game3fairy1"].Velocity;
+        fwFairy1Speed= GameData("game3fairy1").Velocity;
 
-        fwFairy2Speed= LoadGameData.Instance.miniGameDatas["game3fairy2"].Velocity;
+        fwFairy2Speed= GameData("game3fairy2").Velocity;
 
-        fwFairy3Speed= LoadGameData.Instance.miniGameDatas["game3fairy3"].Velocity;
+        fwFairy3Speed= GameData("game3fairy3").Velocity;
 
-        fwFairyLeftTime= LoadGameData.Instance.miniGameDatas["game3fairy1"].value1;
-        fwFairyRightTime= LoadGameData.Instance.miniGameDatas["game3fairy1"].value2;
-        fwFairyFrontTime= LoadGameData.Instance.miniGameDatas["game3fairy1"].value3;
+        fwFairyLeftTime= GameData("game3fairy1").value1;
+        fwFairyRightTime= GameData("game3fairy1").value2;
+        fwFairyFrontTime= GameData("game3fairy1").value3;
 
         //real
 
@@ -96,9 +96,9 @@ public class FairyWarehouseManager : MiniGameSetMgr
         isTreasure2 = true;
         isTreasure3 = true;
 
-        TrackSpawn(Instantiate(Treasure1Prefab, new Vector2(tp1.x * widthScale, tp1.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
-        TrackSpawn(Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
-        TrackSpawn(Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
+        Spawn(Treasure1Prefab, ScreenPoint(tp1), Quaternion.identity, SpawnContainer("FairyWarehouse"));
+        Spawn(Treasure2Prefab, ScreenPoint(tp2), Quaternion.identity, SpawnContainer("FairyWarehouse"));
+        Spawn(Treasure3Prefab, ScreenPoint(tp3), Quaternion.identity, SpawnContainer("FairyWarehouse"));
             
         }
 
@@ -147,20 +147,20 @@ public class FairyWarehouseManager : MiniGameSetMgr
         if(boxNum == 1)
         {
             isTreasure1 = true;
-            yield return new WaitForSeconds(fwTreasure1CoolTime);
-            TrackSpawn(Instantiate(Treasure1Prefab, new Vector2(tp1.x * widthScale, tp1.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(fwTreasure1CoolTime));
+            Spawn(Treasure1Prefab, ScreenPoint(tp1), Quaternion.identity, SpawnContainer("FairyWarehouse"));
         }
         else if(boxNum == 2)
         {
             isTreasure2 = true;
-            yield return new WaitForSeconds(fwTreasure2CoolTime);
-            TrackSpawn(Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(fwTreasure2CoolTime));
+            Spawn(Treasure2Prefab, ScreenPoint(tp2), Quaternion.identity, SpawnContainer("FairyWarehouse"));
         }
         else if(boxNum == 3)
         {
             isTreasure3 = true;
-            yield return new WaitForSeconds(fwTreasure3CoolTime);
-            TrackSpawn(Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(fwTreasure3CoolTime));
+            Spawn(Treasure3Prefab, ScreenPoint(tp3), Quaternion.identity, SpawnContainer("FairyWarehouse"));
         }
     }
 

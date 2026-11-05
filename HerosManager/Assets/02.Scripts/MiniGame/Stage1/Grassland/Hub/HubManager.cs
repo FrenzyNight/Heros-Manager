@@ -36,25 +36,23 @@ public class HubManager : MiniGameSetMgr
     {
         base.SetUp();
         
-        Hub.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        GoldHub.GetComponent<MiniGameObjectMgr>().manager = gameObject;
         
-        hubCharSpeed = LoadGameData.Instance.miniGameDatas["game1hub_normal"].value1;
-        hubCoolTime = LoadGameData.Instance.miniGameDatas["game1hub_normal"].CoolTime;
-        hubGetTime = LoadGameData.Instance.miniGameDatas["game1hub_normal"].value3;
+        hubCharSpeed = GameData("game1hub_normal").value1;
+        hubCoolTime = GameData("game1hub_normal").CoolTime;
+        hubGetTime = GameData("game1hub_normal").value3;
         
-        hubGoldPer = LoadGameData.Instance.miniGameDatas["game1hub_gold"].Probability * 100;
-        hubGoldRes = (int)LoadGameData.Instance.miniGameDatas["game1hub_gold"].GetAmount1;
+        hubGoldPer = GameData("game1hub_gold").Probability * 100;
+        hubGoldRes = (int)GameData("game1hub_gold").GetAmount1;
         
-        hubNormalRes = (int)LoadGameData.Instance.miniGameDatas["game1hub_normal"].GetAmount1;
-        hubSpanTime = LoadGameData.Instance.miniGameDatas["game1hub_normal"].value2;
+        hubNormalRes = (int)GameData("game1hub_normal").GetAmount1;
+        hubSpanTime = GameData("game1hub_normal").value2;
 
-        item1ID = LoadGameData.Instance.miniGameDatas["game1hub_normal"].GetItemID1;
+        item1ID = GameData("game1hub_normal").GetItemID1;
         
         realHubCharSpeed = standardHubSpeed * hubCharSpeed;
 
-        StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
+        StartPoint = ScreenPoint(StartP);
+        EndPoint = ScreenPoint(EndP);
 
         StartGame();
     }
@@ -75,16 +73,16 @@ public class HubManager : MiniGameSetMgr
             y = Random.Range(StartPoint.y, EndPoint.y);
 
             rnd = Random.Range(1, 101);
-            if(rnd <= hubGoldPer)
+            if(MiniGameRules.PercentHit(rnd, hubGoldPer))
             {
-                TrackSpawn(Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,mother.transform));
+                Spawn(GoldHub, new Vector2(x,y), Quaternion.identity);
             }
             else
             {
-                TrackSpawn(Instantiate(Hub, new Vector2(x,y), Quaternion.identity,mother.transform));
+                Spawn(Hub, new Vector2(x,y), Quaternion.identity);
             }
             
-            yield return new WaitForSeconds(hubCoolTime);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(hubCoolTime));
         }
     }
 

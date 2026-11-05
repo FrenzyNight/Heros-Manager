@@ -38,16 +38,16 @@ public class MagicSpringManager : MiniGameSetMgr
         base.SetUp();
         isCommand = false;
 
-        msSpringRes = LoadGameData.Instance.miniGameDatas["game3MagicWell"].GetAmount1;
-        msSpringWaterTime = LoadGameData.Instance.miniGameDatas["game3MagicWell"].value1;
-        msSpringGraceTime = LoadGameData.Instance.miniGameDatas["game3MagicWell"].value3;
-        msSpringJewelTime = LoadGameData.Instance.miniGameDatas["game3MagicWell"].value2;
+        msSpringRes = GameData("game3MagicWell").GetAmount1;
+        msSpringWaterTime = GameData("game3MagicWell").value1;
+        msSpringGraceTime = GameData("game3MagicWell").value3;
+        msSpringJewelTime = GameData("game3MagicWell").value2;
 
-        msAlterMinTime = LoadGameData.Instance.miniGameDatas["game3Altar1"].value1;
-        msAlterMaxTime = LoadGameData.Instance.miniGameDatas["game3Altar1"].value2;
+        msAlterMinTime = GameData("game3Altar1").value1;
+        msAlterMaxTime = GameData("game3Altar1").value2;
 
-        msKeyPadNum = LoadGameData.Instance.miniGameDatas["game3KeyPad"].value3;
-        msKeyPadStun = LoadGameData.Instance.miniGameDatas["game3KeyPad"].Stun;
+        msKeyPadNum = GameData("game3KeyPad").value3;
+        msKeyPadStun = GameData("game3KeyPad").Stun;
 
     }
 

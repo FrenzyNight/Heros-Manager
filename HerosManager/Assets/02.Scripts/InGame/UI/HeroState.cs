@@ -39,7 +39,7 @@ public class HeroState : MonoBehaviour
     {
         isSlide = false;
 
-        button.onClick.AddListener(() => { Slide(); });
+        button.onClick.AddListener(Slide);
     }
 
     public void Setup(HeroData _heroData)
@@ -137,11 +137,18 @@ public class HeroState : MonoBehaviour
 
     public void Slide()
     {
+        transform.DOKill();
         if (isSlide)
-            this.transform.DOLocalMoveX(30, 1f).SetUpdate(true).SetEase(Ease.OutQuad);
+            this.transform.DOLocalMoveX(30, 1f).SetUpdate(true).SetEase(Ease.OutQuad).SetLink(gameObject);
         else
-            this.transform.DOLocalMoveX(-121, 1f).SetUpdate(true).SetEase(Ease.OutQuad);
+            this.transform.DOLocalMoveX(-121, 1f).SetUpdate(true).SetEase(Ease.OutQuad).SetLink(gameObject);
 
         isSlide = !isSlide;
+    }
+
+    void OnDestroy()
+    {
+        if (button != null) button.onClick.RemoveListener(Slide);
+        transform.DOKill();
     }
 }

@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('Project', 'Save', 'Play', 'Build', 'Upgrade')]
+    [ValidateSet('Project', 'Rules', 'Save', 'Play', 'Build', 'Upgrade')]
     [string]$Check = 'Project',
     [string]$UnityPath = 'C:\Program Files\Unity\Hub\Editor\6000.4.7f1\Editor\Unity.exe'
 )
@@ -11,6 +11,7 @@ if (-not (Test-Path -LiteralPath $UnityPath -PathType Leaf)) {
 }
 $methods = @{
     Project = 'MigrationValidation.Validate'
+    Rules = 'GameplayRulesValidation.Run'
     Save = 'SaveStorageValidation.Run'
     Play = 'MigrationPlaySmoke.Run'
     Build = 'MigrationValidation.BuildWindows'
@@ -21,7 +22,7 @@ New-Item -ItemType Directory -Force -Path $logDirectory | Out-Null
 $logPath = Join-Path $logDirectory "validation-$($Check.ToLowerInvariant()).log"
 $unityArguments = @('-batchmode', '-projectPath', "`"$projectPath`"", '-executeMethod', $methods[$Check], '-logFile', "`"$logPath`"")
 if ($Check -ne 'Play') { $unityArguments += '-quit' }
-if ($Check -in @('Project', 'Save')) { $unityArguments += '-nographics' }
+if ($Check -in @('Project', 'Rules', 'Save')) { $unityArguments += '-nographics' }
 $process = Start-Process -FilePath $UnityPath -ArgumentList $unityArguments -WindowStyle Hidden -PassThru -Wait
 Write-Output "Unity exit code: $($process.ExitCode). Log: $logPath"
 if ($process.ExitCode -ne 0) { throw "$Check validation failed. See $logPath" }

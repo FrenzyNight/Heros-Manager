@@ -51,37 +51,19 @@ public class InGameMgr : Singleton<InGameMgr>
 
     void LoadStageData()
     {
-        stageData = null;
-        foreach (var data in LoadGameData.Instance.stageDatas)
+        if (!LoadGameData.Instance.Catalog.TryGetStage(stage, out stageData))
         {
-            if (data.Value.Index == stage)
-            {
-                stageData = data.Value;
-                break;
-            }
-        }
-
-        if (stageData == null)
-        {
-            Debug.LogError("StageData is Null");
-            return;
+            Debug.LogError($"No configured stage for index {stage}.", this);
+            enabled = false;
         }
     }
 
     public void NextStage()
     {
-        StageData nextStage = null;
-        foreach (var entry in LoadGameData.Instance.stageDatas.Values)
-            if (entry.Index == stage + 1)
-                nextStage = entry;
-
-        if (nextStage == null)
+        if (IsComplete) return;
+        if (!LoadGameData.Instance.Catalog.TryGetNextStage(stage, out var nextStage))
         {
-            IsComplete = true;
-            Clock.Instance.isStop = true;
-            Debug.Log("The final configured stage is complete.");
-            if (pause != null)
-                pause.PauseBtn();
+            CompleteGame();
             return;
         }
         stage = nextStage.Index;
@@ -89,16 +71,26 @@ public class InGameMgr : Singleton<InGameMgr>
         NextStageAct?.Invoke();
     }
 
+    public void CompleteGame()
+    {
+        if (IsComplete) return;
+        IsComplete = true;
+        Clock.Instance.isStop = true;
+        Debug.Log("The final configured stage is complete.");
+        if (pause != null) pause.PauseBtn();
+    }
+
     public void SaveStageData()
     {
-        SaveGameData savegameData = SaveDataManager.Instance.saveGameData;
+        SaveGameData savegameData = SaveDataManager.Instance.CaptureGameData();
         savegameData.stage = stage;
         savegameData.day = Clock.Instance.day;
         savegameData.items = ItemManager.Instance.CaptureItems();
         HeroStateManager.Instance.CaptureStats(savegameData);
         savegameData.fenceLevel = FenceMgr.Instance.fenceLevel;
+        EventMgr.Instance.CapturePendingEvents(savegameData);
 
-        SaveDataManager.Instance.TrySaveGameDatas();
+        SaveDataManager.Instance.TrySaveGameSnapshot(savegameData);
     }
 
     void Update()

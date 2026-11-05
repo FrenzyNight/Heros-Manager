@@ -9,7 +9,7 @@ public class Hub2Cactus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("Hub2Manager").GetComponent<Hub2Manager>();
+        HM = MiniGameReferences.Manager<Hub2Manager>(this);
     }
 
     void OnTriggerStay2D(Collider2D collision)

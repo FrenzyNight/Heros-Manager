@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GatheringManager : Singleton<GatheringManager>
@@ -15,12 +17,15 @@ public class GatheringManager : Singleton<GatheringManager>
     public Transform[] gatheringPlaceTrans;
 
     IEnumerator gathering4Co;
+    InGameMgr stageOwner;
+    readonly List<KeyValuePair<Button, UnityAction>> areaListeners = new List<KeyValuePair<Button, UnityAction>>();
     [HideInInspector] public bool isFirst;
     [HideInInspector] public bool isMini;
 
     void Start()
     {
-        InGameMgr.Instance.NextStageAct += LoadStageGathering;
+        stageOwner = InGameMgr.Instance;
+        stageOwner.NextStageAct += LoadStageGathering;
 
         isFirst = true;
         isMini = false;
@@ -30,10 +35,13 @@ public class GatheringManager : Singleton<GatheringManager>
         for (int i = 0; i < gatheringObjs.Length; i++)
         {
             int idx = i;
-            gatheringObjs[i].obj.GetComponent<Button>().onClick.AddListener(() =>
+            Button button = gatheringObjs[i].obj.GetComponent<Button>();
+            UnityAction listener = () =>
             {
                 StartMiniGame(gatheringObjs[idx].code);
-            });
+            };
+            button.onClick.AddListener(listener);
+            areaListeners.Add(new KeyValuePair<Button, UnityAction>(button, listener));
         }
 
         NoticeText.text = LoadGameData.Instance.GetString("MG_a1");
@@ -43,6 +51,11 @@ public class GatheringManager : Singleton<GatheringManager>
 
     void LoadStageGathering()
     {
+        if (gathering4Co != null)
+        {
+            StopCoroutine(gathering4Co);
+            gathering4Co = null;
+        }
         CollectData collectData;
         collectData = LoadGameData.Instance.collectDatas[InGameMgr.Instance.stageData.CollectID];
 
@@ -51,45 +64,16 @@ public class GatheringManager : Singleton<GatheringManager>
             gatheringObjs[i].obj.SetActive(false);
         }
 
-        GatheringObject gatherObj;
-        if (collectData.CollectSpaceID1 != "-1")
-        {
-            gatherObj = Array.Find(gatheringObjs, x => x.code == collectData.CollectSpaceID1);
-            gatherObj.obj.SetActive(true);
-            gatherObj.obj.transform.position = gatheringPlaceTrans[0].position;
-            gatherObj.obj.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString(collectData.StringID1);
-        }
-        if (collectData.CollectSpaceID2 != "-1")
-        {
-            gatherObj = Array.Find(gatheringObjs, x => x.code == collectData.CollectSpaceID2);
-            gatherObj.obj.SetActive(true);
-            gatherObj.obj.transform.position = gatheringPlaceTrans[1].position;
-            gatherObj.obj.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString(collectData.StringID2);
-        }
-        if (collectData.CollectSpaceID3 != "-1")
-        {
-            gatherObj = Array.Find(gatheringObjs, x => x.code == collectData.CollectSpaceID3);
-            gatherObj.obj.SetActive(true);
-            gatherObj.obj.transform.position = gatheringPlaceTrans[2].position;
-            gatherObj.obj.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString(collectData.StringID3);
-        }
+        ShowArea(collectData.CollectSpaceID1, collectData.StringID1, 0);
+        ShowArea(collectData.CollectSpaceID2, collectData.StringID2, 1);
+        ShowArea(collectData.CollectSpaceID3, collectData.StringID3, 2);
 
         if (collectData.RanPos == 0)
         {
-            if (collectData.CollectSpaceID4 != "-1")
-            {
-                gatherObj = Array.Find(gatheringObjs, x => x.code == collectData.CollectSpaceID4);
-                gatherObj.obj.SetActive(true);
-                gatherObj.obj.transform.position = gatheringPlaceTrans[3].position;
-                gatherObj.obj.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString(collectData.StringID4);
-            }
+            ShowArea(collectData.CollectSpaceID4, collectData.StringID4, 3);
         }
         else
         {
-            if (gathering4Co != null)
-            {
-                StopCoroutine(gathering4Co);
-            }
             gathering4Co = Gathering4Co(collectData);
             StartCoroutine(gathering4Co);
         }
@@ -101,26 +85,44 @@ public class GatheringManager : Singleton<GatheringManager>
 
         yield return new WaitForSeconds(rand);
 
-        GatheringObject gatherObj;
-        gatherObj = Array.Find(gatheringObjs, x => x.code == _collectData.CollectSpaceID4);
-        gatherObj.obj.SetActive(true);
-        gatherObj.obj.transform.position = gatheringPlaceTrans[3].position;
-        gatherObj.obj.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString(_collectData.StringID4);
-        Notice.Instance.InstNoticeText("--");
+        var gatherObj = ShowArea(_collectData.CollectSpaceID4, _collectData.StringID4, 3);
+        if (gatherObj == null)
+            yield break;
+        Notice.Instance.InstNoticeText(LoadGameData.Instance.GetString(_collectData.StringID4));
 
         yield return new WaitForSeconds(_collectData.ContinueTime);
 
         gatherObj.obj.SetActive(false);
+        gathering4Co = null;
+    }
+
+    GatheringObject ShowArea(string code, string label, int slot)
+    {
+        if (string.IsNullOrEmpty(code) || code == "-1")
+            return null;
+        var area = Array.Find(gatheringObjs, entry => entry != null && entry.code == code);
+        if (area == null || area.obj == null || slot >= gatheringPlaceTrans.Length || gatheringPlaceTrans[slot] == null)
+        {
+            Debug.LogWarning($"Collecting area {code} has no configured object or slot {slot}.", this);
+            return null;
+        }
+        area.obj.transform.position = gatheringPlaceTrans[slot].position;
+        area.obj.SetActive(true);
+        area.obj.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString(label);
+        return area;
     }
 
     public void Setup()
     {
+        isMini = false;
         InGameMgr.Instance.state = State.Gathering;
         GatheringPanel.SetActive(true);
     }
 
     void StartMiniGame(string _code)
     {
+        if (!GatheringPanel.activeSelf)
+            return;
         isMini = true;
         CloseGatheringPannel();
 
@@ -129,7 +131,10 @@ public class GatheringManager : Singleton<GatheringManager>
 
     public void CloseGatheringPannel()
     {
-        InGameMgr.Instance.state = State.Camp;
+        if (!GatheringPanel.activeSelf)
+            return;
+        if (InGameMgr.Instance.state == State.Gathering)
+            InGameMgr.Instance.state = State.Camp;
         GatheringPanel.SetActive(false);
 
         if (isFirst && !isMini)
@@ -137,6 +142,16 @@ public class GatheringManager : Singleton<GatheringManager>
             isFirst = false;
             TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Camp_1");
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        if (stageOwner != null) stageOwner.NextStageAct -= LoadStageGathering;
+        if (GatheringBtn != null) GatheringBtn.onClick.RemoveListener(Setup);
+        if (ExitBtn != null) ExitBtn.onClick.RemoveListener(CloseGatheringPannel);
+        foreach (var listener in areaListeners)
+            if (listener.Key != null) listener.Key.onClick.RemoveListener(listener.Value);
+        base.OnDestroy();
     }
 }
 

@@ -12,7 +12,7 @@ public class LakeHookMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FM = GameObject.Find("LakeFishManager").GetComponent<LakeFishManager>();
+        FM = MiniGameReferences.Manager<LakeFishManager>(this);
         rt = gameObject.GetComponent<RectTransform>();
 
         isHookDown = false;

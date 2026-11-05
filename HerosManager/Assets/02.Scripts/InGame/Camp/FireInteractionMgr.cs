@@ -75,6 +75,8 @@ public class FireInteractionMgr : CampInteractionMgr
         isActive = false;
         activeTime = 0;
         graceTime = 0;
+        stressCnt = 0;
+        audioSource.Stop();
         CampObjMgr.GetComponent<FireMgr>().NonFire();
         AvailableButton();
         ActiveGage.fillAmount = 0;
@@ -85,19 +87,9 @@ public class FireInteractionMgr : CampInteractionMgr
     {
         audioSource = GetComponent<AudioSource>();
         isActive = false;
+        isGrace = false;
         
-        switch(InGameMgr.Instance.stage)
-        {
-            case 1:
-                BonfireID = "Bonfire_S1";
-                break;
-            case 2:
-                BonfireID = "Bonfire_S2";
-                break;
-            case 3:
-                BonfireID = "Bonfire_S3";
-                break;
-        }
+        BonfireID = InGameMgr.Instance.stageData.BonfireID;
 
         NeedItemID = LoadGameData.Instance.bonfireDatas[BonfireID].NeedItemID;
         needAmount = LoadGameData.Instance.bonfireDatas[BonfireID].NeedAmount;
@@ -133,10 +125,8 @@ public class FireInteractionMgr : CampInteractionMgr
 
     public override void ClickButton()
     {
-        if(ItemManager.Instance.GetItemInfo(NeedItemID).num < needAmount)
+        if ((isActive && !isGrace) || !ItemManager.Instance.TrySpend(NeedItemID, needAmount))
             return;
-
-        ItemManager.Instance.AddItem(NeedItemID, -needAmount);
         stressCnt = 0;
         
         GraceGage.sprite = Green;

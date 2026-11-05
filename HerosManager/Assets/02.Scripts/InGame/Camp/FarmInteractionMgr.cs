@@ -77,9 +77,9 @@ public class FarmInteractionMgr : CampInteractionMgr
 
     void Water()
     {
+        if (!ItemManager.Instance.TrySpend(NeedItemID, needAmount))
+            return;
         UnavailableButton();
-
-        ItemManager.Instance.AddItem(NeedItemID, -needAmount);
         isActive = true;
         isGrace = false;
         activeTime = time1;
@@ -87,7 +87,8 @@ public class FarmInteractionMgr : CampInteractionMgr
 
         GraceGage.sprite = Green;
 
-        RepeatGages[farmState].SetActive(true);
+        if (farmState < RepeatGages.Length)
+            RepeatGages[farmState].SetActive(true);
 
         farmState += 1;
 
@@ -97,7 +98,7 @@ public class FarmInteractionMgr : CampInteractionMgr
 
         CampObjMgr.GetComponent<FarmMgr>().OnFarm(farmState);
 
-        if(farmState == 3)
+        if (farmState >= repeat)
         {
             buttonState = 2;
             ButtonImg.sprite = GetHubButton;
@@ -187,18 +188,7 @@ public class FarmInteractionMgr : CampInteractionMgr
         NeedUI.SetActive(false);
         AvailableButton();
 
-        switch(InGameMgr.Instance.stage)
-        {
-            case 1:
-                FieldID = "Field_S1";
-                break;
-            case 2:
-                FieldID = "Field_S2";
-                break;
-            case 3:
-                FieldID = "Field_S3";
-                break;
-        }
+        FieldID = InGameMgr.Instance.stageData.FieldID;
         
         NeedItemID = LoadGameData.Instance.fieldDatas[FieldID].NeedItemID;
         needAmount = LoadGameData.Instance.fieldDatas[FieldID].NeedAmount;
@@ -212,10 +202,13 @@ public class FarmInteractionMgr : CampInteractionMgr
         getItemAmount = LoadGameData.Instance.fieldDatas[FieldID].GetAmount;
 
         StringText.text = needAmount.ToString();
+        ClearTrash();
     }
 
     public override void ClickButton()
     {
+        if (isActive && !isGrace)
+            return;
         switch(buttonState)
         {
             case 0:

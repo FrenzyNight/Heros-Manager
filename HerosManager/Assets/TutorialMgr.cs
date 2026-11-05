@@ -76,20 +76,7 @@ public class TutorialMgr : Singleton<TutorialMgr>
         vol = SaveDataManager.Instance.saveOptionData.EffVolume;
         typingAs.volume = SaveDataManager.Instance.saveOptionData.EffVolume;
         
-        foreach (var obj in LoadGameData.Instance.tutorialDatas)
-        {
-            if (openID == obj.Value.OpenID)
-            {
-                tutoDatas.Add(obj.Value);
-            }
-        }
-        
-        // Index restarts at one for the window section in the existing tables.
-        tutoDatas.Sort((left, right) =>
-        {
-            int section = left.TutorialType.CompareTo(right.TutorialType);
-            return section != 0 ? section : left.Index.CompareTo(right.Index);
-        });
+        tutoDatas.AddRange(LoadGameData.Instance.Catalog.GetTutorials(openID));
         RunTutorial();
     }
 

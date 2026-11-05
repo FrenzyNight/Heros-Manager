@@ -45,28 +45,26 @@ public class LakeFishManager : MiniGameSetMgr
     {
         base.SetUp();
 
-        FishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        GoldFishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
-        fishStunTime = LoadGameData.Instance.miniGameDatas["game2fish_norm"].Stun;
-        fishCoolTime = LoadGameData.Instance.miniGameDatas["game2fish_norm"].CoolTime;
+        fishStunTime = GameData("game2fish_norm").Stun;
+        fishCoolTime = GameData("game2fish_norm").CoolTime;
 
-        fishNormalRes = LoadGameData.Instance.miniGameDatas["game2fish_norm"].GetAmount1;
-        fishNormalSpeed = LoadGameData.Instance.miniGameDatas["game2fish_norm"].Velocity;
+        fishNormalRes = GameData("game2fish_norm").GetAmount1;
+        fishNormalSpeed = GameData("game2fish_norm").Velocity;
 
-        fishGoldRes = LoadGameData.Instance.miniGameDatas["game2fish_gold"].GetAmount1;
-        fishGoldPer = LoadGameData.Instance.miniGameDatas["game2fish_gold"].Probability * 100;
-        fishGoldSpeed = LoadGameData.Instance.miniGameDatas["game2fish_gold"].Velocity;
+        fishGoldRes = GameData("game2fish_gold").GetAmount1;
+        fishGoldPer = GameData("game2fish_gold").Probability * 100;
+        fishGoldSpeed = GameData("game2fish_gold").Velocity;
 
-        fishLineSpeed = LoadGameData.Instance.miniGameDatas["game2fishingline"].Velocity;
-        fishLineCatchSpeedVar = LoadGameData.Instance.miniGameDatas["game2fishingline"].value1;
+        fishLineSpeed = GameData("game2fishingline").Velocity;
+        fishLineCatchSpeedVar = GameData("game2fishingline").value1;
 
         realFishSpeed = standardLakeFishSpeed * fishNormalSpeed;
         realGoldFishSpeed = standardLakeFishSpeed * fishGoldSpeed;
         realFishLineSpeed = standardLakeFishSpeed * fishLineSpeed;
 
-        StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
+        StartPoint = ScreenPoint(StartP);
+        EndPoint = ScreenPoint(EndP);
     }
 
     public void GetFish()
@@ -85,7 +83,7 @@ public class LakeFishManager : MiniGameSetMgr
         while(true)
         {
             rnd = Random.Range(1,101);
-            if(rnd <= fishGoldPer)
+            if(MiniGameRules.PercentHit(rnd, fishGoldPer))
             {
                 Fish = GoldFishPrefab;
             }
@@ -105,7 +103,7 @@ public class LakeFishManager : MiniGameSetMgr
                 spawnPoint = EndPoint;
             }
 
-            obj = TrackSpawn(Instantiate(Fish, new Vector2(spawnPoint.x, spawnPoint.y), Quaternion.identity,GameObject.Find("LakeFish").transform));
+            obj = Spawn(Fish, new Vector2(spawnPoint.x, spawnPoint.y), Quaternion.identity,SpawnContainer("LakeFish"));
 
             if(rnd == 0)
                 obj.GetComponent<LakeFishMove>().SetDir(1);
@@ -113,7 +111,7 @@ public class LakeFishManager : MiniGameSetMgr
             else if(rnd == 1)
                 obj.GetComponent<LakeFishMove>().SetDir(-1);
 
-            yield return new WaitForSeconds(fishCoolTime);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(fishCoolTime));
         }
 
     }

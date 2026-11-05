@@ -12,171 +12,147 @@ public class EventMgr : Singleton<EventMgr>
     public GameObject OptionButtonPrefab;
     public GameObject EventPanel;
     public Text mainText;
-    //public GameObject Fullchar;
-    //public GameObject fullImgObj;
-    //public GameObject HalfChar;
-    //public GameObject topImgObj, botImgObj;
-    //public GameObject Option;
-    //public GameObject[] OptionButtons;
-    //public GameObject OptionResultText;
-
     public Sprite[] itemImgs;
-
-    [HideInInspector]
-    public List<string> EventList = new List<string>();
-
+    [HideInInspector] public List<string> EventList = new List<string>();
     [HideInInspector] public bool isFirstEvent;
-    
-    /*
-    [HideInInspector]
-    public string nextEventID;
-    [HideInInspector]
-    public Image topCharImg, botCharImg;
-    [HideInInspector]
-    public Image fullCharImg;
-    */
-    [HideInInspector]
-    public bool isClicked;
-
-    //DoubleEvent
-
+    [HideInInspector] public bool isClicked;
     public GameObject[] EventPanels;
-    [HideInInspector]
-    public string nextEventID1, nextEventID2;
-
-    public GameObject nextButton;
-    public GameObject prevButton;
-
+    [HideInInspector] public string nextEventID1, nextEventID2;
+    public GameObject nextButton, prevButton;
     public int setedEventNum;
 
-    void Start()
-    {
-        SetUp();
-    }
+    private EventPanel[] panels;
+    private Button eventButton;
+    private int selectedCount;
+    private bool available;
 
-    void SetUp()
+    private void Start()
     {
-        foreach(var evt in LoadGameData.Instance.eventDatas)
-        {
-            if(evt.Value.opentype == 1)
-            {
-                EventList.Add(evt.Value.EventID);
-            }
-        }
-
-        isClicked = false;
+        eventButton = EventButton.GetComponent<Button>();
+        panels = new EventPanel[EventPanels.Length];
+        for (int i = 0; i < panels.Length; i++) panels[i] = EventPanels[i].GetComponent<EventPanel>();
+        RestorePendingEvents(SaveDataManager.Instance.saveGameData);
         isFirstEvent = true;
-        
-        SetEventNumberText();
-        PrevButtonAction();
+        EventButtonDeActive();
+        ShowPage(0);
     }
 
-    public void NextButtonAction()
+    public void RestorePendingEvents(SaveGameData saved)
     {
-        nextButton.SetActive(false);
-        EventPanels[0].SetActive(false);
-        
-        prevButton.SetActive(true);
-        EventPanels[1].SetActive(true);
+        EventList.Clear();
+        var definitions = LoadGameData.Instance.eventDatas;
+        if (saved != null && saved.hasEventSnapshot)
+        {
+            // Empty means exhausted; never reseed a completed queue when continuing.
+            foreach (string id in saved.pendingEventIds ?? System.Array.Empty<string>())
+            {
+                if (!string.IsNullOrEmpty(id) && definitions.ContainsKey(id))
+                {
+                    if (!EventList.Contains(id)) EventList.Add(id);
+                }
+                else Debug.LogWarning($"Saved event '{id}' no longer exists in EventTable.", this);
+            }
+            return;
+        }
+        foreach (var data in definitions.Values)
+            if (data.opentype == 1) EventList.Add(data.EventID);
+        EventList.Sort(System.StringComparer.Ordinal);
     }
 
-    public void PrevButtonAction()
+    /// <summary>Capture the pending queue at the daily checkpoint, before the next day's draw.</summary>
+    public void CapturePendingEvents(SaveGameData snapshot)
     {
-        prevButton.SetActive(false);
-        EventPanels[1].SetActive(false);
-        
-        nextButton.SetActive(true);
-        EventPanels[0].SetActive(true);
+        if (snapshot == null) throw new System.ArgumentNullException(nameof(snapshot));
+        snapshot.hasEventSnapshot = true;
+        snapshot.pendingEventIds = EventList.ToArray();
+    }
+
+    public void NextButtonAction() => ShowPage(1);
+    public void PrevButtonAction() => ShowPage(0);
+
+    private void ShowPage(int index)
+    {
+        for (int i = 0; i < EventPanels.Length; i++)
+            EventPanels[i].SetActive(i == index && i < selectedCount);
+        prevButton.SetActive(index > 0 && selectedCount > 1);
+        nextButton.SetActive(index == 0 && selectedCount > 1);
     }
 
     public void SetEventNumberText()
     {
-        EventNumberText.text = setedEventNum.ToString() + "/2";
+        EventNumberText.text = setedEventNum + "/" + EventPanels.Length;
+        if (eventButton != null) eventButton.interactable = available && selectedCount > 0;
     }
 
-    public void EventButtonActive()
+    public void EventButtonActive() => SetAvailable(true);
+    public void EventButtonDeActive() => SetAvailable(false);
+
+    private void SetAvailable(bool value)
     {
-        EventButton.GetComponent<Button>().interactable = true;
-        Color imgColor = EventNumberImg.color;
-        imgColor.a = 1f;
-
-        Color textColor = EventNumberText.color;
-        textColor.a = 1f;
-
-        EventNumberImg.color = imgColor;
+        available = value;
+        var imageColor = EventNumberImg.color;
+        var textColor = EventNumberText.color;
+        imageColor.a = textColor.a = value ? 1f : 0.5f;
+        EventNumberImg.color = imageColor;
         EventNumberText.color = textColor;
-
-        //EventNumberText.text = "2/2";
-        EventNumberText.text = setedEventNum.ToString() + "/2";
-    }
-
-    public void EventButtonDeActive()
-    {
-        EventButton.GetComponent<Button>().interactable = false;
-        Color imgColor = EventNumberImg.color;
-        imgColor.a = 0.5f;
-
-        Color textColor = EventNumberText.color;
-        textColor.a = 0.5f;
-
-        EventNumberImg.color = imgColor;
-        EventNumberText.color = textColor;
-
-        EventNumberText.text = setedEventNum.ToString() + "/2";
-        //EventNumberText.text = "0/2";
+        SetEventNumberText();
     }
 
     public void ClosePanel()
     {
         EventPanel.SetActive(false);
-        InGameMgr.Instance.state = State.Camp;
+        if (InGameMgr.Instance.state == State.Event) InGameMgr.Instance.state = State.Camp;
     }
 
     public void ChoseEvent()
     {
-        int idx = Random.Range(0, EventList.Count);
-
         isClicked = false;
-        
-        //nextEventID = EventList[idx];
-        //EventList.RemoveAt(idx);
+        selectedCount = Mathf.Min(panels.Length, EventList.Count);
+        for (int i = 0; i < panels.Length; i++)
+        {
+            string id = null;
+            if (i < selectedCount)
+            {
+                int index = Random.Range(0, EventList.Count);
+                id = EventList[index];
+                EventList.RemoveAt(index);
+            }
+            panels[i].nextEventID = id;
+        }
+        nextEventID1 = panels.Length > 0 ? panels[0].nextEventID : null;
+        nextEventID2 = panels.Length > 1 ? panels[1].nextEventID : null;
+        setedEventNum = selectedCount;
+        ShowPage(0);
+        SetEventNumberText();
+    }
 
-        nextEventID1 = EventList[idx];
-        EventList.RemoveAt(idx);
-        
-        idx = Random.Range(0, EventList.Count);
-        nextEventID2 = EventList[idx];
-        EventList.RemoveAt(idx);
+    public void QueueEvent(string id)
+    {
+        if (LoadGameData.Instance.eventDatas.ContainsKey(id) && !EventList.Contains(id))
+            EventList.Add(id);
+    }
 
-        setedEventNum = 2;
-        
-        EventPanels[0].GetComponent<EventPanel>().nextEventID = nextEventID1;
-        EventPanels[1].GetComponent<EventPanel>().nextEventID = nextEventID2;
+    public void CompleteEvent()
+    {
+        setedEventNum = Mathf.Max(0, setedEventNum - 1);
+        SetEventNumberText();
     }
 
     public void EventButtonAction()
     {
+        if (!available || selectedCount == 0) return;
         EventPanel.SetActive(true);
-
-        //
         InGameMgr.Instance.state = State.Event;
-
-        if(isClicked)
-            return;
-        
-        //Panel
-        
-        EventPanels[0].GetComponent<EventPanel>().SetEventPanel();
-        EventPanels[1].GetComponent<EventPanel>().SetEventPanel();
-        
-        
-        
-        isClicked = true;
-
-        if (isFirstEvent)
+        if (isClicked)
         {
-            isFirstEvent = false;
-            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Event_1");
+            for (int i = 0; i < selectedCount; i++) panels[i].RefreshChoiceAvailability();
+            return;
         }
+        for (int i = 0; i < selectedCount; i++) panels[i].SetEventPanel();
+        ShowPage(0);
+        isClicked = true;
+        if (!isFirstEvent) return;
+        isFirstEvent = false;
+        TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Event_1");
     }
 }

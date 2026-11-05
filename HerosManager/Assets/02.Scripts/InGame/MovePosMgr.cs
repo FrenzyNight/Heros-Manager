@@ -4,6 +4,8 @@ using DG.Tweening;
 
 public class MovePosMgr : MonoBehaviour
 {
+    private void OnDisable() => transform.DOKill();
+
     public void MovePosEff(Vector3 _pos)
     {
         this.gameObject.SetActive(true);

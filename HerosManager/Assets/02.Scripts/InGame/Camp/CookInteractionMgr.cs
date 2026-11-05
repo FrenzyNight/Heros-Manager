@@ -79,6 +79,7 @@ public class CookInteractionMgr : CampInteractionMgr
     public override void Setup()
     {
         isActive = false;
+        isGrace = false;
         ButtonImg = ActiveButton.GetComponent<Image>();
         ButtonImg.sprite = CookButton;
         buttonState = 0;
@@ -112,6 +113,7 @@ public class CookInteractionMgr : CampInteractionMgr
 
         cookTime = LoadGameData.Instance.cookDatas[cookID].CookTime;
         getTime = LoadGameData.Instance.cookDatas[cookID].GetTime;
+        ClearTrash();
         
     }
 
@@ -123,12 +125,10 @@ public class CookInteractionMgr : CampInteractionMgr
 
     void StartCook()
     {
-        if(ItemManager.Instance.GetItemInfo(needItem1ID).num < needItem1Amount || ItemManager.Instance.GetItemInfo(needItem2ID).num < needItem2Amount ||ItemManager.Instance.GetItemInfo(needItem3ID).num < needItem3Amount)
+        if (isActive || !FireInterMgr.GetComponent<FireInteractionMgr>().isActive ||
+            !ItemManager.Instance.TrySpend(new ItemCost(needItem1ID, needItem1Amount),
+                new ItemCost(needItem2ID, needItem2Amount), new ItemCost(needItem3ID, needItem3Amount)))
             return;
-
-        ItemManager.Instance.AddItem(needItem1ID, -needItem1Amount);
-        ItemManager.Instance.AddItem(needItem2ID, -needItem2Amount);
-        ItemManager.Instance.AddItem(needItem3ID, -needItem3Amount);
 
         GraceGage.sprite = Green;
 
@@ -207,6 +207,8 @@ public class CookInteractionMgr : CampInteractionMgr
 
     public override void ClickButton()
     {
+        if (isActive && !isGrace)
+            return;
         switch(buttonState)
         {
             case 0:

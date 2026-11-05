@@ -12,7 +12,7 @@ public class ArrowMove2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("Hunt2Manager").GetComponent<Hunt2Manager>();
+        HM = MiniGameReferences.Manager<Hunt2Manager>(this);
         rt = gameObject.GetComponent<RectTransform>();
         Destroy(gameObject.transform.parent.gameObject, 1f);
     }

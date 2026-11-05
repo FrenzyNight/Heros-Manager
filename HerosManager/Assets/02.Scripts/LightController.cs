@@ -16,6 +16,8 @@ public class LightController : MonoBehaviour
     public float sunsetTime;
     public AnimationCurve lightChangeCurve;
 
+    private Clock clock;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,18 +34,20 @@ public class LightController : MonoBehaviour
 
     void SetUp()
     {
-        sunsetTime = Clock.Instance.dayTime / 2 * 60;
+        clock = Clock.Instance;
     }
 
     private void RotateSun()
     {
+        // Clock initializes after scene views. Read the duration when ticking, not in Start.
+        sunsetTime = clock.DayDurationSeconds / 2f;
         float sunLightRotation;
         float moonLightRotation;
 
         
-        if (Clock.Instance.nowTime <= sunsetTime)
+        if (clock.nowTime <= sunsetTime)
         {
-            double percentage = Clock.Instance.nowTime / sunsetTime;
+            double percentage = clock.nowTime / sunsetTime;
 
             sunLightRotation = Mathf.Lerp(50, 180, (float)percentage);
 
@@ -51,7 +55,7 @@ public class LightController : MonoBehaviour
         }
         else
         {
-            double percentage = (Clock.Instance.nowTime-sunsetTime) / sunsetTime;
+            double percentage = (clock.nowTime-sunsetTime) / sunsetTime;
 
             sunLightRotation = Mathf.Lerp(230, 360, (float)percentage);
 

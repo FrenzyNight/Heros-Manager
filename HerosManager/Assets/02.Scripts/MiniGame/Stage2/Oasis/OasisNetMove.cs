@@ -10,7 +10,7 @@ public class OasisNetMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        OM = GameObject.Find("OasisManager").GetComponent<OasisManager>();
+        OM = MiniGameReferences.Manager<OasisManager>(this);
 
         rt = gameObject.GetComponent<RectTransform>();
     }

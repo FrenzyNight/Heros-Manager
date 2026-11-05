@@ -112,15 +112,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
             ActiveLaundry();
         }
 
-        if (laundryState == 1) //test
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                L1Clear();
-            }
-        }
-        
-        else if (laundryState == 2 && l2CanPress)
+        if (laundryState == 2 && l2CanPress)
         {
             if (Input.GetKeyDown(KeyCode.A) && l2NextButton == 0)
             {
@@ -196,6 +188,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void LaundryUIButtonClick()
     {
+        if (!laundryUIButton.interactable)
+            return;
         switch (laundryState)
         {
             case 0:
@@ -262,8 +256,11 @@ public class LaundryInteractionMgr : CampInteractionMgr
         laundryNeedItemText.text = "-" + needWaterAmount.ToString();
         laundryGaugeUI.SetActive(false);
         laundryGauge.GetComponent<Image>().fillAmount = 0;
+        laundryUIButton.onClick.RemoveListener(LaundryUIButtonClick);
         laundryUIButton.onClick.AddListener(LaundryUIButtonClick);
 
+        laundryInterButton.onClick.RemoveListener(ClickButton);
+        laundryExitButton.onClick.RemoveListener(ExitLaundryWindow);
         laundryInterButton.onClick.AddListener(ClickButton);
         laundryExitButton.onClick.AddListener(ExitLaundryWindow);
 
@@ -299,6 +296,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void L1Active()
     {
+        if (laundryState != 0 || !ItemManager.Instance.TrySpend(InventoryRules.Water, needWaterAmount))
+            return;
         l1Count = 0;
         l1Panel.SetActive(true);
         l1ClothObject.SetActive(true);
@@ -312,7 +311,6 @@ public class LaundryInteractionMgr : CampInteractionMgr
         laundryUIButtonText.text = LoadGameData.Instance.GetString("laundry_t2");
         laundryGuidText.text = LoadGameData.Instance.GetString("laundry_a2");
 
-        ItemManager.Instance.AddItem("Item_Water",-needWaterAmount);
     }
 
     IEnumerator GrimeSpawn()
@@ -361,6 +359,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void L1GrimeClick()
     {
+        if (laundryState != 1 || l1Count >= l1CountNum)
+            return;
         l1Count += 1;
         //Debug.Log("Grime Click");
 
@@ -374,9 +374,13 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void L1Clear()
     {
+        if (laundryState != 1 || l1Count < l1CountNum)
+            return;
         l1ClothObject.SetActive(false);
         l1ClearImage.SetActive(true);
-        StopCoroutine(_runningCoroutine);
+        if (_runningCoroutine != null)
+            StopCoroutine(_runningCoroutine);
+        _runningCoroutine = null;
         
         foreach (GameObject obj in l1Grimes)
         {
@@ -390,6 +394,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void L2Active()
     {
+        if (laundryState != 1 || l1Count < l1CountNum)
+            return;
         laundryGuidText.text = LoadGameData.Instance.GetString("laundry_a3");
         
         l2Count = 0;
@@ -472,6 +478,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void L3Active()
     {
+        if (laundryState != 2 || l2Count < l2CountNum)
+            return;
         laundryGuidText.text = LoadGameData.Instance.GetString("laundry_a4");
         l2Panel.SetActive(false);
         laundryUIButton.interactable = false;
@@ -486,7 +494,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
         
         l3Button.SetActive(true);
         
-        for ( KeyCode i = KeyCode.A; i <= KeyCode.Z; ++i ) 
+        l3KeyCodeList.Clear();
+        for ( KeyCode i = KeyCode.A; i <= KeyCode.Z; ++i )
         {  
              l3KeyCodeList.Add(i);
         } 
@@ -522,7 +531,11 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void L3Clear()
     {
-        StopCoroutine(_runningCoroutine);
+        if (!l3CanPress || isLaundryClear)
+            return;
+        if (_runningCoroutine != null)
+            StopCoroutine(_runningCoroutine);
+        _runningCoroutine = null;
         l3CanPress = false;
         l3Button.SetActive(false);
         laundryUIButtonText.text = LoadGameData.Instance.GetString("Fence_b3");
@@ -541,6 +554,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public void ExitLaundryWindow()
     {
+        if (!laundryUIPanel.activeSelf)
+            return;
         if (isLaundryClear)
         {
             //clear
@@ -554,11 +569,21 @@ public class LaundryInteractionMgr : CampInteractionMgr
     
         laundryState = 0;
         laundryUIPanel.SetActive(false);
-        InGameMgr.Instance.state = State.Camp;
+        if (InGameMgr.Instance.state == State.Laundry)
+            InGameMgr.Instance.state = State.Camp;
     }
 
     public void Reset()
     {
+        StopAllCoroutines();
+        _runningCoroutine = null;
+        l2CanPress = false;
+        l3CanPress = false;
+        l1Count = 0;
+        l2Count = 0;
+        l3TimeCount = 0;
+        l2Animator.speed = 0f;
+        l3Animator.speed = 0f;
         //laundryMgr.NonWash();
         laundryMgr.NonHanging();
 
@@ -595,6 +620,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public override void ClickButton()
     {
+        if (isLaundryClear || laundryState < 0 || laundryUIPanel.activeSelf)
+            return;
         laundryUIPanel.SetActive(true);
         InGameMgr.Instance.state = State.Laundry;
         //set first scene
@@ -604,10 +631,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
         laundryGuid.SetActive(true);
         
         //check need item value
-        if (ItemManager.Instance.GetItemInfo("Item_Water").num >= needWaterAmount)
-        {
-            laundryUIButton.interactable = true;
-        }
+        laundryUIButton.interactable = ItemManager.Instance.CanAfford(InventoryRules.Water, needWaterAmount);
 
         if (isFirstLaundry)
         {
@@ -618,12 +642,15 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
     public override void NextDayAction()
     {
-
+        bool completedToday = isLaundryClear;
         Reset();
+        laundryUIPanel.SetActive(false);
+        if (InGameMgr.Instance.state == State.Laundry)
+            InGameMgr.Instance.state = State.Camp;
         laundryClearPanel.SetActive(false);
         laundryState = -1;
         //fail
-        if (!isLaundryClear)
+        if (!completedToday)
         {
             //increase stress
             HeroStateManager.Instance.heroStates[0].AddStat(hero1Stress,0,0,0);
@@ -631,5 +658,12 @@ public class LaundryInteractionMgr : CampInteractionMgr
             HeroStateManager.Instance.heroStates[2].AddStat(hero3Stress,0,0,0);
             HeroStateManager.Instance.heroStates[3].AddStat(hero4Stress,0,0,0);
         }
+    }
+
+    void OnDestroy()
+    {
+        if (laundryUIButton != null) laundryUIButton.onClick.RemoveListener(LaundryUIButtonClick);
+        if (laundryInterButton != null) laundryInterButton.onClick.RemoveListener(ClickButton);
+        if (laundryExitButton != null) laundryExitButton.onClick.RemoveListener(ExitLaundryWindow);
     }
 }

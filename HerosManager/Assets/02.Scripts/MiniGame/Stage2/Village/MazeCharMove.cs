@@ -16,7 +16,7 @@ public class MazeCharMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MM = GameObject.Find("MazeManager").GetComponent<MazeManager>();
+        MM = MiniGameReferences.Manager<MazeManager>(this);
 
         rt = gameObject.GetComponent<RectTransform>();
         
@@ -32,68 +32,14 @@ public class MazeCharMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.UpArrow))
-        {
-            isW = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.LeftArrow))
-        {
-            isA = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.DownArrow))
-        {
-            isS = true;
-            isMove = true;
-        }
-        if(Input.GetKey(KeyCode.RightArrow))
-        {
-            isD = true;
-            isMove = true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            SetDirection();
-        }
-        if(Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            SetDirection();
-        }
-
-        if(Input.GetKeyUp(KeyCode.UpArrow))
-        {
-            isW =false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.LeftArrow))
-        {
-            isA = false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            isS = false;
-            isMove = false;
-            SetDirection();
-        }
-        if(Input.GetKeyUp(KeyCode.RightArrow))
-        {
-            isD = false;
-            isMove = false;
-            SetDirection();
-        }
+        if (Time.timeScale <= 0f)
+            return;
+        isW = Input.GetKey(KeyCode.UpArrow);
+        isA = Input.GetKey(KeyCode.LeftArrow);
+        isS = Input.GetKey(KeyCode.DownArrow);
+        isD = Input.GetKey(KeyCode.RightArrow);
+        isMove = MiniGameMovement.Direction(isW, isA, isS, isD) != Vector2.zero;
+        SetDirection();
     }
 
     void FixedUpdate()
@@ -106,53 +52,10 @@ public class MazeCharMove : MonoBehaviour
 
     void SetDirection()
     {
-        if(isW && !isA && !isS && !isD) // only w
-        {
-            direction = 90;
-        }
-        else if(!isW && isA && !isS && !isD) // only a
-        {
-            direction = 180;
-        }
-        else if(!isW && !isA && isS && !isD) // only a
-        {
-            direction = 270;
-        }
-        else if(!isW && !isA && !isS && isD) // only d
-        {
-            direction = 0;
-        }
-
-        else if(isW && !isA && !isS && isD) // w & d
-        {
-            direction = 45;
-        }
-        else if(isW && isA && !isS && !isD) // w & a
-        {
-            direction = 135;
-        }
-        else if(!isW && isA && isS && !isD) // a & s
-        {
-            direction = 225;
-        }
-        else if(!isW && !isA && isS && isD) // d & s
-        {
-            direction = 315;
-        }
-
-
-        x = MM.realMazeCharSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
-        y = MM.realMazeCharSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
-
-
-        if(x >= 0)
-        {
-            transform.localScale = new Vector3(1,1,1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-1,1,1);
-        }
+        Vector2 velocity = MiniGameMovement.Direction(isW, isA, isS, isD) * MM.realMazeCharSpeed;
+        x = velocity.x;
+        y = velocity.y;
+        MiniGameMovement.FaceHorizontal(transform, x);
     }
 
     void OnTriggerEnter2D(Collider2D c)

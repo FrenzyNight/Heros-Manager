@@ -47,7 +47,7 @@ public class HeroMove : MonoBehaviour
 
             sprite3D.isMove = true;
             moveTime = Random.Range(minMoveTime, maxMoveTime);
-            transform.DOMove(new Vector3(moveX,gameObject.transform.position.y, moveY), moveTime).SetId("HeroMoveTween");
+            transform.DOMove(new Vector3(moveX,gameObject.transform.position.y, moveY), moveTime).SetId(this);
             yield return new WaitForSeconds(moveTime);
 
             
@@ -60,17 +60,26 @@ public class HeroMove : MonoBehaviour
     Coroutine coroutine;
     public void ComeBackHome()
     {
+        StopMovement();
         coroutine = StartCoroutine(Move());
     }
 
     public void SetAdv()
     {
-        DOTween.Kill("HeroMoveTween");
+        StopMovement();
         transform.position = new Vector3(21, 0.5f, 45);
-        
+
+    }
+
+    private void StopMovement()
+    {
+        DOTween.Kill(this);
         if(coroutine != null)
         {
             StopCoroutine(coroutine);
+            coroutine = null;
         }
     }
+
+    private void OnDisable() => StopMovement();
 }

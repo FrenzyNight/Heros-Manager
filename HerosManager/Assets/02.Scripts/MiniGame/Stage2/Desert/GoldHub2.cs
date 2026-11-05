@@ -18,9 +18,9 @@ public class GoldHub2 : MonoBehaviour
     
     void Start()
     {
-        HM = GameObject.Find("Hub2Manager").GetComponent<Hub2Manager>();
+        HM = MiniGameReferences.Manager<Hub2Manager>(this);
         tr = GetComponent<Transform>();
-        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, GameObject.Find("Hub2").transform);
+        Gage = HM.Spawn(GageImg, tr.position, Quaternion.identity, MiniGameReferences.Container(this, "Hub2"));
         Gage.GetComponent<Image>().fillAmount = 0;
         
     }

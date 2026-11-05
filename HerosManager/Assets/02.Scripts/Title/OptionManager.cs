@@ -83,19 +83,28 @@ public class OptionManager : MonoBehaviour
 
     void OkBtnEvent()
     {
-        BackPanel.SetActive(false);
-
-        SaveDataManager.Instance.saveOptionData.BgmVolume = BgmSlider.value;
-        SaveDataManager.Instance.saveOptionData.EffVolume = SfxSlider.value;
-        SaveDataManager.Instance.SaveOptionDatas();
+        SaveAndClose();
     }
 
     void CloseBtnEvent()
     {
-        BackPanel.SetActive(false);
+        SaveAndClose();
+    }
 
-        SaveDataManager.Instance.saveOptionData.BgmVolume = BgmSlider.value;
-        SaveDataManager.Instance.saveOptionData.EffVolume = SfxSlider.value;
-        SaveDataManager.Instance.SaveOptionDatas();
+    void SaveAndClose()
+    {
+        var saves = SaveDataManager.Instance;
+        saves.saveOptionData.BgmVolume = Mathf.Clamp01(BgmSlider.value);
+        saves.saveOptionData.EffVolume = Mathf.Clamp01(SfxSlider.value);
+        if (saves.TrySaveOptionDatas())
+            BackPanel.SetActive(false);
+    }
+
+    void OnDestroy()
+    {
+        if (FullBtn != null) FullBtn.onClick.RemoveListener(FullBtnEvent);
+        if (WinBtn != null) WinBtn.onClick.RemoveListener(WinBtnEvent);
+        if (OkBtn != null) OkBtn.onClick.RemoveListener(OkBtnEvent);
+        if (CloseBtn != null) CloseBtn.onClick.RemoveListener(CloseBtnEvent);
     }
 }

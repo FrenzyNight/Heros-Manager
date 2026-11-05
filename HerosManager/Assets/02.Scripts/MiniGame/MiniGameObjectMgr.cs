@@ -30,4 +30,10 @@ public class MiniGameObjectMgr : MonoBehaviour
     public virtual void MoveAction() {}
 
     public virtual void UpdateAction() {}
+
+    protected virtual void OnDisable()
+    {
+        StopAllCoroutines();
+        CancelInvoke();
+    }
 }

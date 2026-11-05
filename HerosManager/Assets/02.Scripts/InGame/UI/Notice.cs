@@ -22,7 +22,7 @@ public class Notice : Singleton<Notice>
     protected override void Awake()
     {
         base.Awake();
-        NoticeBtn.onClick.AddListener(() => Slide());
+        NoticeBtn.onClick.AddListener(Slide);
     }
 
     void Start()
@@ -66,10 +66,18 @@ public class Notice : Singleton<Notice>
     {
         while (Vector2.Distance(rectTrans.sizeDelta, szVec) >= 0.1f)
         {
-            rectTrans.sizeDelta = Vector2.Lerp(rectTrans.sizeDelta, szVec, Time.deltaTime * 3f);
+            rectTrans.sizeDelta = Vector2.Lerp(rectTrans.sizeDelta, szVec, Time.unscaledDeltaTime * 3f);
             rectTrans.anchoredPosition = new Vector2(rectTrans.anchoredPosition.x, rectTrans.sizeDelta.y / 2);
 
             yield return null;
         }
+        rectTrans.sizeDelta = szVec;
+        rectTrans.anchoredPosition = new Vector2(rectTrans.anchoredPosition.x, szVec.y / 2f);
+    }
+
+    protected override void OnDestroy()
+    {
+        if (NoticeBtn != null) NoticeBtn.onClick.RemoveListener(Slide);
+        base.OnDestroy();
     }
 }

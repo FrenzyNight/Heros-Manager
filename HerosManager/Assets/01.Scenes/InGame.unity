@@ -20820,12 +20820,12 @@ MonoBehaviour:
   item1ID: 
   item2ID: 
   spawnObjects: []
-  Treasure1Prefab: {fileID: 0}
-  Treasure2Prefab: {fileID: 0}
-  Treasure3Prefab: {fileID: 0}
-  tp1: {x: 0, y: 0}
-  tp2: {x: 0, y: 0}
-  tp3: {x: 0, y: 0}
+  Treasure1Prefab: {fileID: 6653928522118456075, guid: 3e21de23cdeac314f9c74d10f173b8da, type: 3}
+  Treasure2Prefab: {fileID: 6163050689186539330, guid: 964a7c42db1e15341978a84e6a5a291d, type: 3}
+  Treasure3Prefab: {fileID: 8907928284885497012, guid: 3ba3fede447e2ec48a57a3b6d61feb43, type: 3}
+  tp1: {x: 513, y: -112}
+  tp2: {x: 276, y: -64}
+  tp3: {x: 483, y: 0}
   fwStandardSpeed: 300
   fwTreasure1ResMeat: 0
   fwTreasure1ResHub: 0
@@ -43978,10 +43978,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Back: {fileID: 0}
-  Front: {fileID: 0}
-  Left: {fileID: 0}
-  Right: {fileID: 0}
+  Back: {fileID: 900429598}
+  Front: {fileID: 684013239}
+  Left: {fileID: 1413810978}
+  Right: {fileID: 346655648}
   fairySpeed: 0
   direction: -1
   topP: 215
@@ -62455,10 +62455,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Back: {fileID: 0}
-  Front: {fileID: 0}
-  Left: {fileID: 0}
-  Right: {fileID: 0}
+  Back: {fileID: 387164747}
+  Front: {fileID: 772778048}
+  Left: {fileID: 726855671}
+  Right: {fileID: 2002977061}
   fairySpeed: 0
   direction: -1
   topP: 215
@@ -66624,10 +66624,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a55a8b182bb030478a872de2abacba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Back: {fileID: 0}
-  Front: {fileID: 0}
-  Left: {fileID: 0}
-  Right: {fileID: 0}
+  Back: {fileID: 1551313115}
+  Front: {fileID: 253206851}
+  Left: {fileID: 1342549155}
+  Right: {fileID: 691372447}
   fairySpeed: 0
   direction: -1
   topP: 215

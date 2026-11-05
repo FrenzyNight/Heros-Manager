@@ -38,25 +38,22 @@ public class WaterManager : MiniGameSetMgr
         base.SetUp();
         audioSource = GetComponent<AudioSource>();
 
-        Boots.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        Deadfish.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        Apple.GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
-        waterGetTime = LoadGameData.Instance.miniGameDatas["game1water"].value1;
-        waterRes = LoadGameData.Instance.miniGameDatas["game1water"].GetAmount1;
+        waterGetTime = GameData("game1water").value1;
+        waterRes = GameData("game1water").GetAmount1;
         
-        waterRockCoolTime = LoadGameData.Instance.miniGameDatas["game1rock"].CoolTime;
-        waterRockInvTime = LoadGameData.Instance.miniGameDatas["game1rock"].Invincibility;
-        waterRockMaxNum = LoadGameData.Instance.miniGameDatas["game1rock"].value2;
-        waterRockSpeed = LoadGameData.Instance.miniGameDatas["game1rock"].Velocity;
+        waterRockCoolTime = GameData("game1rock").CoolTime;
+        waterRockInvTime = GameData("game1rock").Invincibility;
+        waterRockMaxNum = GameData("game1rock").value2;
+        waterRockSpeed = GameData("game1rock").Velocity;
 
         realRockSpeed = standardWaterSpeed * waterRockSpeed;
 
-        item1ID = LoadGameData.Instance.miniGameDatas["game1water"].GetItemID1;
+        item1ID = GameData("game1water").GetItemID1;
 
-        SpawnPoint1 = new Vector2(spawnP1.x * widthScale + transform.position.x, spawnP1.y * heightScale + transform.position.y);
-        SpawnPoint2 = new Vector2(spawnP2.x * widthScale + transform.position.x, spawnP2.y * heightScale + transform.position.y);
-        SpawnPoint3 = new Vector2(spawnP3.x * widthScale + transform.position.x, spawnP3.y * heightScale + transform.position.y);
+        SpawnPoint1 = ScreenPoint(spawnP1);
+        SpawnPoint2 = ScreenPoint(spawnP2);
+        SpawnPoint3 = ScreenPoint(spawnP3);
 
      
         StartGame();
@@ -81,17 +78,17 @@ public class WaterManager : MiniGameSetMgr
                 if(rnd == 1) //1번 포인트 소환
                 {
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint1, Quaternion.identity);
                 }
                 else if(rnd == 2)
                 {
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint2, Quaternion.identity);
                 }
                 else if(rnd == 3)
                 {
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint3, Quaternion.identity);
                 }
             }
             else // 장애물 2개
@@ -100,27 +97,27 @@ public class WaterManager : MiniGameSetMgr
                 if(rnd == 1) //1번 포인트 제외 소환
                 {
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint2, Quaternion.identity);
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint3, Quaternion.identity);
                 }
                 else if(rnd == 2)
                 {
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint1, Quaternion.identity);
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint3, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint3, Quaternion.identity);
                 }
                 else if(rnd == 3)
                 {
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint1, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint1, Quaternion.identity);
                     RandomObject();
-                    TrackSpawn(Instantiate(SelectedTrash, SpawnPoint2, Quaternion.identity, mother.transform));
+                    Spawn(SelectedTrash, SpawnPoint2, Quaternion.identity);
                 }
             }
 
-            yield return new WaitForSeconds(waterRockCoolTime);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(waterRockCoolTime));
         }
     }
 

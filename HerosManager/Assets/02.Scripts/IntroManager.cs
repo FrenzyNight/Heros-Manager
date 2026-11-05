@@ -9,13 +9,13 @@ public class IntroManager : MonoBehaviour
 
     public Button SkipBtn;
 
+    private bool isLeaving;
+
     void Start()
     {
-        SkipBtn.onClick.AddListener(() =>
-        {
-            //SceneManager.LoadScene("MapTest");
-            SceneManager.LoadScene("InGame");
-        });
+        Time.timeScale = 1f;
+        LoadGameData.Instance.LoadTitleDatas();
+        SkipBtn.onClick.AddListener(EnterGame);
 
         cutSceneMgr.LoadCutscene("open_Lay");
         cutSceneMgr.NextCutscene();
@@ -23,14 +23,25 @@ public class IntroManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (!isLeaving && Input.anyKeyDown)
         {
             bool isLast = cutSceneMgr.NextCutscene();
             if (isLast)
             {
-                //SceneManager.LoadScene("MapTest");
-                SceneManager.LoadScene("InGame");
+                EnterGame();
             }
         }
+    }
+
+    private void EnterGame()
+    {
+        if (isLeaving) return;
+        isLeaving = true;
+        SceneManager.LoadScene("InGame");
+    }
+
+    private void OnDestroy()
+    {
+        if (SkipBtn != null) SkipBtn.onClick.RemoveListener(EnterGame);
     }
 }

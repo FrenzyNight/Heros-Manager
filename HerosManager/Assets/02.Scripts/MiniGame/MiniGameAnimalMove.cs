@@ -16,19 +16,30 @@ public class MiniGameAnimalMove : MiniGameObjectMgr
 
     public GameObject AngryEffect;
     public float realSpeed;
+    private bool dead;
+    private bool angered;
+    protected virtual string ArrowTag => "MiniGameObj3";
+    protected virtual string ObstacleTag => "MiniGameObj1";
+    protected virtual string AnimalTag => "MiniGameObj2";
+    protected virtual bool MoveToForeground => true;
 
     protected virtual void Start()
     {
         rt = gameObject.GetComponent<RectTransform>();
-        rt.SetAsLastSibling();
+        if (rt == null)
+            throw new MissingComponentException($"{name} requires a RectTransform.");
+        if (MoveToForeground)
+            rt.SetAsLastSibling();
         ani = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         isIdle = false;
+        dead = false;
+        angered = false;
     }
 
     public override void MoveAction()
     {
-        if(!isIdle)
+        if(!isIdle && !dead)
         {
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (x * Time.deltaTime) , rt.anchoredPosition.y + (y * Time.deltaTime)); 
             moveCheck += Time.deltaTime;
@@ -37,7 +48,7 @@ public class MiniGameAnimalMove : MiniGameObjectMgr
 
     public override void UpdateAction()
     {
-        if(!isIdle && moveCheck >= moveTime)
+        if(!isIdle && !dead && moveCheck >= moveTime)
         {
             StartCoroutine(SetIdle());
         }
@@ -64,12 +75,41 @@ public class MiniGameAnimalMove : MiniGameObjectMgr
         }
     }
 
-    public virtual IEnumerator SetIdle() {yield return null;}
+    public virtual IEnumerator SetIdle() { yield return IdleFor(0.02f); }
+
+    protected IEnumerator IdleFor(float duration)
+    {
+        isIdle = true;
+        if (ani != null) ani.SetBool("isIdle", true);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(duration));
+        SetDirection();
+        SetMoveTime();
+        isIdle = false;
+        if (ani != null) ani.SetBool("isIdle", false);
+    }
+
+    protected void ChooseMoveTime(float minimum, float maximum)
+    {
+        minimum = MiniGameRules.PositiveDelay(minimum);
+        maximum = Mathf.Max(minimum, MiniGameRules.PositiveDelay(maximum));
+        moveCheck = 0f;
+        moveTime = Random.Range(minimum, maximum);
+    }
+
+    protected bool TryBeginDeath()
+    {
+        if (dead)
+            return false;
+        dead = true;
+        isIdle = true;
+        StopAllCoroutines();
+        return true;
+    }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
         //block or player or monster
-        if(coll.gameObject.CompareTag("MiniGameObj1") || coll.gameObject.CompareTag("Player") || coll.gameObject.CompareTag("MiniGameObj2"))
+        if(!dead && (coll.gameObject.CompareTag(ObstacleTag) || coll.gameObject.CompareTag("Player") || coll.gameObject.CompareTag(AnimalTag)))
         {
             SetDirection();
         }
@@ -77,9 +117,10 @@ public class MiniGameAnimalMove : MiniGameObjectMgr
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if(coll.gameObject.tag == "MiniGameObj3") //arrow
+        if(!dead && coll.gameObject.activeInHierarchy && coll.gameObject.CompareTag(ArrowTag))
         {
-            audioSource.Play();
+            if (audioSource != null) audioSource.Play();
+            coll.gameObject.SetActive(false);
             Destroy(coll.gameObject);
             
             
@@ -90,8 +131,9 @@ public class MiniGameAnimalMove : MiniGameObjectMgr
             {
                 Death();
             }
-            else if(animalHP <= 1 && objectType == 4)
+            else if(animalHP <= 1 && objectType == 4 && !angered)
             {
+                angered = true;
                 Angry();
             }
         }

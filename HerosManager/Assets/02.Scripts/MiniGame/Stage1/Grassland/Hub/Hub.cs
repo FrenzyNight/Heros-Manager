@@ -22,9 +22,8 @@ public class Hub : MiniGameObjectMgr
     {
         Mgr = manager.GetComponent<HubManager>();
         tr = GetComponent<Transform>();
-        Gage = Instantiate(GageImg, tr.position, Quaternion.identity, Mgr.mother.transform);
+        Gage = Mgr.Spawn(GageImg, tr.position, Quaternion.identity);
         audioSource = gameObject.GetComponent<AudioSource>();
-        Mgr.spawnObjects.Add(Gage);
         Gage.GetComponent<Image>().fillAmount = 0;
         Gage.transform.SetSiblingIndex(1);
         gameObject.transform.SetSiblingIndex(1);

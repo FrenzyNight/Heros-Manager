@@ -19,7 +19,7 @@ public class LakeBucketMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        WM = GameObject.Find("LakeWaterManager").GetComponent<LakeWaterManager>();
+        WM = MiniGameReferences.Manager<LakeWaterManager>(this);
         rt = gameObject.GetComponent<RectTransform>();
         lv = 0;
         direction = 1;

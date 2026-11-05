@@ -42,18 +42,15 @@ public class CaveManager : MiniGameSetMgr
         
         isCheck = true;
 
-        DownStonePrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        UpStonePrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        JemPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
-        varSpeed = LoadGameData.Instance.miniGameDatas["game1cage_normal"].Velocity;
-        coolTime = LoadGameData.Instance.miniGameDatas["game1cage_normal"].CoolTime;
-        stunTime = LoadGameData.Instance.miniGameDatas["game1cage_stone"].Stun;
-        downStonePer = LoadGameData.Instance.miniGameDatas["game1cage_stone"].Probability * 100;
-        upStonePer = LoadGameData.Instance.miniGameDatas["game1cage_upstone"].Probability * 100;
-        jemPer = LoadGameData.Instance.miniGameDatas["game1cage_jem"].Probability * 100;
-        jemResource = LoadGameData.Instance.miniGameDatas["game1cage_jem"].GetJemAmount;
-        charJump = LoadGameData.Instance.miniGameDatas["game1cage_normal"].value1;
+        varSpeed = GameData("game1cage_normal").Velocity;
+        coolTime = GameData("game1cage_normal").CoolTime;
+        stunTime = GameData("game1cage_stone").Stun;
+        downStonePer = GameData("game1cage_stone").Probability * 100;
+        upStonePer = GameData("game1cage_upstone").Probability * 100;
+        jemPer = GameData("game1cage_jem").Probability * 100;
+        jemResource = GameData("game1cage_jem").GetJemAmount;
+        charJump = GameData("game1cage_normal").value1;
 
         realCharJump = charJump * standardJump;
         realSpeed = varSpeed * standardSpeed;
@@ -79,21 +76,21 @@ public class CaveManager : MiniGameSetMgr
             {
                 rnd = Random.Range(1,101);
 
-                if(rnd <= jemPer)
+                if(MiniGameRules.PercentHit(rnd, jemPer))
                 {
                     //JemSpawn
-                    TrackSpawn(Instantiate(JemPrefab, RealSpawnPoint, Quaternion.identity,mother.transform));
+                    Spawn(JemPrefab, RealSpawnPoint, Quaternion.identity);
 
                 }
-                else if(jemPer < rnd && rnd <= jemPer + downStonePer)
+                else if(jemPer < rnd && MiniGameRules.PercentHit(rnd, jemPer + downStonePer))
                 {
                     // DownStoneSpawn
-                    TrackSpawn(Instantiate(DownStonePrefab, RealSpawnPoint, Quaternion.identity, mother.transform));
+                    Spawn(DownStonePrefab, RealSpawnPoint, Quaternion.identity);
                 }
-                else if(jemPer + downStonePer < rnd && rnd <= jemPer + downStonePer + upStonePer)
+                else if(jemPer + downStonePer < rnd && MiniGameRules.PercentHit(rnd, jemPer + downStonePer + upStonePer))
                 {
                     //UpStoneSpawn;
-                    TrackSpawn(Instantiate(UpStonePrefab, RealSpawnPoint, Quaternion.identity, mother.transform));
+                    Spawn(UpStonePrefab, RealSpawnPoint, Quaternion.identity);
                 }
                 else
                 {
@@ -101,7 +98,7 @@ public class CaveManager : MiniGameSetMgr
                 }
             }
 
-            yield return new WaitForSeconds(coolTime);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(coolTime));
         }
     }
 }

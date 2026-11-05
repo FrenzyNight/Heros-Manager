@@ -31,14 +31,21 @@ public class WarningManager : MonoBehaviour
 
     void OkBtnEvent()
     {
-        SaveDataManager.Instance.NewGameData();
-        if (SaveDataManager.Instance.TrySaveGameDatas())
+        var saves = SaveDataManager.Instance;
+        if (saves.TrySaveGameSnapshot(saves.CreateNewGameData()))
             titleMgr.Production("Intro");
     }
 
     void CloseBtnEvent()
     {
         BackPanel.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (OkBtn != null) OkBtn.onClick.RemoveListener(OkBtnEvent);
+        if (CloseBtn1 != null) CloseBtn1.onClick.RemoveListener(CloseBtnEvent);
+        if (CloseBtn2 != null) CloseBtn2.onClick.RemoveListener(CloseBtnEvent);
     }
 
 }

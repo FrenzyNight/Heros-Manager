@@ -7,9 +7,6 @@ public class ItemManager : Singleton<ItemManager>
 {
     public Item[] items;
 
-    static readonly string[] ItemCodes =
-        { "Item_Wood", "Item_Water", "Item_Meat", "Item_Hub", "Item_Food" };
-
     protected override void Awake()
     {
         base.Awake();
@@ -37,8 +34,8 @@ public class ItemManager : Singleton<ItemManager>
 
     public int[] CaptureItems()
     {
-        var values = new int[ItemCodes.Length];
-        for (int i = 0; i < values.Length && i < items.Length; i++)
+        var values = new int[InventoryRules.ItemCount];
+        for (int i = 0; items != null && i < values.Length && i < items.Length; i++)
             if (items[i] != null)
                 values[i] = Mathf.Max(0, items[i].num);
         return values;
@@ -46,7 +43,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public Item GetItemInfo(string _code)
     {
-        int index = System.Array.IndexOf(ItemCodes, _code);
+        int index = InventoryRules.IndexOf(_code);
         return index >= 0 && items != null && index < items.Length ? items[index] : null;
     }
 
@@ -59,12 +56,59 @@ public class ItemManager : Singleton<ItemManager>
         item.AddNum(_cnt);
     }
 
+    public int GetAmount(string itemId)
+    {
+        var item = GetItemInfo(itemId);
+        return item != null ? Mathf.Max(0, item.num) : 0;
+    }
+
+    public bool CanAfford(string itemId, int amount)
+    {
+        return CanAfford(new ItemCost(itemId, amount));
+    }
+
+    public bool CanAfford(params ItemCost[] costs)
+    {
+        return HasInventory() && InventoryRules.CanAfford(CaptureItems(), costs);
+    }
+
+    public bool TrySpend(string itemId, int amount)
+    {
+        return TrySpend(new ItemCost(itemId, amount));
+    }
+
+    public bool TrySpend(params ItemCost[] costs)
+    {
+        if (!HasInventory())
+            return false;
+        var remaining = CaptureItems();
+        if (!InventoryRules.TrySpend(remaining, costs))
+            return false;
+        // Commit every balance before refreshing presentation.
+        var deltas = new int[InventoryRules.ItemCount];
+        for (int i = 0; i < remaining.Length; i++)
+        {
+            deltas[i] = remaining[i] - items[i].num;
+            items[i].num = remaining[i];
+        }
+        for (int i = 0; i < remaining.Length; i++)
+            items[i].Refresh(deltas[i]);
+        return true;
+    }
+
+    bool HasInventory()
+    {
+        if (items == null || items.Length != InventoryRules.ItemCount)
+            return false;
+        return !System.Array.Exists(items, item => item == null || item.num < 0);
+    }
+
     public void AddItem(int _wood, int _water, int _meat, int _hub, int _food)
     {
-        AddItem(ItemCodes[0], _wood);
-        AddItem(ItemCodes[1], _water);
-        AddItem(ItemCodes[2], _meat);
-        AddItem(ItemCodes[3], _hub);
-        AddItem(ItemCodes[4], _food);
+        AddItem(InventoryRules.Wood, _wood);
+        AddItem(InventoryRules.Water, _water);
+        AddItem(InventoryRules.Meat, _meat);
+        AddItem(InventoryRules.Herb, _hub);
+        AddItem(InventoryRules.Food, _food);
     }
 }

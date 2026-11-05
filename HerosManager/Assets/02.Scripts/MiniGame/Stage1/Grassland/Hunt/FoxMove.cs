@@ -23,29 +23,21 @@ public class FoxMove : MiniGameAnimalMove
         SetDirection();
     }
 
-    public override IEnumerator SetIdle()
-    {
-        isIdle = true;
-        ani.SetBool("isIdle", true);
-        yield return new WaitForSeconds(Mgr.huntMonsterIdleTime);
-        SetDirection();
-        SetMoveTime();
-        isIdle = false;
-        ani.SetBool("isIdle", false);
-    }
+    public override IEnumerator SetIdle() => IdleFor(Mgr.huntMonsterIdleTime);
     
     public override void SetMoveTime()
     {
-        moveCheck = 0;
-        moveTime = Random.Range(Mgr.huntMonsterMinMoveTime, Mgr.huntMonsterMaxMoveTime);
+        ChooseMoveTime(Mgr.huntMonsterMinMoveTime, Mgr.huntMonsterMaxMoveTime);
     }
 
     public override void Death()
     {
+        if (!TryBeginDeath())
+            return;
         // 여우 사망
         Mgr.KillFox();
         Debug.Log("Get Meat " + Mgr.huntFoxRes.ToString());
-        Mgr.foxNum -= 1;
+        Mgr.foxNum = Mathf.Max(0, Mgr.foxNum - 1);
         Destroy(gameObject);
 
     }   

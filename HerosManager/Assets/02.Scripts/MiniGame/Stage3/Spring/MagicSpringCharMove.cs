@@ -14,7 +14,7 @@ public class MagicSpringCharMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SM = GameObject.Find("MagicSpringManager").GetComponent<MagicSpringManager>();
+        SM = MiniGameReferences.Manager<MagicSpringManager>(this);
         rt = gameObject.GetComponent<RectTransform>();
         //isCommand = false;
     }

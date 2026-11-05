@@ -5,106 +5,84 @@ using UnityEngine.AI;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    AudioSource audioSource;
     public MovePosMgr movePosMgr;
-
-    NavMeshAgent navAgent;
-
-    Animator anim;
+    private AudioSource audioSource;
+    private NavMeshAgent navAgent;
+    private Animator anim;
+    private Camera sceneCamera;
+    private bool moving;
+    private static readonly int MovingParameter = Animator.StringToHash("isMove");
 
     private void Awake()
     {
-        navAgent = this.GetComponent<NavMeshAgent>();
-        anim = this.GetComponentInChildren<Animator>();
+        navAgent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
+        sceneCamera = Camera.main;
     }
 
-    void Start()
+    private void Start()
     {
-        Setup();
-    }
-
-    void Setup()
-    {
+        if (navAgent == null) { enabled = false; return; }
         navAgent.speed = 7f;
         navAgent.angularSpeed = 720f;
         navAgent.acceleration = 20f;
     }
 
-    void Update()
+    private void Update()
     {
-        switch (InGameMgr.Instance.state)
-        {
-            case State.Camp:
-                Move_MouseClick();
-                break;
-        }
-    }
-
-    void Move_MouseClick()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit[] hits = Physics.RaycastAll(ray, Mathf.Infinity);
-            for (int i = 0; i < hits.Length; i++)
+        if (moving && !navAgent.pathPending &&
+            (!navAgent.isOnNavMesh || navAgent.pathStatus != NavMeshPathStatus.PathComplete ||
+             navAgent.remainingDistance <= Mathf.Max(navAgent.stoppingDistance, 0.1f)))
+            StopMovement();
+        if (Time.timeScale <= 0 || InGameMgr.Instance.state != State.Camp || !Input.GetMouseButtonDown(1))
+            return;
+        if (sceneCamera == null) sceneCamera = Camera.main;
+        if (sceneCamera == null || !navAgent.isOnNavMesh) return;
+        var hits = Physics.RaycastAll(sceneCamera.ScreenPointToRay(Input.mousePosition));
+        float nearest = float.PositiveInfinity;
+        Vector3 destination = default;
+        foreach (var hit in hits)
+            if (hit.transform.CompareTag("Land") && hit.distance < nearest)
             {
-                if (hits[i].transform.tag == "Land")
-                {
-                    MoveTo(hits[i].point);
-                    break;
-                }
+                nearest = hit.distance;
+                destination = hit.point;
             }
-        }
+        if (!float.IsPositiveInfinity(nearest)) MoveTo(destination);
     }
 
-    void MoveTo(Vector3 _pos)
+    private void MoveTo(Vector3 position)
     {
-        StopCoroutine("OnMoveCo");
-
-        movePosMgr.MovePosEff(_pos);
-        audioSource.Play();
-        anim.SetBool("isMove", true);
-        navAgent.SetDestination(_pos);
-
-        StartCoroutine("OnMoveCo");
+        if (!NavMesh.SamplePosition(position, out var hit, 2f, navAgent.areaMask) ||
+            !navAgent.SetDestination(hit.position)) return;
+        moving = true;
+        if (movePosMgr != null) movePosMgr.MovePosEff(hit.position);
+        if (audioSource != null) audioSource.Play();
+        if (anim != null) anim.SetBool(MovingParameter, true);
     }
 
-    IEnumerator OnMoveCo()
+    private void StopMovement()
     {
-        while (true)
-        {
-            if (Vector3.Distance(navAgent.destination, this.transform.position) < 0.1f)
-            {
-                this.transform.position = navAgent.destination;
-
-                navAgent.ResetPath();
-
-                audioSource.Stop();
-                anim.SetBool("isMove", false);
-
-                movePosMgr.gameObject.SetActive(false);
-
-                break;
-            }
-
-            yield return null;
-        }
+        moving = false;
+        if (navAgent != null && navAgent.enabled && navAgent.isOnNavMesh) navAgent.ResetPath();
+        if (audioSource != null) audioSource.Stop();
+        if (anim != null) anim.SetBool(MovingParameter, false);
+        if (movePosMgr != null) movePosMgr.gameObject.SetActive(false);
     }
+
+    private void OnDisable() => StopMovement();
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "CampObject")
-        {
-            other.GetComponentInParent<CampObjectMgr>().OpenUI();
-        }
+        if (!other.CompareTag("CampObject")) return;
+        var camp = other.GetComponentInParent<CampObjectMgr>();
+        if (camp != null) camp.OpenUI();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "CampObject")
-        {
-            other.GetComponentInParent<CampObjectMgr>().CloseUI();
-        }
+        if (!other.CompareTag("CampObject")) return;
+        var camp = other.GetComponentInParent<CampObjectMgr>();
+        if (camp != null) camp.CloseUI();
     }
 }

@@ -14,6 +14,31 @@ public class CampInteractionMgr : MonoBehaviour
     public Image ActiveGage, GraceGage;
     public Text StringText;
     public Sprite Green, Red, Blue;
+    InGameMgr stageOwner;
+
+    protected virtual void OnEnable()
+    {
+        stageOwner = InGameMgr.Instance;
+        if (stageOwner != null)
+            stageOwner.NextStageAct += RefreshStage;
+    }
+
+    protected virtual void OnDisable()
+    {
+        if (stageOwner != null)
+            stageOwner.NextStageAct -= RefreshStage;
+        stageOwner = null;
+    }
+
+    void RefreshStage()
+    {
+        StopAllCoroutines();
+        isActive = false;
+        isGrace = false;
+        activeTime = 0f;
+        graceTime = 0f;
+        Setup();
+    }
     
     public void AvailableButton()
     {

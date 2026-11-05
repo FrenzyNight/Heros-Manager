@@ -14,7 +14,7 @@ public class FairyCharMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FM = GameObject.Find("FairyWarehouseManager").GetComponent<FairyWarehouseManager>();
+        FM = MiniGameReferences.Manager<FairyWarehouseManager>(this);
         rt = gameObject.GetComponent<RectTransform>();
         
         isMove = false;

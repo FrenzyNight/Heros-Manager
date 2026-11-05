@@ -17,7 +17,7 @@ public class MagicSpringCommand : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        SM = GameObject.Find("MagicSpringManager").GetComponent<MagicSpringManager>();
+        SM = MiniGameReferences.Manager<MagicSpringManager>(this);
     }
     
     void Start()

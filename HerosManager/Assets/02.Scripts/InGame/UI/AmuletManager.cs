@@ -63,13 +63,14 @@ public class AmuletManager : Singleton<AmuletManager>
 
     public void JewelListSlide()
     {
+        JewelList.GetComponent<RectTransform>().DOKill();
         if(isSlide)
         {
-            JewelList.GetComponent<RectTransform>().DOAnchorPosX(-485, 1f).SetUpdate(true).SetEase(Ease.OutQuad);
+            JewelList.GetComponent<RectTransform>().DOAnchorPosX(-485, 1f).SetUpdate(true).SetEase(Ease.OutQuad).SetLink(gameObject);
         }
         else
         {
-            JewelList.GetComponent<RectTransform>().DOAnchorPosX(485, 1f).SetUpdate(true).SetEase(Ease.OutQuad);
+            JewelList.GetComponent<RectTransform>().DOAnchorPosX(485, 1f).SetUpdate(true).SetEase(Ease.OutQuad).SetLink(gameObject);
         }
         isSlide = !isSlide;
     }
@@ -78,5 +79,11 @@ public class AmuletManager : Singleton<AmuletManager>
     {
         isSlide = true;
         JewelListSlide();
+    }
+
+    protected override void OnDestroy()
+    {
+        if (JewelList != null) JewelList.GetComponent<RectTransform>().DOKill();
+        base.OnDestroy();
     }
 }

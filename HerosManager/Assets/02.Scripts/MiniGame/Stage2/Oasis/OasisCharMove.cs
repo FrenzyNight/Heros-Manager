@@ -13,7 +13,7 @@ public class OasisCharMove : MonoBehaviour
 
     void Start()
     {
-        OM = GameObject.Find("OasisManager").GetComponent<OasisManager>();
+        OM = MiniGameReferences.Manager<OasisManager>(this);
 
         rt = gameObject.GetComponent<RectTransform>();
 
@@ -38,7 +38,7 @@ public class OasisCharMove : MonoBehaviour
     {
         isCoolTime = true;
         GameObject obj;
-        obj = Instantiate(NetPrefab, charObj.transform.position, Quaternion.identity, GameObject.Find("Oasis").transform);
+        obj = OM.Spawn(NetPrefab, charObj.transform.position, Quaternion.identity, MiniGameReferences.Container(this, "Oasis"));
         obj.GetComponent<RectTransform>().Rotate(new Vector3(0,0,transform.eulerAngles.z));
 
         yield return new WaitForSeconds(1f);

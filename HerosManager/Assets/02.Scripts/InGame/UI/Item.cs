@@ -12,8 +12,8 @@ public class Item : MonoBehaviour
 
     public void Setup(int _num)
     {
-        num = _num;
-        NumText.text = num.ToString();
+        num = Mathf.Max(0, _num);
+        Refresh();
     }
 
     public void AddNum(int _addNum)
@@ -21,14 +21,21 @@ public class Item : MonoBehaviour
         if (_addNum == 0)
             return;
 
-        num += _addNum;
-        if (num < 0)
-            num = 0;
-        NumText.text = num.ToString();
+        int previous = num;
+        num = InventoryRules.ApplyDelta(num, _addNum);
+        Refresh(num - previous);
+    }
+
+    public void Refresh(int delta = 0)
+    {
+        if (NumText != null)
+            NumText.text = num.ToString();
+        if (delta == 0 || EffNum == null || !isActiveAndEnabled)
+            return;
 
         if (runningCo != null)
             StopCoroutine(runningCo);
-        runningCo = StartCoroutine(AddNumEffCo(_addNum));
+        runningCo = StartCoroutine(AddNumEffCo(delta));
     }
 
     IEnumerator AddNumEffCo(int _addNum)
@@ -58,5 +65,15 @@ public class Item : MonoBehaviour
         }
 
         EffNum.gameObject.SetActive(false);
+        runningCo = null;
+    }
+
+    void OnDisable()
+    {
+        if (runningCo != null)
+            StopCoroutine(runningCo);
+        runningCo = null;
+        if (EffNum != null)
+            EffNum.gameObject.SetActive(false);
     }
 }

@@ -5,17 +5,12 @@ using UnityEngine;
 public class MazeManager : MiniGameSetMgr
 {
     public GameObject Wall, Road;
-
-    private GameObject[,] maze;
-    private float x,y;
     public float blockSize;
     public int mazesize;
-    private float mazeStandardSpeed = 300f;
-    //road
-
     public float mazeCharSpeed;
     public float realMazeCharSpeed;
-    // Start is called before the first frame update
+    private const float MazeStandardSpeed = 300f;
+
     void Start()
     {
         if (!IsPrepared)
@@ -25,183 +20,43 @@ public class MazeManager : MiniGameSetMgr
     public override void SetUp()
     {
         base.SetUp();
-        maze = new GameObject[mazesize, mazesize];
-
-        mazeCharSpeed = LoadGameData.Instance.miniGameDatas["game2maze"].Velocity;
-
-        realMazeCharSpeed = mazeStandardSpeed * mazeCharSpeed;
+        mazeCharSpeed = GameData("game2maze").Velocity;
+        realMazeCharSpeed = MazeStandardSpeed * mazeCharSpeed;
         MakeMaze();
-    
     }
 
-    void MakeMaze()
+    private void MakeMaze()
     {
-        GameObject select, start, block;
-        x = 0;
-        y = 0;
-        int i, j, rnd;
-        int death;
-        List<int> mazelist = new List<int>();
-        Stack<int> mazeStackX = new Stack<int>();
-        Stack<int> mazeStackY = new Stack<int>();
-        //0:상 , 1:우, 2:하, 3:좌
-        for(i=0;i<mazesize;i++)
+        if (Wall == null || Road == null || Wall.GetComponent<RectTransform>() == null ||
+            Road.GetComponent<RectTransform>() == null)
+            throw new System.InvalidOperationException("Maze prefabs require assigned RectTransforms.");
+        if (float.IsNaN(blockSize) || float.IsInfinity(blockSize) || blockSize <= 0f)
+            throw new System.InvalidOperationException("Maze block size must be finite and positive.");
+
+        bool[,] roads = MiniGameRules.GenerateMaze(mazesize, count => Random.Range(0, count));
+        Transform container = SpawnContainer("MazeStructure");
+        StopGame();
+        for (int row = 0; row < mazesize; row++)
         {
-            for(j=0;j<mazesize;j++)
+            for (int column = 0; column < mazesize; column++)
             {
-                if((i%2==1 && j%2==1) || (i==mazesize-1 && j==1) || (i==0 && j==mazesize-2))
-                {
-                    select = Road;
-                }
-                else
-                {
-                    select = Wall;
-                }
-                
-                
-                maze[i,j] = TrackSpawn(Instantiate(select, transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
-                maze[i,j].GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-                
-                
-                x+=blockSize;
+                GameObject block = Spawn(roads[row, column] ? Road : Wall, transform.position,
+                    Quaternion.identity, container);
+                block.GetComponent<RectTransform>().anchoredPosition = new Vector2(column * blockSize, -row * blockSize);
             }
-
-            x = 0;
-            y -= blockSize;
         }
-
-        
-        start = maze[1,1];
-        select = start;
-        i = 1;
-        j = 1;
-        death = 0;
-        while(!start.GetComponent<MazeBlock>().isPop)
-        {
-            select.GetComponent<MazeBlock>().isVisit = true;
-            if(!select.GetComponent<MazeBlock>().isPop)
-            {
-                mazeStackX.Push(i);
-                mazeStackY.Push(j);
-            }
-            
-            mazelist.Clear();
-            if(i-2 > 0)
-            {
-                if(!maze[i-2,j].GetComponent<MazeBlock>().isVisit)
-                {
-                    mazelist.Add(0);
-                }
-            }
-
-            if(j+2 < mazesize)
-            {
-                if(!maze[i,j+2].GetComponent<MazeBlock>().isVisit)
-                {
-                    mazelist.Add(1);
-                }
-            }
-
-            if(i+ 2 < mazesize)
-            {
-                if(!maze[i+2,j].GetComponent<MazeBlock>().isVisit)
-                {
-                    mazelist.Add(2);
-                }
-            }
-
-            if(j-2 > 0)
-            {
-                if(!maze[i,j-2].GetComponent<MazeBlock>().isVisit)
-                {
-                    mazelist.Add(3);
-                }
-            }
-
-            if(mazelist.Count == 0)
-            {
-                //pop
-                select.GetComponent<MazeBlock>().isPop = true;
-
-                if(mazeStackX.Count != 0)
-                    i = mazeStackX.Pop();
-                
-                if(mazeStackY.Count != 0)
-                    j = mazeStackY.Pop();
-
-            }
-            else
-            {
-                rnd = Random.Range(0,mazelist.Count);
-                if(mazelist[rnd] == 0) //상
-                {
-                    Destroy(maze[i-1,j]);
-                    block = TrackSpawn(Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
-                    block.GetComponent<RectTransform>().anchoredPosition = new Vector2(select.GetComponent<RectTransform>().anchoredPosition.x,select.GetComponent<RectTransform>().anchoredPosition.y+blockSize);
-                    maze[i-1,j] = block;
-                    i -= 2;
-                }
-                else if(mazelist[rnd] == 1) //우
-                {
-                    Destroy(maze[i,j+1]);
-                    block = TrackSpawn(Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
-                    block.GetComponent<RectTransform>().anchoredPosition = new Vector2(select.GetComponent<RectTransform>().anchoredPosition.x+blockSize,select.GetComponent<RectTransform>().anchoredPosition.y);
-                    maze[i,j+1] = block;
-                    j += 2;
-                }
-                else if(mazelist[rnd] == 2) // 하
-                {
-                    Destroy(maze[i+1,j]);
-                    block = TrackSpawn(Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
-                    block.GetComponent<RectTransform>().anchoredPosition = new Vector2(select.GetComponent<RectTransform>().anchoredPosition.x,select.GetComponent<RectTransform>().anchoredPosition.y-blockSize);
-                    maze[i+1,j] = block;
-                    i += 2;
-                }
-                else if(mazelist[rnd] == 3) //좌
-                {
-                    Destroy(maze[i,j-1]);
-                    block = TrackSpawn(Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
-                    block.GetComponent<RectTransform>().anchoredPosition = new Vector2(select.GetComponent<RectTransform>().anchoredPosition.x-blockSize,select.GetComponent<RectTransform>().anchoredPosition.y);
-                    maze[i,j-1] = block;
-                    j -= 2;
-                }
-            }
-            select = maze[i,j];
-            death+=1;
-        }
-        
     }
 
     public void ResetMaze()
     {
-        System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
-        watch.Start();
-        
-        // 기존 미로 삭제
-        for(int i=0;i<mazesize;i++)
-        {
-            for(int j=0;j<mazesize;j++)
-            {
-                Destroy(maze[i,j]);
-            }
-        }
-
         MakeMaze();
-        watch.Stop();
-        Debug.Log(watch.ElapsedMilliseconds + "ms");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-           ResetMaze();
-        }
+        if (Input.GetKeyDown(KeyCode.Space))
+            ResetMaze();
     }
 
-    public override void StartGame()
-    {
-    }
-
+    public override void StartGame() { }
 }

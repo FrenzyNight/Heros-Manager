@@ -39,30 +39,46 @@ public class SaveDataManager : Singleton<SaveDataManager>
 
     public bool TrySaveGameDatas(Action _callback = null)
     {
-        if (!TrySave(GameFileName, saveGameData, IsPlayableSave))
+        return TrySaveGameSnapshot(saveGameData, _callback);
+    }
+
+    public SaveGameData CaptureGameData() => saveGameData?.Clone() ?? new SaveGameData();
+
+    public bool TrySaveGameSnapshot(SaveGameData snapshot, Action _callback = null)
+    {
+        // Capture before validation and serialization; neither the caller nor a failed write
+        // may partially change the current in-memory snapshot.
+        SaveGameData captured = snapshot?.Clone();
+        if (!TrySave(GameFileName, captured, IsPlayableSave))
             return false;
+        saveGameData = captured;
         _callback?.Invoke();
         return true;
     }
 
     public void NewGameData()
     {
+        saveGameData = CreateNewGameData();
+    }
+
+    public SaveGameData CreateNewGameData()
+    {
         var tables = LoadGameData.Instance;
-        if (tables.itemDatas.Count == 0)
-            tables.LoadTitleDatas();
+        tables.LoadTitleDatas();
+        StageData firstStage = tables.Catalog.Stages[0];
 
         var fresh = new SaveGameData
         {
-            stage = 1,
-            day = 1,
-            fenceLevel = 1,
+            stage = firstStage.Index,
+            day = tables.Catalog.GetStageDays(firstStage.StageDayGroupID)[0].Day,
+            fenceLevel = tables.Catalog.GetFences(firstStage.FenceGroupID)[0].FenceLevel,
             items = new int[ItemIds.Length]
         };
         for (int i = 0; i < ItemIds.Length; i++)
             fresh.items[i] = tables.itemDatas[ItemIds[i]].FirstGive;
 
-        // Replace the entire snapshot so a new game never inherits old hero statistics.
-        saveGameData = fresh;
+        // Return a complete snapshot so a new game never inherits old hero statistics.
+        return fresh;
     }
 
     public static bool IsPlayableSave(SaveGameData data)
@@ -72,30 +88,9 @@ public class SaveDataManager : Singleton<SaveDataManager>
 
         var tables = LoadGameData.Instance;
         tables.LoadTitleDatas();
-        StageData stage = null;
-        foreach (var candidate in tables.stageDatas.Values)
-            if (candidate.Index == data.stage)
-            {
-                stage = candidate;
-                break;
-            }
-        if (stage == null)
-            return false;
-
-        bool hasDay = false;
-        foreach (var candidate in tables.stageDayDatas.Values)
-            if (candidate.StageDayGroupID == stage.StageDayGroupID && candidate.Day == data.day)
-            {
-                hasDay = true;
-                break;
-            }
-        if (!hasDay)
-            return false;
-
-        foreach (var candidate in tables.fenceDatas.Values)
-            if (candidate.FenceGroupID == stage.FenceGroupID && candidate.FenceLevel == data.fenceLevel)
-                return true;
-        return false;
+        return tables.Catalog.TryGetStage(data.stage, out StageData stage) &&
+               tables.Catalog.TryGetStageDay(stage.StageDayGroupID, data.day, out _) &&
+               tables.Catalog.TryGetFence(stage.FenceGroupID, data.fenceLevel, out _);
     }
 
     public void LoadOptionDatas(Action _callback = null)
@@ -107,8 +102,11 @@ public class SaveDataManager : Singleton<SaveDataManager>
             _callback?.Invoke();
             return;
         }
-        saveOptionData = new SaveOptionData();
-        TrySaveOptionDatas(_callback);
+        var defaults = new SaveOptionData();
+        if (!TrySave(OptionFileName, defaults, SaveOptionData.IsValid))
+            return;
+        saveOptionData = defaults;
+        _callback?.Invoke();
     }
 
     public void SaveOptionDatas(Action _callback = null)
@@ -118,11 +116,11 @@ public class SaveDataManager : Singleton<SaveDataManager>
 
     public bool TrySaveOptionDatas(Action _callback = null)
     {
-        if (saveOptionData == null)
-            saveOptionData = new SaveOptionData();
-        saveOptionData.Normalize();
-        if (!TrySave(OptionFileName, saveOptionData, SaveOptionData.IsValid))
+        SaveOptionData captured = saveOptionData?.Clone() ?? new SaveOptionData();
+        captured.Normalize();
+        if (!TrySave(OptionFileName, captured, SaveOptionData.IsValid))
             return false;
+        saveOptionData = captured;
         _callback?.Invoke();
         return true;
     }
@@ -161,70 +159,5 @@ public class SaveDataManager : Singleton<SaveDataManager>
             return true;
         Debug.LogError(error);
         return false;
-    }
-}
-
-[Serializable]
-public class SaveGameData
-{
-    public int stage;
-    public int day;
-    public int[] items;
-    public float[] hero1Stat;
-    public float[] hero2Stat;
-    public float[] hero3Stat;
-    public float[] hero4Stat;
-    public int fenceLevel;
-
-    public static bool IsValid(SaveGameData data)
-    {
-        if (data == null || data.stage < 1 || data.day < 1 || data.fenceLevel < 1 ||
-            data.items == null || data.items.Length != 5)
-            return false;
-
-        foreach (int count in data.items)
-            if (count < 0)
-                return false;
-
-        return ValidStats(data.hero1Stat) && ValidStats(data.hero2Stat) &&
-               ValidStats(data.hero3Stat) && ValidStats(data.hero4Stat);
-    }
-
-    private static bool ValidStats(float[] stats)
-    {
-        // Old saves have no hero snapshots; consumers use table defaults in that case.
-        if (stats == null || stats.Length == 0)
-            return true;
-        if (stats.Length != 4)
-            return false;
-        foreach (float stat in stats)
-            if (float.IsNaN(stat) || float.IsInfinity(stat))
-                return false;
-        return true;
-    }
-}
-
-[Serializable]
-public class SaveOptionData
-{
-    public bool isWindow = true;
-    public float EffVolume = 1f;
-    public float BgmVolume = 1f;
-
-    public void Normalize()
-    {
-        EffVolume = NormalizeVolume(EffVolume);
-        BgmVolume = NormalizeVolume(BgmVolume);
-    }
-
-    public static bool IsValid(SaveOptionData data)
-    {
-        return data != null && !float.IsNaN(data.EffVolume) && !float.IsInfinity(data.EffVolume) &&
-               !float.IsNaN(data.BgmVolume) && !float.IsInfinity(data.BgmVolume);
-    }
-
-    private static float NormalizeVolume(float volume)
-    {
-        return float.IsNaN(volume) || float.IsInfinity(volume) ? 1f : Mathf.Clamp01(volume);
     }
 }

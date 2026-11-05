@@ -70,14 +70,14 @@ public class WoodManager : MiniGameSetMgr
 
         audioSource = gameObject.GetComponent<AudioSource>();
 
-        woodStunTime = LoadGameData.Instance.miniGameDatas["game1tree_normal"].Stun;
+        woodStunTime = GameData("game1tree_normal").Stun;
 
-        woodGoldRes = (int)LoadGameData.Instance.miniGameDatas["game1tree_gold"].GetAmount1;
-        woodGoldPer = LoadGameData.Instance.miniGameDatas["game1tree_gold"].Probability * 100;
+        woodGoldRes = (int)GameData("game1tree_gold").GetAmount1;
+        woodGoldPer = GameData("game1tree_gold").Probability * 100;
 
-        woodNormalRes = (int)LoadGameData.Instance.miniGameDatas["game1tree_normal"].GetAmount1;
+        woodNormalRes = (int)GameData("game1tree_normal").GetAmount1;
 
-        item1ID = LoadGameData.Instance.miniGameDatas["game1tree_normal"].GetItemID1;
+        item1ID = GameData("game1tree_normal").GetItemID1;
     
         StartGame();
     }
@@ -141,7 +141,7 @@ public class WoodManager : MiniGameSetMgr
     IEnumerator SwingAxe()
     {   IdleObj.SetActive(false);
         AxeObj.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(0.3f));
         AxeObj.SetActive(false);
         IdleObj.SetActive(true);
         axeCoroutine = null;
@@ -153,7 +153,7 @@ public class WoodManager : MiniGameSetMgr
         StunObj.SetActive(true);
         isStun = true;
         Debug.Log("Wood Stun");
-        yield return new WaitForSeconds(woodStunTime);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(woodStunTime));
         AxeObj.SetActive(false);
         StunObj.SetActive(false);
         IdleObj.SetActive(true);
@@ -165,7 +165,7 @@ public class WoodManager : MiniGameSetMgr
         int rnd = Random.Range(1,101);
         GameObject wood;
 
-        if(rnd <= woodGoldPer)
+        if(MiniGameRules.PercentHit(rnd, woodGoldPer))
         {
             wood = GoldWoodPrefab;
         }
@@ -174,7 +174,7 @@ public class WoodManager : MiniGameSetMgr
             wood = NormalWoodPrefab;
         }
 
-        NowWood = TrackSpawn(Instantiate(wood, transform.position, Quaternion.identity,mother.transform));
+        NowWood = Spawn(wood, transform.position, Quaternion.identity);
 
         //set Direction
         woodDirection = Random.Range(0,4);

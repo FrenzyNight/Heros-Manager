@@ -15,11 +15,12 @@ public class MiniGameCharMgr : MiniGameObjectMgr
     void Start()
     {
         objectType = 5;
-        Debug.Log("부모ㅓ");
     }
 
     public override void UpdateAction()
     {
+        if (isStun || Time.timeScale <= 0f)
+            return;
         switch(moveType){
             case 1:
                 MoveInput1();
@@ -59,68 +60,18 @@ public class MiniGameCharMgr : MiniGameObjectMgr
 
     public void MoveInput2()
     {
-        if(Input.GetKey(KeyCode.W))
-        {
-            isW = true;
-            isCheck = true;
-        }
-        if(Input.GetKey(KeyCode.A))
-        {
-            isA = true;
-            isCheck = true;
-        }
-        if(Input.GetKey(KeyCode.S))
-        {
-            isS = true;
-            isCheck = true;
-        }
-        if(Input.GetKey(KeyCode.D))
-        {
-            isD = true;
-            isCheck = true;
-        }
-
-        if(Input.GetKeyDown(KeyCode.W))
-        {
+        bool up = Input.GetKey(KeyCode.W);
+        bool left = Input.GetKey(KeyCode.A);
+        bool down = Input.GetKey(KeyCode.S);
+        bool right = Input.GetKey(KeyCode.D);
+        bool changed = up != isW || left != isA || down != isS || right != isD;
+        isW = up;
+        isA = left;
+        isS = down;
+        isD = right;
+        isCheck = MiniGameMovement.Direction(up, left, down, right) != Vector2.zero;
+        if (changed)
             Action1();
-        }
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            Action1();
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            Action1();
-        }
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            Action1();
-        }
-
-        if(Input.GetKeyUp(KeyCode.W))
-        {
-            isW =false;
-            isCheck = false;
-            Action1();
-        }
-        if(Input.GetKeyUp(KeyCode.A))
-        {
-            isA = false;
-            isCheck = false;
-            Action1();
-        }
-        if(Input.GetKeyUp(KeyCode.S))
-        {
-            isS = false;
-            isCheck = false;
-            Action1();
-        }
-        if(Input.GetKeyUp(KeyCode.D))
-        {
-            isD = false;
-            isCheck = false;
-            Action1();
-        }
     }
 
     public void MoveInput3()
@@ -158,5 +109,13 @@ public class MiniGameCharMgr : MiniGameObjectMgr
     public virtual IEnumerator Stun()
     {
         yield return null;
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        isStun = false;
+        isCheck = false;
+        isW = isA = isS = isD = false;
     }
 }

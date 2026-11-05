@@ -57,42 +57,39 @@ public class HuntManager : MiniGameSetMgr
     {
         base.SetUp();
 
-        BearPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        FoxPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
-        ArrowPrefab.transform.GetChild(0).GetComponent<MiniGameObjectMgr>().manager = gameObject;
 
         foxNum = 0;
         bearNum = 0;
-        huntArrowSpeed = LoadGameData.Instance.miniGameDatas["game1arrow"].Velocity;
-        huntArrowCoolTime = LoadGameData.Instance.miniGameDatas["game1arrow"].CoolTime;
+        huntArrowSpeed = GameData("game1arrow").Velocity;
+        huntArrowCoolTime = GameData("game1arrow").CoolTime;
 
-        huntMonsterCoolTime = LoadGameData.Instance.miniGameDatas["game1monster_fox"].CoolTime;
-        huntMonsterMaxNum = LoadGameData.Instance.miniGameDatas["game1monster_fox"].value6;
-        huntMonsterMinMoveTime = LoadGameData.Instance.miniGameDatas["game1monster_fox"].value4;
-        huntMonsterMaxMoveTime = LoadGameData.Instance.miniGameDatas["game1monster_fox"].value5;
-        huntMonsterIdleTime= LoadGameData.Instance.miniGameDatas["game1monster_fox"].value3;
+        huntMonsterCoolTime = GameData("game1monster_fox").CoolTime;
+        huntMonsterMaxNum = GameData("game1monster_fox").value6;
+        huntMonsterMinMoveTime = GameData("game1monster_fox").value4;
+        huntMonsterMaxMoveTime = GameData("game1monster_fox").value5;
+        huntMonsterIdleTime= GameData("game1monster_fox").value3;
 
-        huntFoxSpeed = LoadGameData.Instance.miniGameDatas["game1monster_fox"].Velocity;
-        huntFoxRes = (int)LoadGameData.Instance.miniGameDatas["game1monster_fox"].GetAmount1;
-        huntFoxPer = LoadGameData.Instance.miniGameDatas["game1monster_fox"].Probability * 100;
-        huntFoxHP = LoadGameData.Instance.miniGameDatas["game1monster_fox"].value1;
+        huntFoxSpeed = GameData("game1monster_fox").Velocity;
+        huntFoxRes = (int)GameData("game1monster_fox").GetAmount1;
+        huntFoxPer = GameData("game1monster_fox").Probability * 100;
+        huntFoxHP = GameData("game1monster_fox").value1;
 
-        huntBearSpeed = LoadGameData.Instance.miniGameDatas["game1monster_bear"].Velocity;
-        huntBearRes = (int)LoadGameData.Instance.miniGameDatas["game1monster_bear"].GetAmount1;
-        huntBearPer = LoadGameData.Instance.miniGameDatas["game1monster_bear"].Probability * 100;
-        huntBearHP = LoadGameData.Instance.miniGameDatas["game1monster_bear"].value1;
-        huntBearAngrySpeed = LoadGameData.Instance.miniGameDatas["game1monster_bear"].value2;
+        huntBearSpeed = GameData("game1monster_bear").Velocity;
+        huntBearRes = (int)GameData("game1monster_bear").GetAmount1;
+        huntBearPer = GameData("game1monster_bear").Probability * 100;
+        huntBearHP = GameData("game1monster_bear").value1;
+        huntBearAngrySpeed = GameData("game1monster_bear").value2;
 
-        item1ID = LoadGameData.Instance.miniGameDatas["game1monster_fox"].GetItemID1;
+        item1ID = GameData("game1monster_fox").GetItemID1;
 
         realArrowSpeed = huntArrowSpeed * standardHuntSpeed;
         realFoxSpeed = huntFoxSpeed * standardHuntSpeed;
         realBearSpeed = huntBearSpeed * standardHuntSpeed;
 
-        StartPoint = new Vector2(StartP.x * widthScale + transform.position.x , StartP.y * heightScale + transform.position.y);
-        EndPoint = new Vector2(EndP.x * widthScale + transform.position.x , EndP.y * heightScale + transform.position.y);
-        StartPoint2 = new Vector2(StartP2.x * widthScale + transform.position.x , StartP2.y * heightScale + transform.position.y);
-        EndPoint2 = new Vector2(EndP2.x * widthScale + transform.position.x , EndP2.y * heightScale + transform.position.y);
+        StartPoint = ScreenPoint(StartP);
+        EndPoint = ScreenPoint(EndP);
+        StartPoint2 = ScreenPoint(StartP2);
+        EndPoint2 = ScreenPoint(EndP2);
     
         StartGame();
     }
@@ -118,34 +115,34 @@ public class HuntManager : MiniGameSetMgr
 
             if(foxNum < huntMonsterMaxNum && bearNum < huntMonsterMaxNum)
             {
-                if(rnd <= huntFoxPer)
+                if(MiniGameRules.PercentHit(rnd, huntFoxPer))
                 {
                     //fox Spawn
-                    TrackSpawn(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
+                    Spawn(FoxPrefab, new Vector2(x,y), Quaternion.identity);
                     foxNum++;
                 }
                 else
                 {
                     //bearSpawn
-                    TrackSpawn(Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
+                    Spawn(BearPrefab, new Vector2(x,y), Quaternion.identity);
                     bearNum++;
                 }
             }
             else if(foxNum < huntMonsterMaxNum && bearNum == huntMonsterMaxNum)
             {
                 //fox
-                TrackSpawn(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
+                Spawn(FoxPrefab, new Vector2(x,y), Quaternion.identity);
                 foxNum++;
             }
 
             else if(foxNum == huntMonsterMaxNum && bearNum < huntMonsterMaxNum)
             {
                 //bear
-                TrackSpawn(Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
+                Spawn(BearPrefab, new Vector2(x,y), Quaternion.identity);
                 bearNum++;
             }
 
-            yield return new WaitForSeconds(huntMonsterCoolTime);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(huntMonsterCoolTime));
         }
     }
 

@@ -55,8 +55,10 @@ public class AdventureManager : Singleton<AdventureManager>
     
 
     JourneyData journeyData;
-    List<JStateData> jStateDataList = new List<JStateData>();
-    List<JResultData> jResultDataList = new List<JResultData>();
+    IReadOnlyList<JStateData> jStateDataList = System.Array.Empty<JStateData>();
+    IReadOnlyList<JResultData> jResultDataList = System.Array.Empty<JResultData>();
+    bool journeyReady;
+    bool journeyInProgress;
 
     [HideInInspector]
     public AudioSource audioSource;
@@ -92,7 +94,10 @@ public class AdventureManager : Singleton<AdventureManager>
 
     public void ReadyAdventure(StageDayData _stageDayData)
     {
-        
+        journeyReady = true;
+        journeyInProgress = false;
+        StopAllCoroutines();
+        DOTween.Kill(this);
         Time.timeScale = 0;
         isClicked = true;
 
@@ -105,12 +110,7 @@ public class AdventureManager : Singleton<AdventureManager>
 
 
         journeyData = LoadGameData.Instance.journeyDatas[_stageDayData.JourneyID];
-        jStateDataList.Clear();
-        foreach (var data in LoadGameData.Instance.jStateDatas)
-        {
-            if (data.Value.JStateGroupID == journeyData.JStateGroupID)
-                jStateDataList.Add(data.Value);
-        }
+        jStateDataList = LoadGameData.Instance.Catalog.GetJourneyStates(journeyData.JStateGroupID);
 
         meat = 0;
         water = 0;
@@ -141,6 +141,13 @@ public class AdventureManager : Singleton<AdventureManager>
         if(Clock.Instance.day != 1)
         {
             StartCoroutine(NightProduct());
+        }
+        else
+        {
+            isClicked = false;
+            BlackPanel.SetActive(false);
+            ProductMgr.Instance.MainCam.GetComponent<AudioSource>().volume =
+                SaveDataManager.Instance.saveOptionData.BgmVolume;
         }
 
         if(isFirstAdventure)
@@ -175,21 +182,21 @@ public class AdventureManager : Singleton<AdventureManager>
         
         if(FenceMgr.Instance.isInvade)
         {
-            NightGob1.GetComponent<RectTransform>().DOAnchorPosX(300, 1f).SetUpdate(true).OnComplete(() => 
+            NightGob1.GetComponent<RectTransform>().DOAnchorPosX(300, 1f).SetUpdate(true).SetId(this).SetLink(gameObject).OnComplete(() =>
             {
-                NightGob2.GetComponent<RectTransform>().DOAnchorPosX(-400, 1f).SetDelay(1f).SetUpdate(true).OnComplete(() => 
+                NightGob2.GetComponent<RectTransform>().DOAnchorPosX(-400, 1f).SetDelay(1f).SetUpdate(true).SetId(this).SetLink(gameObject).OnComplete(() =>
                 {
                     //yield return new WaitForSecondsRealtime(0.5f);
                     
-                    BlackPanel.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true).OnStart(() =>
+                    BlackPanel.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true).SetId(this).SetLink(gameObject).OnStart(() =>
                     {
                         audioSource.Play();
-                        ProductMgr.Instance.MainCam.GetComponent<AudioSource>().DOFade(1, 0.5f).SetUpdate(true);
+                        ProductMgr.Instance.MainCam.GetComponent<AudioSource>().DOFade(SaveDataManager.Instance.saveOptionData.BgmVolume, 0.5f).SetUpdate(true).SetId(this).SetLink(gameObject);
                         AdvPanel.GetComponent<Image>().color = color;
                     });
-                    NightFilter.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true);
-                    NightSky.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true);
-                    NightStar.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true).OnComplete(() =>
+                    NightFilter.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true).SetId(this).SetLink(gameObject);
+                    NightSky.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true).SetId(this).SetLink(gameObject);
+                    NightStar.GetComponent<Image>().DOFade(0,1f).SetDelay(0.5f).SetUpdate(true).SetId(this).SetLink(gameObject).OnComplete(() =>
                     {
                         //
                         isClicked = false;
@@ -204,12 +211,12 @@ public class AdventureManager : Singleton<AdventureManager>
         {
             yield return new WaitForSecondsRealtime(0.5f);
             audioSource.Play();
-            ProductMgr.Instance.MainCam.GetComponent<AudioSource>().DOFade(1, 0.5f).SetUpdate(true);
-            BlackPanel.GetComponent<Image>().DOFade(0,1f).SetUpdate(true);
-            NightFilter.GetComponent<Image>().DOFade(0,1f).SetUpdate(true);
-            NightSky.GetComponent<Image>().DOFade(0,1f).SetUpdate(true);
+            ProductMgr.Instance.MainCam.GetComponent<AudioSource>().DOFade(SaveDataManager.Instance.saveOptionData.BgmVolume, 0.5f).SetUpdate(true).SetId(this).SetLink(gameObject);
+            BlackPanel.GetComponent<Image>().DOFade(0,1f).SetUpdate(true).SetId(this).SetLink(gameObject);
+            NightFilter.GetComponent<Image>().DOFade(0,1f).SetUpdate(true).SetId(this).SetLink(gameObject);
+            NightSky.GetComponent<Image>().DOFade(0,1f).SetUpdate(true).SetId(this).SetLink(gameObject);
             AdvPanel.GetComponent<Image>().color = color;
-            NightStar.GetComponent<Image>().DOFade(0,1f).SetUpdate(true).OnComplete(() =>
+            NightStar.GetComponent<Image>().DOFade(0,1f).SetUpdate(true).SetId(this).SetLink(gameObject).OnComplete(() =>
             {
                 //
                 isClicked = false;
@@ -224,16 +231,22 @@ public class AdventureManager : Singleton<AdventureManager>
 
     void StartButton()
     {
-        if(isClicked)
+        if (isClicked || !journeyReady || !StartAdvBtn.interactable || !AdvPanel.activeInHierarchy ||
+            !ItemManager.Instance.TrySpend(new ItemCost(InventoryRules.Meat, meat),
+                new ItemCost(InventoryRules.Water, water), new ItemCost(InventoryRules.Food, food),
+                new ItemCost(InventoryRules.Herb, hub)))
             return;
-
+        isClicked = true;
+        journeyReady = false;
+        journeyInProgress = true;
         Time.timeScale = 1;
         StartCoroutine(StartAdventereCoroutine());
     }
 
     IEnumerator StartAdventereCoroutine()
     {
-        TitleCharImg.transform.DOLocalMoveX(CharTargetX, delayTime);
+        TitleCharImg.transform.DOKill();
+        TitleCharImg.transform.DOLocalMoveX(CharTargetX, delayTime).SetLink(gameObject);
         yield return new WaitForSeconds(delayTime);
         StartAdventure();
     }
@@ -245,17 +258,13 @@ public class AdventureManager : Singleton<AdventureManager>
             hero.GetComponent<HeroMove>().SetAdv();
         }
         Time.timeScale = timeScale;
-        TitleCharImg.transform.DOLocalMoveX(-CharTargetX, 0);
+        var position = TitleCharImg.transform.localPosition;
+        position.x = -CharTargetX;
+        TitleCharImg.transform.localPosition = position;
         AdvPanel.SetActive(false);
         isClicked = false;
-        ItemManager.Instance.AddItem(0, -water, -meat, -hub, -food);
         HeroStateManager.Instance.SlideAll(true);
         InGameMgr.Instance.state = State.Camp;
-
-        for(int i=0;i<4;i++)
-        {
-            Heros[i].GetComponent<HeroMove>().SetAdv();
-        }
 
         EventMgr.Instance.ChoseEvent();
 
@@ -270,18 +279,13 @@ public class AdventureManager : Singleton<AdventureManager>
 
     public void EndJourney()
     {
-        JResultData jResultData = null;
-
-        float rand = Random.Range(0f, 0.99f);
-        float temp = 0;
-        for (int i = 0; i < jResultDataList.Count; i++)
+        if (!journeyInProgress)
+            return;
+        journeyInProgress = false;
+        if (!WeightedSelection.TryPick(jResultDataList, row => row.Prob, Random.value, out JResultData jResultData))
         {
-            temp += jResultDataList[i].Prob;
-            if (rand < temp)
-            {
-                jResultData = jResultDataList[i];
-                break;
-            }
+            Debug.LogError("The current journey has no valid weighted results.", this);
+            return;
         }
 
         for(int i=0;i<4;i++)
@@ -331,90 +335,44 @@ public class AdventureManager : Singleton<AdventureManager>
     
     public void SubItemBtn(int _idx)
     {
-        int num = -1;
-        //if (!_isAdd)
-         //   num = -1;
-
-        switch (_idx)
-        {
-            case 0:
-                if (meat + num < 0)
-                    return;
-
-                meat += num;
-                ItemNumTexts[_idx].text = meat.ToString();
-                break;
-            case 1:
-                if (water + num < 0)
-                    return;
-
-                water += num;
-                ItemNumTexts[_idx].text = water.ToString();
-                break;
-            case 2:
-                if (food + num < 0)
-                    return;
-
-                food += num;
-                ItemNumTexts[_idx].text = food.ToString();
-                break;
-            case 3:
-                if (hub + num < 0)
-                    return;
-
-                hub += num;
-                ItemNumTexts[_idx].text = hub.ToString();
-                break;
-        }
-
-        ItemTextColorSet();
-        CheckAdventureState();
+        AdjustProvision(_idx, -1);
     }
 
     public void AddItemBtn(int _idx)
     {
-        int num = 1;
-        //if (!_isAdd)
-         //   num = -1;
+        AdjustProvision(_idx, 1);
+    }
 
-        switch (_idx)
+    void AdjustProvision(int index, int delta)
+    {
+        if (isClicked || !journeyReady || index < 0 || index >= 4)
+            return;
+        int[] amounts = { meat, water, food, hub };
+        string[] codes = { InventoryRules.Meat, InventoryRules.Water, InventoryRules.Food, InventoryRules.Herb };
+        long next = (long)amounts[index] + delta;
+        if (next < 0 || next > ItemManager.Instance.GetAmount(codes[index]))
+            return;
+
+        switch (index)
         {
-            case 0:
-                if (meat + num > ItemManager.Instance.GetItemInfo("Item_Meat").num)
-                    return;
-
-                meat += num;
-                ItemNumTexts[_idx].text = meat.ToString();
-                break;
-            case 1:
-                if (water + num > ItemManager.Instance.GetItemInfo("Item_Water").num )
-                    return;
-
-                water += num;
-                ItemNumTexts[_idx].text = water.ToString();
-                break;
-            case 2:
-                if (food + num > ItemManager.Instance.GetItemInfo("Item_Food").num)
-                    return;
-
-                food += num;
-                ItemNumTexts[_idx].text = food.ToString();
-                break;
-            case 3:
-                if (hub + num > ItemManager.Instance.GetItemInfo("Item_Hub").num)
-                    return;
-
-                hub += num;
-                ItemNumTexts[_idx].text = hub.ToString();
-                break;
+            case 0: meat = (int)next; break;
+            case 1: water = (int)next; break;
+            case 2: food = (int)next; break;
+            case 3: hub = (int)next; break;
         }
-
+        ItemNumTexts[index].text = next.ToString();
         ItemTextColorSet();
         CheckAdventureState();
     }
 
     void CheckAdventureState()
     {
+        if (jStateDataList.Count == 0)
+        {
+            StartAdvBtn.interactable = false;
+            Debug.LogError($"No journey states for {journeyData.JStateGroupID}.", this);
+            return;
+        }
         JStateData jStateData = jStateDataList[jStateDataList.Count - 1];
 
         float cutValue = AdventureValue();
@@ -427,12 +385,7 @@ public class AdventureManager : Singleton<AdventureManager>
             }
         }
 
-        jResultDataList.Clear();
-        foreach (var data in LoadGameData.Instance.jResultDatas)
-        {
-            if (data.Value.JResultGroupID == jStateData.JResultGroupID)
-                jResultDataList.Add(data.Value);
-        }
+        jResultDataList = LoadGameData.Instance.Catalog.GetJourneyResults(jStateData.JResultGroupID);
 
         /*
         string str = "";
@@ -441,9 +394,10 @@ public class AdventureManager : Singleton<AdventureManager>
             string.Format(failStr, (int)(jResultDataList[2].Prob * 100));
         */
 
-        ResultPerfectRateText.text = (jResultDataList[0].Prob * 100).ToString();
-        ResultSuccesRateText.text = (jResultDataList[1].Prob * 100).ToString();
-        ResultFailRateText.text = (jResultDataList[2].Prob * 100).ToString();
+        ResultPerfectRateText.text = ResultPercentage("_Perfect");
+        ResultSuccesRateText.text = ResultPercentage("_Normal");
+        ResultFailRateText.text = ResultPercentage("_Fail");
+        StartAdvBtn.interactable = WeightedSelection.TryPick(jResultDataList, row => row.Prob, 0f, out _);
 
         //ResultText.text = LoadGameData.Instance.GetString(jStateData.JStateStringID);
 
@@ -486,5 +440,30 @@ public class AdventureManager : Singleton<AdventureManager>
             (journeyData.HStressValue * totalHeroStress) + (journeyData.HPowerValue * totalHeroPower);
 
         return value;
+    }
+
+    string ResultPercentage(string suffix)
+    {
+        double total = 0;
+        double category = 0;
+        foreach (var result in jResultDataList)
+        {
+            if (result.Prob <= 0f || float.IsNaN(result.Prob) || float.IsInfinity(result.Prob))
+                continue;
+            total += result.Prob;
+            if (result.JResultID.EndsWith(suffix, System.StringComparison.Ordinal))
+                category += result.Prob;
+        }
+        return total > 0 ? (category / total * 100).ToString("0.#") : "0";
+    }
+
+    protected override void OnDestroy()
+    {
+        DOTween.Kill(this);
+        if (StartAdvBtn != null)
+            StartAdvBtn.onClick.RemoveListener(StartButton);
+        if (TitleCharImg != null)
+            TitleCharImg.transform.DOKill();
+        base.OnDestroy();
     }
 }

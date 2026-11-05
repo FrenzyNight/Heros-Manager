@@ -27,7 +27,7 @@ public class WaterCharMove : MiniGameCharMgr
         audioSource = GetComponent<AudioSource>();
         WM = manager.GetComponent<WaterManager>();
         rt = gameObject.GetComponent<RectTransform>();
-        BK = GameObject.Find("Bucket").GetComponent<Bucket>();
+        BK = MiniGameReferences.Manager<Bucket>(this);
         CharImg = gameObject.GetComponent<Image>();
         isCrash = false;
 
@@ -67,14 +67,15 @@ public class WaterCharMove : MiniGameCharMgr
         CharImg.sprite = img1;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        if (coroutine != null)
-        {
+        base.OnDisable();
+        if (BK != null)
             BK.waterTime = 0;
-            StopCoroutine(coroutine);
-            isCrash = false;
-        }
+        coroutine = null;
+        isCrash = false;
+        if (CharImg != null)
+            CharImg.sprite = img1;
     }
 
     void OnTriggerEnter2D(Collider2D coll)

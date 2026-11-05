@@ -13,7 +13,7 @@ public class LakeStoneMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        WM = GameObject.Find("LakeWaterManager").GetComponent<LakeWaterManager>();
+        WM = MiniGameReferences.Manager<LakeWaterManager>(this);
         rt = gameObject.GetComponent<RectTransform>();
         direction = 1;
 

@@ -9,6 +9,8 @@ public class FenceMgr : Singleton<FenceMgr>
     FenceData fenceData;
     public int fenceLevel = 1;
     bool isLeveling;
+    InGameMgr stageOwner;
+    ItemCost paidCost;
     float timer;
     public float charWaitTime;
     [HideInInspector]
@@ -62,7 +64,9 @@ public class FenceMgr : Singleton<FenceMgr>
 
     void Start()
     {
-        InGameMgr.Instance.NextStageAct += LoadStageFence;
+        stageOwner = InGameMgr.Instance;
+        stageOwner.NextStageAct += LoadStageFence;
+        fenceLevel = SaveDataManager.Instance.saveGameData.fenceLevel;
         audioSource = GetComponent<AudioSource>();
         isFirstFence = true;
 
@@ -85,23 +89,21 @@ public class FenceMgr : Singleton<FenceMgr>
 
     void LoadStageFence()
     {
-        fenceLevel = SaveDataManager.Instance.saveGameData.fenceLevel;
+        CancelUpgrade();
+        LoadGameData.Instance.Catalog.TryGetFence(stageOwner.stageData.FenceGroupID, fenceLevel, out fenceData);
 
-        foreach (var data in LoadGameData.Instance.fenceDatas)
+        if (fenceData == null)
         {
-            if (data.Value.FenceGroupID == InGameMgr.Instance.stageData.FenceGroupID &&
-                data.Value.FenceLevel == fenceLevel)
-            {
-                fenceData = data.Value;
-                break;
-            }
+            Debug.LogError($"No fence data for stage {stageOwner.stage}, level {fenceLevel}.", this);
+            return;
         }
-
         FenceObject();
     }
 
     void Setup()
     {
+        if (fenceData == null || isLeveling)
+            return;
         InGameMgr.Instance.state = State.Fence;
         FencePanel.SetActive(true);
         FenceInfo.SetActive(true);
@@ -117,17 +119,7 @@ public class FenceMgr : Singleton<FenceMgr>
         TitleFenceImg.sprite = TitleFenceImgs[fenceLevel-1];
         TitleCharImg.sprite = TitleCharImgs[0];
 
-        FenceData NextFenceData = null;
-        int tempLevel = fenceLevel + 1;
-        foreach (var data in LoadGameData.Instance.fenceDatas)
-        {
-            if (data.Value.FenceGroupID == InGameMgr.Instance.stageData.FenceGroupID &&
-                data.Value.FenceLevel == tempLevel)
-            {
-                NextFenceData = data.Value;
-                break;
-            }
-        }
+        LoadGameData.Instance.Catalog.TryGetFence(stageOwner.stageData.FenceGroupID, fenceLevel + 1, out var NextFenceData);
         if (NextFenceData == null)
         {
             PrevNum.text = "-";
@@ -159,31 +151,37 @@ public class FenceMgr : Singleton<FenceMgr>
 
     public void ClosePanel()
     {
-        InGameMgr.Instance.state = State.Camp;
+        if (InGameMgr.Instance.state == State.Fence)
+            InGameMgr.Instance.state = State.Camp;
         FencePanel.SetActive(false);
+        CancelUpgrade();
+    }
 
-        if (isLeveling)
-        {
-            ItemManager.Instance.AddItem(fenceData.NeedItemID, fenceData.Amount);
-            audioSource.Stop();
-            StopCoroutine("LevelupCo");
-        }
+    void CancelUpgrade()
+    {
+        if (!isLeveling)
+            return;
+        isLeveling = false;
+        StopCoroutine("LevelupCo");
+        audioSource.Stop();
+        ItemManager.Instance.AddItem(paidCost.ItemId, paidCost.Amount);
+        paidCost = default;
     }
 
     void FenceLevelUp()
     {
-        if (ItemManager.Instance.GetItemInfo(fenceData.NeedItemID).num < fenceData.Amount)
+        if (isLeveling || fenceData == null || !HasNextLevel() ||
+            !ItemManager.Instance.TrySpend(fenceData.NeedItemID, fenceData.Amount))
             return;
 
         isLeveling = true;
+        paidCost = new ItemCost(fenceData.NeedItemID, fenceData.Amount);
         
 
         FenceInfo.SetActive(false);
         FenceLevelup.SetActive(true);
         CancelBtn.gameObject.SetActive(true);
         CompleteBtn.gameObject.SetActive(false);
-
-        ItemManager.Instance.AddItem(fenceData.NeedItemID, -fenceData.Amount);
 
         timer = 0f;
         charTimer = 0f;
@@ -230,35 +228,34 @@ public class FenceMgr : Singleton<FenceMgr>
 
     int NewRandomNum(int prev)
     {
-        int rnd = Random.Range(1,6);
+        int count = TitleCharImgs.Length - 1;
+        if (count <= 0) return 0;
+        if (count == 1) return 1;
+        int index = Random.Range(1, TitleCharImgs.Length);
+        if (index == prev)
+            index = index % count + 1;
+        return index;
+    }
 
-        while(rnd == prev)
-        {
-            rnd = Random.Range(1,6);
-        }
-
-        return rnd;
+    bool HasNextLevel()
+    {
+        return LoadGameData.Instance.Catalog.TryGetFence(stageOwner.stageData.FenceGroupID, fenceLevel + 1, out _);
     }
 
     void CompleteLevelup()
     {
+        if (!isLeveling)
+            return;
         audioSource.Stop();
         isLeveling = false;
+        paidCost = default;
         CancelBtn.gameObject.SetActive(false);
         CompleteBtn.gameObject.SetActive(true);
         LevelingTxt.text = LoadGameData.Instance.GetString("Fence_a3");
 
         fenceLevel++;
         TitleFenceImg.sprite = TitleFenceImgs[fenceLevel-1];
-        foreach (var data in LoadGameData.Instance.fenceDatas)
-        {
-            if (data.Value.FenceGroupID == InGameMgr.Instance.stageData.FenceGroupID &&
-                data.Value.FenceLevel == fenceLevel)
-            {
-                fenceData = data.Value;
-                break;
-            }
-        }
+        LoadGameData.Instance.Catalog.TryGetFence(stageOwner.stageData.FenceGroupID, fenceLevel, out fenceData);
 
         FenceObject();
     }
@@ -274,7 +271,7 @@ public class FenceMgr : Singleton<FenceMgr>
             msg = LoadGameData.Instance.GetString("Invade_a1");
 
             List<int> temp = new List<int>() { 1, 2, 3, 4 };
-            for (int i = 0; i < invadeData.StealObject; i++)
+            for (int i = 0; i < invadeData.StealObject && temp.Count > 0; i++)
             {
                 int rand = Random.Range(0, temp.Count);
 
@@ -320,11 +317,19 @@ public class FenceMgr : Singleton<FenceMgr>
 
     bool CheckInvade()
     {
-        float rand = Random.Range(0f, 0.99f);
-        if (rand < fenceData.InvadeProb)
-            return true;
-        else
-            return false;
+        return fenceData != null && Random.value < Mathf.Clamp01(fenceData.InvadeProb);
+    }
+
+    protected override void OnDestroy()
+    {
+        if (stageOwner != null)
+            stageOwner.NextStageAct -= LoadStageFence;
+        if (FenceBtn != null) FenceBtn.onClick.RemoveListener(Setup);
+        if (ExitBtn != null) ExitBtn.onClick.RemoveListener(ClosePanel);
+        if (StartBtn != null) StartBtn.onClick.RemoveListener(FenceLevelUp);
+        if (CancelBtn != null) CancelBtn.onClick.RemoveListener(ClosePanel);
+        if (CompleteBtn != null) CompleteBtn.onClick.RemoveListener(Setup);
+        base.OnDestroy();
     }
 
     void FenceObject()

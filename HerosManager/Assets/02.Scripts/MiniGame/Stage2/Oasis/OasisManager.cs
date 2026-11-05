@@ -40,18 +40,18 @@ public class OasisManager : MiniGameSetMgr
         waterNum = 0;
         treeNum = 0;
 
-        oasisCharSpeed = LoadGameData.Instance.miniGameDatas["game2lay"].Velocity;
+        oasisCharSpeed = GameData("game2lay").Velocity;
 
-        oasisMeatRes = LoadGameData.Instance.miniGameDatas["game2meat"].GetAmount1;
-        oasisMeatMaxNum = LoadGameData.Instance.miniGameDatas["game2meat"].value1;
+        oasisMeatRes = GameData("game2meat").GetAmount1;
+        oasisMeatMaxNum = GameData("game2meat").value1;
 
-        oasisWaterRes = LoadGameData.Instance.miniGameDatas["game2water"].GetAmount1;
-        oasisWaterMaxNum = LoadGameData.Instance.miniGameDatas["game2water"].value1;
+        oasisWaterRes = GameData("game2water").GetAmount1;
+        oasisWaterMaxNum = GameData("game2water").value1;
 
-        oasisTreeRes = LoadGameData.Instance.miniGameDatas["game2tree"].GetAmount1;
-        oasisTreeMaxNum = LoadGameData.Instance.miniGameDatas["game2tree"].value1;
+        oasisTreeRes = GameData("game2tree").GetAmount1;
+        oasisTreeMaxNum = GameData("game2tree").value1;
 
-        oasisNetSpeed = LoadGameData.Instance.miniGameDatas["game2net"].Velocity;
+        oasisNetSpeed = GameData("game2net").Velocity;
 
         realOasisNetSpeed = standardOasisSpeed * oasisNetSpeed;
         realOasisCharSpeed = standardOasisSpeed * oasisCharSpeed;
@@ -67,26 +67,29 @@ public class OasisManager : MiniGameSetMgr
     {
         GameObject obj;
         int rnd;
-        while(meatNum < oasisMeatMaxNum)
+        int meatToSpawn = MiniGameRules.RequiredSpawnCount(meatNum, oasisMeatMaxNum);
+        int waterToSpawn = MiniGameRules.RequiredSpawnCount(waterNum, oasisWaterMaxNum);
+        int treesToSpawn = MiniGameRules.RequiredSpawnCount(treeNum, oasisTreeMaxNum);
+        for (int i = 0; i < meatToSpawn; i++)
         {
             rnd = Random.Range(0,360);
-            obj = TrackSpawn(Instantiate(MeatPrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform));
+            obj = Spawn(MeatPrefab, transform.position, Quaternion.identity, SpawnContainer("Oasis"));
             obj.GetComponent<RectTransform>().Rotate(new Vector3(0,0,rnd));
             meatNum++;
         }
 
-        while(waterNum < oasisWaterMaxNum)
+        for (int i = 0; i < waterToSpawn; i++)
         {
             rnd = Random.Range(0,360);
-            obj = TrackSpawn(Instantiate(WaterPrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform));
+            obj = Spawn(WaterPrefab, transform.position, Quaternion.identity, SpawnContainer("Oasis"));
             obj.GetComponent<RectTransform>().Rotate(new Vector3(0,0,rnd));
             waterNum++;
         }
 
-        while(treeNum < oasisTreeMaxNum)
+        for (int i = 0; i < treesToSpawn; i++)
         {
             rnd = Random.Range(0,360);
-            obj = TrackSpawn(Instantiate(TreePrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform));
+            obj = Spawn(TreePrefab, transform.position, Quaternion.identity, SpawnContainer("Oasis"));
             obj.GetComponent<RectTransform>().Rotate(new Vector3(0,0,rnd));
             treeNum++;
         }
@@ -95,29 +98,29 @@ public class OasisManager : MiniGameSetMgr
     public void GetWater()
     {
         //MGM.water += (int)oasisWaterRes;
-        waterNum--;
+        waterNum = Mathf.Max(0f, waterNum - 1f);
     }
 
     public void GetMeat()
     {
         //MGM.meat += (int)oasisMeatRes;
-        meatNum--;
+        meatNum = Mathf.Max(0f, meatNum - 1f);
     }
 
     public void GetTree()
     {
         //MGM.wood += (int)oasisTreeRes;
-        treeNum--;
+        treeNum = Mathf.Max(0f, treeNum - 1f);
     }
     
     IEnumerator OasisRoutine()
     {
         SpawnObject();
-        yield return new WaitForSeconds(oasisCharSpeed * 5f);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(oasisCharSpeed * 5f));
         SpawnObject();
-        yield return new WaitForSeconds(oasisCharSpeed * 5f);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(oasisCharSpeed * 5f));
         SpawnObject();
-        yield return new WaitForSeconds(oasisCharSpeed * 5f);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(oasisCharSpeed * 5f));
 
         //MGM.CloseCurrentGame();
         yield return null;

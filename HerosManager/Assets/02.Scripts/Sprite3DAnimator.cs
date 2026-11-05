@@ -5,44 +5,44 @@ using UnityEngine;
 public class Sprite3DAnimator : MonoBehaviour
 {
     public enum AnimationAxis { Rows, Columns }
-
     public MeshRenderer meshRenderer;
     public string rowProperty = "_CurrRow", colProperty = "_CurrCol";
-
     public AnimationAxis axis;
     public float animationSpeed = 5f;
-    public int animationIndex = 0;
-    public bool isMove = false;
+    public int animationIndex;
+    public bool isMove;
 
-    void Update()
+    private MaterialPropertyBlock properties;
+    private int rowId, columnId;
+
+    private void Awake()
     {
-        string clipKey, frameKey;
-        if (axis == AnimationAxis.Rows)
-        {
-            clipKey = rowProperty;
-            frameKey = colProperty; 
-        }
-        else
-        {
-            clipKey = colProperty;
-            frameKey = rowProperty;
-        }
+        properties = new MaterialPropertyBlock();
+        rowId = Shader.PropertyToID(rowProperty);
+        columnId = Shader.PropertyToID(colProperty);
+    }
 
-        //Animate
-        if(isMove)
-        {
-            int frame = (int)(Time.time * animationSpeed);
-            meshRenderer.material.SetFloat(clipKey, animationIndex);
-            meshRenderer.material.SetFloat(frameKey, frame);
-        }
-        
+    private void Update()
+    {
+        if (!isMove || meshRenderer == null) return;
+        int frame = (int)(Time.time * animationSpeed);
+        Apply(axis == AnimationAxis.Rows ? animationIndex : frame,
+            axis == AnimationAxis.Rows ? frame : animationIndex);
     }
 
     public void SetIdle()
     {
         isMove = false;
-        meshRenderer.material.SetFloat(rowProperty, 1);
-        meshRenderer.material.SetFloat(colProperty, animationIndex);
-       
+        Apply(1, animationIndex);
+    }
+
+    private void Apply(float row, float column)
+    {
+        if (meshRenderer == null) return;
+        if (properties == null) Awake();
+        meshRenderer.GetPropertyBlock(properties);
+        properties.SetFloat(rowId, row);
+        properties.SetFloat(columnId, column);
+        meshRenderer.SetPropertyBlock(properties);
     }
 }

@@ -148,8 +148,8 @@ public class TitleManager : MonoBehaviour
                                 warningMgr.OpenPanel();
                                 return;
                             }
-                            SaveDataManager.Instance.NewGameData();
-                            if (SaveDataManager.Instance.TrySaveGameDatas())
+                            var saves = SaveDataManager.Instance;
+                            if (saves.TrySaveGameSnapshot(saves.CreateNewGameData()))
                                 Production("Intro");
                         });
                         break;

@@ -9,181 +9,121 @@ public class Clock : Singleton<Clock>
 {
     public GameObject[] CampObjs;
     public StageDayData stageDayData;
-
     public int day;
-    public float nowTime;
-    public float dayTime;
-    float heroBackTime;
+    public float nowTime, dayTime;
     public bool isStop;
-
     public Text DayText;
     public Image ClockFillImg;
-
     public Action NextDayAct;
-
     public AdventureManager AdventureMgr;
-
-    public bool isHeroBack;
-    public bool isProduct;
+    public bool isHeroBack, isProduct;
     [HideInInspector] public bool isFirstHeroBack;
-    
-    void Start()
-    {
-        Setup();
-        LoadStageDayData();
-    }
 
-    void Setup()
+    private float heroBackTime;
+    private bool nightStarted, advancingDay;
+    private CampInteractionMgr[] campInteractions;
+    public float DayDurationSeconds => Mathf.Max(0.01f, dayTime * 60f);
+
+    private void Start()
     {
         day = SaveDataManager.Instance.saveGameData.day;
-
         dayTime = LoadGameData.Instance.defineDatas["Define_Day_Time"].value1;
-        heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value1;
-        isHeroBack = false;
-        isProduct = false;
+        heroBackTime = LoadGameData.Instance.defineDatas["Define_HeroBack_Time"].value1 * 60f;
+        if (dayTime <= 0 || float.IsNaN(dayTime) || float.IsInfinity(dayTime))
+            throw new InvalidOperationException("Define_Day_Time must be finite and positive.");
+        heroBackTime = Mathf.Clamp(heroBackTime, 0, DayDurationSeconds);
         isFirstHeroBack = true;
-        //isChicken = false;
+        var interactions = new List<CampInteractionMgr>();
+        foreach (var camp in CampObjs)
+            if (camp != null && camp.TryGetComponent<CampInteractionMgr>(out var interaction))
+                interactions.Add(interaction);
+        campInteractions = interactions.ToArray();
+        LoadStageDayData();
     }
 
     public void LoadStageDayData()
     {
-        stageDayData = null;
-        foreach (var data in LoadGameData.Instance.stageDayDatas)
-        {
-            if (data.Value.StageDayGroupID == InGameMgr.Instance.stageData.StageDayGroupID &&
-                data.Value.Day == day)
-            {
-                stageDayData = data.Value;
-                break;
-            }
-        }
-
-        if (stageDayData == null)
+        if (!LoadGameData.Instance.Catalog.TryGetStageDay(InGameMgr.Instance.stageData.StageDayGroupID, day, out stageDayData))
         {
             isStop = true;
-            Debug.LogError($"No day data for stage {InGameMgr.Instance.stage}, day {day}.");
+            Debug.LogError($"No day data for stage {InGameMgr.Instance.stage}, day {day}.", this);
             return;
         }
-
-        nowTime = 0f;
-
+        nowTime = 0;
+        isHeroBack = isProduct = nightStarted = false;
         DayText.text = string.Format(LoadGameData.Instance.GetString("Day_t1"), day);
         ClockFillImg.fillAmount = 0;
-
+        EventMgr.Instance.EventButtonDeActive();
         AdventureMgr.ReadyAdventure(stageDayData);
     }
 
     public void NextDay()
     {
-        if (InGameMgr.Instance.IsComplete)
-            return;
-        nowTime = 0;
-        Time.timeScale = 0f;
-
-        ProductMgr.Instance.UIInProduct();
-        isProduct =false;
-
-        isHeroBack = false;
-        //isChicken = false;
-
-        //Panel Exit
-        
-
-        int cnt = 0;
-        foreach (var data in LoadGameData.Instance.stageDayDatas)
+        var game = InGameMgr.Instance;
+        if (game.IsComplete || advancingDay || !isProduct) return;
+        advancingDay = true;
+        isProduct = false;
+        try
         {
-            if (data.Value.StageDayGroupID == InGameMgr.Instance.stageData.StageDayGroupID)
-                cnt++;
-        }
-
-        //마지막날
-        if (day >= cnt)
-        {
-            InGameMgr.Instance.NextStage();
-            if (InGameMgr.Instance.IsComplete)
+            Time.timeScale = 0;
+            // Finish yesterday's activities before loading the next stage's configuration.
+            foreach (var interaction in campInteractions) interaction.NextDayAction();
+            if (!GameProgression.TryGetNextDay(LoadGameData.Instance.Catalog, game.stage, day, out var stage, out var nextDay))
             {
-                InGameMgr.Instance.SaveStageData();
+                ProductMgr.Instance.BlackPanel.SetActive(false);
+                ProductMgr.Instance.UIInProduct();
+                game.CompleteGame();
+                game.SaveStageData();
                 return;
             }
-            day = 1;
+            if (stage.Index != game.stage) game.NextStage();
+            else FenceMgr.Instance.Invade();
+            day = nextDay.Day;
             LoadStageDayData();
+            NextDayAct?.Invoke();
+            game.SaveStageData();
+            ProductMgr.Instance.UIInProduct();
         }
-        else
+        finally { advancingDay = false; }
+    }
+
+    private void Update()
+    {
+        if (isStop || isProduct || InGameMgr.Instance.IsComplete) return;
+        nowTime = Mathf.Min(nowTime + Time.deltaTime, DayDurationSeconds);
+        ClockFillImg.fillAmount = nowTime / DayDurationSeconds;
+        if (!isHeroBack && nowTime >= heroBackTime)
         {
-            day++;
-            FenceMgr.Instance.Invade();
-            LoadStageDayData();
-            foreach(GameObject campobj in CampObjs)
-            {
-                campobj.GetComponent<CampInteractionMgr>().NextDayAction();
-            }
-            //NextDayAct();
-        }
-
-
-        //EventMgr.Instance.EventButton.GetComponent<Button>().interactable = false;
-        EventMgr.Instance.EventButtonDeActive();
-        InGameMgr.Instance.SaveStageData();
-    }
-
-    void Update()
-    {
-        Timer();
-    }
-
-    IEnumerator HeroBackTutorialDelay()
-    {
-        yield return new WaitForSeconds(0.5f);
-        TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Back_1");
-    }
-    
-    
-    void Timer()
-    {
-        if (isStop)
-            return;
-
-        nowTime += Time.deltaTime;
-        ClockFillImg.fillAmount = nowTime / (dayTime * 60f);
-        if (nowTime >= (heroBackTime * 60f) && !isHeroBack)
-        {
-            AdventureMgr.EndJourney();
             isHeroBack = true;
-
+            AdventureMgr.EndJourney();
             if (isFirstHeroBack)
             {
                 isFirstHeroBack = false;
                 StartCoroutine(HeroBackTutorialDelay());
             }
         }
-
-        /*
-        if(nowTime > 0 && !isChicken)
+        if (isStop) return;
+        if (!nightStarted && nowTime >= DayDurationSeconds / 2f)
         {
-            AdventureMgr.audioSource.Play();
-            isChicken = true;
-        }
-        */
-
-        if (nowTime >= (dayTime * 60f) && !isProduct)
-        {
-            GatheringManager.Instance.CloseGatheringPannel();
-            MiniGameMgr.Instance.CloseMiniGame();
-            FenceMgr.Instance.ClosePanel();
-            EventMgr.Instance.ClosePanel();
-            AmuletManager.Instance.CloseList();
-            //nowTime = 0;
-            isProduct = true;
-            ProductMgr.Instance.UIOutProduct();
-            //NextDay();
-        }
-
-        if(nowTime >= (dayTime * 60f)/2) //night
-        {
-            //EventMgr.Instance.EventButton.GetComponent<Button>().interactable = true;
+            nightStarted = true;
             EventMgr.Instance.EventButtonActive();
         }
+        if (nowTime < DayDurationSeconds) return;
+        isProduct = true;
+        GatheringManager.Instance.CloseGatheringPannel();
+        MiniGameMgr.Instance.CloseMiniGame();
+        FenceMgr.Instance.ClosePanel();
+        EventMgr.Instance.ClosePanel();
+        AmuletManager.Instance.CloseList();
+        EventMgr.Instance.EventButtonDeActive();
+        InGameMgr.Instance.state = State.None;
+        ProductMgr.Instance.UIOutProduct();
     }
-    
-    
+
+    private IEnumerator HeroBackTutorialDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (!isProduct && !InGameMgr.Instance.IsComplete)
+            TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Back_1");
+    }
 }

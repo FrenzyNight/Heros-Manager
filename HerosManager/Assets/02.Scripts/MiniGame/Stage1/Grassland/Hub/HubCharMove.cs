@@ -42,54 +42,12 @@ public class HubCharMove : MiniGameCharMgr
     }
 
 
-    public override void Action1() //Set Direction
+    public override void Action1()
     {
-        if(isW && !isA && !isS && !isD) // only w
-        {
-            direction = 90;
-        }
-        else if(!isW && isA && !isS && !isD) // only a
-        {
-            direction = 180;
-        }
-        else if(!isW && !isA && isS && !isD) // only a
-        {
-            direction = 270;
-        }
-        else if(!isW && !isA && !isS && isD) // only d
-        {
-            direction = 0;
-        }
-
-        else if(isW && !isA && !isS && isD) // w & d
-        {
-            direction = 45;
-        }
-        else if(isW && isA && !isS && !isD) // w & a
-        {
-            direction = 135;
-        }
-        else if(!isW && isA && isS && !isD) // a & s
-        {
-            direction = 225;
-        }
-        else if(!isW && !isA && isS && isD) // d & s
-        {
-            direction = 315;
-        }
-
-        x = Mgr.realHubCharSpeed * Mathf.Cos(direction * Mathf.Deg2Rad);
-        y = Mgr.realHubCharSpeed * Mathf.Sin(direction * Mathf.Deg2Rad);
-
-        if(x >= 0)
-        {
-            transform.localScale = new Vector3(1,1,1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-1,1,1);
-        }
-
+        Vector2 velocity = MiniGameMovement.Direction(isW, isA, isS, isD) * Mgr.realHubCharSpeed;
+        x = velocity.x;
+        y = velocity.y;
+        MiniGameMovement.FaceHorizontal(transform, x);
     }
 
     void OnCollisionEnter2D(Collision2D c)

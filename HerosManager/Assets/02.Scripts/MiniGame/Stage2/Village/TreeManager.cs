@@ -41,28 +41,28 @@ public class TreeManager : MiniGameSetMgr
         treeList.Clear();
         isStun = false;
 
-        treeInputDelay = LoadGameData.Instance.miniGameDatas["game2tree_norm"].Stun;
+        treeInputDelay = GameData("game2tree_norm").Stun;
 
-        treeNormalPer = LoadGameData.Instance.miniGameDatas["game2tree_norm"].Probability * 100;
-        treeNormalRes = LoadGameData.Instance.miniGameDatas["game2tree_norm"].GetAmount1;
+        treeNormalPer = GameData("game2tree_norm").Probability * 100;
+        treeNormalRes = GameData("game2tree_norm").GetAmount1;
 
-        treeGoldRes = LoadGameData.Instance.miniGameDatas["game2tree_gold"].GetAmount1;
-        treeGoldPer = LoadGameData.Instance.miniGameDatas["game2tree_gold"].Probability * 100;
+        treeGoldRes = GameData("game2tree_gold").GetAmount1;
+        treeGoldPer = GameData("game2tree_gold").Probability * 100;
 
-        treeBugLoss = LoadGameData.Instance.miniGameDatas["game2tree_insect"].value1;
-        treeBugPer = LoadGameData.Instance.miniGameDatas["game2tree_insect"].Probability * 100;
-        treeBugStun = LoadGameData.Instance.miniGameDatas["game2tree_insect"].Stun;
+        treeBugLoss = GameData("game2tree_insect").value1;
+        treeBugPer = GameData("game2tree_insect").Probability * 100;
+        treeBugStun = GameData("game2tree_insect").Stun;
 
         
         for(int i=0;i<4;i++)
         {
             rnd = Random.Range(1,101);
 
-            if(rnd <= treeGoldPer)
+            if(MiniGameRules.PercentHit(rnd, treeGoldPer))
             {
                 SelectedObject = GoldTree;
             }
-            else if(treeGoldPer < rnd && rnd <= treeNormalPer)
+            else if(treeGoldPer < rnd && MiniGameRules.PercentHit(rnd, treeNormalPer))
             {
                 SelectedObject = NormalTree;
             }
@@ -71,7 +71,7 @@ public class TreeManager : MiniGameSetMgr
                 SelectedObject = BugTree;
             }
 
-            GameObject tree = TrackSpawn(Instantiate(SelectedObject, transform.position, Quaternion.identity, GameObject.Find("Tree").transform));
+            GameObject tree = Spawn(SelectedObject, transform.position, Quaternion.identity, SpawnContainer("Tree"));
             tree.transform.SetAsFirstSibling();
             //tree.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
             treeList.Add(tree);
@@ -106,7 +106,7 @@ public class TreeManager : MiniGameSetMgr
 
         SpanwNewTree();
         isStun = true;
-        yield return new WaitForSeconds(treeInputDelay);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(treeInputDelay));
         isStun = false;
     }
 
@@ -126,7 +126,7 @@ public class TreeManager : MiniGameSetMgr
         {
             Debug.Log("Loss tree : " + treeBugLoss.ToString() + "and Stun");
             isStun = true;
-            yield return new WaitForSeconds(treeBugStun);
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(treeBugStun));
             isStun = false;
         }
         else
@@ -140,7 +140,7 @@ public class TreeManager : MiniGameSetMgr
         SpanwNewTree();
 
         isStun = true;
-        yield return new WaitForSeconds(treeInputDelay);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(treeInputDelay));
         isStun = false;
     }
 
@@ -148,11 +148,11 @@ public class TreeManager : MiniGameSetMgr
     {
         rnd = Random.Range(1,101);
 
-        if(rnd <= treeGoldPer)
+        if(MiniGameRules.PercentHit(rnd, treeGoldPer))
         {
             SelectedObject = GoldTree;
         }
-        else if(treeGoldPer < rnd && rnd <= treeNormalPer)
+        else if(treeGoldPer < rnd && MiniGameRules.PercentHit(rnd, treeNormalPer))
         {
             SelectedObject = NormalTree;
         }
@@ -161,7 +161,7 @@ public class TreeManager : MiniGameSetMgr
             SelectedObject = BugTree;
         }
 
-        GameObject tree = TrackSpawn(Instantiate(SelectedObject, transform.position, Quaternion.identity, GameObject.Find("Tree").transform));
+        GameObject tree = Spawn(SelectedObject, transform.position, Quaternion.identity, SpawnContainer("Tree"));
         tree.transform.SetAsFirstSibling();
         //tree.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
         treeList.Add(tree);

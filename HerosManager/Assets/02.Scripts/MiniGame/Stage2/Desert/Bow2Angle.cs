@@ -14,7 +14,7 @@ public class Bow2Angle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HM = GameObject.Find("Hunt2Manager").GetComponent<Hunt2Manager>();
+        HM = MiniGameReferences.Manager<Hunt2Manager>(this);
         target = transform.position;
     }
 
@@ -35,7 +35,7 @@ public class Bow2Angle : MonoBehaviour
     IEnumerator ShootArrow()
     {
         HM.isShoot = true;
-        Instantiate(ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward), GameObject.Find("Hunt2").transform);
+        HM.Spawn(ArrowPrefab, target, Quaternion.AngleAxis(angle, Vector3.forward), MiniGameReferences.Container(this, "Hunt2"));
 
         gameObject.GetComponent<Animator>().Play("Bow_ani", -1, 0f);
         yield return new WaitForSeconds(HM.huntArrowCoolTime);

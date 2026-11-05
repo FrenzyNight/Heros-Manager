@@ -20,11 +20,13 @@ Unity Hub에서 이 저장소의 **`HerosManager` 하위 폴더**를 Unity **600
 
 - [프로젝트 구조와 개발 규칙](docs/ARCHITECTURE.md)
 - [Unity 6 이식 내역과 검증](docs/UNITY6_MIGRATION.md)
+- [유지보수 리팩터링과 회귀 검사](docs/REFACTORING.md)
 
 Unity를 닫은 뒤 저장소 루트의 PowerShell에서 실행합니다.
 
 ```powershell
 ./tools/Validate-Unity.ps1 -Check Project
+./tools/Validate-Unity.ps1 -Check Rules
 ./tools/Validate-Unity.ps1 -Check Save
 ./tools/Validate-Unity.ps1 -Check Play
 ./tools/Validate-Unity.ps1 -Check Build

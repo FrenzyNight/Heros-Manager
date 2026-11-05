@@ -32,13 +32,13 @@ public class LakeWaterManager : MiniGameSetMgr
     {
         base.SetUp();
 
-        waterBucketSpeed = LoadGameData.Instance.miniGameDatas["game2bucket"].Velocity;
+        waterBucketSpeed = GameData("game2bucket").Velocity;
 
-        waterRock1Speed = LoadGameData.Instance.miniGameDatas["game2rock1"].Velocity;
-        waterRock2Speed = LoadGameData.Instance.miniGameDatas["game2rock2"].Velocity;
+        waterRock1Speed = GameData("game2rock1").Velocity;
+        waterRock2Speed = GameData("game2rock2").Velocity;
 
-        waterLevel1Res = LoadGameData.Instance.miniGameDatas["game2level1"].GetAmount1;
-        waterLevel2Res = LoadGameData.Instance.miniGameDatas["game2level2"].GetAmount1;
+        waterLevel1Res = GameData("game2level1").GetAmount1;
+        waterLevel2Res = GameData("game2level2").GetAmount1;
 
         realBucketSpeed = standardLakeWaterSpeed * waterBucketSpeed;
         realRock1Speed = standardLakeWaterSpeed * waterRock1Speed;

@@ -8,216 +8,149 @@ using DG.Tweening;
 public class CutSceneManager : MonoBehaviour
 {
     public GameObject BackPanel;
-    public Image PrevImg;
-    public Image Img;
+    public Image PrevImg, Img;
     public TextMeshProUGUI StringText;
     public GameObject Wating;
-    public AudioSource audioSource;
-    public AudioSource typingAS;
+    public AudioSource audioSource, typingAS;
     public AudioClip typingSound;
 
-    List<CutsceneData> cutSceneList = new List<CutsceneData>();
-    int idx;
-    bool isSkip;
-    float vol;
+    private IReadOnlyList<CutsceneData> lines = System.Array.Empty<CutsceneData>();
+    private int nextIndex;
+    private bool imageTransition;
+    private float volume;
+    private Coroutine typing, sound, waiting;
 
-    IEnumerator TypingCo;
-    IEnumerator SoundCo;
-
-    public void LoadCutscene(string _code)
+    public void LoadCutscene(string code)
     {
-        cutSceneList.Clear();
-        idx = 0;
-        isSkip = true;
+        StopEffects();
+        LoadGameData.Instance.LoadTitleDatas();
+        lines = LoadGameData.Instance.Catalog.GetCutscenes(code);
+        nextIndex = 0;
+        volume = SaveDataManager.Instance.saveOptionData.EffVolume;
         typingAS.clip = typingSound;
-        vol = SaveDataManager.Instance.saveOptionData.EffVolume;
-        typingAS.volume = SaveDataManager.Instance.saveOptionData.EffVolume;
-        foreach (var data in LoadGameData.Instance.cutsceneDatas)
-        {
-            if (data.Value.OpenID == _code)
-            {
-                cutSceneList.Add(data.Value);
-            }
-        }
+        typingAS.volume = volume;
+        StringText.text = string.Empty;
+        StringText.maxVisibleCharacters = int.MaxValue;
+        PrevImg.gameObject.SetActive(false);
     }
 
     public bool NextCutscene()
     {
-        //string Eff 끝나고 마지막이면
-        if (TypingCo == null && idx == cutSceneList.Count)
+        if (imageTransition) return false;
+        StopWaiting();
+        if (typing != null)
+        {
+            StopCoroutine(typing);
+            typing = null;
+            StringText.maxVisibleCharacters = int.MaxValue;
+            typingAS.Stop();
+            waiting = StartCoroutine(Waiting());
+            return false;
+        }
+        if (nextIndex >= lines.Count)
+        {
+            StopEffects();
             return true;
-
-        Wating.SetActive(false);
-        StopCoroutine("WatingEffCo");
-
-        if (!isSkip)
-            return false;
-
-        if (TypingCo != null)
-        {
-            StopCoroutine(TypingCo);
-            TypingCo = null;
-            StringText.text = LoadGameData.Instance.GetString(cutSceneList[idx].StringID);
-            idx++;
-
-            StartCoroutine("WatingEffCo");
-
-            return false;
         }
 
-        switch (cutSceneList[idx].ImageType)
-        {
-            case 1: //fade in
-                ImageEff1(cutSceneList[idx].ImageResourceID, cutSceneList[idx].ImageDelay, cutSceneList[idx].value2);
-                break;
-            case 2: //이전 이미지 그대로 다음 fade in
-                ImageEff2(cutSceneList[idx].ImageResourceID, cutSceneList[idx].ImageDelay, cutSceneList[idx].value2);
-                break;
-            case 3: //fade out
-                ImageEff3(cutSceneList[idx].ImageResourceID, cutSceneList[idx].ImageDelay, cutSceneList[idx].value2);
-                break;
-        }
-
-        switch (cutSceneList[idx].StringType)
-        {
-            case 1: //타이핑
-                TypingCo = TypingEff1Co(cutSceneList[idx].StringID, cutSceneList[idx].StringDelay, cutSceneList[idx].value1);
-                StartCoroutine(TypingCo);
-                break;
-        }
-
-        if (SoundCo != null)
-        {
-            StopCoroutine(SoundCo);
-        }
-        audioSource.DOKill();
-
-        switch (cutSceneList[idx].SoundType)
-        {
-            case 1: //1회 재생
-                SoundCo = SoundEff1Co(cutSceneList[idx].SoundResourceID, cutSceneList[idx].StringDelay, cutSceneList[idx].value3);
-                StartCoroutine(SoundCo);
-                break;
-            case 2: //반복 재생
-                SoundCo = SoundEff2Co(cutSceneList[idx].SoundResourceID, cutSceneList[idx].StringDelay, cutSceneList[idx].value3);
-                StartCoroutine(SoundCo);
-                break;
-            case 3: //fade out
-                SoundEff3(cutSceneList[idx].SoundResourceID, cutSceneList[idx].StringDelay, cutSceneList[idx].value3);
-                break;
-            case 4: //정지
-                audioSource.Stop();
-                break;
-        }
-
+        var line = lines[nextIndex++];
+        ApplyImage(line);
+        StringText.text = line.StringID == "-1" ? string.Empty : LoadGameData.Instance.GetString(line.StringID);
+        StringText.maxVisibleCharacters = line.StringType == 1 ? 0 : int.MaxValue;
+        if (line.StringType == 1) typing = StartCoroutine(TypeLine(line.StringDelay));
+        else waiting = StartCoroutine(Waiting());
+        ApplySound(line);
         return false;
     }
 
-    void ImageEff1(string _imgCode, float _delay, float _value)
+    private void ApplyImage(CutsceneData line)
     {
-        isSkip = false;
-
-        Img.sprite = Resources.Load<Sprite>("CutsceneImage/" + _imgCode);
-        Img.color = new Color(255, 255, 255, 0) / 255;
-
-        Img.DOFade(1, _value).SetEase(Ease.Linear).SetDelay(_delay).SetUpdate(true).OnComplete(() =>
+        if (line.ImageType < 1 || line.ImageType > 3) return;
+        Img.DOKill();
+        imageTransition = true;
+        if (line.ImageType == 2)
         {
-            isSkip = true;
-        });
-    }
-
-    void ImageEff2(string _imgCode, float _delay, float _value)
-    {
-        isSkip = false;
-
-        PrevImg.gameObject.SetActive(true);
-        PrevImg.sprite = Img.sprite;
-        Img.sprite = Resources.Load<Sprite>("CutsceneImage/" + _imgCode);
-        Img.color = new Color(255, 255, 255, 0) / 255;
-
-        Img.DOFade(1, _value).SetEase(Ease.Linear).SetDelay(_delay).SetUpdate(true).OnComplete(() =>
-        {
-            PrevImg.gameObject.SetActive(false);
-            isSkip = true;
-        });
-    }
-
-    void ImageEff3(string _imgCode, float _delay, float _value)
-    {
-        isSkip = false;
-
-        Img.color = Color.white;
-
-        Img.DOFade(0, _value).SetEase(Ease.Linear).SetDelay(_delay).SetUpdate(true).OnComplete(() =>
-        {
-            isSkip = true;
-        });
-    }
-
-    IEnumerator TypingEff1Co(string _strCode, float _delay, float _value)
-    {
-        string str = LoadGameData.Instance.GetString(_strCode);
-
-        yield return new WaitForSecondsRealtime(_delay);
-
-        for (int i = 0; i < str.Length; i++)
-        {
-            StringText.text = str.Substring(0, i + 1);
-            typingAS.Play();
-            yield return new WaitForSecondsRealtime(0.1f);
+            PrevImg.sprite = Img.sprite;
+            PrevImg.gameObject.SetActive(true);
         }
-
-        idx++;
-        TypingCo = null;
-
-        StartCoroutine("WatingEffCo");
+        if (line.ImageType != 3)
+            Img.sprite = Resources.Load<Sprite>("CutsceneImage/" + line.ImageResourceID);
+        Img.color = new Color(1, 1, 1, line.ImageType == 3 ? 1 : 0);
+        Img.DOFade(line.ImageType == 3 ? 0 : 1, Mathf.Max(0, line.value2))
+            .SetDelay(Mathf.Max(0, line.ImageDelay)).SetEase(Ease.Linear).SetUpdate(true).SetId(this)
+            .OnComplete(() =>
+            {
+                imageTransition = false;
+                PrevImg.gameObject.SetActive(false);
+            });
     }
 
-    IEnumerator WatingEffCo()
+    private IEnumerator TypeLine(float delay)
     {
+        yield return new WaitForSecondsRealtime(Mathf.Max(0, delay));
+        StringText.ForceMeshUpdate();
+        int count = StringText.textInfo.characterCount;
+        var interval = new WaitForSecondsRealtime(0.1f);
+        for (int visible = 1; visible <= count; visible++)
+        {
+            StringText.maxVisibleCharacters = visible;
+            typingAS.Play();
+            yield return interval;
+        }
+        typing = null;
+        waiting = StartCoroutine(Waiting());
+    }
+
+    private IEnumerator Waiting()
+    {
+        var interval = new WaitForSecondsRealtime(0.5f);
         while (true)
         {
-            Wating.SetActive(true);
-
-            yield return new WaitForSecondsRealtime(0.5f);
-
-            Wating.SetActive(false);
-
-            yield return new WaitForSecondsRealtime(0.5f);
+            Wating.SetActive(!Wating.activeSelf);
+            yield return interval;
         }
     }
 
-    IEnumerator SoundEff1Co(string _strCode, float _delay, float _value)
+    private void StopWaiting()
     {
-        AudioClip clip = Resources.Load<AudioClip>("CutsceneSound/" + _strCode);
+        if (waiting != null) StopCoroutine(waiting);
+        waiting = null;
+        Wating.SetActive(false);
+    }
 
-        yield return new WaitForSecondsRealtime(_delay);
+    private void ApplySound(CutsceneData line)
+    {
+        if (sound != null) StopCoroutine(sound);
+        sound = null;
+        audioSource.DOKill();
+        if (line.SoundType == 1 || line.SoundType == 2)
+            sound = StartCoroutine(PlaySound(line));
+        else if (line.SoundType == 3)
+            audioSource.DOFade(0, Mathf.Max(0, line.value3)).SetDelay(Mathf.Max(0, line.SoundDelay))
+                .SetUpdate(true).SetId(this).OnComplete(audioSource.Stop);
+        else if (line.SoundType == 4) audioSource.Stop();
+    }
 
-        audioSource.clip = clip;
-        audioSource.loop = false;
-        audioSource.volume = vol;
+    private IEnumerator PlaySound(CutsceneData line)
+    {
+        yield return new WaitForSecondsRealtime(Mathf.Max(0, line.SoundDelay));
+        audioSource.clip = Resources.Load<AudioClip>("CutsceneSound/" + line.SoundResourceID);
+        audioSource.loop = line.SoundType == 2;
+        audioSource.volume = volume;
         audioSource.Play();
+        sound = null;
     }
 
-    IEnumerator SoundEff2Co(string _strCode, float _delay, float _value)
+    private void StopEffects()
     {
-        AudioClip clip = Resources.Load<AudioClip>("CutsceneSound/" + _strCode);
-
-        yield return new WaitForSecondsRealtime(_delay);
-
-        audioSource.clip = clip;
-        audioSource.loop = true;
-        audioSource.volume = vol;
-        audioSource.Play();
+        StopAllCoroutines();
+        typing = sound = waiting = null;
+        DOTween.Kill(this);
+        imageTransition = false;
+        if (Wating != null) Wating.SetActive(false);
+        if (audioSource != null) audioSource.Stop();
+        if (typingAS != null) typingAS.Stop();
     }
 
-    void SoundEff3(string _strCode, float _delay, float _value)
-    {
-        audioSource.volume = vol;
-        audioSource.DOFade(0, cutSceneList[idx].value3).SetEase(Ease.Linear)
-                    .SetDelay(cutSceneList[idx].StringDelay).SetUpdate(true).OnComplete(() =>
-                    {
-                        audioSource.Stop();
-                    });
-    }
+    private void OnDisable() => StopEffects();
 }

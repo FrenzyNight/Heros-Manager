@@ -6,104 +6,57 @@ using DG.Tweening;
 
 public class ProductMgr : Singleton<ProductMgr>
 {
-    public float timeInterval;
-    public float moveTime;
-    public float fadeoutTime;
-
-    public GameObject ClockUI;
-    public GameObject JewelUI;
+    public float timeInterval, moveTime, fadeoutTime;
+    public GameObject ClockUI, JewelUI;
     public GameObject[] HeroUIs;
-    public GameObject NoticeUI;
-    public GameObject FenceButtonUI;
-    public GameObject GatheringButtonUI;
-    public GameObject EventButtonUI;
-    public GameObject ItemUI;
-    public GameObject BlackPanel;
+    public GameObject NoticeUI, FenceButtonUI, GatheringButtonUI, EventButtonUI, ItemUI, BlackPanel, MainCam;
 
-    public GameObject MainCam;
-
+    private Sequence transition;
+    private bool leaving;
 
     public void UIOutProduct()
     {
-        StartCoroutine(OutCoroutine());
+        if (leaving) return;
+        leaving = true;
+        BeginTransition(false);
+        transition.AppendCallback(() => BlackPanel.SetActive(true));
+        transition.Append(MainCam.GetComponent<AudioSource>().DOFade(0, Mathf.Max(0, fadeoutTime)));
+        transition.Join(BlackPanel.GetComponent<Image>().DOFade(1, Mathf.Max(0, fadeoutTime)));
+        transition.OnComplete(() => Clock.Instance.NextDay());
     }
 
     public void UIInProduct()
     {
-        StartCoroutine(InCouroutine());
-    }
-    
-
-    IEnumerator OutCoroutine()
-    {
-        //step1
-        HeroUIs[0].transform.DOLocalMoveX(220,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        FenceButtonUI.GetComponent<RectTransform>().DOAnchorPosY(-97.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        EventButtonUI.GetComponent<RectTransform>().DOAnchorPosY(-97.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-
-        yield return new WaitForSecondsRealtime(timeInterval);
-
-        //step2
-        HeroUIs[1].transform.DOLocalMoveX(220,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        //Debug.Log(ClockUI.GetComponent<RectTransform>().anchoredPosition.y);
-
-        ClockUI.GetComponent<RectTransform>().DOAnchorPosY(188.5f, moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        
-        NoticeUI.GetComponent<RectTransform>().DOAnchorPosY(-88,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        ItemUI.GetComponent<RectTransform>().DOAnchorPosY(-66,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-
-
-        yield return new WaitForSecondsRealtime(timeInterval);
-
-        //step3
-        HeroUIs[2].transform.DOLocalMoveX(220,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        JewelUI.GetComponent<RectTransform>().DOAnchorPosY(75,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        GatheringButtonUI.GetComponent<RectTransform>().DOAnchorPosY(-97.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-
-        yield return new WaitForSecondsRealtime(timeInterval);
-        //setp4
-
-        HeroUIs[3].transform.DOLocalMoveX(220,moveTime).SetUpdate(true).SetEase(Ease.OutQuad).OnComplete(() =>
-        {
-            BlackPanel.SetActive(true);
-            MainCam.GetComponent<AudioSource>().DOFade(0, fadeoutTime).SetUpdate(true);
-            BlackPanel.GetComponent<Image>().DOFade(1, fadeoutTime).SetUpdate(true).OnComplete(() =>
-            {
-                Clock.Instance.NextDay();
-            });
-        });
-
-        //blackOut
-
-        
-        yield return null;
+        leaving = false;
+        BeginTransition(true);
     }
 
-    IEnumerator InCouroutine()
+    private void BeginTransition(bool incoming)
     {
-        
-        //step1
-        HeroUIs[0].transform.DOLocalMoveX(30,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        FenceButtonUI.GetComponent<RectTransform>().DOAnchorPosY(97.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        EventButtonUI.GetComponent<RectTransform>().DOAnchorPosY(97.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
+        transition?.Kill();
+        transition = DOTween.Sequence().SetUpdate(true);
+        float duration = Mathf.Max(0, moveTime);
+        float interval = Mathf.Max(0, timeInterval);
+        for (int i = 0; i < HeroUIs.Length; i++)
+            transition.Insert(interval * i, HeroUIs[i].transform.DOLocalMoveX(incoming ? 30 : 220, duration).SetEase(Ease.OutQuad));
+        InsertY(FenceButtonUI, incoming ? 97.5f : -97.5f, 0, duration);
+        InsertY(EventButtonUI, incoming ? 97.5f : -97.5f, 0, duration);
+        InsertY(ClockUI, incoming ? -188.5f : 188.5f, interval, duration);
+        InsertY(NoticeUI, incoming ? 44 : -88, interval, duration);
+        InsertY(ItemUI, incoming ? 66 : -66, interval, duration);
+        InsertY(JewelUI, incoming ? -75 : 75, interval * 2, duration);
+        InsertY(GatheringButtonUI, incoming ? 97.5f : -97.5f, interval * 2, duration);
+    }
 
-        yield return new WaitForSecondsRealtime(timeInterval);
-        //step2
-        HeroUIs[1].transform.DOLocalMoveX(30,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        ClockUI.GetComponent<RectTransform>().DOAnchorPosY(-188.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        NoticeUI.GetComponent<RectTransform>().DOAnchorPosY(44,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        ItemUI.GetComponent<RectTransform>().DOAnchorPosY(66,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
+    private void InsertY(GameObject target, float y, float delay, float duration)
+    {
+        transition.Insert(delay, target.GetComponent<RectTransform>().DOAnchorPosY(y, duration).SetEase(Ease.OutQuad));
+    }
 
-        yield return new WaitForSecondsRealtime(timeInterval);
-        //step3
-        HeroUIs[2].transform.DOLocalMoveX(30,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        JewelUI.GetComponent<RectTransform>().DOAnchorPosY(-75,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        GatheringButtonUI.GetComponent<RectTransform>().DOAnchorPosY(97.5f,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-
-        yield return new WaitForSecondsRealtime(timeInterval);
-        //setp4
-        HeroUIs[3].transform.DOLocalMoveX(30,moveTime).SetUpdate(true).SetEase(Ease.OutQuad);
-        
-        yield return null;
+    private void OnDisable()
+    {
+        transition?.Kill();
+        transition = null;
+        leaving = false;
     }
 }

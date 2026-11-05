@@ -11,7 +11,27 @@ public static class SaveStorageValidation
         Directory.CreateDirectory(directory);
         try
         {
+            var original = Snapshot(1);
+            original.hero2Stat = Array.Empty<float>();
+            original.hero4Stat = new[] { 1f, 2f, 3f, 4f };
+            SaveGameData snapshot = original.Clone();
+            original.items[0] = 999;
+            original.hero1Stat[0] = 999f;
+            original.hero4Stat[0] = 999f;
+            Require(snapshot.items[0] == 10 && snapshot.hero1Stat[0] == 10f && snapshot.hero4Stat[0] == 1f,
+                "Captured inventories and hero stats must not share source arrays.");
+            Require(snapshot.hero2Stat.Length == 0 && snapshot.hero3Stat == null && SaveGameData.IsValid(snapshot),
+                "Legacy empty and missing hero snapshots must remain valid after cloning.");
+            var originalOptions = new SaveOptionData { BgmVolume = 2f, EffVolume = -1f };
+            SaveOptionData optionSnapshot = originalOptions.Clone();
+            optionSnapshot.Normalize();
+            Require(originalOptions.BgmVolume == 2f && originalOptions.EffVolume == -1f,
+                "Normalizing a captured option snapshot must not alter the caller's pending settings.");
+
             string path = Path.Combine(directory, "save.json");
+            Require(!JsonSaveStore.TrySave("", Snapshot(1), SaveGameData.IsValid, out _) &&
+                    !JsonSaveStore.TryLoad("", SaveGameData.IsValid, out SaveGameData noPath, out _),
+                "Empty paths must fail before touching the working directory.");
             Require(!JsonSaveStore.TryLoad(path, SaveGameData.IsValid, out SaveGameData missing, out _),
                 "A missing save must not create a game.");
 
@@ -40,11 +60,13 @@ public static class SaveStorageValidation
                 "Recovery must not replace a valid backup with corrupt data.");
 
             string before = File.ReadAllText(path);
+            string backupBefore = File.ReadAllText(path + ".bak");
             var invalid = Snapshot(4);
             invalid.items = new int[2];
             Require(!JsonSaveStore.TrySave(path, invalid, SaveGameData.IsValid, out error),
                 "Malformed inventory must be rejected.");
             Require(File.ReadAllText(path) == before, "Rejected snapshots must leave the current save unchanged.");
+            Require(File.ReadAllText(path + ".bak") == backupBefore, "Rejected snapshots must leave the recovery backup unchanged.");
             string blockedDirectory = Path.Combine(directory, "blocked");
             File.WriteAllText(blockedDirectory, "This file prevents creation of a save directory.");
             Require(!JsonSaveStore.TrySave(Path.Combine(blockedDirectory, "save.json"), Snapshot(4),
@@ -72,13 +94,52 @@ public static class SaveStorageValidation
             options.Normalize();
             Require(options.BgmVolume == 1f, "Nonfinite volumes must reset safely.");
 
-            Require(!File.Exists(path + ".tmp"), "Successful and rejected writes must not leave temporary files.");
+            ValidateEventSnapshots(directory);
+            Require(Directory.GetFiles(directory, "*.tmp-*").Length == 0, "Successful and rejected writes must not leave temporary files.");
             Debug.Log("SaveStorageValidation: all save regression checks passed.");
         }
         finally
         {
             Directory.Delete(directory, true);
         }
+    }
+
+    private static void ValidateEventSnapshots(string directory)
+    {
+        string path = Path.Combine(directory, "events.json");
+        File.WriteAllText(path, "{\"stage\":1,\"day\":2,\"items\":[10,20,30,40,50],\"fenceLevel\":1}");
+        Require(JsonSaveStore.TryLoad(path, SaveGameData.IsValid, out SaveGameData loaded, out string error), error);
+        Require(!loaded.hasEventSnapshot, "Legacy JSON must use the initial event queue.");
+        Require(JsonSaveStore.TrySave(path, loaded, SaveGameData.IsValid, out error), error);
+        Require(JsonSaveStore.TryLoad(path, SaveGameData.IsValid, out loaded, out error), error);
+        Require(!loaded.hasEventSnapshot, "Serializing a legacy null array must not mark its queue exhausted.");
+
+        var empty = Snapshot(2);
+        empty.hasEventSnapshot = true;
+        empty.pendingEventIds = Array.Empty<string>();
+        Require(JsonSaveStore.TrySave(path, empty, SaveGameData.IsValid, out error), error);
+        Require(JsonSaveStore.TryLoad(path, SaveGameData.IsValid, out loaded, out error), error);
+        Require(loaded.hasEventSnapshot && loaded.pendingEventIds != null && loaded.pendingEventIds.Length == 0,
+            "An exhausted event queue must stay empty after continuing.");
+
+        var pending = Snapshot(3);
+        pending.hasEventSnapshot = true;
+        pending.pendingEventIds = new[] { "Event_Norm4", "Event_Acis2" };
+        SaveGameData captured = pending.Clone();
+        pending.pendingEventIds[0] = "Event_Norm1";
+        Require(captured.hasEventSnapshot && captured.pendingEventIds[0] == "Event_Norm4",
+            "Capturing a queue must deep-copy its array and initialization marker.");
+        Require(JsonSaveStore.TrySave(path, captured, SaveGameData.IsValid, out error), error);
+        Require(JsonSaveStore.TryLoad(path, SaveGameData.IsValid, out loaded, out error), error);
+        Require(loaded.hasEventSnapshot && loaded.pendingEventIds.Length == 2 &&
+                loaded.pendingEventIds[0] == "Event_Norm4" && loaded.pendingEventIds[1] == "Event_Acis2",
+            "Pending normal and follow-up events must round-trip in order.");
+
+        var invalid = captured.Clone();
+        invalid.pendingEventIds = new[] { "Event_Norm4", "Event_Norm4" };
+        Require(!SaveGameData.IsValid(invalid), "Duplicate pending events must not enable repeated rewards.");
+        invalid.pendingEventIds = null;
+        Require(!SaveGameData.IsValid(invalid), "An explicitly initialized queue cannot be missing.");
     }
 
     private static SaveGameData Snapshot(int day)
