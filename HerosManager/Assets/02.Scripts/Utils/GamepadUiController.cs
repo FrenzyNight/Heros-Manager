@@ -279,6 +279,16 @@ public sealed class GamepadUiController : MonoBehaviour
             if (InGameMgr.IsCreateInstance() && InGameMgr.Instance != null && InGameMgr.Instance.state == State.Laundry)
                 hints.text = "Xbox 빨래: LS/십자키 얼룩 선택 · A 닦기 | 헹구기: LB/RB 교대로 | 말리기: 표시된 버튼 누르기 | B 뒤로";
         }
+        if (MiniGameInputAllowed && InGameMgr.Instance.stage == CampaignProgressionRules.DesertStage)
+        {
+            switch (MiniGameMgr.Instance.CurrentArea)
+            {
+                case "CS_S2_Ruins": hints.text = koreanHints ? "유적: LS 좌 버림·우 채집 | RS 미로 이동 · Y 새 미로 | B 마치기" : "Ruins: LS discard / collect | RS maze · Y reset | B finish"; break;
+                case "CS_S2_Desertfield": hints.text = koreanHints ? "들판: LS 약초 이동 | RS 조준 · RT 사냥 | B 마치기" : "Field: LS herbs | RS aim · RT shoot | B finish"; break;
+                case "CS_S2_Desertlake": hints.text = koreanHints ? "호수: LS 낚시 이동 · LB 낚시 | RS 물통 이동 · RB 끌어올리기 | B 마치기" : "Lake: LS move · LB fish | RS bucket · RB lift | B finish"; break;
+                case "CS_S2_Oasis": hints.text = koreanHints ? "오아시스: A 그물 던지기 | B 마치기 · Start 일시정지" : "Oasis: A cast net | B finish · Start pause"; break;
+            }
+        }
         if (MeadowCampaign.IsCreateInstance() && MeadowCampaign.Instance != null && MeadowCampaign.Instance.IsModalOpen)
             hints.text = koreanHints
                 ? "LS/십자키 버튼 선택 · A 확인 · RS 위/아래 본문 스크롤 · B 뒤로"

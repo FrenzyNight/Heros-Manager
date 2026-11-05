@@ -48,7 +48,7 @@ public class InGameMgr : Singleton<InGameMgr>
         }
         stage = saves.saveGameData.stage;
         LoadStageData();
-        if (stage == 1 && GetComponent<MeadowCampaign>() == null)
+        if (CampaignProgressionRules.IsPlayableStage(stage) && GetComponent<MeadowCampaign>() == null)
             gameObject.AddComponent<MeadowCampaign>();
         if (stage == 1 && GetComponent<FirstRunGuide>() == null)
             gameObject.AddComponent<FirstRunGuide>();

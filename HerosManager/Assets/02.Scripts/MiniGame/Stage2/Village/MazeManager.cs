@@ -10,6 +10,7 @@ public class MazeManager : MiniGameSetMgr
     public float mazeCharSpeed;
     public float realMazeCharSpeed;
     private const float MazeStandardSpeed = 300f;
+    private int lastTreasureFrame = -1;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class MazeManager : MiniGameSetMgr
     public override void SetUp()
     {
         base.SetUp();
+        lastTreasureFrame = -1;
         mazeCharSpeed = GameData("game2maze").Velocity;
         realMazeCharSpeed = MazeStandardSpeed * mazeCharSpeed;
         MakeMaze();
@@ -49,12 +51,26 @@ public class MazeManager : MiniGameSetMgr
 
     public void ResetMaze()
     {
+        foreach (var character in SpawnContainer("MazeStructure").parent.GetComponentsInChildren<MazeCharMove>(true))
+            character.ResetPosition();
         MakeMaze();
+    }
+
+    public void CollectTreasure()
+    {
+        if (!IsPrepared || !isActiveAndEnabled || lastTreasureFrame == Time.frameCount) return;
+        lastTreasureFrame = Time.frameCount;
+        var reward = GameData("game2maze");
+        if (reward.GetAmount1 > 0) AddItem(reward.GetItemID1, (int)reward.GetAmount1);
+        if (reward.GetAmount2 > 0) AddItem(reward.GetItemID2, (int)reward.GetAmount2);
+        if (reward.GetJemAmount > 0) MiniGameMgr.Instance.AddTempGems((int)reward.GetJemAmount);
+        GamepadInput.Pulse(0.18f, 0.3f, 0.12f);
+        ResetMaze();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (GamepadUiController.MiniGameInputAllowed && (Input.GetKeyDown(KeyCode.Space) || GamepadInput.Pressed(GamepadButton.Y)))
             ResetMaze();
     }
 

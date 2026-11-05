@@ -59,7 +59,7 @@ public class AdventureManager : Singleton<AdventureManager>
     IReadOnlyList<JResultData> jResultDataList = System.Array.Empty<JResultData>();
     bool journeyReady;
     bool journeyInProgress;
-    bool preparedMeadowJourney;
+    bool preparedCampaignJourney;
     string preparedDayId;
     readonly bool[] departingHeroes = new bool[4];
     int departureFood;
@@ -364,14 +364,14 @@ public class AdventureManager : Singleton<AdventureManager>
     {
         var hero = HeroStateManager.Instance.heroStates[index];
         if (!departingHeroes[index] || !hero.IsAbleToAct) return;
-        var reward = InGameMgr.Instance.stage == 1
+        var reward = CampaignProgressionRules.IsPlayableStage(InGameMgr.Instance.stage)
             ? MeadowRules.Reward(result.JResultID, stress, power, hp, courage)
             : new MeadowHeroReward(stress, power, hp, courage);
         float returnedHp = MeadowRules.ReturnedHealth(hero.hp, reward.Hp, departureFood, hero.MaximumHp);
         hero.AddStat(reward.Stress, reward.Power, returnedHp - hero.hp, reward.Courage);
     }
 
-    float ResultWeight(JResultData result) => MeadowRules.ResultWeight(result.JResultID, result.Prob, preparedMeadowJourney);
+    float ResultWeight(JResultData result) => MeadowRules.ResultWeight(result.JResultID, result.Prob, preparedCampaignJourney);
 
     
 
@@ -451,7 +451,8 @@ public class AdventureManager : Singleton<AdventureManager>
         }
 
         jResultDataList = LoadGameData.Instance.Catalog.GetJourneyResults(jStateData.JResultGroupID);
-        preparedMeadowJourney = InGameMgr.Instance.stage == 1 && jStateData.JStateStringID == "JS_t1";
+        preparedCampaignJourney = CampaignProgressionRules.IsPlayableStage(InGameMgr.Instance.stage) &&
+            jStateData.JStateStringID == "JS_t1" && meat >= MinimumMeat && water >= MinimumWater;
 
         /*
         string str = "";

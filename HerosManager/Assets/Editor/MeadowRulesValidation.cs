@@ -49,16 +49,37 @@ public static class MeadowRulesValidation
         Require(courage == 40 && power == 135 && health == 80 && MeadowRules.Level(courage) == 2,
             "Four ordinary successes must leave a living hero with visible permanent growth.");
 
-        var candidates = new[] { "JR_S1_Good_Perfect", "JR_S1_Good_Normal", "JR_S1_Good_Fail" };
-        for (int sample = 0; sample <= 100; sample++)
+        // Continue the same hero, without restoring their courage to zero or granting
+        // the level-two power bonus a second time at the stage boundary.
+        for (int day = 1; day <= 4; day++)
         {
-            Require(WeightedSelection.TryPick(candidates,
-                id => MeadowRules.ResultWeight(id, id.EndsWith("_Perfect") ? 0.3f : id.EndsWith("_Normal") ? 0.6f : 0.1f, true),
-                sample / 100f, out string selected) && !selected.EndsWith("_Fail"),
-                "Fully prepared meadow journeys must succeed for every random sample, including one.");
+            var reward = MeadowRules.Reward("JR_S2_Good_Normal", -5, 5, -5, 5);
+            float next = MeadowRules.EarnCourage(courage, reward.Courage);
+            power += reward.Power + MeadowRules.GrowthPower(courage, next);
+            courage = next;
+            health = MeadowRules.ReturnedHealth(health, reward.Hp, 6, 100);
         }
-        Require(MeadowRules.ResultWeight("JR_S1_Danger_Fail", 0.85f, false) == 0.85f,
-            "Preparation must not erase risk from under-supplied expeditions.");
+        Require(courage == 80 && power == 185 && health == 100 && MeadowRules.Level(courage) == 4,
+            "The desert must continue earned growth, while cooked meals sustain the same surviving hero.");
+        var desertPerfect = MeadowRules.Reward("JR_S2_Good_Perfect", -10, 10, -1, 7);
+        var desertFailure = MeadowRules.Reward("JR_S2_Danger_Fail", 10, 3, -10, 0);
+        Require(desertPerfect.Courage == 15 && desertFailure.Courage == 0 &&
+                desertFailure.Power == 0 && desertFailure.Hp == -40,
+            "Desert perfect and failed expeditions must retain the learned growth and damage rules.");
+
+        for (int stage = 1; stage <= 2; stage++)
+        {
+            var candidates = new[] { $"JR_S{stage}_Good_Perfect", $"JR_S{stage}_Good_Normal", $"JR_S{stage}_Good_Fail" };
+            for (int sample = 0; sample <= 100; sample++)
+            {
+                Require(WeightedSelection.TryPick(candidates,
+                    id => MeadowRules.ResultWeight(id, id.EndsWith("_Perfect") ? 0.3f : id.EndsWith("_Normal") ? 0.6f : 0.1f, true),
+                    sample / 100f, out string selected) && !selected.EndsWith("_Fail"),
+                    "Fully prepared playable-stage journeys must succeed for every random sample, including one.");
+            }
+            Require(MeadowRules.ResultWeight($"JR_S{stage}_Danger_Fail", 0.85f, false) == 0.85f,
+                "Preparation must not erase risk from under-supplied expeditions.");
+        }
     }
 
     static void Require(bool condition, string message)

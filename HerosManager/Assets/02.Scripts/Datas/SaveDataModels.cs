@@ -14,7 +14,8 @@ public class SaveGameData
     public float[] hero4Stat;
     public int fenceLevel;
     public int gems;
-    // Zero is the legacy/default active run; terminal runs reopen their result screen.
+    // Legacy serialized name retained: this is the current playable chapter's outcome.
+    // Zero is the default active run; terminal runs reopen their result screen.
     public int meadowOutcome;
     public bool onboardingComplete;
     // JsonUtility may serialize a null array as []; this marker distinguishes legacy
@@ -43,7 +44,7 @@ public class SaveGameData
         if (data == null || data.stage < 1 || data.day < 1 || data.fenceLevel < 1 ||
             data.items == null || data.items.Length != 5 || data.gems < 0 ||
             data.meadowOutcome < 0 || data.meadowOutcome > 2 ||
-            (data.meadowOutcome != 0 && data.stage != 1))
+            (data.meadowOutcome != 0 && !CampaignProgressionRules.IsPlayableStage(data.stage)))
             return false;
 
         foreach (int count in data.items)

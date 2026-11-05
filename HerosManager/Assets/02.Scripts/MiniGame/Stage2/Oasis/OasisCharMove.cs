@@ -10,6 +10,19 @@ public class OasisCharMove : MonoBehaviour
 
     public GameObject NetPrefab;
     bool isCoolTime;
+    private Quaternion initialRotation;
+
+    void Awake()
+    {
+        rt = GetComponent<RectTransform>();
+        initialRotation = rt.localRotation;
+    }
+
+    void OnEnable()
+    {
+        rt.localRotation = initialRotation;
+        isCoolTime = false;
+    }
 
     void Start()
     {
@@ -23,7 +36,7 @@ public class OasisCharMove : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.Space) && !isCoolTime)
+        if(GamepadUiController.MiniGameInputAllowed && (Input.GetKey(KeyCode.Space) || GamepadInput.Held(GamepadButton.Confirm)) && !isCoolTime)
         {
             StartCoroutine(ThrowNet());
         }
@@ -34,9 +47,16 @@ public class OasisCharMove : MonoBehaviour
         rt.Rotate(new Vector3(0,0,1) * OM.realOasisCharSpeed * Time.deltaTime);
     }
 
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        isCoolTime = false;
+    }
+
     IEnumerator ThrowNet()
     {
         isCoolTime = true;
+        GamepadInput.Pulse(0.08f, 0.18f, 0.06f);
         GameObject obj;
         obj = OM.Spawn(NetPrefab, charObj.transform.position, Quaternion.identity, MiniGameReferences.Container(this, "Oasis"));
         obj.GetComponent<RectTransform>().Rotate(new Vector3(0,0,transform.eulerAngles.z));

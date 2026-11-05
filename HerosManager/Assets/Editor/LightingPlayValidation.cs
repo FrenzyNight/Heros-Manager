@@ -88,7 +88,12 @@ public static class LightingPlayValidation
                 Clock.Instance.enabled = false;
                 Time.timeScale = 0;
                 Camera.main.aspect = 16f / 9f;
-                if (!SessionState.GetBool(Key + "Baseline", false)) ValidateTwilight();
+                WriteMaterialReport();
+                if (!SessionState.GetBool(Key + "Baseline", false))
+                {
+                    ValidateMeadowMaterials();
+                    ValidateTwilight();
+                }
                 step++; next = EditorApplication.timeSinceStartup + 1; return;
             }
             int index = (step - 2) / 2;
@@ -136,6 +141,69 @@ public static class LightingPlayValidation
 
     static Light FindFireLight() => UnityEngine.Object.FindAnyObjectByType<FireMgr>()
         .FireObj.GetComponentInChildren<Light>(true);
+
+    static void WriteMaterialReport()
+    {
+        var report = new System.Text.StringBuilder();
+        foreach (var renderer in UnityEngine.Object.FindObjectsByType<MeshRenderer>(FindObjectsSortMode.None))
+        {
+            string path = renderer.name;
+            for (var parent = renderer.transform.parent; parent != null; parent = parent.parent)
+                path = parent.name + "/" + path;
+            foreach (var material in renderer.sharedMaterials)
+            {
+                if (material == null || material.shader == null || !material.shader.isSupported)
+                    throw new Exception("Unsupported camp material on " + path);
+                report.AppendLine($"{path} | {material.name} | {material.shader.name} | {AssetDatabase.GetAssetPath(material)} | {renderer.bounds}");
+            }
+        }
+        File.WriteAllText("Logs/camp-materials.txt", report.ToString());
+    }
+
+    static void ValidateMeadowMaterials()
+    {
+        var treatment = UnityEngine.Object.FindAnyObjectByType<MeadowSurfaceTreatment>();
+        var shader = Resources.Load<Shader>("Shaders/MeadowSurface");
+        if (treatment == null || treatment.TreatedRenderers != 3 || shader == null || ShaderUtil.ShaderHasError(shader))
+            throw new Exception("Meadow terrain, trees and rocks did not receive a valid surface shader.");
+
+        var renderers = GameObject.Find("Map").GetComponentsInChildren<MeshRenderer>(true);
+        treatment.enabled = false;
+        var originals = new Material[renderers.Length][];
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            originals[i] = renderers[i].sharedMaterials;
+            foreach (var material in originals[i])
+                if (material != null && material.shader == shader)
+                    throw new Exception("Meadow material remained bound after disabling the treatment.");
+        }
+        int stage = InGameMgr.Instance.stage;
+        try
+        {
+            InGameMgr.Instance.stage = 2;
+            treatment.enabled = true;
+            if (treatment.TreatedRenderers != 0)
+                throw new Exception("Meadow materials were applied to the desert chapter.");
+        }
+        finally
+        {
+            treatment.enabled = false;
+            InGameMgr.Instance.stage = stage;
+        }
+        treatment.enabled = true;
+        if (treatment.TreatedRenderers != 3)
+            throw new Exception("Meadow materials did not recover after re-enabling.");
+        treatment.enabled = false;
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            var restored = renderers[i].sharedMaterials;
+            for (int slot = 0; slot < originals[i].Length; slot++)
+                if (restored[slot] != originals[i][slot])
+                    throw new Exception("A shared camp material was replaced permanently.");
+        }
+        treatment.enabled = true;
+        Debug.Log("MEADOW SURFACES: shader compilation, chapter scope and original material restoration verified.");
+    }
 
     static void ValidateTwilight()
     {

@@ -9,6 +9,19 @@ public class LakeHookMove : MonoBehaviour
 
     public bool isHookDown, isHookUp;
     public bool isMissing;
+    private Vector2 initialPosition;
+
+    void Awake()
+    {
+        rt = GetComponent<RectTransform>();
+        initialPosition = rt.anchoredPosition;
+    }
+
+    void OnEnable()
+    {
+        rt.anchoredPosition = initialPosition;
+        isHookDown = isHookUp = isMissing = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +37,15 @@ public class LakeHookMove : MonoBehaviour
     {
         isHookDown = true;
         isMissing = false;
+    }
+
+    public bool TryCatchFish()
+    {
+        if (!isHookDown) return false;
+        isHookDown = false;
+        isHookUp = true;
+        isMissing = false;
+        return true;
     }
 
     void FixedUpdate()
@@ -47,13 +69,6 @@ public class LakeHookMove : MonoBehaviour
             isHookDown = false;
             isHookUp = true;
             isMissing = true;
-        }
-
-        if(coll.gameObject.CompareTag("Fish") || coll.gameObject.CompareTag("GoldFish"))
-        {
-            isHookDown = false;
-            isHookUp = true;
-            isMissing = false;
         }
 
         if(coll.gameObject.CompareTag("Player"))

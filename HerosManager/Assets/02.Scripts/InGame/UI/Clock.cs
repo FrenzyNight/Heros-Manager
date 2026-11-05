@@ -56,7 +56,7 @@ public class Clock : Singleton<Clock>
         DayText.text = string.Format(LoadGameData.Instance.GetString("Day_t1"), day);
         ClockFillImg.fillAmount = 0;
         EventMgr.Instance.EventButtonDeActive();
-        if (InGameMgr.Instance.stage == 1 && SaveDataManager.Instance.saveGameData.meadowOutcome != 0)
+        if (CampaignProgressionRules.IsPlayableStage(InGameMgr.Instance.stage) && SaveDataManager.Instance.saveGameData.meadowOutcome != 0)
         {
             isStop = true;
             return;
@@ -120,7 +120,7 @@ public class Clock : Singleton<Clock>
         AmuletManager.Instance.CloseList();
         EventMgr.Instance.EventButtonDeActive();
         InGameMgr.Instance.state = State.None;
-        if (MeadowCampaign.IsCreateInstance() && InGameMgr.Instance.stage == 1)
+        if (MeadowCampaign.IsCreateInstance())
         {
             SettleDay();
             MeadowCampaign.Instance.ShowDayReport();

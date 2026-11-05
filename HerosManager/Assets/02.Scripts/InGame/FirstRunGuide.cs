@@ -14,7 +14,8 @@ public sealed class FirstRunGuide : Singleton<FirstRunGuide>
     public bool IsPracticeActive { get; private set; }
     public bool HoldsDayClock => IsPracticeActive;
     public Transform HighlightTarget { get; private set; }
-    public static bool ReplacesLegacy => InGameMgr.IsCreateInstance() && InGameMgr.Instance.stage == 1;
+    public static bool ReplacesLegacy => InGameMgr.IsCreateInstance() &&
+        CampaignProgressionRules.IsPlayableStage(InGameMgr.Instance.stage);
     public static bool HoldClock => IsCreateInstance() && Instance.HoldsDayClock;
     public static bool SuppliesRequired => HoldClock;
     public static bool ProtectCampWork => HoldClock;

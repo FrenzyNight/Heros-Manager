@@ -34,6 +34,8 @@ public class LightController : MonoBehaviour
     void Start()
     {
         clock = Clock.Instance;
+        if (InGameMgr.Instance.stage == 1 && GetComponent<MeadowSurfaceTreatment>() == null)
+            gameObject.AddComponent<MeadowSurfaceTreatment>();
         if (sunLight == null || moonLight == null) { enabled = false; return; }
         previousAmbientMode = RenderSettings.ambientMode;
         previousSky = RenderSettings.ambientSkyColor;

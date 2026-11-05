@@ -118,7 +118,7 @@ public class Hunt2Manager : MiniGameSetMgr
         EndPoint = ScreenPoint(EndP);
         StartPoint2 = ScreenPoint(StartP2);
         EndPoint2 = ScreenPoint(EndP2);
-        SpawnCactus();
+        StartGame();
  }
 
     private void SpawnCactus()
@@ -275,24 +275,29 @@ public class Hunt2Manager : MiniGameSetMgr
 
     public override void StartGame()
     {
-        
+        base.StartGame();
+        CacList.Clear();
+        foxNum = weaselNum = goldFoxNum = 0;
+        isShoot = false;
+        SpawnCactus();
+        StartCoroutine(SpawnMonster());
     }
 
     
 
     public void KillFox()
     {
-        //MGM.meat += (int)huntFoxRes;
+        AddItem(GameData("game2monster_fennec").GetItemID1, (int)huntFoxRes);
     }
 
     public void KillGoldFox()
     {
-        //MGM.meat += (int)huntGoldFoxRes;
+        AddItem(GameData("game2monser_gfennec").GetItemID1, (int)huntGoldFoxRes);
     }
 
     public void KillWeasel()
     {
-        //MGM.meat += (int)huntWeaselRes;
+        AddItem(GameData("game2monster_weasel").GetItemID1, (int)huntWeaselRes);
     }
     
 

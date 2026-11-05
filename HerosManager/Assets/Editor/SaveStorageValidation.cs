@@ -104,12 +104,74 @@ public static class SaveStorageValidation
             Require(options.BgmVolume == 1f, "Nonfinite volumes must reset safely.");
 
             ValidateEventSnapshots(directory);
+            ValidateCampaignSaveAtomicity(directory);
             Require(Directory.GetFiles(directory, "*.tmp-*").Length == 0, "Successful and rejected writes must not leave temporary files.");
             Debug.Log("SaveStorageValidation: all save regression checks passed.");
         }
         finally
         {
             ValidationSaveSession.Complete();
+        }
+    }
+
+    private static void ValidateCampaignSaveAtomicity(string directory)
+    {
+        ValidationSaveSession.RequireActive();
+        Require(Path.GetFullPath(directory) == Path.GetFullPath(SaveStoragePaths.Directory),
+            "Campaign save failure fixtures must stay in the active validation profile.");
+        bool hadManager = SaveDataManager.IsCreateInstance();
+        bool hadTables = LoadGameData.IsCreateInstance();
+        var manager = SaveDataManager.Instance;
+        SaveGameData previousMemory = manager.saveGameData;
+        try
+        {
+            var checkpoint = CampaignProgressionValidation.CompletedMeadow();
+            Require(manager.TrySaveGameSnapshot(checkpoint), "The isolated victory checkpoint must save.");
+            Require(manager.TrySaveGameSnapshot(checkpoint), "The isolated recovery backup must save.");
+            string path = Path.Combine(directory, "SaveGameData.Json");
+            string original = File.ReadAllText(path);
+            string backup = File.ReadAllText(path + ".bak");
+            SaveGameData committed = manager.saveGameData;
+            Require(CampaignProgressionRules.TryAdvanceToDesert(manager.CaptureGameData(), out var transition),
+                "A detached victory checkpoint must prepare travel.");
+            int callbacks = 0;
+            // A read handle without delete sharing denies the atomic replacement on Windows.
+            // It never changes the original file or redirects storage outside this owned profile.
+            using (var locked = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                Debug.Log("SaveStorageValidation: expecting one save error from a locked isolated campaign checkpoint.");
+                Require(!manager.TrySaveGameSnapshot(transition, () => callbacks++),
+                    "A failed chapter write must not report a committed transition.");
+            }
+            Require(ReferenceEquals(manager.saveGameData, committed) && manager.saveGameData.stage == 1 &&
+                    manager.saveGameData.meadowOutcome == 1 && manager.saveGameData.gems == checkpoint.gems && callbacks == 0,
+                "Failed chapter saves must preserve live memory and suppress transition callbacks.");
+            Require(File.ReadAllText(path) == original && File.ReadAllText(path + ".bak") == backup,
+                "Failed chapter saves must preserve both victory checkpoint and recovery backup byte for byte.");
+            Require(Directory.GetFiles(directory, "SaveGameData.Json.tmp-*").Length == 0,
+                "Failed chapter writes must remove their temporary file.");
+            Require(manager.TrySaveGameSnapshot(transition, () => callbacks++) && callbacks == 1 &&
+                    manager.saveGameData.stage == 2 && manager.saveGameData.day == 1 && manager.saveGameData.gems == 10,
+                "Retrying a failed transition must commit one reward and invoke its callback once.");
+            Require(!ReferenceEquals(manager.saveGameData, transition) &&
+                    !ReferenceEquals(manager.saveGameData.items, transition.items),
+                "Committed chapter state must be detached from the caller's pending snapshot.");
+            transition.items[1] = 999;
+            transition.hero1Stat[2] = 1;
+            Require(manager.saveGameData.items[1] == 34 && manager.saveGameData.hero1Stat[2] == 70,
+                "Editing the caller's snapshot after saving cannot mutate committed memory.");
+            Require(JsonSaveStore.TryLoad(path, SaveDataManager.IsPlayableSave, out SaveGameData loaded, out string error) &&
+                    loaded.stage == 2 && loaded.gems == 10 && loaded.items[1] == 34 && loaded.hero1Stat[2] == 70,
+                "The committed desert checkpoint must reload with exactly one travel reward. " + error);
+            Require(!CampaignProgressionRules.TryAdvanceToDesert(loaded, out _),
+                "Reloading the desert checkpoint must not allow claiming travel rewards again.");
+        }
+        finally
+        {
+            manager.saveGameData = previousMemory;
+            if (!hadManager) UnityEngine.Object.DestroyImmediate(manager.gameObject);
+            if (!hadTables && LoadGameData.IsCreateInstance())
+                UnityEngine.Object.DestroyImmediate(LoadGameData.Instance.gameObject);
         }
     }
 

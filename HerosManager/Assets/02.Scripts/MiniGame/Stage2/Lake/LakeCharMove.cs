@@ -14,6 +14,28 @@ public class LakeCharMove : MonoBehaviour
     private bool isHook;
 
     private Animator ani;
+    private Vector2 initialPosition;
+
+    void Awake()
+    {
+        rt = GetComponent<RectTransform>();
+        ani = GetComponent<Animator>();
+        initialPosition = rt.anchoredPosition;
+    }
+
+    void OnEnable()
+    {
+        rt.anchoredPosition = initialPosition;
+        isStun = isHook = false;
+        ani.SetBool("isHook", false);
+        ani.SetBool("isStun", false);
+    }
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        isStun = isHook = false;
+    }
 
 
     // Start is called before the first frame update
@@ -29,19 +51,19 @@ public class LakeCharMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isStun && !isHook)
+        if(GamepadUiController.MiniGameInputAllowed && !isStun && !isHook)
         {
-            if(Input.GetKeyDown(KeyCode.A))
+            if(Input.GetKeyDown(KeyCode.A) || GamepadInput.Pressed(GamepadButton.Left))
             {
                 LeftMove();
             }
 
-            if(Input.GetKeyDown(KeyCode.D))
+            if(Input.GetKeyDown(KeyCode.D) || GamepadInput.Pressed(GamepadButton.Right))
             {
                 RightMove();
             }
 
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space) || GamepadInput.Pressed(GamepadButton.LeftShoulder))
             {
                 HookDown();
             }
@@ -67,6 +89,7 @@ public class LakeCharMove : MonoBehaviour
     void HookDown()
     {
        isHook = true;
+       GamepadInput.Pulse(0.08f, 0.18f, 0.06f);
        ani.SetBool("isHook", true);
        hook.GetComponent<LakeHookMove>().HookDown();
     }
@@ -85,7 +108,7 @@ public class LakeCharMove : MonoBehaviour
     {
         ani.SetBool("isStun", true);
         isStun = true;
-        Debug.Log("Stun");
+        GamepadInput.Pulse(0.22f, 0.08f, 0.12f);
 
         yield return new WaitForSeconds(FM.fishStunTime);
 
@@ -97,6 +120,7 @@ public class LakeCharMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
+        if (!coll.gameObject.activeSelf) return;
         if(coll.gameObject.CompareTag("Hook"))
         {
             ResetHook();
@@ -104,6 +128,7 @@ public class LakeCharMove : MonoBehaviour
 
         if(coll.gameObject.CompareTag("Fish"))
         {
+            coll.gameObject.SetActive(false);
             FM.GetFish();
             isHook = false;
             ani.SetBool("isHook", false);
@@ -111,6 +136,7 @@ public class LakeCharMove : MonoBehaviour
         }
         if(coll.gameObject.CompareTag("GoldFish"))
         {
+            coll.gameObject.SetActive(false);
             FM.GetGoldFish();
             isHook = false;
             ani.SetBool("isHook", false);

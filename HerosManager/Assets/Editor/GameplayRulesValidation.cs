@@ -11,6 +11,7 @@ public static class GameplayRulesValidation
         CampRulesValidation.Run();
         MiniGameRulesValidation.Run();
         MeadowRulesValidation.Run();
+        CampaignProgressionValidation.Run();
         CaveRewardValidation.Run();
         GamepadInputValidation.Run();
         DialogueRevealValidation.Run();

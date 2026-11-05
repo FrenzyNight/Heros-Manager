@@ -27,7 +27,7 @@
     "StringID4": "CS_S2_t4",
     "StartTime": 60,
     "EndTime": 140,
-    "ContinueTime": 10
+    "ContinueTime": 30
   },
   {
     "CollectID": "Collect_S3",

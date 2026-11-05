@@ -30,8 +30,9 @@
 - `InGameMgr`: 현재 스테이지·화면 상태와 일 단위 저장을 담당합니다.
 - `ItemManager`, `HeroStateManager`: 자원 및 영웅 상태의 UI·스냅샷 변환을 담당합니다.
 - `Clock`: 하루 진행과 모험 복귀, 채집 종료, 다음 날·스테이지 전환을 담당합니다.
-- `MeadowCampaign`/`MeadowCampaignRules`: 초원 4일 승패, 일일 결산, 회복 구매, 결과 화면과 재시작을 담당합니다. `Clock`의 일일 정산은 한 번만 적용됩니다.
-- `MeadowRules`: 용사도 성장, 행동 가능 여부, 초원 원정 보상·음식 회복의 순수 규칙입니다.
+- `MeadowCampaign`/`MeadowCampaignRules`: 초원·사막 각각 4일의 승패, 일일 결산, 회복 구매, 결과 화면과 재시작을 담당합니다. 기존 클래스명과 `meadowOutcome` 저장 필드명은 호환성을 위해 유지합니다. `Clock`의 일일 정산은 한 번만 적용됩니다.
+- `CampaignProgressionRules`: 초원 승리 스냅샷을 사막 1일로 복제하고 이동 보급·생존자 회복을 적용합니다. 결과 저장에 성공한 후 장면을 다시 엽니다. 마법 숲은 플레이 완료 경로에 포함하지 않습니다.
+- `MeadowRules`: 용사도 성장, 행동 가능 여부, 초원·사막 원정 보상·음식 회복의 순수 규칙입니다.
 - `CampGemWallet`: 기존 5자원과 분리한 원석 잔액을 저장 스냅샷에서 복원합니다.
 - `GamepadInput`/`WindowsGamepadSource`/`GamepadUiController`: XInput 프레임 수집, 키보드 UI 중복 방지, 화면 탐색, 진동과 연결 생명주기를 담당합니다. 가상 입력 소스를 주입해 검증합니다.
 - `GameProgression`: 실제 설정된 스테이지/날짜 순서로 다음 날을 계산합니다. 일수나 연속 번호를 가정하지 않습니다.
@@ -40,7 +41,7 @@
 - `WeightedSelection`: 주입받은 난수 표본으로 가중 후보를 선택합니다. 합이 1이 아니어도 마지막 후보까지 도달합니다.
 - `GatheringManager → MiniGameMgr → MiniGameSetMgr`: 채집 장소 선택, 미니게임 세션·임시 보상, 각 미니게임 실행으로 책임을 구분합니다.
 - `TutorialMgr`: 대사·창 튜토리얼의 페이지 이동 및 게임 시계 정지 복원을 담당합니다.
-- `FirstRunGuide`/`FirstRunGuideView`: 초원 첫날의 실제 행동을 관찰하는 실습 단계와 비차단 카드·작업 위치 강조를 담당합니다. 초원의 구형 설명창은 이 안내로 대체하고 다른 스테이지의 구형 안내는 유지합니다. 실습은 `Clock`만 보류하며 실제 작업 비용과 보상을 사용합니다.
+- `FirstRunGuide`/`FirstRunGuideView`: 초원 첫날의 실제 행동을 관찰하는 실습 단계와 비차단 카드·작업 위치 강조를 담당합니다. 초원의 구형 설명창은 이 안내로 대체하고 사막에서는 완료한 초원 설명을 반복하지 않습니다. 사막은 지역별 목표·도움말·채집 조작 안내를 제공합니다. 실습은 `Clock`만 보류하며 실제 작업 비용과 보상을 사용합니다.
 - `DialogueReveal`/`DialogueInput`/`DialogueEffects`: 프레임 독립 대사 출력, 한 번의 의도적 확인 입력, 타이핑음 간격과 대기 효과를 공유합니다.
 - `GameUiStyle`: 기존 아트를 유지하는 실행 시 UI 색상·텍스트·버튼 상태 규칙입니다.
 

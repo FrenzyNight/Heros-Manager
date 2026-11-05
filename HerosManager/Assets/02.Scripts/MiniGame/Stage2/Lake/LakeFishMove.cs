@@ -8,6 +8,7 @@ public class LakeFishMove : MonoBehaviour
     private RectTransform rt;
 
     private bool isHooked;
+    private float lifetime;
 
 
     private int direction;
@@ -19,7 +20,7 @@ public class LakeFishMove : MonoBehaviour
         
         isHooked = false;
 
-        Destroy(gameObject, 10f);
+        lifetime = 10f;
     }
 
     public void SetDir(int dir)
@@ -39,14 +40,20 @@ public class LakeFishMove : MonoBehaviour
     void FixedUpdate()
     {
         if(!isHooked)
-            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + direction * (FM.realFishSpeed * Time.deltaTime), rt.anchoredPosition.y);
+        {
+            float speed = CompareTag("GoldFish") ? FM.realGoldFishSpeed : FM.realFishSpeed;
+            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + direction * speed * Time.deltaTime, rt.anchoredPosition.y);
+            lifetime -= Time.deltaTime;
+            if (lifetime <= 0f) Destroy(gameObject);
+        }
         else if(isHooked)
             rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y + (FM.realFishLineSpeed * FM.fishLineCatchSpeedVar * Time.deltaTime));
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if(coll.gameObject.CompareTag("Hook"))
+        if(coll.gameObject.CompareTag("Hook") && !isHooked &&
+            coll.TryGetComponent<LakeHookMove>(out var hook) && hook.TryCatchFish())
         {
             isHooked = true;
         }

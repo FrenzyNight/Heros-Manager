@@ -48,12 +48,10 @@ public class LakeWaterManager : MiniGameSetMgr
 
     public void GetWater(int lv)
     {
-        /*
-        if(lv == 1)
-            MGM.water += (int)waterLevel1Res;
-        else if(lv == 2)
-            MGM.water += (int)waterLevel2Res;
-            */
+        if (lv != 1 && lv != 2) return;
+        var reward = GameData(lv == 1 ? "game2level1" : "game2level2");
+        AddItem(reward.GetItemID1, (int)reward.GetAmount1);
+        GamepadInput.Pulse(0.12f, 0.2f, 0.08f);
     }
 
     public override void StartGame()

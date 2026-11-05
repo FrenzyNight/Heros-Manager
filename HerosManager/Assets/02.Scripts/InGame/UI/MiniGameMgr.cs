@@ -147,10 +147,22 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         if (!controllers[game.obj].isActiveAndEnabled)
             throw new InvalidOperationException($"Minigame {code} has an inactive controller.");
         controllers[game.obj].SetUp();
+        if (code.StartsWith("MG_S2_", StringComparison.Ordinal))
+        {
+            // Desert scene children contain old keyboard-only instructions over the playfield.
+            // The shared, bounded guide above each game now owns those instructions.
+            foreach (Text legacyGuide in game.obj.GetComponentsInChildren<Text>(true))
+                legacyGuide.gameObject.SetActive(false);
+        }
         if (GuideTexts != null && slot < GuideTexts.Length && GuideTexts[slot] != null)
         {
-            GuideTexts[slot].text = LoadGameData.Instance.GetString(helpCode);
-            GuideTexts[slot].gameObject.SetActive(true);
+            var guide = GuideTexts[slot];
+            guide.text = LoadGameData.Instance.GetString(helpCode);
+            guide.rectTransform.sizeDelta = new Vector2(550, 96);
+            guide.rectTransform.anchoredPosition = new Vector2(slot == 0 ? -300 : 350, 410);
+            GameUiStyle.TextStyle(guide, 23, 20, GameUiStyle.Paper);
+            guide.alignment = TextAnchor.MiddleCenter;
+            guide.gameObject.SetActive(true);
         }
     }
 

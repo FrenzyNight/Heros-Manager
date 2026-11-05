@@ -62,11 +62,11 @@ public class TreeManager : MiniGameSetMgr
             {
                 SelectedObject = GoldTree;
             }
-            else if(treeGoldPer < rnd && MiniGameRules.PercentHit(rnd, treeNormalPer))
+            else if(MiniGameRules.PercentHit(rnd, treeGoldPer + treeNormalPer))
             {
                 SelectedObject = NormalTree;
             }
-            else if(treeNormalPer < rnd)
+            else
             {
                 SelectedObject = BugTree;
             }
@@ -87,12 +87,13 @@ public class TreeManager : MiniGameSetMgr
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A) && !isStun)
+        if (!GamepadUiController.MiniGameInputAllowed || treeList.Count == 0) return;
+        if((Input.GetKeyDown(KeyCode.A) || GamepadInput.Pressed(GamepadButton.Left)) && !isStun)
         {
            StartCoroutine(ButtonA());
         }
 
-        if(Input.GetKeyDown(KeyCode.D) && !isStun)
+        else if((Input.GetKeyDown(KeyCode.D) || GamepadInput.Pressed(GamepadButton.Right)) && !isStun)
         {
             StartCoroutine(ButtonD());
         }
@@ -116,15 +117,17 @@ public class TreeManager : MiniGameSetMgr
 
         if(tree.CompareTag("GoldTree"))
         {
-            Debug.Log("Get gold tree : " + treeGoldRes.ToString());
+            AddItem(GameData("game2tree_gold").GetItemID1, (int)treeGoldRes);
+            GamepadInput.Pulse(0.16f, 0.28f, 0.08f);
         }
         else if(tree.CompareTag("NormalTree"))
         {
-            Debug.Log("Get tree : " + treeNormalRes.ToString());
+            AddItem(GameData("game2tree_norm").GetItemID1, (int)treeNormalRes);
         }
         else if(tree.CompareTag("BugTree"))
         {
-            Debug.Log("Loss tree : " + treeBugLoss.ToString() + "and Stun");
+            AddItem(GameData("game2tree_norm").GetItemID1, -(int)treeBugLoss);
+            GamepadInput.Pulse(0.3f, 0.12f, 0.18f);
             isStun = true;
             yield return new WaitForSeconds(MiniGameRules.PositiveDelay(treeBugStun));
             isStun = false;
@@ -152,11 +155,11 @@ public class TreeManager : MiniGameSetMgr
         {
             SelectedObject = GoldTree;
         }
-        else if(treeGoldPer < rnd && MiniGameRules.PercentHit(rnd, treeNormalPer))
+        else if(MiniGameRules.PercentHit(rnd, treeGoldPer + treeNormalPer))
         {
             SelectedObject = NormalTree;
         }
-        else if(treeNormalPer < rnd)
+        else
         {
             SelectedObject = BugTree;
         }

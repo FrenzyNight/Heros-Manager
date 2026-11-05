@@ -55,12 +55,14 @@ public class OasisManager : MiniGameSetMgr
 
         realOasisNetSpeed = standardOasisSpeed * oasisNetSpeed;
         realOasisCharSpeed = standardOasisSpeed * oasisCharSpeed;
-
-       
+        StartGame();
     }
 
     public override void StartGame()
     {
+        base.StartGame();
+        meatNum = waterNum = treeNum = 0;
+        StartCoroutine(OasisRoutine());
     }
 
     void SpawnObject()
@@ -97,33 +99,29 @@ public class OasisManager : MiniGameSetMgr
 
     public void GetWater()
     {
-        //MGM.water += (int)oasisWaterRes;
+        AddItem(GameData("game2water").GetItemID1, (int)oasisWaterRes);
         waterNum = Mathf.Max(0f, waterNum - 1f);
     }
 
     public void GetMeat()
     {
-        //MGM.meat += (int)oasisMeatRes;
+        AddItem(GameData("game2meat").GetItemID1, (int)oasisMeatRes);
         meatNum = Mathf.Max(0f, meatNum - 1f);
     }
 
     public void GetTree()
     {
-        //MGM.wood += (int)oasisTreeRes;
+        AddItem(GameData("game2tree").GetItemID1, (int)oasisTreeRes);
         treeNum = Mathf.Max(0f, treeNum - 1f);
     }
     
     IEnumerator OasisRoutine()
     {
-        SpawnObject();
-        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(oasisCharSpeed * 5f));
-        SpawnObject();
-        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(oasisCharSpeed * 5f));
-        SpawnObject();
-        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(oasisCharSpeed * 5f));
-
-        //MGM.CloseCurrentGame();
-        yield return null;
+        while (true)
+        {
+            SpawnObject();
+            yield return new WaitForSeconds(MiniGameRules.PositiveDelay(oasisCharSpeed * 5f));
+        }
     }
 
     

@@ -12,6 +12,20 @@ public class Hub2CharMove : MonoBehaviour
     private bool isMove;
     private bool isW, isA, isS, isD;
     private bool isInv, isStun;
+    private Vector2 initialPosition;
+
+    void Awake()
+    {
+        rt = GetComponent<RectTransform>();
+        initialPosition = rt.anchoredPosition;
+    }
+
+    void OnEnable()
+    {
+        rt.anchoredPosition = initialPosition;
+        isMove = isInv = isStun = false;
+        x = y = 0f;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,12 +46,15 @@ public class Hub2CharMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale <= 0f)
+        if (!GamepadUiController.MiniGameInputAllowed)
+        {
+            isMove = false;
             return;
-        isW = Input.GetKey(KeyCode.W);
-        isA = Input.GetKey(KeyCode.A);
-        isS = Input.GetKey(KeyCode.S);
-        isD = Input.GetKey(KeyCode.D);
+        }
+        isW = Input.GetKey(KeyCode.W) || GamepadInput.Held(GamepadButton.Up);
+        isA = Input.GetKey(KeyCode.A) || GamepadInput.Held(GamepadButton.Left);
+        isS = Input.GetKey(KeyCode.S) || GamepadInput.Held(GamepadButton.Down);
+        isD = Input.GetKey(KeyCode.D) || GamepadInput.Held(GamepadButton.Right);
         isMove = MiniGameMovement.Direction(isW, isA, isS, isD) != Vector2.zero;
         SetDirection();
     }
@@ -86,7 +103,7 @@ public class Hub2CharMove : MonoBehaviour
         {
             //스턴 
             isStun = true;
-            Debug.Log("Stun");
+            GamepadInput.Pulse(0.22f, 0.08f, 0.14f);
             isW = false;
             isA = false;
             isS = false; 

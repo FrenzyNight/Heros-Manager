@@ -13,6 +13,7 @@ public class OasisNetMove : MonoBehaviour
         OM = MiniGameReferences.Manager<OasisManager>(this);
 
         rt = gameObject.GetComponent<RectTransform>();
+        Destroy(transform.parent.gameObject, 6f);
     }
 
     void FixedUpdate()
@@ -22,26 +23,32 @@ public class OasisNetMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
+        if (!gameObject.activeSelf || !coll.gameObject.activeSelf) return;
         if(coll.gameObject.CompareTag("Land"))
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            Destroy(transform.parent.gameObject);
+            return;
         }
 
         if(coll.gameObject.CompareTag("Water"))
         {
-            Destroy(coll.gameObject);
+            coll.gameObject.SetActive(false);
+            Destroy(coll.transform.parent.gameObject);
             OM.GetWater();
         }
 
         if(coll.gameObject.CompareTag("Meat"))
         {
-            Destroy(coll.gameObject);
+            coll.gameObject.SetActive(false);
+            Destroy(coll.transform.parent.gameObject);
             OM.GetMeat();
         }
 
         if(coll.gameObject.CompareTag("Tree"))
         {
-            Destroy(coll.gameObject);
+            coll.gameObject.SetActive(false);
+            Destroy(coll.transform.parent.gameObject);
             OM.GetTree();
         }
     }

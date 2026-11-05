@@ -12,6 +12,23 @@ public class MazeCharMove : MonoBehaviour
     private int direction;
     private bool isW, isA, isS, isD;
     public Vector2 firstPoint;
+    private int treasureFrame = -1;
+
+    void Awake()
+    {
+        rt = GetComponent<RectTransform>();
+        firstPoint = rt.anchoredPosition;
+    }
+
+    void OnEnable() => ResetPosition();
+
+    public void ResetPosition()
+    {
+        if (rt == null) return;
+        rt.anchoredPosition = firstPoint;
+        isMove = false;
+        x = y = 0;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,12 +49,15 @@ public class MazeCharMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeScale <= 0f)
+        if (!GamepadUiController.MiniGameInputAllowed)
+        {
+            isMove = false;
             return;
-        isW = Input.GetKey(KeyCode.UpArrow);
-        isA = Input.GetKey(KeyCode.LeftArrow);
-        isS = Input.GetKey(KeyCode.DownArrow);
-        isD = Input.GetKey(KeyCode.RightArrow);
+        }
+        isW = Input.GetKey(KeyCode.UpArrow) || GamepadInput.Aim.y > 0.4f;
+        isA = Input.GetKey(KeyCode.LeftArrow) || GamepadInput.Aim.x < -0.4f;
+        isS = Input.GetKey(KeyCode.DownArrow) || GamepadInput.Aim.y < -0.4f;
+        isD = Input.GetKey(KeyCode.RightArrow) || GamepadInput.Aim.x > 0.4f;
         isMove = MiniGameMovement.Direction(isW, isA, isS, isD) != Vector2.zero;
         SetDirection();
     }
@@ -60,9 +80,9 @@ public class MazeCharMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if(c.CompareTag("Treasure"))
+        if(c.CompareTag("Treasure") && treasureFrame != Time.frameCount)
         {
-            Debug.Log("Get Treasure");
+            treasureFrame = Time.frameCount;
             GetTreasure();
         }
     }
@@ -70,7 +90,7 @@ public class MazeCharMove : MonoBehaviour
     void GetTreasure()
     {
         rt.anchoredPosition = firstPoint;
-        MM.ResetMaze();
+        MM.CollectTreasure();
 
     }
 }

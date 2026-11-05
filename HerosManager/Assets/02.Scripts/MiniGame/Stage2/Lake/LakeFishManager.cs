@@ -65,16 +65,17 @@ public class LakeFishManager : MiniGameSetMgr
 
         StartPoint = ScreenPoint(StartP);
         EndPoint = ScreenPoint(EndP);
+        StartGame();
     }
 
     public void GetFish()
     {
-       // MGM.meat += (int)fishNormalRes;
+        AddItem(GameData("game2fish_norm").GetItemID1, (int)fishNormalRes);
     }
 
     public void GetGoldFish()
     {
-       // MGM.meat += (int)fishGoldRes;
+        AddItem(GameData("game2fish_gold").GetItemID1, (int)fishGoldRes);
     }
 
     IEnumerator SpawnFish()
@@ -118,6 +119,8 @@ public class LakeFishManager : MiniGameSetMgr
 
     public override void StartGame()
     {
+        base.StartGame();
+        StartCoroutine(SpawnFish());
     }
 
     

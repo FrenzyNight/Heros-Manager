@@ -1,6 +1,6 @@
 using System;
 
-/// <summary>Deterministic growth and expedition rules for the four-day meadow campaign.</summary>
+/// <summary>Deterministic growth and expedition rules shared by playable campaign stages.</summary>
 public static class MeadowRules
 {
     public const int CouragePerLevel = 25;
@@ -25,8 +25,8 @@ public static class MeadowRules
     public static float NormalizeCourage(float value) => IsFinite(value) ? Math.Max(0, Math.Min(1000000f, value)) : 0;
     public static int FoodRecovery(int portions) => (int)Math.Min(MaximumFoodRecovery, Math.Max(0, portions) * 2L);
 
-    public static float ResultWeight(string resultId, float weight, bool preparedMeadowJourney) =>
-        preparedMeadowJourney && resultId != null && resultId.EndsWith("_Fail", StringComparison.Ordinal) ? 0 : weight;
+    public static float ResultWeight(string resultId, float weight, bool preparedJourney) =>
+        preparedJourney && resultId != null && resultId.EndsWith("_Fail", StringComparison.Ordinal) ? 0 : weight;
 
     public static float ReturnedHealth(float hp, float damageDelta, int foodPortions, float maximumHp)
     {

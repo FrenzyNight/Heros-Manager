@@ -220,7 +220,8 @@ public static class MeadowPlayValidation
         Require(CampGemWallet.Instance.GetAmount() == victory.gems &&
             HeroStateManager.Instance.heroStates[0].exp == victory.hero1Stat[3], "Continue restores currency and growth.");
         var completed = MeadowCampaign.Instance;
-        ModalButton("새 원정 · 1일부터").onClick.Invoke();
+        Require(ModalButton("사막으로 이어가기").interactable, "Meadow victory offers the next playable chapter.");
+        Require(completed.Restart(), "Explicit restart remains available to the campaign controller.");
         yield return Until("restart scene", () => MeadowCampaign.IsCreateInstance() && MeadowCampaign.Instance != completed);
         yield return ReadyDay(1);
         Require(MeadowCampaign.Instance.Outcome == MeadowOutcome.Active && CampGemWallet.Instance.GetAmount() == 0 &&

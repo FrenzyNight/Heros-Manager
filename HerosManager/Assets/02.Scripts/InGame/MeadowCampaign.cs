@@ -10,6 +10,13 @@ public sealed class MeadowCampaign : Singleton<MeadowCampaign>
     public MeadowOutcome Outcome { get; private set; }
     public bool IsModalOpen => modal != null && modal.activeSelf;
     public GameObject ModalRoot => modal;
+    bool IsDesert => InGameMgr.Instance.stage == CampaignProgressionRules.DesertStage;
+    string ChapterName => IsDesert ? "사막" : "초원";
+    string DayObjective => !IsDesert ? "목표: 4일째 원정 성공 · 전원 행동 불능이면 패배" :
+        Clock.Instance.day == 1 ? "오아시스 길 찾기 · 호수에서 내일의 물을 확보하세요" :
+        Clock.Instance.day == 2 ? "유적 보급로 개척 · 미로 원석과 약초로 회복을 준비하세요" :
+        Clock.Instance.day == 3 ? "모래바람 돌파 · 요리와 용사 성장으로 마지막 보급을 준비하세요" :
+        "목표: 사막 횡단 원정 성공 · 생존 용사 1명 이상";
     public bool CanRecover => Outcome == MeadowOutcome.Active && !Clock.Instance.isProduct &&
         !AdventureManager.Instance.IsJourneyInProgress &&
         HeroStateManager.Instance.heroStates.Any(hero => hero.IsAbleToAct && hero.hp < hero.MaximumHp) &&
@@ -72,15 +79,14 @@ public sealed class MeadowCampaign : Singleton<MeadowCampaign>
         }
         gemHint.gameObject.SetActive(InGameMgr.Instance.state == State.MiniGame && !TutorialMgr.Instance.isTutorial);
         if (gemHint.gameObject.activeSelf)
-            gemHint.text = $"동굴 원석 +{MiniGameMgr.Instance.PendingGems} · 나갈 때 지급 · 3개로 생존 용사 체력 +20";
+            gemHint.text = $"채집 원석 +{MiniGameMgr.Instance.PendingGems} · 나갈 때 지급 · 3개로 생존 용사 체력 +20";
         bool tutorial = TutorialMgr.Instance.isTutorial;
         bool camp = InGameMgr.Instance.state == State.Camp;
         bool preparing = AdventureManager.Instance.AdvPanel.activeInHierarchy;
         hud.SetActive(!IsModalOpen && !tutorial && !InGameMgr.Instance.pause.IsOpen &&
             Outcome == MeadowOutcome.Active && (camp || preparing));
         if (!hud.activeSelf) return;
-        status.text = $"초원 {Clock.Instance.day} / 4일  ·  원석 {CampGemWallet.Instance.GetAmount()}\n" +
-            "목표: 4일째 원정 성공 · 전원 행동 불능이면 패배";
+        status.text = $"{ChapterName} {Clock.Instance.day} / 4일  ·  원석 {CampGemWallet.Instance.GetAmount()}\n" + DayObjective;
         recovery.interactable = CanRecover;
         finish.interactable = true;
     }
@@ -93,12 +99,18 @@ public sealed class MeadowCampaign : Singleton<MeadowCampaign>
         previousTimeScale = Time.timeScale;
         Clock.Instance.isStop = true;
         Time.timeScale = 0;
-        heading.text = "초원 4일 원정 안내";
+        heading.text = $"{ChapterName} 4일 원정 안내";
         report.text = "매일 보급 준비 → 원정과 채집 → 귀환 → 캠프 관리 → 하루 결산\n\n" +
             "승리: 4일째 원정 성공 + 생존 용사 1명 이상\n패배: 전원 체력 0 또는 4일째 원정 실패\n\n" +
             "고기·물 최소량을 지키고 평가를 ‘순탄’으로 맞추면 실패 0%.\n성공 시 용사도 +10 이상, 용사도 25마다 전투력 +15.\n실패 시 체력 -40. 체력 0인 용사는 출전·회복 불가.\n\n" +
             "요리: 약초 2 + 고기 2 + 물 2 → 음식 3 (불 필요)\n보급 음식 1개당 귀환 체력 +2/명, 최대 +12. 치명상은 회복 불가.\n동굴 원석 3개 → 원정 전·귀환 후 생존 용사 전원 체력 +20.\n\n" +
             "하루는 4분입니다. 밤에는 불과 빨래를 관리해 스트레스를 줄이세요.\n매일 아침 자동 저장 · 진행 중 종료하면 그날 아침부터 재개합니다.";
+        if (IsDesert)
+            report.text = "초원의 전투력·용사도·자원·울타리를 이어받았습니다.\n" +
+                "물·고기 최소 보급은 매일 9 / 10 / 11 / 12개씩입니다.\n" +
+                "호수: 물·고기 / 사막 들판: 약초·사냥 / 유적: 나무·원석.\n" +
+                "오아시스는 매일 잠깐 열립니다. 기본 채집만으로도 진행할 수 있습니다.\n" +
+                "미로 보물마다 약초 2 + 원석 1. 원석 3개로 부상자를 회복하세요.\n\n" + report.text.Replace("동굴 원석", "미로 원석");
         ConfigureButton(primary, "확인", () => { CloseHelp(); });
         ConfigureButton(secondary, "돌아가기", () => { CloseHelp(); });
         OpenModal();
@@ -140,7 +152,7 @@ public sealed class MeadowCampaign : Singleton<MeadowCampaign>
             GamepadInput.Pulse(Outcome == MeadowOutcome.Victory ? 0.35f : 0.65f, 0.4f, 0.4f);
             return;
         }
-        heading.text = $"초원 {Clock.Instance.day}일 결산";
+        heading.text = $"{ChapterName} {Clock.Instance.day}일 결산";
         report.text = BuildReport() + "\n다음 날을 누르면 아침 상태가 저장됩니다.\n남은 작업은 종료되며, 보급을 다시 준비합니다.";
         ConfigureButton(primary, "다음 날", ContinueDay);
         ConfigureButton(secondary, "제목으로 · 아침부터 재개", ReturnToTitle);
@@ -158,15 +170,24 @@ public sealed class MeadowCampaign : Singleton<MeadowCampaign>
 
     void ShowTerminal(bool restored)
     {
-        heading.text = Outcome == MeadowOutcome.Victory ? "초원 원정 완료" : "초원 원정 실패";
+        heading.text = Outcome == MeadowOutcome.Victory ? $"{ChapterName} 원정 완료" : $"{ChapterName} 원정 실패";
         string reason = Outcome == MeadowOutcome.Victory
-            ? "4일째 원정을 성공하고 초원을 지켜냈습니다."
+            ? IsDesert ? "사막의 보급로를 열고 4일간의 횡단을 마쳤습니다." : "4일째 원정을 성공하고 초원을 지켜냈습니다."
             : HeroStateManager.Instance.HasAbleHeroes ? "4일째 원정에 실패했습니다. 보급과 성장을 준비해 다시 도전하세요."
             : "모든 용사가 행동 불능이 되었습니다. 음식과 원석 회복으로 부상을 관리해 주세요.";
-        report.text = reason + "\n\n" + (restored ? PartySummary() : BuildReport()) +
-            "\n현재 플레이의 마지막은 초원입니다. 사막·마법 숲은 다음 개발 단계입니다.";
+        report.text = reason + "\n\n" + (restored ? PartySummary() : BuildReport());
+        if (Outcome == MeadowOutcome.Victory && !IsDesert)
+            report.text += "\n다음 지역: 사막 4일 · 성장·자원·울타리 계승\n" +
+                "출발 보급: 물 12 · 고기 12 · 음식 6 · 원석 3 (1회)\n" +
+                "이동 중 생존 용사 체력 +30 · 행동 불능 용사는 부활하지 않습니다.\n" +
+                "사막 첫날 보급은 물·고기 각각 9개. 음식으로 평가와 귀환 체력을 보완하세요.\n" +
+                "생존자가 적으면 전투력이 부족할 수 있습니다. 출발 전 보급 평가를 확인하세요.";
+        else if (Outcome == MeadowOutcome.Victory)
+            report.text += "\n초원부터 사막까지 8일 원정을 완수했습니다.\n현재 개발된 지역은 여기까지입니다. 마법 숲은 아직 열리지 않습니다.";
         if (saveFailed) report.text += "\n저장 실패: 제목으로 돌아가기 전에 아래 버튼으로 다시 저장해 주세요.";
         if (saveFailed) ConfigureButton(primary, "저장 다시 시도", RetrySave);
+        else if (Outcome == MeadowOutcome.Victory && !IsDesert)
+            ConfigureButton(primary, "사막으로 이어가기", () => { AdvanceToDesert(); });
         else ConfigureButton(primary, "새 원정 · 1일부터", () => { Restart(); });
         ConfigureButton(secondary, "제목으로", ReturnToTitle);
         secondary.interactable = !saveFailed;
@@ -207,6 +228,23 @@ public sealed class MeadowCampaign : Singleton<MeadowCampaign>
         if (!SaveDataManager.Instance.TrySaveGameSnapshot(SaveDataManager.Instance.CreateNewGameData()))
         {
             report.text += "\n새 원정을 저장하지 못했습니다. 현재 결과는 유지됩니다.";
+            return false;
+        }
+        leaving = true;
+        Time.timeScale = 1;
+        SceneManager.LoadScene("InGame");
+        return true;
+    }
+
+    public bool AdvanceToDesert()
+    {
+        if (leaving || saveFailed || Outcome != MeadowOutcome.Victory || IsDesert) return false;
+        var saves = SaveDataManager.Instance;
+        if (!CampaignProgressionRules.TryAdvanceToDesert(saves.CaptureGameData(), out var next)) return false;
+        if (!saves.TrySaveGameSnapshot(next))
+        {
+            report.text = "사막 출발 상태를 저장하지 못했습니다. 초원 완료 기록과 보상은 그대로 유지됩니다.\n" +
+                "저장 위치와 디스크 공간을 확인한 뒤 다시 시도해 주세요.";
             return false;
         }
         leaving = true;

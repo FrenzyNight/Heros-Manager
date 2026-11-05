@@ -15,6 +15,23 @@ public class LakeBucketMove : MonoBehaviour
     public float endP;
     public float topP,botP;
     public float lv1Line, lv2Line;
+    private Vector2 initialPosition;
+    private int previousAim;
+
+    void Awake()
+    {
+        rt = GetComponent<RectTransform>();
+        initialPosition = rt.anchoredPosition;
+    }
+
+    void OnEnable()
+    {
+        rt.anchoredPosition = initialPosition;
+        previousAim = 0;
+        lv = 0;
+        direction = 1;
+        ImgChange();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,17 +45,20 @@ public class LakeBucketMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if (!GamepadUiController.MiniGameInputAllowed) return;
+        int aim = GamepadInput.Aim.x < -0.4f ? -1 : GamepadInput.Aim.x > 0.4f ? 1 : 0;
+        if(Input.GetKeyDown(KeyCode.LeftArrow) || (aim == -1 && previousAim != -1))
         {
             LeftMove();
         }
 
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if(Input.GetKeyDown(KeyCode.RightArrow) || (aim == 1 && previousAim != 1))
         {
             RightMove();
         }
 
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        previousAim = aim;
+        if(Input.GetKeyDown(KeyCode.UpArrow) || GamepadInput.Pressed(GamepadButton.RightShoulder))
         {
             direction = -1;
         }
@@ -100,16 +120,16 @@ public class LakeBucketMove : MonoBehaviour
     }
     void LeftMove()
     {
-        if(rt.anchoredPosition.x != -endP)
+        if(rt.anchoredPosition.x > -endP)
         {
-            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x - (moveVar), rt.anchoredPosition.y);
+            rt.anchoredPosition = new Vector2(Mathf.Max(-endP, rt.anchoredPosition.x - moveVar), rt.anchoredPosition.y);
         }
     }
     void RightMove()
     {
-        if(rt.anchoredPosition.x != endP)
+        if(rt.anchoredPosition.x < endP)
         {
-            rt.anchoredPosition = new Vector2(rt.anchoredPosition.x + (moveVar), rt.anchoredPosition.y);
+            rt.anchoredPosition = new Vector2(Mathf.Min(endP, rt.anchoredPosition.x + moveVar), rt.anchoredPosition.y);
         }
     }
 
