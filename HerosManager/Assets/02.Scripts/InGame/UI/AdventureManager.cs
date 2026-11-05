@@ -59,6 +59,22 @@ public class AdventureManager : Singleton<AdventureManager>
     IReadOnlyList<JResultData> jResultDataList = System.Array.Empty<JResultData>();
     bool journeyReady;
     bool journeyInProgress;
+    bool preparedMeadowJourney;
+    string preparedDayId;
+    readonly bool[] departingHeroes = new bool[4];
+    int departureFood;
+    int departureHeroCount;
+    public bool HasJourneyResult { get; private set; }
+    public MeadowJourneyResult LastJourneyResult { get; private set; }
+    public bool IsJourneyReady => journeyReady;
+    public bool IsJourneyInProgress => journeyInProgress;
+    public int SelectedMeat => meat;
+    public int SelectedWater => water;
+    public int MinimumMeat => journeyData != null ? journeyData.Item1Min : 0;
+    public int MinimumWater => journeyData != null ? journeyData.Item2Min : 0;
+    public bool CanDepart => journeyReady && (!FirstRunGuide.SuppliesRequired ||
+        (meat >= MinimumMeat && water >= MinimumWater)) && HeroStateManager.Instance.HasAbleHeroes &&
+        WeightedSelection.TryPick(jResultDataList, ResultWeight, 0f, out _);
 
     [HideInInspector]
     public AudioSource audioSource;
@@ -78,11 +94,13 @@ public class AdventureManager : Singleton<AdventureManager>
     void Start()
     {
         isClicked = false;
+        StyleSupplyGuidance();
         
         StartAdvBtn.onClick.AddListener(StartButton);
         
 
-        WarningText.text = LoadGameData.Instance.GetString("Journey_a1");
+        if (journeyReady) CheckAdventureState();
+        else WarningText.text = LoadGameData.Instance.GetString("Journey_a1");
         
         //StartAdvBtn.GetComponentInChildren<Text>().text = LoadGameData.Instance.GetString("Journey_t7");
     }
@@ -92,8 +110,29 @@ public class AdventureManager : Singleton<AdventureManager>
         BlackPanel.SetActive(false);
     }
 
+    void StyleSupplyGuidance()
+    {
+        // This space sits below the two supply rows on the existing illustrated panel.
+        WarningText.rectTransform.sizeDelta = new Vector2(340, 88);
+        WarningText.rectTransform.anchoredPosition = new Vector2(243, -78);
+        GameUiStyle.TextStyle(WarningText, 19, 17, GameUiStyle.Paper);
+        WarningText.alignment = TextAnchor.UpperCenter;
+        GameUiStyle.TextStyle(MinMeatText, 17, 16, GameUiStyle.Paper);
+        GameUiStyle.TextStyle(MinWaterText, 17, 16, GameUiStyle.Paper);
+        foreach (var label in ItemNumTexts)
+        {
+            GameUiStyle.TextStyle(label, Mathf.Max(22, label.fontSize), 20, GameUiStyle.Ink);
+            label.fontStyle = FontStyle.Bold;
+        }
+    }
+
     public void ReadyAdventure(StageDayData _stageDayData)
     {
+        if (preparedDayId == _stageDayData.StageDayID && (journeyReady || journeyInProgress || HasJourneyResult))
+            return;
+        preparedDayId = _stageDayData.StageDayID;
+        HasJourneyResult = false;
+        LastJourneyResult = default;
         journeyReady = true;
         journeyInProgress = false;
         StopAllCoroutines();
@@ -231,7 +270,7 @@ public class AdventureManager : Singleton<AdventureManager>
 
     void StartButton()
     {
-        if (isClicked || !journeyReady || !StartAdvBtn.interactable || !AdvPanel.activeInHierarchy ||
+        if (isClicked || !CanDepart || !StartAdvBtn.interactable || !AdvPanel.activeInHierarchy ||
             !ItemManager.Instance.TrySpend(new ItemCost(InventoryRules.Meat, meat),
                 new ItemCost(InventoryRules.Water, water), new ItemCost(InventoryRules.Food, food),
                 new ItemCost(InventoryRules.Herb, hub)))
@@ -239,6 +278,14 @@ public class AdventureManager : Singleton<AdventureManager>
         isClicked = true;
         journeyReady = false;
         journeyInProgress = true;
+        departureFood = food;
+        departureHeroCount = 0;
+        for (int i = 0; i < departingHeroes.Length; i++)
+        {
+            departingHeroes[i] = i < HeroStateManager.Instance.heroStates.Length &&
+                HeroStateManager.Instance.heroStates[i].IsAbleToAct;
+            if (departingHeroes[i]) departureHeroCount++;
+        }
         Time.timeScale = 1;
         StartCoroutine(StartAdventereCoroutine());
     }
@@ -253,9 +300,9 @@ public class AdventureManager : Singleton<AdventureManager>
 
     void StartAdventure()
     {
-        foreach(GameObject hero in Heros)
+        for (int i = 0; i < Heros.Length && i < departingHeroes.Length; i++)
         {
-            hero.GetComponent<HeroMove>().SetAdv();
+            if (departingHeroes[i]) Heros[i].GetComponent<HeroMove>().SetAdv();
         }
         Time.timeScale = timeScale;
         var position = TitleCharImg.transform.localPosition;
@@ -279,34 +326,52 @@ public class AdventureManager : Singleton<AdventureManager>
 
     public void EndJourney()
     {
+        ResolveJourney(Random.value);
+    }
+
+    /// <summary>Applies the current expedition once. A supplied sample supports reproducible validation.</summary>
+    public bool ResolveJourney(float unitSample)
+    {
         if (!journeyInProgress)
-            return;
-        journeyInProgress = false;
-        if (!WeightedSelection.TryPick(jResultDataList, row => row.Prob, Random.value, out JResultData jResultData))
+            return false;
+        if (!WeightedSelection.TryPick(jResultDataList, ResultWeight, unitSample, out JResultData jResultData))
         {
             Debug.LogError("The current journey has no valid weighted results.", this);
-            return;
+            return false;
         }
+        journeyInProgress = false;
+        HasJourneyResult = true;
+        LastJourneyResult = new MeadowJourneyResult(jResultData.JResultID,
+            MeadowRules.FoodRecovery(departureFood), departureHeroCount);
 
         for(int i=0;i<4;i++)
         {
-            Heros[i].GetComponent<HeroMove>().ComeBackHome();
+            if (departingHeroes[i]) Heros[i].GetComponent<HeroMove>().ComeBackHome();
         }
 
         string msg = LoadGameData.Instance.GetString(jResultData.JRanStringID);
         Notice.Instance.InstNoticeText(msg);
 
-        HeroStateManager.Instance.heroStates[0].AddStat
-            (jResultData.Hero1_Stress, jResultData.Hero1_Power, jResultData.Hero1_Hp, jResultData.Hero1_Exp);
-        HeroStateManager.Instance.heroStates[1].AddStat
-            (jResultData.Hero2_Stress, jResultData.Hero2_Power, jResultData.Hero2_Hp, jResultData.Hero2_Exp);
-        HeroStateManager.Instance.heroStates[2].AddStat
-            (jResultData.Hero3_Stress, jResultData.Hero3_Power, jResultData.Hero3_Hp, jResultData.Hero3_Exp);
-        HeroStateManager.Instance.heroStates[3].AddStat
-            (jResultData.Hero4_Stress, jResultData.Hero4_Power, jResultData.Hero4_Hp, jResultData.Hero4_Exp);
-
-        
+        ApplyJourneyReward(0, jResultData, jResultData.Hero1_Stress, jResultData.Hero1_Power, jResultData.Hero1_Hp, jResultData.Hero1_Exp);
+        ApplyJourneyReward(1, jResultData, jResultData.Hero2_Stress, jResultData.Hero2_Power, jResultData.Hero2_Hp, jResultData.Hero2_Exp);
+        ApplyJourneyReward(2, jResultData, jResultData.Hero3_Stress, jResultData.Hero3_Power, jResultData.Hero3_Hp, jResultData.Hero3_Exp);
+        ApplyJourneyReward(3, jResultData, jResultData.Hero4_Stress, jResultData.Hero4_Power, jResultData.Hero4_Hp, jResultData.Hero4_Exp);
+        GamepadInput.Pulse(LastJourneyResult.IsSuccess ? 0.2f : 0.65f, 0.4f, 0.3f);
+        return true;
     }
+
+    void ApplyJourneyReward(int index, JResultData result, float stress, float power, float hp, float courage)
+    {
+        var hero = HeroStateManager.Instance.heroStates[index];
+        if (!departingHeroes[index] || !hero.IsAbleToAct) return;
+        var reward = InGameMgr.Instance.stage == 1
+            ? MeadowRules.Reward(result.JResultID, stress, power, hp, courage)
+            : new MeadowHeroReward(stress, power, hp, courage);
+        float returnedHp = MeadowRules.ReturnedHealth(hero.hp, reward.Hp, departureFood, hero.MaximumHp);
+        hero.AddStat(reward.Stress, reward.Power, returnedHp - hero.hp, reward.Courage);
+    }
+
+    float ResultWeight(JResultData result) => MeadowRules.ResultWeight(result.JResultID, result.Prob, preparedMeadowJourney);
 
     
 
@@ -386,6 +451,7 @@ public class AdventureManager : Singleton<AdventureManager>
         }
 
         jResultDataList = LoadGameData.Instance.Catalog.GetJourneyResults(jStateData.JResultGroupID);
+        preparedMeadowJourney = InGameMgr.Instance.stage == 1 && jStateData.JStateStringID == "JS_t1";
 
         /*
         string str = "";
@@ -397,7 +463,13 @@ public class AdventureManager : Singleton<AdventureManager>
         ResultPerfectRateText.text = ResultPercentage("_Perfect");
         ResultSuccesRateText.text = ResultPercentage("_Normal");
         ResultFailRateText.text = ResultPercentage("_Fail");
-        StartAdvBtn.interactable = WeightedSelection.TryPick(jResultDataList, row => row.Prob, 0f, out _);
+        StartAdvBtn.interactable = CanDepart;
+        string supplyWarning = meat < journeyData.Item1Min || water < journeyData.Item2Min
+            ? "최소 보급 미달: 위험" : "최소 보급 충족 · 예상 확률을 확인하세요";
+        WarningText.text = !HeroStateManager.Instance.HasAbleHeroes ? "출전할 수 있는 용사가 없습니다." :
+            $"{supplyWarning}\n음식 귀환 회복 +{MeadowRules.FoodRecovery(food)}/명";
+        WarningText.color = !HeroStateManager.Instance.HasAbleHeroes || meat < journeyData.Item1Min || water < journeyData.Item2Min
+            ? GameUiStyle.WarningText : GameUiStyle.PositiveText;
 
         //ResultText.text = LoadGameData.Instance.GetString(jStateData.JStateStringID);
 
@@ -431,6 +503,7 @@ public class AdventureManager : Singleton<AdventureManager>
         float totalHeroPower = 0;
         for (int i = 0; i < HeroStateManager.Instance.heroStates.Length; i++)
         {
+            if (!HeroStateManager.Instance.heroStates[i].IsAbleToAct) continue;
             totalHeroStress += HeroStateManager.Instance.heroStates[i].stress;
             totalHeroPower += HeroStateManager.Instance.heroStates[i].power;
         }
@@ -448,11 +521,12 @@ public class AdventureManager : Singleton<AdventureManager>
         double category = 0;
         foreach (var result in jResultDataList)
         {
-            if (result.Prob <= 0f || float.IsNaN(result.Prob) || float.IsInfinity(result.Prob))
+            float weight = ResultWeight(result);
+            if (weight <= 0f || float.IsNaN(weight) || float.IsInfinity(weight))
                 continue;
-            total += result.Prob;
+            total += weight;
             if (result.JResultID.EndsWith(suffix, System.StringComparison.Ordinal))
-                category += result.Prob;
+                category += weight;
         }
         return total > 0 ? (category / total * 100).ToString("0.#") : "0";
     }

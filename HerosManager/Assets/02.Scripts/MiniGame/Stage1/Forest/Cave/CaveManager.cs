@@ -66,6 +66,19 @@ public class CaveManager : MiniGameSetMgr
 
         StartCoroutine(SpawnObject());
     }
+
+    public bool CollectJem(GameObject pickup)
+    {
+        if (!isActiveAndEnabled || pickup == null || !pickup.activeSelf || !spawnObjects.Contains(pickup))
+            return false;
+        // Disable before rewarding: several colliders can report this pickup in the same frame.
+        pickup.SetActive(false);
+        spawnObjects.Remove(pickup);
+        int amount = Mathf.Max(0, Mathf.FloorToInt(jemResource));
+        bool rewarded = MiniGameMgr.Instance.AddTempGems(amount);
+        Destroy(pickup);
+        return rewarded;
+    }
     
 
     IEnumerator SpawnObject()

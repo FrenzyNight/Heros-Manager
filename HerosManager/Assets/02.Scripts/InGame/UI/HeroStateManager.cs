@@ -2,6 +2,18 @@
 public class HeroStateManager : Singleton<HeroStateManager>
 {
     public HeroState[] heroStates;
+    public int AbleHeroCount
+    {
+        get
+        {
+            int count = 0;
+            if (heroStates != null)
+                foreach (var hero in heroStates)
+                    if (hero != null && hero.IsAbleToAct) count++;
+            return count;
+        }
+    }
+    public bool HasAbleHeroes => AbleHeroCount > 0;
 
     protected override void Awake()
     {

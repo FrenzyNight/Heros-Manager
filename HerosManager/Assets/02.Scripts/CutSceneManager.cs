@@ -19,10 +19,12 @@ public class CutSceneManager : MonoBehaviour
     private bool imageTransition;
     private float volume;
     private Coroutine typing, sound, waiting;
+    private float nextTypingSound;
 
     public void LoadCutscene(string code)
     {
         StopEffects();
+        DialogueInput.BlockCurrentFrame();
         LoadGameData.Instance.LoadTitleDatas();
         lines = LoadGameData.Instance.Catalog.GetCutscenes(code);
         nextIndex = 0;
@@ -36,7 +38,7 @@ public class CutSceneManager : MonoBehaviour
 
     public bool NextCutscene()
     {
-        if (imageTransition) return false;
+        if (imageTransition) Img.DOComplete();
         StopWaiting();
         if (typing != null)
         {
@@ -57,6 +59,7 @@ public class CutSceneManager : MonoBehaviour
         ApplyImage(line);
         StringText.text = line.StringID == "-1" ? string.Empty : LoadGameData.Instance.GetString(line.StringID);
         StringText.maxVisibleCharacters = line.StringType == 1 ? 0 : int.MaxValue;
+        nextTypingSound = 0;
         if (line.StringType == 1) typing = StartCoroutine(TypeLine(line.StringDelay));
         else waiting = StartCoroutine(Waiting());
         ApplySound(line);
@@ -90,25 +93,28 @@ public class CutSceneManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(Mathf.Max(0, delay));
         StringText.ForceMeshUpdate();
         int count = StringText.textInfo.characterCount;
-        var interval = new WaitForSecondsRealtime(0.1f);
-        for (int visible = 1; visible <= count; visible++)
+        var characters = new char[count];
+        for (int i = 0; i < count; i++) characters[i] = StringText.textInfo.characterInfo[i].character;
+        var reveal = new DialogueReveal(new string(characters));
+        while (!reveal.IsComplete)
         {
-            StringText.maxVisibleCharacters = visible;
-            typingAS.Play();
-            yield return interval;
+            if (reveal.Advance(Time.unscaledDeltaTime))
+            {
+                StringText.maxVisibleCharacters = reveal.VisibleLength;
+                if (reveal.VisibleLength > 0 && !char.IsWhiteSpace(characters[reveal.VisibleLength - 1]))
+                    DialogueEffects.PlayTypingSound(typingAS, ref nextTypingSound);
+            }
+            if (!reveal.IsComplete) yield return null;
         }
+        StringText.maxVisibleCharacters = int.MaxValue;
+        typingAS.Stop();
         typing = null;
         waiting = StartCoroutine(Waiting());
     }
 
     private IEnumerator Waiting()
     {
-        var interval = new WaitForSecondsRealtime(0.5f);
-        while (true)
-        {
-            Wating.SetActive(!Wating.activeSelf);
-            yield return interval;
-        }
+        return DialogueEffects.PulseWaiting(Wating);
     }
 
     private void StopWaiting()

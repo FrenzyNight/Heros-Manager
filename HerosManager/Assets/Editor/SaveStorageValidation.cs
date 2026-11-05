@@ -7,8 +7,7 @@ public static class SaveStorageValidation
 {
     public static void Run()
     {
-        string directory = Path.Combine(Path.GetTempPath(), "HerosManager-save-validation-" + Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(directory);
+        string directory = ValidationSaveSession.Begin("SaveStorageValidation.");
         try
         {
             var original = Snapshot(1);
@@ -36,10 +35,20 @@ public static class SaveStorageValidation
                 "A missing save must not create a game.");
 
             var first = Snapshot(1);
+            first.gems = 7;
+            first.meadowOutcome = 1;
             Require(JsonSaveStore.TrySave(path, first, SaveGameData.IsValid, out string error), error);
             Require(JsonSaveStore.TryLoad(path, SaveGameData.IsValid, out SaveGameData loaded, out error), error);
             Require(loaded.day == 1 && loaded.items[2] == 30 && loaded.hero1Stat[2] == 80,
                 "Save fields did not round-trip.");
+            Require(loaded.gems == 7 && loaded.meadowOutcome == 1 && loaded.Clone().gems == 7 && loaded.Clone().meadowOutcome == 1,
+                "Gem currency and terminal outcome must survive save and clone.");
+            var invalidCampaign = loaded.Clone();
+            invalidCampaign.gems = -1;
+            Require(!SaveGameData.IsValid(invalidCampaign), "Negative currency must be rejected.");
+            invalidCampaign.gems = 0;
+            invalidCampaign.meadowOutcome = 3;
+            Require(!SaveGameData.IsValid(invalidCampaign), "Unknown campaign outcomes must be rejected.");
 
             Require(JsonSaveStore.TrySave(path, Snapshot(2), SaveGameData.IsValid, out error), error);
             Require(File.Exists(path + ".bak"), "Replacing a valid save must create a backup.");
@@ -100,7 +109,7 @@ public static class SaveStorageValidation
         }
         finally
         {
-            Directory.Delete(directory, true);
+            ValidationSaveSession.Complete();
         }
     }
 

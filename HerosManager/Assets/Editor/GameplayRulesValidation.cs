@@ -6,12 +6,27 @@ public static class GameplayRulesValidation
 {
     public static void Run()
     {
+        using var validation = ValidationSaveSession.Open("GameplayRulesValidation.");
         DataRulesValidation.Run();
         CampRulesValidation.Run();
         MiniGameRulesValidation.Run();
+        MeadowRulesValidation.Run();
+        CaveRewardValidation.Run();
+        GamepadInputValidation.Run();
+        DialogueRevealValidation.Run();
+        ValidateMeadowCampaign();
         ValidateProgression();
         ValidateChoices();
         Debug.Log("GAMEPLAY RULES PASSED");
+    }
+
+    private static void ValidateMeadowCampaign()
+    {
+        Require(MeadowCampaignRules.Evaluate(1, 4, true, false) == MeadowOutcome.Active, "A surviving party can recover from an early defeat.");
+        Require(MeadowCampaignRules.Evaluate(4, 4, false, true) == MeadowOutcome.Active, "Day four cannot win before the expedition resolves.");
+        Require(MeadowCampaignRules.Evaluate(4, 1, true, true) == MeadowOutcome.Victory, "A successful final expedition completes the meadow.");
+        Require(MeadowCampaignRules.Evaluate(4, 4, true, false) == MeadowOutcome.Defeat, "The final objective cannot be bypassed by waiting.");
+        Require(MeadowCampaignRules.Evaluate(2, 0, true, true) == MeadowOutcome.Defeat, "Party incapacity overrides success.");
     }
 
     private static void ValidateProgression()

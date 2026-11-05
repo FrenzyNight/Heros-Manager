@@ -29,6 +29,7 @@ public class InGameMgr : Singleton<InGameMgr>
     public CutSceneManager cutSceneMgr;
 
     public bool IsComplete { get; private set; }
+    bool hadGamepad;
 
     protected override void Awake()
     {
@@ -47,6 +48,10 @@ public class InGameMgr : Singleton<InGameMgr>
         }
         stage = saves.saveGameData.stage;
         LoadStageData();
+        if (stage == 1 && GetComponent<MeadowCampaign>() == null)
+            gameObject.AddComponent<MeadowCampaign>();
+        if (stage == 1 && GetComponent<FirstRunGuide>() == null)
+            gameObject.AddComponent<FirstRunGuide>();
     }
 
     void LoadStageData()
@@ -80,7 +85,15 @@ public class InGameMgr : Singleton<InGameMgr>
         if (pause != null) pause.PauseBtn();
     }
 
-    public void SaveStageData()
+    public void FinishMeadow()
+    {
+        IsComplete = true;
+        Clock.Instance.isStop = true;
+        state = State.None;
+        Time.timeScale = 0f;
+    }
+
+    public bool SaveStageData()
     {
         SaveGameData savegameData = SaveDataManager.Instance.CaptureGameData();
         savegameData.stage = stage;
@@ -89,15 +102,28 @@ public class InGameMgr : Singleton<InGameMgr>
         HeroStateManager.Instance.CaptureStats(savegameData);
         savegameData.fenceLevel = FenceMgr.Instance.fenceLevel;
         EventMgr.Instance.CapturePendingEvents(savegameData);
-
-        SaveDataManager.Instance.TrySaveGameSnapshot(savegameData);
+        savegameData.gems = CampGemWallet.Instance.GetAmount();
+        if (MeadowCampaign.IsCreateInstance())
+            savegameData.meadowOutcome = (int)MeadowCampaign.Instance.Outcome;
+        return SaveDataManager.Instance.TrySaveGameSnapshot(savegameData);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (hadGamepad && !GamepadInput.Connected && !IsComplete && !TutorialMgr.Instance.isTutorial &&
+            !(MeadowCampaign.IsCreateInstance() && MeadowCampaign.Instance.IsModalOpen))
+            pause.PauseBtn();
+        hadGamepad = GamepadInput.Connected;
+        if (Input.GetKeyDown(KeyCode.Escape) || GamepadInput.Pressed(GamepadButton.Back) ||
+            GamepadInput.Pressed(GamepadButton.Pause))
         {
-            if (state == State.Camp)
+            if (MeadowCampaign.IsCreateInstance() && MeadowCampaign.Instance.IsModalOpen)
+            { MeadowCampaign.Instance.CloseHelp(); return; }
+            if (TutorialMgr.Instance.isTutorial) { TutorialMgr.Instance.CloseTutorial(); return; }
+            if (pause.optionMgr.BackPanel.activeInHierarchy) { pause.optionMgr.CloseBtn.onClick.Invoke(); return; }
+            if (pause.IsOpen) { pause.ExitBtnEvent(); return; }
+            if (GamepadInput.Pressed(GamepadButton.Pause)) { pause.PauseBtn(); return; }
+            if (state == State.Camp || (state == State.None && AdventureManager.Instance.AdvPanel.activeInHierarchy))
             {
                 pause.PauseBtn();
             }
@@ -119,14 +145,15 @@ public class InGameMgr : Singleton<InGameMgr>
             }
             else if(state == State.Laundry)
             {
-                 
+                var laundry = FindAnyObjectByType<LaundryInteractionMgr>();
+                if (laundry != null) laundry.ExitLaundryWindow();
             }
         }
 
         switch (state)
         {
             case State.Cutscene:
-                if (Input.anyKeyDown)
+                if (DialogueInput.ConsumeAdvance())
                 {
                     bool isLast = cutSceneMgr.NextCutscene();
                     if (isLast)

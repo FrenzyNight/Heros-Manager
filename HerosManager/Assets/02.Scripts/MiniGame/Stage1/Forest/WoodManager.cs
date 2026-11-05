@@ -37,21 +37,21 @@ public class WoodManager : MiniGameSetMgr
     // Update is called once per frame
     void Update()
     {
-        if(!isStun)
+        if(!isStun && GamepadUiController.GameplayInputAllowed)
         {
-            if(Input.GetKeyDown(KeyCode.W))
+            if(Input.GetKeyDown(KeyCode.W) || GamepadInput.Pressed(GamepadButton.Up))
             {
                 CheckWoodDirection(0);
             }
-            if(Input.GetKeyDown(KeyCode.A))
+            if(Input.GetKeyDown(KeyCode.A) || GamepadInput.Pressed(GamepadButton.Left))
             {
                 CheckWoodDirection(1);
             }
-            if(Input.GetKeyDown(KeyCode.S))
+            if(Input.GetKeyDown(KeyCode.S) || GamepadInput.Pressed(GamepadButton.Down))
             {
                 CheckWoodDirection(2);
             }
-            if(Input.GetKeyDown(KeyCode.D))
+            if(Input.GetKeyDown(KeyCode.D) || GamepadInput.Pressed(GamepadButton.Right))
             {
                 CheckWoodDirection(3);
             }
@@ -113,6 +113,7 @@ public class WoodManager : MiniGameSetMgr
 
         if(woodDirection == input)
         {
+            GamepadInput.Pulse(0.15f, 0.3f, 0.08f);
             audioSource.clip = woodSuccessSound;
             audioSource.Play();
             if(NowWood.CompareTag("MiniGameObj1"))
@@ -130,6 +131,7 @@ public class WoodManager : MiniGameSetMgr
         else
         {
             audioSource.clip = woodFailSound;
+            GamepadInput.Pulse(0.6f, 0.15f, 0.18f);
             audioSource.Play();
             if (axeCoroutine != null)
                 StopCoroutine(axeCoroutine);

@@ -13,6 +13,10 @@ public class SaveGameData
     public float[] hero3Stat;
     public float[] hero4Stat;
     public int fenceLevel;
+    public int gems;
+    // Zero is the legacy/default active run; terminal runs reopen their result screen.
+    public int meadowOutcome;
+    public bool onboardingComplete;
     // JsonUtility may serialize a null array as []; this marker distinguishes legacy
     // saves with an uninitialized queue from a deliberately exhausted queue.
     public bool hasEventSnapshot;
@@ -23,6 +27,7 @@ public class SaveGameData
         return new SaveGameData
         {
             stage = stage, day = day, fenceLevel = fenceLevel,
+            gems = gems, meadowOutcome = meadowOutcome, onboardingComplete = onboardingComplete,
             items = items == null ? null : (int[])items.Clone(),
             hasEventSnapshot = hasEventSnapshot,
             pendingEventIds = pendingEventIds == null ? null : (string[])pendingEventIds.Clone(),
@@ -36,7 +41,9 @@ public class SaveGameData
     public static bool IsValid(SaveGameData data)
     {
         if (data == null || data.stage < 1 || data.day < 1 || data.fenceLevel < 1 ||
-            data.items == null || data.items.Length != 5)
+            data.items == null || data.items.Length != 5 || data.gems < 0 ||
+            data.meadowOutcome < 0 || data.meadowOutcome > 2 ||
+            (data.meadowOutcome != 0 && data.stage != 1))
             return false;
 
         foreach (int count in data.items)
@@ -75,13 +82,14 @@ public class SaveGameData
 [Serializable]
 public class SaveOptionData
 {
+    public bool disableVibration;
     public bool isWindow = true;
     public float EffVolume = 1f;
     public float BgmVolume = 1f;
 
     public SaveOptionData Clone()
     {
-        return new SaveOptionData { isWindow = isWindow, EffVolume = EffVolume, BgmVolume = BgmVolume };
+        return new SaveOptionData { isWindow = isWindow, EffVolume = EffVolume, BgmVolume = BgmVolume, disableVibration = disableVibration };
     }
 
     public void Normalize()

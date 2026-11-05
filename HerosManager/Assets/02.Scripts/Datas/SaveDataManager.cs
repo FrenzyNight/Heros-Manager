@@ -99,6 +99,7 @@ public class SaveDataManager : Singleton<SaveDataManager>
         {
             saveOptionData = loaded;
             saveOptionData.Normalize();
+            GamepadInput.RumbleEnabled = !saveOptionData.disableVibration;
             _callback?.Invoke();
             return;
         }
@@ -106,6 +107,7 @@ public class SaveDataManager : Singleton<SaveDataManager>
         if (!TrySave(OptionFileName, defaults, SaveOptionData.IsValid))
             return;
         saveOptionData = defaults;
+        GamepadInput.RumbleEnabled = !saveOptionData.disableVibration;
         _callback?.Invoke();
     }
 
@@ -128,14 +130,14 @@ public class SaveDataManager : Singleton<SaveDataManager>
     private static bool TryLoad<T>(string fileName, Func<T, bool> validate, out T value)
         where T : class, new()
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
+        string path = Path.Combine(SaveStoragePaths.Directory, fileName);
         if (JsonSaveStore.TryLoad(path, validate, out value, out string error))
             return true;
         if (!string.IsNullOrEmpty(error))
             Debug.LogWarning(error);
 
         // A damaged modern save must not silently restore the demonstration save in Assets.
-        if (File.Exists(path) || File.Exists(path + ".bak"))
+        if (SaveStoragePaths.IsIsolated || File.Exists(path) || File.Exists(path + ".bak"))
             return false;
 
         string legacyPath = Path.Combine(Application.dataPath, fileName);
@@ -154,7 +156,7 @@ public class SaveDataManager : Singleton<SaveDataManager>
     private static bool TrySave<T>(string fileName, T value, Func<T, bool> validate)
         where T : class, new()
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
+        string path = Path.Combine(SaveStoragePaths.Directory, fileName);
         if (JsonSaveStore.TrySave(path, value, validate, out string error))
             return true;
         Debug.LogError(error);

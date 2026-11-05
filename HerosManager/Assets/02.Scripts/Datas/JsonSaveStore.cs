@@ -19,6 +19,8 @@ public static class JsonSaveStore
             return false;
         }
         if (validate == null) throw new ArgumentNullException(nameof(validate));
+        if (!SaveStoragePaths.TryAuthorizeFile(path, out error)) { value = null; return false; }
+        if (!SaveStoragePaths.TryAuthorizeFile(path + ".bak", out error)) { value = null; return false; }
         lock (Sync)
         {
             if (TryRead(path, validate, out value, out error))
@@ -43,6 +45,8 @@ public static class JsonSaveStore
             return false;
         }
         if (validate == null) throw new ArgumentNullException(nameof(validate));
+        if (!SaveStoragePaths.TryAuthorizeFile(path, out error) ||
+            !SaveStoragePaths.TryAuthorizeFile(path + ".bak", out error)) return false;
         lock (Sync)
         {
             error = null;

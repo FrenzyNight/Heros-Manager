@@ -19,6 +19,7 @@ public class OptionManager : MonoBehaviour
     public Text SfxText;
     public Slider BgmSlider;
     public Slider SfxSlider;
+    private Button vibrationButton;
 
     void Start()
     {
@@ -35,6 +36,15 @@ public class OptionManager : MonoBehaviour
         SoundText.text = LoadGameData.Instance.GetString("Title_t13");
         BgmText.text = LoadGameData.Instance.GetString("Title_t14");
         SfxText.text = LoadGameData.Instance.GetString("Title_t15");
+        vibrationButton = Instantiate(OkBtn, OkBtn.transform.parent);
+        vibrationButton.name = "Gamepad vibration";
+        vibrationButton.onClick = new Button.ButtonClickedEvent();
+        vibrationButton.onClick.AddListener(ToggleVibration);
+        var vibrationRect = vibrationButton.GetComponent<RectTransform>();
+        var confirmRect = OkBtn.GetComponent<RectTransform>();
+        vibrationRect.anchoredPosition = confirmRect.anchoredPosition + new Vector2(-130, 0);
+        confirmRect.anchoredPosition += new Vector2(130, 0);
+        RefreshVibration();
     }
 
     public void OpenPanel()
@@ -57,6 +67,7 @@ public class OptionManager : MonoBehaviour
 
         BgmSlider.value = SaveDataManager.Instance.saveOptionData.BgmVolume;
         SfxSlider.value = SaveDataManager.Instance.saveOptionData.EffVolume;
+        RefreshVibration();
     }
 
     void FullBtnEvent()
@@ -100,8 +111,24 @@ public class OptionManager : MonoBehaviour
             BackPanel.SetActive(false);
     }
 
+    void ToggleVibration()
+    {
+        var options = SaveDataManager.Instance.saveOptionData;
+        options.disableVibration = !options.disableVibration;
+        GamepadInput.RumbleEnabled = !options.disableVibration;
+        RefreshVibration();
+    }
+
+    void RefreshVibration()
+    {
+        if (vibrationButton != null)
+            vibrationButton.GetComponentInChildren<Text>().text = SaveDataManager.Instance.saveOptionData.disableVibration
+                ? "패드 진동: 끔" : "패드 진동: 켬";
+    }
+
     void OnDestroy()
     {
+        if (vibrationButton != null) vibrationButton.onClick.RemoveListener(ToggleVibration);
         if (FullBtn != null) FullBtn.onClick.RemoveListener(FullBtnEvent);
         if (WinBtn != null) WinBtn.onClick.RemoveListener(WinBtnEvent);
         if (OkBtn != null) OkBtn.onClick.RemoveListener(OkBtnEvent);

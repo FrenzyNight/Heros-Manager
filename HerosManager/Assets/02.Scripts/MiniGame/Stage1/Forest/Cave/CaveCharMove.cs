@@ -14,29 +14,37 @@ public class CaveCharMove : MiniGameCharMgr
     public GameObject StunStat;
 
     private Rigidbody2D rigid;
+    private Vector3 initialLocalPosition;
+    private float initialGravity;
+    private bool initialized;
 
     // Start is called before the first frame update
     void Start()
     {
-        Mgr = manager.GetComponent<CaveManager>();
-        rigid = gameObject.GetComponent<Rigidbody2D>();
-        audioSource = gameObject.GetComponent<AudioSource>();
-        rigid.gravityScale = rigid.gravityScale * Mgr.heightScale;
-        isCheck = false;
+        Initialize();
+    }
 
+    private void Initialize()
+    {
+        if (initialized) return;
+        Mgr = MiniGameReferences.Manager<CaveManager>(this, manager);
+        manager = Mgr.gameObject;
+        rigid = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        initialLocalPosition = transform.localPosition;
+        initialGravity = rigid.gravityScale;
         objectType = 5;
         moveType = 1;
-        //moveType = LoadGameData.Instance.miniGameDatas["game1Lay"].value1;
-        //
+        initialized = true;
     }
 
     public override void Action1() //Jump
     {
         //Debug.Log("Jump");
-        if(!isCheck)
+        if(!isCheck && !isStun)
         {
             Action3();
-            //isCheck = true;
+            isCheck = true;
             audioSource.clip = jumpSound;
             audioSource.Play();
             rigid.linearVelocity = new Vector3(0, Mgr.realCharJump * Mgr.heightScale, 0);
@@ -45,7 +53,7 @@ public class CaveCharMove : MiniGameCharMgr
 
     public override void Action2() //Slide
     {
-        if(!isCheck)
+        if(!isCheck && !isStun)
         {
             audioSource.clip = slidingSound;
             audioSource.Play();
@@ -56,12 +64,24 @@ public class CaveCharMove : MiniGameCharMgr
 
     public override void Action3() //EndSlide
     {
+        if (isStun) return;
         SlideStat.SetActive(false);
         RunStat.SetActive(true);
     }
 
     public void Reset()
     {
+        Initialize();
+        StopAllCoroutines();
+        CancelInvoke();
+        audioSource.Stop();
+        rigid.linearVelocity = Vector2.zero;
+        rigid.angularVelocity = 0;
+        transform.localPosition = initialLocalPosition;
+        rigid.position = transform.position;
+        rigid.gravityScale = initialGravity * Mgr.heightScale;
+        isCheck = isStun = false;
+        isW = isA = isS = isD = false;
         RunStat.SetActive(true);
         SlideStat.SetActive(false);
         StunStat.SetActive(false);
@@ -69,28 +89,20 @@ public class CaveCharMove : MiniGameCharMgr
 
     public override IEnumerator Stun()
     {
+        if (isStun) yield break;
         RunStat.SetActive(false);
         SlideStat.SetActive(false);
         
         StunStat.SetActive(true);
         isStun = true;
-        isCheck = false;
         Mgr.isCheck = false;
-        yield return new WaitForSeconds(Mgr.stunTime);
+        yield return new WaitForSeconds(MiniGameRules.PositiveDelay(Mgr.stunTime));
 
         StunStat.SetActive(false);
         RunStat.SetActive(true);
-        isCheck = true;
         isStun = false;
         Mgr.isCheck = true;
         yield return null;
-    }
-
-    void Jem()
-    {
-        //보석획득
-        //Mgr.AddJem();
-        Debug.Log("Get Jem");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -111,8 +123,10 @@ public class CaveCharMove : MiniGameCharMgr
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
+        if (!coll.gameObject.activeSelf || !isActiveAndEnabled) return;
         if(coll.CompareTag("MiniGameObj2")) //block
         {
+            coll.gameObject.SetActive(false);
             audioSource.clip = blockSound;
             audioSource.Play();
             StartCoroutine("Stun");
@@ -121,10 +135,20 @@ public class CaveCharMove : MiniGameCharMgr
 
         if(coll.CompareTag("MiniGameObj3")) //jem
         {
-            audioSource.clip = jemSound;
-            audioSource.Play();
-            Jem();
-            Destroy(coll.gameObject);
+            if (Mgr.CollectJem(coll.gameObject))
+            {
+                audioSource.clip = jemSound;
+                audioSource.Play();
+            }
         }
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        if (!initialized) return;
+        audioSource.Stop();
+        rigid.linearVelocity = Vector2.zero;
+        rigid.angularVelocity = 0;
     }
 }

@@ -24,6 +24,7 @@ public class TitleManager : MonoBehaviour
     bool isEff = false;
     bool hasSave;
     bool isLoadingScene;
+    public bool MenuReady { get; private set; }
     public GameObject cam;
     public GameObject panel;
 
@@ -62,6 +63,13 @@ public class TitleManager : MonoBehaviour
 
     private void Update()
     {
+        if (GamepadInput.Pressed(GamepadButton.Back))
+        {
+            if (optionMgr != null && optionMgr.BackPanel.activeInHierarchy)
+                optionMgr.CloseBtn.onClick.Invoke();
+            else if (warningMgr != null && warningMgr.BackPanel.activeInHierarchy)
+                warningMgr.CloseBtn1.onClick.Invoke();
+        }
         //시연
         /*
         if(Input.GetKeyDown(KeyCode.Space))
@@ -72,7 +80,7 @@ public class TitleManager : MonoBehaviour
         }
         */
 
-        if (Input.anyKeyDown)
+        if (GamepadInput.KeyboardOrMousePressed || GamepadInput.Pressed(GamepadButton.Confirm))
         {
             if (!isEff && isStart)
             {
@@ -179,6 +187,7 @@ public class TitleManager : MonoBehaviour
                         });
                         break;
                 }
+                if (idx == MenuTrans.childCount - 1) MenuReady = true;
             });
         }
 

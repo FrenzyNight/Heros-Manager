@@ -33,6 +33,9 @@ Close Unity for this project before running the command-line checks. Run only on
 
 - Use the checks relevant to the changed behavior; broad game-flow changes require Play and Build as well as the affected rules tests.
 - Runtime smoke tests must not overwrite real user saves. Storage tests use temporary directories.
+- Begin synchronous validations with `ValidationSaveSession.Open` and Play validations with `ValidationSaveSession.Begin` before opening scenes. Require an active session in scene-test helpers. Never assign an ad-hoc save override or fall back to player storage.
+- Keep storage I/O behind `JsonSaveStore`. Raw fixture writes belong only inside owned validation directories; never test denied writes against real saves. Run `Isolation` and `IsolationPlay` after changing save boundaries or validation lifecycles.
+- Validation profiles remain under `Library/ValidationSaves`; do not recursively delete paths restored from session state. Editor Play uses `Library/EditorSaveData`, separate from standalone player saves.
 - Preserve tests of behavior boundaries, failure atomicity, actual scene connections, and repeated actions; avoid tests that only mirror implementation.
 - Report failed/unrun checks and remaining content limitations. Logs and builds are generated under `HerosManager/Logs` and `HerosManager/Builds` and are not committed.
 - Commit or push only within the user's requested scope. Keep commit messages within three lines.

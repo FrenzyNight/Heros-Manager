@@ -20,7 +20,7 @@ public class Clock : Singleton<Clock>
     [HideInInspector] public bool isFirstHeroBack;
 
     private float heroBackTime;
-    private bool nightStarted, advancingDay;
+    private bool nightStarted, advancingDay, daySettled;
     private CampInteractionMgr[] campInteractions;
     public float DayDurationSeconds => Mathf.Max(0.01f, dayTime * 60f);
 
@@ -43,6 +43,7 @@ public class Clock : Singleton<Clock>
 
     public void LoadStageDayData()
     {
+        StopAllCoroutines();
         if (!LoadGameData.Instance.Catalog.TryGetStageDay(InGameMgr.Instance.stageData.StageDayGroupID, day, out stageDayData))
         {
             isStop = true;
@@ -50,10 +51,17 @@ public class Clock : Singleton<Clock>
             return;
         }
         nowTime = 0;
-        isHeroBack = isProduct = nightStarted = false;
+        isHeroBack = isProduct = nightStarted = daySettled = false;
+        isStop = false;
         DayText.text = string.Format(LoadGameData.Instance.GetString("Day_t1"), day);
         ClockFillImg.fillAmount = 0;
         EventMgr.Instance.EventButtonDeActive();
+        if (InGameMgr.Instance.stage == 1 && SaveDataManager.Instance.saveGameData.meadowOutcome != 0)
+        {
+            isStop = true;
+            return;
+        }
+        if (MeadowCampaign.IsCreateInstance()) MeadowCampaign.Instance.BeginDay();
         AdventureMgr.ReadyAdventure(stageDayData);
     }
 
@@ -67,7 +75,7 @@ public class Clock : Singleton<Clock>
         {
             Time.timeScale = 0;
             // Finish yesterday's activities before loading the next stage's configuration.
-            foreach (var interaction in campInteractions) interaction.NextDayAction();
+            SettleDay();
             if (!GameProgression.TryGetNextDay(LoadGameData.Instance.Catalog, game.stage, day, out var stage, out var nextDay))
             {
                 ProductMgr.Instance.BlackPanel.SetActive(false);
@@ -77,25 +85,64 @@ public class Clock : Singleton<Clock>
                 return;
             }
             if (stage.Index != game.stage) game.NextStage();
-            else FenceMgr.Instance.Invade();
             day = nextDay.Day;
             LoadStageDayData();
             NextDayAct?.Invoke();
-            game.SaveStageData();
+            if (!game.SaveStageData() && MeadowCampaign.IsCreateInstance())
+                MeadowCampaign.Instance.ShowSaveFailure();
             ProductMgr.Instance.UIInProduct();
         }
         finally { advancingDay = false; }
     }
 
+    public void SettleDay()
+    {
+        if (daySettled) return;
+        daySettled = true;
+        foreach (var interaction in campInteractions) interaction.NextDayAction();
+        if (GameProgression.TryGetNextDay(LoadGameData.Instance.Catalog, InGameMgr.Instance.stage,
+            day, out var nextStage, out _) && nextStage.Index == InGameMgr.Instance.stage)
+            FenceMgr.Instance.Invade();
+    }
+
+    public bool TryFinishDay()
+    {
+        if (isProduct || InGameMgr.Instance.IsComplete || !AdventureMgr.HasJourneyResult) return false;
+        isProduct = true;
+        StopAllCoroutines();
+        TutorialMgr.Instance.isCollect = false;
+        GatheringManager.Instance.isFirst = false;
+        TutorialMgr.Instance.CloseTutorial();
+        GatheringManager.Instance.CloseGatheringPannel();
+        MiniGameMgr.Instance.CloseMiniGame();
+        FenceMgr.Instance.ClosePanel();
+        EventMgr.Instance.ClosePanel();
+        AmuletManager.Instance.CloseList();
+        EventMgr.Instance.EventButtonDeActive();
+        InGameMgr.Instance.state = State.None;
+        if (MeadowCampaign.IsCreateInstance() && InGameMgr.Instance.stage == 1)
+        {
+            SettleDay();
+            MeadowCampaign.Instance.ShowDayReport();
+        }
+        else ProductMgr.Instance.UIOutProduct();
+        return true;
+    }
+
     private void Update()
     {
-        if (isStop || isProduct || InGameMgr.Instance.IsComplete) return;
+        if (isStop || isProduct || InGameMgr.Instance.IsComplete || FirstRunGuide.HoldClock) return;
         nowTime = Mathf.Min(nowTime + Time.deltaTime, DayDurationSeconds);
         ClockFillImg.fillAmount = nowTime / DayDurationSeconds;
         if (!isHeroBack && nowTime >= heroBackTime)
         {
             isHeroBack = true;
             AdventureMgr.EndJourney();
+            if (MeadowCampaign.IsCreateInstance() && !HeroStateManager.Instance.HasAbleHeroes)
+            {
+                TryFinishDay();
+                return;
+            }
             if (isFirstHeroBack)
             {
                 isFirstHeroBack = false;
@@ -109,15 +156,7 @@ public class Clock : Singleton<Clock>
             EventMgr.Instance.EventButtonActive();
         }
         if (nowTime < DayDurationSeconds) return;
-        isProduct = true;
-        GatheringManager.Instance.CloseGatheringPannel();
-        MiniGameMgr.Instance.CloseMiniGame();
-        FenceMgr.Instance.ClosePanel();
-        EventMgr.Instance.ClosePanel();
-        AmuletManager.Instance.CloseList();
-        EventMgr.Instance.EventButtonDeActive();
-        InGameMgr.Instance.state = State.None;
-        ProductMgr.Instance.UIOutProduct();
+        TryFinishDay();
     }
 
     private IEnumerator HeroBackTutorialDelay()

@@ -25,6 +25,7 @@ public class CookInteractionMgr : CampInteractionMgr
     public float getTime;
 
     public int buttonState; // 0=cook, 1=food, 2=trash
+    public int MealsCollected { get; private set; }
 
 
     [HideInInspector]
@@ -47,7 +48,7 @@ public class CookInteractionMgr : CampInteractionMgr
         else if(isGrace && FireInterMgr.GetComponent<FireInteractionMgr>().isActive)
         {
             GraceGage.sprite = Blue;
-            graceTime -= Time.deltaTime;
+            if (!FirstRunGuide.ProtectCampWork) graceTime -= Time.deltaTime;
             GraceGage.fillAmount = graceTime / getTime;
         }
 
@@ -151,12 +152,16 @@ public class CookInteractionMgr : CampInteractionMgr
 
     void GetFood()
     {
-        UnavailableButton();
-        ItemManager.Instance.AddItem(getItemID, getItemAmount);
+        if (!isActive || !isGrace || buttonState != 1)
+            return;
+        // Consume the ready state before emitting the reward.
         buttonState = 0;
-        ButtonImg.sprite = CookButton;
         isActive = false;
         isGrace = false;
+        UnavailableButton();
+        ItemManager.Instance.AddItem(getItemID, getItemAmount);
+        MealsCollected += getItemAmount;
+        ButtonImg.sprite = CookButton;
 
         activeTime = 0;
         graceTime = 0;

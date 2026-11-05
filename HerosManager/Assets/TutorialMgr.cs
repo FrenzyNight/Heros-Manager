@@ -19,7 +19,10 @@ public class TutorialMgr : Singleton<TutorialMgr>
     [HideInInspector] public List<TutorialData> tutoDatas = new List<TutorialData>();
     private IEnumerator _typingCo;
     private IEnumerator _soundCo;
+    private Coroutine waitingCo;
+    private float nextTypingSound;
     private bool previousClockStopped;
+    private float previousTimeScale;
     [HideInInspector] public float vol;
 
     [Header("Dialog")] 
@@ -38,7 +41,7 @@ public class TutorialMgr : Singleton<TutorialMgr>
     [HideInInspector] public bool isCollect;
     private void Update()
     {
-        if (isDialog && Input.anyKeyDown)
+        if (isDialog && DialogueInput.ConsumeAdvance())
         {
             bool isDialogEnd = NextDialog();
             if (isDialogEnd)
@@ -56,11 +59,20 @@ public class TutorialMgr : Singleton<TutorialMgr>
 
     public void OpenTutorial(string openID)
     {
+        if (FirstRunGuide.ReplacesLegacy)
+        {
+            isCollect = false;
+            return;
+        }
         StopAllCoroutines();
         _typingCo = null;
         if (!isTutorial)
+        {
             previousClockStopped = Clock.Instance.isStop;
+            previousTimeScale = Time.timeScale;
+        }
         Clock.Instance.isStop = true;
+        Time.timeScale = 0f;
         tutorialPanelBack.SetActive(true);
         idx = 0;
         isTutorial = true;
@@ -108,12 +120,15 @@ public class TutorialMgr : Singleton<TutorialMgr>
 
     public void OpenDialog()
     {
+        StopDialogueEffects();
+        DialogueInput.BlockCurrentFrame();
         tutorialWindowPanel.SetActive(false);
         tutorialDialogPanel.SetActive(true);
         isDialog = true;
         waitingArrow.SetActive(false);
-        StopCoroutine("WatingEffCo");
         dialogText.text = string.Empty;
+        dialogText.supportRichText = true;
+        nextTypingSound = 0;
         _typingCo = TypingEff1Co(tutoDatas[idx].StringID);
         StartCoroutine(_typingCo);
     }
@@ -123,15 +138,15 @@ public class TutorialMgr : Singleton<TutorialMgr>
         if (tutoDatas == null || idx < 0 || idx >= tutoDatas.Count)
             return true;
         
-        waitingArrow.SetActive(false);
-        StopCoroutine("WatingEffCo");
+        StopWaiting();
 
         if (_typingCo != null)
         {
             StopCoroutine(_typingCo);
             _typingCo = null;
             dialogText.text = LoadGameData.Instance.GetString(tutoDatas[idx].StringID);
-            StartCoroutine("WatingEffCo");
+            typingAs.Stop();
+            waitingCo = StartCoroutine(DialogueEffects.PulseWaiting(waitingArrow));
 
             return false;
         }
@@ -142,6 +157,7 @@ public class TutorialMgr : Singleton<TutorialMgr>
 
     public void OpenWindow()
     {
+        StopDialogueEffects();
         tutorialDialogPanel.SetActive(false);
         tutorialWindowPanel.SetActive(true);
         isDialog = false;
@@ -212,6 +228,7 @@ public class TutorialMgr : Singleton<TutorialMgr>
         isDialog = false;
         isWindowEnd = false;
         Clock.Instance.isStop = previousClockStopped || InGameMgr.Instance.IsComplete;
+        Time.timeScale = InGameMgr.Instance.IsComplete ? 0f : previousTimeScale;
         if (isCollect)
         {
             isCollect = false;
@@ -222,33 +239,44 @@ public class TutorialMgr : Singleton<TutorialMgr>
     IEnumerator TypingEff1Co(string _strCode)
     {
         string str = LoadGameData.Instance.GetString(_strCode);
+        var reveal = new DialogueReveal(str);
+        // Keep the complete line laid out while revealing, so words do not jump between lines.
+        dialogText.text = "<color=#00000000>" + str + "</color>";
         // Ensure the coroutine handle is assigned even for an empty localized string.
         yield return null;
 
-        for (int i = 0; i < str.Length; i++)
+        while (!reveal.IsComplete)
         {
-            dialogText.text = str.Substring(0, i + 1);
-            typingAs.Play();
-            yield return new WaitForSecondsRealtime(0.1f);
+            if (reveal.Advance(Time.unscaledDeltaTime))
+            {
+                int visible = reveal.VisibleLength;
+                dialogText.text = str.Substring(0, visible) + "<color=#00000000>" + str.Substring(visible) + "</color>";
+                if (visible > 0 && !char.IsWhiteSpace(str[visible - 1]))
+                    DialogueEffects.PlayTypingSound(typingAs, ref nextTypingSound);
+            }
+            if (!reveal.IsComplete) yield return null;
         }
 
+        dialogText.text = str;
+        typingAs.Stop();
         _typingCo = null;
-
-        StartCoroutine("WatingEffCo");
+        waitingCo = StartCoroutine(DialogueEffects.PulseWaiting(waitingArrow));
     }
-    
-    
-    IEnumerator WatingEffCo()
+
+    void StopWaiting()
     {
-        while (true)
-        {
-            waitingArrow.SetActive(true);
-
-            yield return new WaitForSecondsRealtime(0.5f);
-
-            waitingArrow.SetActive(false);
-
-            yield return new WaitForSecondsRealtime(0.5f);
-        }
+        if (waitingCo != null) StopCoroutine(waitingCo);
+        waitingCo = null;
+        if (waitingArrow != null) waitingArrow.SetActive(false);
     }
+
+    void StopDialogueEffects()
+    {
+        if (_typingCo != null) StopCoroutine(_typingCo);
+        _typingCo = null;
+        StopWaiting();
+        if (typingAs != null) typingAs.Stop();
+    }
+
+    void OnDisable() => StopDialogueEffects();
 }

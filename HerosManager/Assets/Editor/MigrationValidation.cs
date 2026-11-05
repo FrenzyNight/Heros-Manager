@@ -13,6 +13,7 @@ public static class MigrationValidation
     [MenuItem("Tools/Heros Manager/Save Unity 6 Scene and Rendering Upgrades")]
     public static void UpgradeAssets()
     {
+        using var validation = ValidationSaveSession.Open("UpgradeAssets.");
         foreach (var entry in EditorBuildSettings.scenes.Where(scene => scene.enabled))
         {
             var scene = EditorSceneManager.OpenScene(entry.path, OpenSceneMode.Single);
@@ -38,6 +39,7 @@ public static class MigrationValidation
     [MenuItem("Tools/Heros Manager/Validate Project")]
     public static void Validate()
     {
+        using var validation = ValidationSaveSession.Open("ProjectValidation.");
         if (Application.unityVersion != "6000.4.7f1")
             throw new InvalidOperationException("Use Unity 6000.4.7f1 for this migration baseline.");
         var tablesObject = new GameObject("Validation tables");
@@ -88,6 +90,7 @@ public static class MigrationValidation
     [MenuItem("Tools/Heros Manager/Build Windows")]
     public static void BuildWindows()
     {
+        using var validation = ValidationSaveSession.Open("BuildValidation.");
         string output = Path.GetFullPath("Builds/Windows/HerosManager.exe");
         Directory.CreateDirectory(Path.GetDirectoryName(output));
         var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
@@ -114,6 +117,7 @@ public static class MigrationPlaySmoke
 {
     private const string ActiveKey = "HerosManager.MigrationSmoke.Active";
     private const string StepKey = "HerosManager.MigrationSmoke.Step";
+    private const string Prefix = "HerosManager.MigrationSmoke.";
     private static double nextStep;
     private static int errors;
     private static readonly string[] SmokeAreas =
@@ -125,17 +129,29 @@ public static class MigrationPlaySmoke
 
     static MigrationPlaySmoke()
     {
-        if (!SessionState.GetBool(ActiveKey, false)) return;
+        if (SessionState.GetBool(ActiveKey, false) || SessionState.GetBool(Prefix + "Exiting", false)) Attach();
+    }
+
+    static void Attach()
+    {
+        EditorApplication.update -= Update;
         EditorApplication.update += Update;
+        Application.logMessageReceived -= OnLog;
         Application.logMessageReceived += OnLog;
         nextStep = EditorApplication.timeSinceStartup + 8;
     }
 
     public static void Run()
     {
+        ValidationSaveSession.Begin(Prefix);
+        Directory.CreateDirectory("Logs");
         File.WriteAllText("Logs/play-errors.txt", string.Empty);
         SessionState.SetBool(ActiveKey, true);
+        SessionState.SetBool(Prefix + "Exiting", false);
+        SessionState.SetInt(Prefix + "ExitCode", 1);
         SessionState.SetInt(StepKey, 0);
+        errors = 0;
+        Attach();
         EditorSceneManager.OpenScene("Assets/01.Scenes/Title.unity");
         EditorApplication.isPlaying = true;
     }
@@ -151,6 +167,18 @@ public static class MigrationPlaySmoke
 
     private static void Update()
     {
+        if (!ValidationSaveSession.IsOwner(Prefix))
+        { EditorApplication.update -= Update; Application.logMessageReceived -= OnLog; return; }
+        if (SessionState.GetBool(Prefix + "Exiting", false))
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode) return;
+            ValidationSaveSession.CompleteRunner(Prefix);
+            EditorApplication.update -= Update;
+            Application.logMessageReceived -= OnLog;
+            SessionState.SetBool(Prefix + "Exiting", false);
+            if (Application.isBatchMode) EditorApplication.Exit(SessionState.GetInt(Prefix + "ExitCode", 1));
+            return;
+        }
         if (!EditorApplication.isPlaying || EditorApplication.timeSinceStartup < nextStep) return;
         try
         {
@@ -171,6 +199,7 @@ public static class MigrationPlaySmoke
                     SceneManager.LoadScene("InGame");
                     break;
                 case 4:
+                    if (FirstRunGuide.IsCreateInstance()) FirstRunGuide.Instance.SkipPractice();
                     ValidateEvents();
                     break;
                 case 5:
@@ -195,6 +224,7 @@ public static class MigrationPlaySmoke
                     break;
                 default:
                     if (InGameMgr.Instance.stageData == null) throw new Exception("InGame re-entry failed");
+                    if (FirstRunGuide.IsCreateInstance()) FirstRunGuide.Instance.SkipPractice();
                     if (step == 7 && EventMgr.Instance.EventList.Count != 0)
                         throw new Exception("An exhausted saved event queue must not repopulate on scene entry");
                     MiniGameMgr.Instance.CloseMiniGame();
@@ -289,9 +319,9 @@ public static class MigrationPlaySmoke
     private static void Finish()
     {
         SessionState.SetBool(ActiveKey, false);
-        EditorApplication.update -= Update;
-        Application.logMessageReceived -= OnLog;
+        SessionState.SetBool(Prefix + "Exiting", true);
+        SessionState.SetInt(Prefix + "ExitCode", errors == 0 ? 0 : 1);
         Debug.Log($"PLAY SMOKE {(errors == 0 ? "PASSED" : "FAILED")}: {errors} errors");
-        EditorApplication.Exit(errors == 0 ? 0 : 1);
+        EditorApplication.isPlaying = false;
     }
 }

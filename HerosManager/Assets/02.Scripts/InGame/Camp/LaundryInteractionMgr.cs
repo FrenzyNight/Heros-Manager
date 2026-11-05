@@ -97,6 +97,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
     //Function
     private Coroutine _runningCoroutine;
     [HideInInspector] public bool isFirstLaundry;
+    private GamepadButton dryingButton = GamepadButton.X;
     
     void Start()
     {
@@ -112,14 +113,16 @@ public class LaundryInteractionMgr : CampInteractionMgr
             ActiveLaundry();
         }
 
+        if (!GamepadUiController.GameplayInputAllowed) return;
+
         if (laundryState == 2 && l2CanPress)
         {
-            if (Input.GetKeyDown(KeyCode.A) && l2NextButton == 0)
+            if ((Input.GetKeyDown(KeyCode.A) || GamepadInput.Pressed(GamepadButton.LeftShoulder)) && l2NextButton == 0)
             {
                 L2PressKey(0);
             }
             
-            else if (Input.GetKeyDown(KeyCode.D) && l2NextButton == 1)
+            else if ((Input.GetKeyDown(KeyCode.D) || GamepadInput.Pressed(GamepadButton.RightShoulder)) && l2NextButton == 1)
             {
                 L2PressKey(1);
             }
@@ -137,7 +140,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
         
         else if (laundryState == 3 && l3CanPress)
         {
-            if (Input.GetKey(l3TargetKeyCode))
+            if (Input.GetKey(l3TargetKeyCode) || GamepadInput.Held(dryingButton))
             {
                 l3AniTimeCount = 0;
                 l3ButtonImg.sprite = l2OffPressImg;
@@ -151,13 +154,13 @@ public class LaundryInteractionMgr : CampInteractionMgr
                 }
             }
 
-            if (Input.GetKeyDown(l3TargetKeyCode))
+            if (Input.GetKeyDown(l3TargetKeyCode) || GamepadInput.Pressed(dryingButton))
             {
                 l3Animator.speed = 0.1f;
                 l3ButtonImg.sprite = l2OffPressImg;
                 l3ButtonTextRT.anchoredPosition = new Vector2(0, 0);
             }
-            else if (Input.GetKeyUp(l3TargetKeyCode))
+            else if (Input.GetKeyUp(l3TargetKeyCode) || GamepadInput.Released(dryingButton))
             {
                 l3ButtonImg.sprite = l2OnPressImg;
                 l3ButtonTextRT.anchoredPosition = new Vector2(0, 5);
@@ -413,6 +416,8 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
         l2Panel.SetActive(true);
         l2NextButton = 0; // A
+        l2PressATextObj.GetComponent<Text>().text = "A / LB";
+        l2PressDTextObj.GetComponent<Text>().text = "D / RB";
         laundryState = 2;
         laundryGageImg.fillAmount = 0;
         l2CanPress = true;
@@ -522,8 +527,10 @@ public class LaundryInteractionMgr : CampInteractionMgr
         l3TargetKey = l3KeyList[idx];
 
         l3TargetKeyCode = l3KeyCodeList[idx];
-        
-        l3TargetText.text = l3TargetKey;
+        var buttons = new[] { GamepadButton.X, GamepadButton.Y, GamepadButton.LeftShoulder, GamepadButton.RightShoulder };
+        var labels = new[] { "X", "Y", "LB", "RB" };
+        dryingButton = buttons[idx % buttons.Length];
+        l3TargetText.text = l3TargetKey + " / Xbox " + labels[idx % labels.Length];
 
         l3ButtonImg.sprite = l2OnPressImg;
         l3ButtonTextRT.anchoredPosition = new Vector2(0, 5);
@@ -544,6 +551,7 @@ public class LaundryInteractionMgr : CampInteractionMgr
 
         laundryUIButton.interactable = true;
         isLaundryClear = true;
+        GamepadInput.Pulse(0.35f, 0.55f, 0.2f);
         laundryMgr.NonWash();
         laundryMgr.OnHanging();
 

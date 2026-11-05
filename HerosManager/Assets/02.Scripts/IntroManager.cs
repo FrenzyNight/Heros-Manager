@@ -23,7 +23,7 @@ public class IntroManager : MonoBehaviour
 
     void Update()
     {
-        if (!isLeaving && Input.anyKeyDown)
+        if (!isLeaving && DialogueInput.ConsumeAdvance())
         {
             bool isLast = cutSceneMgr.NextCutscene();
             if (isLast)

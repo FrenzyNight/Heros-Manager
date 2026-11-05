@@ -49,7 +49,8 @@ public class FishManager : MiniGameSetMgr
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if (!GamepadUiController.GameplayInputAllowed) return;
+        if(Input.GetKeyDown(KeyCode.A) || GamepadInput.Pressed(GamepadButton.LeftShoulder))
         {
             LM1.direction *= -1;
         }

@@ -8,7 +8,7 @@
     "NeedItem3ID": "Item_Water",
     "NeedItem3Amount": 2,
     "GetItemID": "Item_Food",
-    "GetItemAmount": 1,
+    "GetItemAmount": 3,
     "CookTime": 40,
     "GetTime": 20
   },

@@ -20,7 +20,11 @@ public class LaundryGrimeScript : MonoBehaviour
 
     void GrimeClick()
     {
+        if (Time.timeScale <= 0f || laundryMgr == null || !laundryMgr.laundryUIPanel.activeInHierarchy ||
+            (TutorialMgr.IsCreateInstance() && TutorialMgr.Instance != null && TutorialMgr.Instance.isTutorial)) return;
         laundryMgr.L1GrimeClick();
+        GamepadInput.Pulse(0.08f, 0.2f, 0.06f);
+        gameObject.SetActive(false);
         Destroy(gameObject);
     }
 }

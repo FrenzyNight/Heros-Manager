@@ -23,6 +23,10 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
     private Coroutine cycleRandomGameCo;
     private bool closing;
 
+    public int PendingGems => ledger.Gems;
+    public int PendingWood => ledger[0];
+    public string CurrentArea { get; private set; }
+
     void Start()
     {
         if (ExitBtn != null)
@@ -62,6 +66,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
         StopRandomCycle();
         HideGames();
         ledger.Begin();
+        CurrentArea = _code;
         InGameMgr.Instance.state = State.MiniGame;
         MiniGamePanelBack.SetActive(true);
         MiniGamePanel.SetActive(true);
@@ -204,9 +209,11 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             SetItemText();
     }
 
+    public bool AddTempGems(int amount) => ledger.AddGems(amount);
+
     public void CloseMiniGame()
     {
-        if (closing || !ledger.TryComplete(out int[] rewards))
+        if (closing || !ledger.TryComplete(out int[] rewards, out int gems))
             return;
         closing = true;
         try
@@ -219,6 +226,7 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             RestoreCampState();
             SetItemText();
             ItemManager.Instance.AddItem(rewards[0], rewards[1], rewards[2], rewards[3], rewards[4]);
+            CampGemWallet.Instance.Add(gems);
             if (GatheringManager.IsCreateInstance() && GatheringManager.Instance.isFirst)
             {
                 GatheringManager.Instance.isFirst = false;

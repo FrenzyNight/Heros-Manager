@@ -11,6 +11,9 @@ public class HeroState : MonoBehaviour
     public float power;
     public float hp;
     public float exp;
+    public bool IsAbleToAct => MeadowRules.IsAbleToAct(hp);
+    public int Level => MeadowRules.Level(exp);
+    public float MaximumHp => maxHp;
 
     float minStress;
     float maxStress;
@@ -24,6 +27,7 @@ public class HeroState : MonoBehaviour
     string stressStr;
     string powerStr;
     string hpStr;
+    string courageLabel;
 
     public Text NameText;
     public Text JobText;
@@ -74,8 +78,8 @@ public class HeroState : MonoBehaviour
         powerStr = LoadGameData.Instance.GetString(heroStateDataList[1].HeroStateStringID);
         hpStr = LoadGameData.Instance.GetString(heroStateDataList[2].HeroStateStringID);
 
-        ExpText.text = LoadGameData.Instance.GetString(heroStateDataList[3].HeroStateStringID);
-        ExpFill.fillAmount = maxExp > 0f ? exp / maxExp : 0f;
+        courageLabel = LoadGameData.Instance.GetString(heroStateDataList[3].HeroStateStringID);
+        UpdateGrowthDisplay();
         SetStatText();
     }
 
@@ -99,14 +103,27 @@ public class HeroState : MonoBehaviour
         stress = Mathf.Clamp(nextStress, minStress, maxStress);
         power = Mathf.Clamp(nextPower, minPower, maxPower);
         hp = Mathf.Clamp(nextHp, minHp, maxHp);
-        exp = Mathf.Clamp(nextExp, minExp, maxExp);
-        ExpFill.fillAmount = maxExp > 0f ? exp / maxExp : 0f;
+        exp = MeadowRules.NormalizeCourage(nextExp);
+        UpdateGrowthDisplay();
         SetStatText();
     }
 
     public void AddStat(float _stress, float _power, float _hp, float _exp)
     {
-        SetStats(stress + _stress, power + _power, hp + _hp, exp + _exp);
+        float nextCourage = MeadowRules.EarnCourage(exp, _exp);
+        float growth = MeadowRules.GrowthPower(exp, nextCourage);
+        SetStats(stress + _stress, power + _power + growth,
+            IsAbleToAct ? hp + _hp : hp, nextCourage);
+    }
+
+    void UpdateGrowthDisplay()
+    {
+        float progress = exp % MeadowRules.CouragePerLevel;
+        ExpFill.fillAmount = progress / MeadowRules.CouragePerLevel;
+        ExpText.text = $"Lv.{Level} · {courageLabel} {exp:0}";
+        GameUiStyle.TextStyle(ExpText, 18, 16, GameUiStyle.Ink);
+        ExpText.fontStyle = FontStyle.Bold;
+        ExpFill.color = new Color(0.40f, 0.69f, 0.49f);
     }
 
     public void AddStat(string statCode ,float amount)
@@ -131,6 +148,7 @@ public class HeroState : MonoBehaviour
             str += LoadGameData.Instance.GetString("HeroState_a3");
 
         str += "\n" + string.Format(powerStr, power) + "\n" + string.Format(hpStr, hp, maxHp);
+        if (!IsAbleToAct) str += " (행동 불능)";
 
         StateText.text = str;
     }

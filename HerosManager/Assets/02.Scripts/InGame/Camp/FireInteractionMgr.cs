@@ -27,13 +27,13 @@ public class FireInteractionMgr : CampInteractionMgr
     {
         if(isActive && !isGrace)
         {
-            activeTime -= Time.deltaTime;
+            if (!FirstRunGuide.ProtectCampWork) activeTime -= Time.deltaTime;
             ActiveGage.fillAmount = activeTime / time1;
         }
         else if(isGrace)
         {
             GraceGage.sprite = Red;
-            graceTime -= Time.deltaTime;
+            if (!FirstRunGuide.ProtectCampWork) graceTime -= Time.deltaTime;
             GraceGage.fillAmount = graceTime / time2;
         }
 

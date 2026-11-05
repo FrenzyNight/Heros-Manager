@@ -14,6 +14,7 @@ public class Pause : MonoBehaviour
     public OptionManager optionMgr;
     float previousTimeScale = 1f;
     bool paused;
+    public bool IsOpen => paused && gameObject.activeInHierarchy;
 
     void Start()
     {
@@ -33,7 +34,8 @@ public class Pause : MonoBehaviour
     public void PauseBtn()
     {
         var game = InGameMgr.Instance;
-        if (paused || (!game.IsComplete && (game.state != State.Camp || Clock.Instance.isProduct)))
+        if (paused || (!game.IsComplete && (Clock.Instance.isProduct ||
+            (game.state == State.None && !AdventureManager.Instance.AdvPanel.activeInHierarchy))))
             return;
         paused = true;
         previousTimeScale = Time.timeScale;
