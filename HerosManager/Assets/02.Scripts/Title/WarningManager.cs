@@ -32,9 +32,8 @@ public class WarningManager : MonoBehaviour
     void OkBtnEvent()
     {
         SaveDataManager.Instance.NewGameData();
-        SaveDataManager.Instance.SaveGameDatas();
-
-        titleMgr.Production("Intro");
+        if (SaveDataManager.Instance.TrySaveGameDatas())
+            titleMgr.Production("Intro");
     }
 
     void CloseBtnEvent()

@@ -18,6 +18,7 @@ public class Pause : MonoBehaviour
         CloseBtn.onClick.AddListener(ExitBtnEvent);
         ExitBtn.onClick.AddListener(() =>
         {
+            Time.timeScale = 1f;
             SceneManager.LoadScene("Title");
         });
         OptionBtn.onClick.AddListener(() =>

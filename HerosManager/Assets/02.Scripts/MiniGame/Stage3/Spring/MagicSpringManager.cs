@@ -29,12 +29,14 @@ public class MagicSpringManager : MiniGameSetMgr
     void Start()
     {
         
-        SetUp();
-        isCommand = false;
+        if (!IsPrepared)
+            SetUp();
     }
 
-    void SetUp()
+    public override void SetUp()
     {
+        base.SetUp();
+        isCommand = false;
 
         msSpringRes = LoadGameData.Instance.miniGameDatas["game3MagicWell"].GetAmount1;
         msSpringWaterTime = LoadGameData.Instance.miniGameDatas["game3MagicWell"].value1;
@@ -49,7 +51,7 @@ public class MagicSpringManager : MiniGameSetMgr
 
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
         
     }

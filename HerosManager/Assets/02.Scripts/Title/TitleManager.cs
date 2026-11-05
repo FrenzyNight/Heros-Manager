@@ -22,6 +22,8 @@ public class TitleManager : MonoBehaviour
 
     bool isStart = false;
     bool isEff = false;
+    bool hasSave;
+    bool isLoadingScene;
     public GameObject cam;
     public GameObject panel;
 
@@ -30,8 +32,9 @@ public class TitleManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         LoadGameData.Instance.LoadTitleDatas();
-        SaveDataManager.Instance.LoadGameDatas();
+        hasSave = SaveDataManager.Instance.LoadGameDatas();
         SaveDataManager.Instance.LoadOptionDatas();
 
 #if !UNITY_EDITOR
@@ -44,7 +47,7 @@ public class TitleManager : MonoBehaviour
 
         //TouchTxt.gameObject.SetActive(false);
         ClickAny.gameObject.SetActive(false);
-        ClickAny.DOFade(1, 1f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).SetDelay(2.5f).OnStart(() =>
+        ClickAny.DOFade(1, 1f).SetId(this).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.Linear).SetDelay(2.5f).OnStart(() =>
         {
             isStart = true;
             ClickAny.gameObject.SetActive(true);
@@ -85,18 +88,18 @@ public class TitleManager : MonoBehaviour
         audioSource.Play();
 
         ClickAny.DOKill();
-        ClickAny.DOFade(0, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+        ClickAny.DOFade(0, 0.5f).SetId(this).SetEase(Ease.Linear).OnComplete(() =>
         {
             ClickAny.gameObject.SetActive(false);
         });
 
 
-        LogoImg.DOFade(0, 1.5f).SetEase(Ease.Linear).OnComplete(() =>
+        LogoImg.DOFade(0, 1.5f).SetId(this).SetEase(Ease.Linear).OnComplete(() =>
         {
             LogoImg.transform.localPosition = new Vector2(650, 200);
-            EffImg.DOFade(1, 0.5f).SetEase(Ease.Linear);
-            LogoImg.DOFade(1, 1f).SetEase(Ease.Linear);
-            LogoImg.transform.DOLocalMoveX(750, 1f).From().SetEase(Ease.OutQuad).OnComplete(() =>
+            EffImg.DOFade(1, 0.5f).SetId(this).SetEase(Ease.Linear);
+            LogoImg.DOFade(1, 1f).SetId(this).SetEase(Ease.Linear);
+            LogoImg.transform.DOLocalMoveX(750, 1f).SetId(this).From().SetEase(Ease.OutQuad).OnComplete(() =>
             {
                 Setup();
             });
@@ -109,8 +112,8 @@ public class TitleManager : MonoBehaviour
         {
             int idx = i;
             float delay = 0.25f * (i + 1);
-            MenuTrans.GetChild(idx).GetComponent<Text>().DOFade(0, 1f).SetDelay(delay).From();
-            MenuTrans.GetChild(idx).DOLocalMoveX(70, 1f).From().SetEase(Ease.OutQuad).SetDelay(delay).OnStart(() =>
+            MenuTrans.GetChild(idx).GetComponent<Text>().DOFade(0, 1f).SetId(this).SetDelay(delay).From();
+            MenuTrans.GetChild(idx).DOLocalMoveX(70, 1f).SetId(this).From().SetEase(Ease.OutQuad).SetDelay(delay).OnStart(() =>
             {
                  MenuTrans.GetChild(idx).gameObject.SetActive(true);
             })
@@ -140,28 +143,22 @@ public class TitleManager : MonoBehaviour
                     case 0: //여정시작
                         menuBtn.onClick.AddListener(() =>
                         {
-                            //if (SaveDataManager.Instance.LoadGameDatas())
-                            //{
-                            //    warningMgr.OpenPanel();
-                            //}
-                            //else
-                            //{
-                            //    SaveDataManager.Instance.NewGameData();
-                            //    SaveDataManager.Instance.SaveGameDatas();
-
-                            //    Production("Intro");
-                            //}
+                            if (hasSave && warningMgr != null)
+                            {
+                                warningMgr.OpenPanel();
+                                return;
+                            }
                             SaveDataManager.Instance.NewGameData();
-                            SaveDataManager.Instance.SaveGameDatas();
-
-                            Production("Intro");
+                            if (SaveDataManager.Instance.TrySaveGameDatas())
+                                Production("Intro");
                         });
                         break;
 
                     case 1: //이어하기
                         menuBtn.onClick.AddListener(() =>
                         {
-                            Production("InGame");
+                            if (SaveDataManager.Instance.LoadGameDatas())
+                                Production("InGame");
                         });
                         break;
 
@@ -185,8 +182,7 @@ public class TitleManager : MonoBehaviour
             });
         }
 
-        //if (!SaveDataManager.Instance.LoadGameDatas())
-            MenuTrans.GetChild(1).GetComponent<Button>().interactable = false;
+        MenuTrans.GetChild(1).GetComponent<Button>().interactable = hasSave;
     }
 
     void OnPointerEnterEvent(PointerEventData data, int _idx)
@@ -206,8 +202,12 @@ public class TitleManager : MonoBehaviour
 
     public void Production(string _scName)
     {
+        if (isLoadingScene)
+            return;
+        isLoadingScene = true;
+        Time.timeScale = 1f;
         panel.SetActive(true);
-        panel.GetComponent<Image>().DOFade(1,1.5f).OnComplete(() =>
+        panel.GetComponent<Image>().DOFade(1,1.5f).SetId(this).OnComplete(() =>
         {
             GameStartBtnEvent(_scName);
         });
@@ -216,6 +216,30 @@ public class TitleManager : MonoBehaviour
     void GameStartBtnEvent(string _scName)
     {
         SceneManager.LoadScene(_scName);
+    }
+
+    void OnDestroy()
+    {
+        DOTween.Kill(this);
+        if (ClickAny != null) ClickAny.DOKill();
+        if (LogoImg != null)
+        {
+            LogoImg.DOKill();
+            LogoImg.transform.DOKill();
+        }
+        if (EffImg != null) EffImg.DOKill();
+        if (MenuTrans != null)
+            foreach (Transform child in MenuTrans)
+            {
+                child.DOKill();
+                var label = child.GetComponent<Text>();
+                if (label != null) label.DOKill();
+            }
+        if (panel != null)
+        {
+            var fade = panel.GetComponent<Image>();
+            if (fade != null) fade.DOKill();
+        }
     }
 
     IEnumerator SetResolution()

@@ -24,11 +24,13 @@ public class LakeWaterManager : MiniGameSetMgr
     // Start is called before the first frame update
     void Start()
     {
-        SetUp();
+        if (!IsPrepared)
+            SetUp();
     }
 
-     void SetUp()
+    public override void SetUp()
     {
+        base.SetUp();
 
         waterBucketSpeed = LoadGameData.Instance.miniGameDatas["game2bucket"].Velocity;
 
@@ -54,7 +56,7 @@ public class LakeWaterManager : MiniGameSetMgr
             */
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
     }
 

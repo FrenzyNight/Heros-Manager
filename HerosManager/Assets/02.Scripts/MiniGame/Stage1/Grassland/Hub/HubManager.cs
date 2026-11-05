@@ -63,12 +63,6 @@ public class HubManager : MiniGameSetMgr
     {
         base.StartGame();
 
-        foreach(GameObject obj in spawnObjects)
-        {
-            Destroy(obj);
-        }
-
-        spawnObjects.Clear();
 
         StartCoroutine(SpawnHub());
     }
@@ -83,11 +77,11 @@ public class HubManager : MiniGameSetMgr
             rnd = Random.Range(1, 101);
             if(rnd <= hubGoldPer)
             {
-                spawnObjects.Add(Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,mother.transform));
+                TrackSpawn(Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,mother.transform));
             }
             else
             {
-                spawnObjects.Add(Instantiate(Hub, new Vector2(x,y), Quaternion.identity,mother.transform));
+                TrackSpawn(Instantiate(Hub, new Vector2(x,y), Quaternion.identity,mother.transform));
             }
             
             yield return new WaitForSeconds(hubCoolTime);
@@ -104,7 +98,7 @@ public class HubManager : MiniGameSetMgr
         base.AddItem(item1ID, hubGoldRes);
     }
 
-    void OnDrawGizmos()
+    public override void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(StartPoint, 4f);

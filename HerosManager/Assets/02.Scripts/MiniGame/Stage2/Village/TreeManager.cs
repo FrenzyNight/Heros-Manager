@@ -31,11 +31,15 @@ public class TreeManager : MiniGameSetMgr
 
     void Start()
     {
-        SetUp();
+        if (!IsPrepared)
+            SetUp();
     }
 
-    void SetUp()
+    public override void SetUp()
     {
+        base.SetUp();
+        treeList.Clear();
+        isStun = false;
 
         treeInputDelay = LoadGameData.Instance.miniGameDatas["game2tree_norm"].Stun;
 
@@ -67,7 +71,7 @@ public class TreeManager : MiniGameSetMgr
                 SelectedObject = BugTree;
             }
 
-            GameObject tree = Instantiate(SelectedObject, transform.position, Quaternion.identity, GameObject.Find("Tree").transform);
+            GameObject tree = TrackSpawn(Instantiate(SelectedObject, transform.position, Quaternion.identity, GameObject.Find("Tree").transform));
             tree.transform.SetAsFirstSibling();
             //tree.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
             treeList.Add(tree);
@@ -157,7 +161,7 @@ public class TreeManager : MiniGameSetMgr
             SelectedObject = BugTree;
         }
 
-        GameObject tree = Instantiate(SelectedObject, transform.position, Quaternion.identity, GameObject.Find("Tree").transform);
+        GameObject tree = TrackSpawn(Instantiate(SelectedObject, transform.position, Quaternion.identity, GameObject.Find("Tree").transform));
         tree.transform.SetAsFirstSibling();
         //tree.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 192);
         treeList.Add(tree);
@@ -168,7 +172,7 @@ public class TreeManager : MiniGameSetMgr
         }
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
     }
 

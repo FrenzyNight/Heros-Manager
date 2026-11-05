@@ -28,11 +28,13 @@ public class OasisManager : MiniGameSetMgr
     // Start is called before the first frame update
     void Start()
     {
-        SetUp();
+        if (!IsPrepared)
+            SetUp();
     }
 
-    void SetUp()
+    public override void SetUp()
     {
+        base.SetUp();
 
         meatNum = 0;
         waterNum = 0;
@@ -57,7 +59,7 @@ public class OasisManager : MiniGameSetMgr
        
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
     }
 
@@ -68,7 +70,7 @@ public class OasisManager : MiniGameSetMgr
         while(meatNum < oasisMeatMaxNum)
         {
             rnd = Random.Range(0,360);
-            obj = Instantiate(MeatPrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform);
+            obj = TrackSpawn(Instantiate(MeatPrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform));
             obj.GetComponent<RectTransform>().Rotate(new Vector3(0,0,rnd));
             meatNum++;
         }
@@ -76,7 +78,7 @@ public class OasisManager : MiniGameSetMgr
         while(waterNum < oasisWaterMaxNum)
         {
             rnd = Random.Range(0,360);
-            obj = Instantiate(WaterPrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform);
+            obj = TrackSpawn(Instantiate(WaterPrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform));
             obj.GetComponent<RectTransform>().Rotate(new Vector3(0,0,rnd));
             waterNum++;
         }
@@ -84,7 +86,7 @@ public class OasisManager : MiniGameSetMgr
         while(treeNum < oasisTreeMaxNum)
         {
             rnd = Random.Range(0,360);
-            obj = Instantiate(TreePrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform);
+            obj = TrackSpawn(Instantiate(TreePrefab, transform.position, Quaternion.identity, GameObject.Find("Oasis").transform));
             obj.GetComponent<RectTransform>().Rotate(new Vector3(0,0,rnd));
             treeNum++;
         }

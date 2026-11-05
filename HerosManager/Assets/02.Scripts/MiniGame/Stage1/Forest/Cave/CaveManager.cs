@@ -65,12 +65,6 @@ public class CaveManager : MiniGameSetMgr
     {
         base.StartGame();
 
-        foreach(GameObject obj in spawnObjects)
-        {
-            Destroy(obj);
-        }
-
-        spawnObjects.Clear();
         Char.GetComponent<CaveCharMove>().Reset();
 
         StartCoroutine(SpawnObject());
@@ -88,18 +82,18 @@ public class CaveManager : MiniGameSetMgr
                 if(rnd <= jemPer)
                 {
                     //JemSpawn
-                    spawnObjects.Add(Instantiate(JemPrefab, RealSpawnPoint, Quaternion.identity,mother.transform));
+                    TrackSpawn(Instantiate(JemPrefab, RealSpawnPoint, Quaternion.identity,mother.transform));
 
                 }
                 else if(jemPer < rnd && rnd <= jemPer + downStonePer)
                 {
                     // DownStoneSpawn
-                    spawnObjects.Add(Instantiate(DownStonePrefab, RealSpawnPoint, Quaternion.identity, mother.transform));
+                    TrackSpawn(Instantiate(DownStonePrefab, RealSpawnPoint, Quaternion.identity, mother.transform));
                 }
                 else if(jemPer + downStonePer < rnd && rnd <= jemPer + downStonePer + upStonePer)
                 {
                     //UpStoneSpawn;
-                    spawnObjects.Add(Instantiate(UpStonePrefab, RealSpawnPoint, Quaternion.identity, mother.transform));
+                    TrackSpawn(Instantiate(UpStonePrefab, RealSpawnPoint, Quaternion.identity, mother.transform));
                 }
                 else
                 {

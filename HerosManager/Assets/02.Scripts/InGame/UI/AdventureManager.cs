@@ -64,8 +64,9 @@ public class AdventureManager : Singleton<AdventureManager>
     [HideInInspector] public bool isFirstAdventure;
     [HideInInspector] public bool isFirstMini;
    // [HideInInspector] public bool isFirstHeroBack;
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         audioSource = GetComponent<AudioSource>();
         isFirstAdventure = true;
         isFirstMini = true;

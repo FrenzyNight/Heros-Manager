@@ -19,8 +19,9 @@ public class Notice : Singleton<Notice>
 
     public bool isLock;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         NoticeBtn.onClick.AddListener(() => Slide());
     }
 

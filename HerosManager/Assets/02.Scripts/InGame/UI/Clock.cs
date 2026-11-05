@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(100)]
 public class Clock : Singleton<Clock>
 {
     public GameObject[] CampObjs;
@@ -46,6 +47,7 @@ public class Clock : Singleton<Clock>
 
     public void LoadStageDayData()
     {
+        stageDayData = null;
         foreach (var data in LoadGameData.Instance.stageDayDatas)
         {
             if (data.Value.StageDayGroupID == InGameMgr.Instance.stageData.StageDayGroupID &&
@@ -54,6 +56,13 @@ public class Clock : Singleton<Clock>
                 stageDayData = data.Value;
                 break;
             }
+        }
+
+        if (stageDayData == null)
+        {
+            isStop = true;
+            Debug.LogError($"No day data for stage {InGameMgr.Instance.stage}, day {day}.");
+            return;
         }
 
         nowTime = 0f;
@@ -66,6 +75,8 @@ public class Clock : Singleton<Clock>
 
     public void NextDay()
     {
+        if (InGameMgr.Instance.IsComplete)
+            return;
         nowTime = 0;
         Time.timeScale = 0f;
 
@@ -88,8 +99,13 @@ public class Clock : Singleton<Clock>
         //마지막날
         if (day >= cnt)
         {
-            day = 1;
             InGameMgr.Instance.NextStage();
+            if (InGameMgr.Instance.IsComplete)
+            {
+                InGameMgr.Instance.SaveStageData();
+                return;
+            }
+            day = 1;
             LoadStageDayData();
         }
         else

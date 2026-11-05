@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
-    protected static T _instance = null;
-    static bool isDestroy = false;
+    protected static T _instance;
+    private static int session = -1;
+    private int initializedSession = -1;
     /// <summary>
     /// 싱글톤이 생성되어있는지 확인하고 생성되어있으면 리턴.
     /// 생성되어 있지 않으면 생성 후 리턴.
@@ -13,11 +13,12 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
         get
         {
-            if (isDestroy)
+            ResetSession();
+            if (SingletonRuntime.IsQuitting)
                 return null;
             if (_instance == null)
             {
-                _instance = GameObject.FindObjectOfType(typeof(T)) as T;
+                _instance = FindAnyObjectByType<T>(FindObjectsInactive.Include);
                 if (_instance == null)
                 {
                     _instance = new GameObject(typeof(T).ToString(), typeof(T)).GetComponent<T>();
@@ -27,26 +28,44 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
                         Debug.LogError("Singleton::Problem during the creation of " + typeof(T).ToString());
                     }
                 }
-                _instance.Init();
             }
+            _instance.InitializeOnce();
             return _instance;
         }
     }
 
     public static bool IsCreateInstance()
     {
-        if (_instance == null)
-            return false;
-        return true;
+        ResetSession();
+        return _instance != null;
     }
 
-    private void Awake()
+    private static void ResetSession()
     {
-        if (_instance == null)
+        if (session == SingletonRuntime.Session)
+            return;
+        session = SingletonRuntime.Session;
+        _instance = null;
+    }
+
+    protected virtual void Awake()
+    {
+        ResetSession();
+        if (_instance != null && _instance != this)
         {
-            _instance = this as T;
-            _instance.Init();
+            Destroy(gameObject);
+            return;
         }
+        _instance = (T)this;
+        InitializeOnce();
+    }
+
+    private void InitializeOnce()
+    {
+        if (initializedSession == SingletonRuntime.Session)
+            return;
+        initializedSession = SingletonRuntime.Session;
+        Init();
     }
 
     /// <summary>
@@ -58,32 +77,35 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     /// </summary>
     public virtual void Destory() { }
 
-    void Release()
-    {
-        if (_instance != null)
-        {
-            Debug.LogFormat("Singleton Release : {0}", name);
-            _instance.Destory();
-            Destroy(_instance.gameObject);
-            _instance = null;
-            isDestroy = true;
-        }
-        else
-            Debug.LogFormat("Singleton Release null : {0}", name);
-
-    }
     /// <summary>
     /// GameObject 해제.
     /// </summary>
-    void OnDestroy()
+    protected virtual void OnDestroy()
     {
-        Release();
+        if (_instance != this)
+            return;
+        _instance = null;
+        Destory();
     }
     /// <summary>
     /// 어플리케이션 종료.
     /// </summary>
-    void OnApplicationQuit()
+    protected virtual void OnApplicationQuit()
     {
-        //Release();
+        SingletonRuntime.IsQuitting = true;
+    }
+}
+
+internal static class SingletonRuntime
+{
+    internal static int Session { get; private set; }
+    internal static bool IsQuitting { get; set; }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void Reset()
+    {
+        Session++;
+        IsQuitting = false;
+        Time.timeScale = 1f;
     }
 }

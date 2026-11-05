@@ -47,14 +47,13 @@ public class HeroState : MonoBehaviour
         NameText.text = LoadGameData.Instance.GetString(_heroData.HeroStringID);
         //JobText.text = LoadGameData.Instance.GetString(_heroData.HeroStringID);
 
-        List<HeroStateData> heroStateDataList = new List<HeroStateData>();
-        foreach (var data in LoadGameData.Instance.heroStateDatas)
+        var table = LoadGameData.Instance.heroStateDatas;
+        string prefix = _heroData.HeroStateGroupID + "_";
+        var heroStateDataList = new[]
         {
-            if (data.Value.HeroStateGroupID == _heroData.HeroStateGroupID)
-            {
-                heroStateDataList.Add(data.Value);
-            }
-        }
+            table[prefix + "Stress"], table[prefix + "Power"],
+            table[prefix + "Hp"], table[prefix + "Exp"]
+        };
 
         //0.Stress 1.Power 2.Hp 3.Exp
         stress = heroStateDataList[0].FirstGive;
@@ -76,82 +75,49 @@ public class HeroState : MonoBehaviour
         hpStr = LoadGameData.Instance.GetString(heroStateDataList[2].HeroStateStringID);
 
         ExpText.text = LoadGameData.Instance.GetString(heroStateDataList[3].HeroStateStringID);
-        ExpFill.fillAmount = exp / maxExp;
+        ExpFill.fillAmount = maxExp > 0f ? exp / maxExp : 0f;
+        SetStatText();
+    }
+
+    public float[] CaptureStats()
+    {
+        return new[] { stress, power, hp, exp };
+    }
+
+    public void RestoreStats(float[] values)
+    {
+        if (values == null || values.Length != 4)
+            return;
+        for (int i = 0; i < values.Length; i++)
+            if (float.IsNaN(values[i]) || float.IsInfinity(values[i]))
+                return;
+        SetStats(values[0], values[1], values[2], values[3]);
+    }
+
+    void SetStats(float nextStress, float nextPower, float nextHp, float nextExp)
+    {
+        stress = Mathf.Clamp(nextStress, minStress, maxStress);
+        power = Mathf.Clamp(nextPower, minPower, maxPower);
+        hp = Mathf.Clamp(nextHp, minHp, maxHp);
+        exp = Mathf.Clamp(nextExp, minExp, maxExp);
+        ExpFill.fillAmount = maxExp > 0f ? exp / maxExp : 0f;
         SetStatText();
     }
 
     public void AddStat(float _stress, float _power, float _hp, float _exp)
     {
-        stress += _stress;
-        if (stress > maxStress)
-            stress = maxStress;
-        if (stress < minStress)
-            stress = minStress;
-
-        power += _power;
-        if (power > maxPower)
-            power = maxPower;
-        if (power < minPower)
-            power = minPower;
-
-        hp += _hp;
-        if (hp > maxHp)
-            hp = maxHp;
-        if (hp < minHp)
-            hp = minHp;
-
-        exp += _exp;
-        if (exp > maxExp)
-            exp = maxExp;
-        if (exp < minExp)
-            exp = minExp;
-
-
-        ExpFill.fillAmount = exp / maxExp;
-        SetStatText();
+        SetStats(stress + _stress, power + _power, hp + _hp, exp + _exp);
     }
 
     public void AddStat(string statCode ,float amount)
     {
-        if(statCode == "stress")
+        switch (statCode)
         {
-            stress += amount;
-            if (stress > maxStress)
-                stress = maxStress;
-            if (stress < minStress)
-                stress = minStress;
+            case "stress": AddStat(amount, 0, 0, 0); break;
+            case "power": AddStat(0, amount, 0, 0); break;
+            case "hp": AddStat(0, 0, amount, 0); break;
+            case "exp": AddStat(0, 0, 0, amount); break;
         }
-        
-        else if(statCode == "power")
-        {
-            power += amount;
-            if (power > maxPower)
-                power = maxPower;
-            if (power < minPower)
-                power = minPower;
-        }
-
-        else if(statCode == "hp")
-        {
-            hp += amount;
-            if (hp > maxHp)
-                hp = maxHp;
-            if (hp < minHp)
-                hp = minHp;
-        }
-
-        else if(statCode == "exp")
-        {
-            exp += amount;
-            if (exp > maxExp)
-                exp = maxExp;
-            if (exp < minExp)
-                exp = minExp;
-        }
-
-
-        ExpFill.fillAmount = exp / maxExp;
-        SetStatText();
     }
 
     void SetStatText()

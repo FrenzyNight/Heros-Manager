@@ -121,27 +121,27 @@ public class HuntManager : MiniGameSetMgr
                 if(rnd <= huntFoxPer)
                 {
                     //fox Spawn
-                    spawnObjects.Add(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
+                    TrackSpawn(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
                     foxNum++;
                 }
                 else
                 {
                     //bearSpawn
-                    spawnObjects.Add(Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
+                    TrackSpawn(Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
                     bearNum++;
                 }
             }
             else if(foxNum < huntMonsterMaxNum && bearNum == huntMonsterMaxNum)
             {
                 //fox
-                spawnObjects.Add(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
+                TrackSpawn(Instantiate(FoxPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
                 foxNum++;
             }
 
             else if(foxNum == huntMonsterMaxNum && bearNum < huntMonsterMaxNum)
             {
                 //bear
-                spawnObjects.Add(Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
+                TrackSpawn(Instantiate(BearPrefab, new Vector2(x,y), Quaternion.identity, mother.transform));
                 bearNum++;
             }
 
@@ -149,16 +149,10 @@ public class HuntManager : MiniGameSetMgr
         }
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
         base.StartGame();
 
-        foreach(GameObject obj in spawnObjects)
-        {
-            Destroy(obj);
-        }
-
-        spawnObjects.Clear();
 
         Bow.GetComponent<BowAngle>().isCheck = false;
 
@@ -175,7 +169,7 @@ public class HuntManager : MiniGameSetMgr
     {
         base.AddItem(item1ID, huntBearRes);
     }
-    void OnDrawGizmos()
+    public override void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(StartPoint, 4f);

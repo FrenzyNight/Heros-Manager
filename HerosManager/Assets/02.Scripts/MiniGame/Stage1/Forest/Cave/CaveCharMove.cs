@@ -39,7 +39,7 @@ public class CaveCharMove : MiniGameCharMgr
             //isCheck = true;
             audioSource.clip = jumpSound;
             audioSource.Play();
-            rigid.velocity = new Vector3(0, Mgr.realCharJump * Mgr.heightScale, 0);
+            rigid.linearVelocity = new Vector3(0, Mgr.realCharJump * Mgr.heightScale, 0);
         }
     }
 

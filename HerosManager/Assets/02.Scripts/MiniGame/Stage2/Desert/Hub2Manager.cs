@@ -36,12 +36,14 @@ public class Hub2Manager : MiniGameSetMgr
 
     void Start()
     {
-        SetUp();
+        if (!IsPrepared)
+            SetUp();
     }
 
     public override void SetUp()
     {
         base.SetUp();
+        CacList.Clear();
 
         hubCharSpeed = LoadGameData.Instance.miniGameDatas["game2hub_normal"].Velocity;
         hubCoolTime = LoadGameData.Instance.miniGameDatas["game2hub_normal"].CoolTime;
@@ -75,28 +77,28 @@ public class Hub2Manager : MiniGameSetMgr
             x = Random.Range(transform.position.x + quater-plusmin, transform.position.x + quater+plusmin);
             y = Random.Range(transform.position.y + quater-plusmin, transform.position.y + quater+plusmin);
 
-            CacList.Add(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform));
+            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform)));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // +-
         {
             x = Random.Range(transform.position.x + quater-plusmin, transform.position.x + quater+plusmin);
             y = Random.Range(transform.position.y -quater-plusmin, transform.position.y-quater+plusmin);
 
-            CacList.Add(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform));
+            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform)));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // --
         {
             x = Random.Range(transform.position.x-quater-plusmin, transform.position.x-quater+plusmin);
             y = Random.Range(transform.position.y-quater-plusmin, transform.position.y-quater+plusmin);
 
-            CacList.Add(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform));
+            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform)));
         }
         for(int j=0;j<(int)hubCactusNum/4;j++) // -+
         {
             x = Random.Range(transform.position.x-quater-plusmin, transform.position.x-quater+plusmin);
             y = Random.Range(transform.position.y+ quater-plusmin, transform.position.y+ quater+plusmin);
 
-            CacList.Add(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform));
+            CacList.Add(TrackSpawn(Instantiate(Cactus, new Vector2(x,y), Quaternion.identity,mother.transform)));
         }
         
     }
@@ -128,11 +130,11 @@ public class Hub2Manager : MiniGameSetMgr
             rnd = Random.Range(1, 101);
             if(rnd <= hubGoldPer)
             {
-                Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform);
+                TrackSpawn(Instantiate(GoldHub, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform));
             }
             else
             {
-                Instantiate(Hub, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform);
+                TrackSpawn(Instantiate(Hub, new Vector2(x,y), Quaternion.identity,GameObject.Find("Hub2").transform));
             }
             
             yield return new WaitForSeconds(hubCoolTime);
@@ -149,7 +151,7 @@ public class Hub2Manager : MiniGameSetMgr
         base.AddItem(item1ID, hubGoldRes);
     }
 
-    void OnDrawGizmos()
+    public override void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(StartPoint, 4f);

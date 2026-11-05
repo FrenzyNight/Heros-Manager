@@ -16,9 +16,10 @@ public class TutorialMgr : Singleton<TutorialMgr>
     public AudioClip typingSound;
     public bool isTutorial;
     [HideInInspector] public int idx;
-    [HideInInspector] public List<TutorialData> tutoDatas;
+    [HideInInspector] public List<TutorialData> tutoDatas = new List<TutorialData>();
     private IEnumerator _typingCo;
     private IEnumerator _soundCo;
+    private bool previousClockStopped;
     [HideInInspector] public float vol;
 
     [Header("Dialog")] 
@@ -55,6 +56,10 @@ public class TutorialMgr : Singleton<TutorialMgr>
 
     public void OpenTutorial(string openID)
     {
+        StopAllCoroutines();
+        _typingCo = null;
+        if (!isTutorial)
+            previousClockStopped = Clock.Instance.isStop;
         Clock.Instance.isStop = true;
         tutorialPanelBack.SetActive(true);
         idx = 0;
@@ -63,6 +68,8 @@ public class TutorialMgr : Singleton<TutorialMgr>
         isWindowEnd = false;
         isDialog = false;
         
+        if (tutoDatas == null)
+            tutoDatas = new List<TutorialData>();
         tutoDatas.Clear();
 
         typingAs.clip = typingSound;
@@ -77,16 +84,18 @@ public class TutorialMgr : Singleton<TutorialMgr>
             }
         }
         
+        // Index restarts at one for the window section in the existing tables.
+        tutoDatas.Sort((left, right) =>
+        {
+            int section = left.TutorialType.CompareTo(right.TutorialType);
+            return section != 0 ? section : left.Index.CompareTo(right.Index);
+        });
         RunTutorial();
     }
 
     public void RunTutorial()
     {
-        if (tutoDatas == null)
-            return;
-
-        
-        if (idx + 1 == tutoDatas.Count)
+        if (tutoDatas == null || idx < 0 || idx >= tutoDatas.Count)
         {
             CloseTutorial();
             return;
@@ -96,11 +105,15 @@ public class TutorialMgr : Singleton<TutorialMgr>
         if (tutoDatas[idx].TutorialType == 1)
         {
             OpenDialog();
-            NextDialog();
         }
         else if (tutoDatas[idx].TutorialType == 2)
         {
             OpenWindow();
+        }
+        else
+        {
+            Debug.LogWarning($"Unsupported tutorial type: {tutoDatas[idx].TutorialType}");
+            CloseTutorial();
         }
         
         
@@ -108,13 +121,19 @@ public class TutorialMgr : Singleton<TutorialMgr>
 
     public void OpenDialog()
     {
+        tutorialWindowPanel.SetActive(false);
         tutorialDialogPanel.SetActive(true);
         isDialog = true;
+        waitingArrow.SetActive(false);
+        StopCoroutine("WatingEffCo");
+        dialogText.text = string.Empty;
+        _typingCo = TypingEff1Co(tutoDatas[idx].StringID);
+        StartCoroutine(_typingCo);
     }
 
     public bool NextDialog()
     {
-        if (_typingCo == null && (tutoDatas[idx].TutorialType != 1||idx+1 == tutoDatas.Count))
+        if (tutoDatas == null || idx < 0 || idx >= tutoDatas.Count)
             return true;
         
         waitingArrow.SetActive(false);
@@ -125,17 +144,13 @@ public class TutorialMgr : Singleton<TutorialMgr>
             StopCoroutine(_typingCo);
             _typingCo = null;
             dialogText.text = LoadGameData.Instance.GetString(tutoDatas[idx].StringID);
-            idx++;
-
             StartCoroutine("WatingEffCo");
 
             return false;
         }
 
-        _typingCo = TypingEff1Co(tutoDatas[idx].StringID);
-        StartCoroutine(_typingCo);
-
-        return false;
+        idx++;
+        return true;
     }
 
     public void OpenWindow()
@@ -151,6 +166,17 @@ public class TutorialMgr : Singleton<TutorialMgr>
 
     public void SetWindow(int _idx)
     {
+        if (tutoDatas == null || _idx < 0 || _idx >= tutoDatas.Count)
+        {
+            CloseTutorial();
+            return;
+        }
+        idx = _idx;
+        prevBtn.onClick.RemoveAllListeners();
+        nextBtn.onClick.RemoveAllListeners();
+        nextBtn.gameObject.SetActive(false);
+        exitBtn.gameObject.SetActive(false);
+        isWindowEnd = false;
         windowImg.sprite = Resources.Load<Sprite>("TutorialImage/" + tutoDatas[_idx].ImageID);
         windowText.text = LoadGameData.Instance.GetString(tutoDatas[_idx].StringID);
         
@@ -167,14 +193,14 @@ public class TutorialMgr : Singleton<TutorialMgr>
         }
         
         //set nextBtn
-        if (_idx+1 != tutoDatas.Count) 
+        if (_idx + 1 < tutoDatas.Count)
         {
-            if (tutoDatas[_idx + 1].TutorialType == 2)
+            nextBtn.gameObject.SetActive(true);
+            nextBtn.onClick.AddListener(() =>
             {
-                nextBtn.gameObject.SetActive(true);
-                nextBtn.onClick.RemoveAllListeners();
-                nextBtn.onClick.AddListener(() => SetWindow(_idx + 1));
-            }
+                idx = _idx + 1;
+                RunTutorial();
+            });
         }
         else
         {
@@ -186,13 +212,19 @@ public class TutorialMgr : Singleton<TutorialMgr>
 
     public void CloseTutorial()
     {
+        if (!isTutorial)
+            return;
+        StopAllCoroutines();
+        _typingCo = null;
+        waitingArrow.SetActive(false);
+        typingAs.Stop();
         tutorialDialogPanel.SetActive(false);
         tutorialWindowPanel.SetActive(false);
         tutorialPanelBack.SetActive(false);
         isTutorial = false;
         isDialog = false;
         isWindowEnd = false;
-        Clock.Instance.isStop = false;
+        Clock.Instance.isStop = previousClockStopped || InGameMgr.Instance.IsComplete;
         if (isCollect)
         {
             isCollect = false;
@@ -203,8 +235,8 @@ public class TutorialMgr : Singleton<TutorialMgr>
     IEnumerator TypingEff1Co(string _strCode)
     {
         string str = LoadGameData.Instance.GetString(_strCode);
-
-        //yield return new WaitForSecondsRealtime(_delay);
+        // Ensure the coroutine handle is assigned even for an empty localized string.
+        yield return null;
 
         for (int i = 0; i < str.Length; i++)
         {
@@ -213,7 +245,6 @@ public class TutorialMgr : Singleton<TutorialMgr>
             yield return new WaitForSecondsRealtime(0.1f);
         }
 
-        idx++;
         _typingCo = null;
 
         StartCoroutine("WatingEffCo");

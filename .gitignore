@@ -1,0 +1,9 @@
+# Generated reports and local migration outputs.
+/HerosManager/UserSettings/
+/HerosManager/MemoryCaptures/
+/HerosManager/Recordings/
+/HerosManager/*.slnx
+/HerosManager/Assets/SaveGameData.Json.bak*
+/HerosManager/Assets/SaveOptionData.Json.bak*
+/HerosManager/Assets/Resources/PerformanceTestRunInfo.json*
+/HerosManager/Assets/Resources/PerformanceTestRunSettings.json*

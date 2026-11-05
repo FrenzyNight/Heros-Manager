@@ -65,6 +65,8 @@ public class FishManager : MiniGameSetMgr
     public override void SetUp()
     {
         base.SetUp();
+        audioSource = GetComponent<AudioSource>();
+        LM1 = Log1.GetComponent<LogMove>();
 
         FishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
         GoldFishPrefab.GetComponent<MiniGameObjectMgr>().manager = gameObject;
@@ -94,16 +96,10 @@ public class FishManager : MiniGameSetMgr
         StartGame();
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
         base.StartGame();
 
-        foreach(GameObject obj in spawnObjects)
-        {
-            Destroy(obj);
-        }
-
-        spawnObjects.Clear();
 
         StartCoroutine(FishSpawn());
     }
@@ -127,15 +123,15 @@ public class FishManager : MiniGameSetMgr
 
             if(rnd == 1)
             {
-                spawnObjects.Add(Instantiate(SelectedFish, SpawnPoint1, Quaternion.identity, mother.transform));
+                TrackSpawn(Instantiate(SelectedFish, SpawnPoint1, Quaternion.identity, mother.transform));
             }
             else if(rnd == 2)
             {
-                spawnObjects.Add(Instantiate(SelectedFish, SpawnPoint2, Quaternion.identity, mother.transform));
+                TrackSpawn(Instantiate(SelectedFish, SpawnPoint2, Quaternion.identity, mother.transform));
             }
             else if(rnd == 3)
             {
-                spawnObjects.Add(Instantiate(SelectedFish, SpawnPoint3, Quaternion.identity, mother.transform));
+                TrackSpawn(Instantiate(SelectedFish, SpawnPoint3, Quaternion.identity, mother.transform));
             }
 
             yield return new WaitForSeconds(fishCoolTime);
@@ -154,7 +150,7 @@ public class FishManager : MiniGameSetMgr
         base.AddItem(item1ID, fishGoldRes);
     }
 
-    void OnDrawGizmos()
+    public override void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(SpawnPoint1, 3f);

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
 
-    void Start()
+    public override void Init()
     {
-        DontDestroyOnLoad(this.gameObject);
+        if (Application.isPlaying)
+            DontDestroyOnLoad(gameObject);
     }
 }

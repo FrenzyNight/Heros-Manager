@@ -9,6 +9,7 @@ public class WoodManager : MiniGameSetMgr
 
     public GameObject NormalWoodPrefab, GoldWoodPrefab;
     private GameObject NowWood;
+    private Coroutine axeCoroutine;
 
     public GameObject WoodChar;
 
@@ -61,6 +62,10 @@ public class WoodManager : MiniGameSetMgr
     {
         base.SetUp();
         isStun = false;
+        axeCoroutine = null;
+        StunObj.SetActive(false);
+        AxeObj.SetActive(false);
+        IdleObj.SetActive(true);
         Destroy(NowWood);
 
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -81,7 +86,9 @@ public class WoodManager : MiniGameSetMgr
     void CheckWoodDirection(int input)
     {
 
-        StartCoroutine(SwingAxe());
+        if (axeCoroutine != null)
+            StopCoroutine(axeCoroutine);
+        axeCoroutine = StartCoroutine(SwingAxe());
         if(input == 0) // w
         {
             WoodChar.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, charDistance);
@@ -124,7 +131,9 @@ public class WoodManager : MiniGameSetMgr
         {
             audioSource.clip = woodFailSound;
             audioSource.Play();
-            StopCoroutine(SwingAxe());
+            if (axeCoroutine != null)
+                StopCoroutine(axeCoroutine);
+            axeCoroutine = null;
             StartCoroutine(Stun());
         }
     }
@@ -135,6 +144,7 @@ public class WoodManager : MiniGameSetMgr
         yield return new WaitForSeconds(0.3f);
         AxeObj.SetActive(false);
         IdleObj.SetActive(true);
+        axeCoroutine = null;
     }
 
     IEnumerator Stun()
@@ -164,7 +174,7 @@ public class WoodManager : MiniGameSetMgr
             wood = NormalWoodPrefab;
         }
 
-        NowWood = Instantiate(wood, transform.position, Quaternion.identity,mother.transform);
+        NowWood = TrackSpawn(Instantiate(wood, transform.position, Quaternion.identity,mother.transform));
 
         //set Direction
         woodDirection = Random.Range(0,4);

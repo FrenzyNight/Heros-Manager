@@ -50,11 +50,13 @@ public class FairyWarehouseManager : MiniGameSetMgr
     void Start()
     {
        
-        SetUp();
+        if (!IsPrepared)
+            SetUp();
     }
 
-    void SetUp()
+    public override void SetUp()
     {
+        base.SetUp();
         
         fwTreasure1ResMeat = LoadGameData.Instance.miniGameDatas["game3treasure1"].GetAmount1;
         fwTreasure1ResHub = LoadGameData.Instance.miniGameDatas["game3treasure1"].GetAmount2;
@@ -94,9 +96,9 @@ public class FairyWarehouseManager : MiniGameSetMgr
         isTreasure2 = true;
         isTreasure3 = true;
 
-        Instantiate(Treasure1Prefab, new Vector2(tp1.x * widthScale, tp1.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
-        Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
-        Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+        TrackSpawn(Instantiate(Treasure1Prefab, new Vector2(tp1.x * widthScale, tp1.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
+        TrackSpawn(Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
+        TrackSpawn(Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
             
         }
 
@@ -146,23 +148,23 @@ public class FairyWarehouseManager : MiniGameSetMgr
         {
             isTreasure1 = true;
             yield return new WaitForSeconds(fwTreasure1CoolTime);
-            Instantiate(Treasure1Prefab, new Vector2(tp1.x * widthScale, tp1.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+            TrackSpawn(Instantiate(Treasure1Prefab, new Vector2(tp1.x * widthScale, tp1.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
         }
         else if(boxNum == 2)
         {
             isTreasure2 = true;
             yield return new WaitForSeconds(fwTreasure2CoolTime);
-            Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+            TrackSpawn(Instantiate(Treasure2Prefab, new Vector2(tp2.x * widthScale, tp2.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
         }
         else if(boxNum == 3)
         {
             isTreasure3 = true;
             yield return new WaitForSeconds(fwTreasure3CoolTime);
-            Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform);
+            TrackSpawn(Instantiate(Treasure3Prefab, new Vector2(tp3.x * widthScale, tp3.y * heightScale) , Quaternion.identity,GameObject.Find("FairyWarehouse").transform));
         }
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
     }
 

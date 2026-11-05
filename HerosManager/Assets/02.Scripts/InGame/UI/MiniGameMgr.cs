@@ -3,233 +3,162 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class MiniGameMgr : Singleton<MiniGameMgr>
 {
     public GameObject MiniGamePanelBack;
     public GameObject MiniGamePanel;
     public Button ExitBtn;
-
     public MiniGameInfo[] miniGames;
     public Transform[] minigamePlaceTrans;
     public Text[] GuideTexts;
-
     public Text woodText, waterText, meatText, hubText;
 
-    int wood;
-    int water;
-    int meat;
-    int hub;
-    int food;
-
-    IEnumerator cycleRandomGameCo;
+    // The original DefineTable has no portal interval. Tune this in the Inspector.
+    [SerializeField, Min(1f)] float randomGameInterval = 15f;
+    readonly int[] rewards = new int[5];
+    static readonly string[] ItemCodes =
+        { "Item_Wood", "Item_Water", "Item_Meat", "Item_Hub", "Item_Food" };
+    Coroutine cycleRandomGameCo;
+    bool sessionOpen;
 
     void Start()
     {
         ExitBtn.onClick.AddListener(CloseMiniGame);
-
     }
 
     public void Setup(string _code)
     {
+        if (!LoadGameData.Instance.collectSpaceDatas.TryGetValue(_code, out var data))
+        {
+            Debug.LogError($"Unknown collecting area: {_code}");
+            return;
+        }
+        if (sessionOpen)
+            return;
+
+        StopRandomCycle();
+        Array.Clear(rewards, 0, rewards.Length);
+        HideGames();
+        sessionOpen = true;
         InGameMgr.Instance.state = State.MiniGame;
         MiniGamePanelBack.SetActive(true);
         MiniGamePanel.SetActive(true);
-        
-        wood = 0;
-        water = 0;
-        meat = 0;
-        hub = 0;
-        food = 0;
 
-        CollectSpaceData collectSpaceData;
-        collectSpaceData = LoadGameData.Instance.collectSpaceDatas[_code];
-
-        for (int i = 0; i < miniGames.Length; i++)
+        if (data.FunctionID == "MG_S3_Rand_Portal")
+            cycleRandomGameCo = StartCoroutine(CycleRandomGameCo());
+        else
         {
-            miniGames[i].obj.SetActive(false);
+            ShowGame(data.MiniGameID1, data.MiniGameHelpStringID1, 0);
+            ShowGame(data.MiniGameID2, data.MiniGameHelpStringID2, 1);
         }
-        for (int i = 0; i < GuideTexts.Length; i++)
-        {
-            GuideTexts[i].gameObject.SetActive(false);
-        }
-
-        MiniGameInfo miniGameInfo;
-        if (collectSpaceData.MiniGameID1 != "-1")
-        {
-            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameID1);
-            miniGameInfo.obj.SetActive(true);
-            miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
-
-            miniGameInfo.obj.transform.GetChild(0).gameObject.GetComponent<MiniGameSetMgr>().SetUp();
-
-            GuideTexts[0].gameObject.SetActive(true);
-            GuideTexts[0].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID1);
-            GuideTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
-        }
-        if (collectSpaceData.MiniGameID2 != "-1")
-        {
-            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameID2);
-            miniGameInfo.obj.SetActive(true);
-            miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
-
-            miniGameInfo.obj.transform.GetChild(0).gameObject.GetComponent<MiniGameSetMgr>().SetUp();
-
-            GuideTexts[1].gameObject.SetActive(true);
-            GuideTexts[1].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID2);
-            GuideTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
-        }
-        /*
-        if (collectSpaceData.MiniGameCenterID != "-1")
-        {
-            miniGameInfo = Array.Find(miniGames, x => x.code == collectSpaceData.MiniGameCenterID);
-            miniGameInfo.obj.SetActive(true);
-            miniGameInfo.obj.transform.position = minigamePlaceTrans[2].position;
-            GuideTexts[2].gameObject.SetActive(true);
-            GuideTexts[2].text = LoadGameData.Instance.GetString(collectSpaceData.MiniGameHelpStringID3);
-            GuideTexts[2].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
-        }
-        */
-
-        if (collectSpaceData.FunctionID == "MG_S3_Rand_Portal")
-        {
-            if (cycleRandomGameCo != null)
-            {
-                StopCoroutine(cycleRandomGameCo);
-            }
-            cycleRandomGameCo = CycleRandomGameCo();
-            StartCoroutine(cycleRandomGameCo);
-        }
-
         SetItemText();
+    }
+
+    MiniGameInfo FindGame(string code)
+    {
+        if (string.IsNullOrEmpty(code) || code == "-1" || miniGames == null)
+            return null;
+        return Array.Find(miniGames, game => game != null && game.code == code && game.obj != null);
+    }
+
+    void ShowGame(string code, string helpCode, int slot)
+    {
+        if (string.IsNullOrEmpty(code) || code == "-1")
+            return;
+        var game = FindGame(code);
+        if (game == null || minigamePlaceTrans == null || slot >= minigamePlaceTrans.Length ||
+            minigamePlaceTrans[slot] == null)
+        {
+            Debug.LogWarning($"Minigame {code} is not configured for slot {slot}.");
+            return;
+        }
+        var controller = game.obj.GetComponentInChildren<MiniGameSetMgr>(true);
+        if (controller == null)
+        {
+            Debug.LogError($"Minigame {code} has no MiniGameSetMgr.");
+            return;
+        }
+        game.obj.transform.position = minigamePlaceTrans[slot].position;
+        game.obj.SetActive(true);
+        controller.SetUp();
+        if (GuideTexts != null && slot < GuideTexts.Length && GuideTexts[slot] != null)
+        {
+            GuideTexts[slot].text = LoadGameData.Instance.GetString(helpCode);
+            GuideTexts[slot].gameObject.SetActive(true);
+        }
+    }
+
+    void HideGames()
+    {
+        if (miniGames != null)
+            foreach (var game in miniGames)
+                if (game != null && game.obj != null)
+                    game.obj.SetActive(false);
+        if (GuideTexts != null)
+            foreach (var guide in GuideTexts)
+                if (guide != null)
+                    guide.gameObject.SetActive(false);
     }
 
     void SetItemText()
     {
-        woodText.text = wood.ToString();
-        waterText.text =  water.ToString();
-        meatText.text = meat.ToString();
-        hubText.text =  hub.ToString();
+        if (woodText != null) woodText.text = rewards[0].ToString();
+        if (waterText != null) waterText.text = rewards[1].ToString();
+        if (meatText != null) meatText.text = rewards[2].ToString();
+        if (hubText != null) hubText.text = rewards[3].ToString();
     }
 
     IEnumerator CycleRandomGameCo()
     {
-        yield return null;
-
-        List<CollectSpaceData> randomGameList = new List<CollectSpaceData>();
-        foreach (var data in LoadGameData.Instance.collectSpaceDatas)
+        var candidates = new List<CollectSpaceData>();
+        foreach (var area in LoadGameData.Instance.collectSpaceDatas.Values)
         {
-            if (data.Value.MiniGameID1 != "-1" && data.Value.MiniGameID1 != "-1")
-            {
-                randomGameList.Add(data.Value);
-            }
+            if (area.FunctionID != "MG_S3_Rand_Portal" &&
+                area.MiniGameID1 != area.MiniGameID2 &&
+                FindGame(area.MiniGameID1) != null && FindGame(area.MiniGameID2) != null)
+                candidates.Add(area);
         }
-
-        ChangeRandomGame(randomGameList);
-        float changeTime = LoadGameData.Instance.defineDatas[""].value1;
-        float timer = 0f;
-
-        while (true)
+        if (candidates.Count == 0)
         {
-            timer += Time.deltaTime;
-            if (timer >= changeTime)
-            {
-                ChangeRandomGame(randomGameList);
-                timer = 0f;
-            }
-
-            yield return null;
+            Debug.LogWarning("No configured minigame pairs are available for the portal.");
+            yield break;
         }
-    }
-
-    void ChangeRandomGame(List<CollectSpaceData> _randomGameList)
-    {
-        for (int i = 0; i < miniGames.Length; i++)
+        while (sessionOpen)
         {
-            miniGames[i].obj.SetActive(false);
+            HideGames();
+            var area = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+            ShowGame(area.MiniGameID1, area.MiniGameHelpStringID1, 0);
+            ShowGame(area.MiniGameID2, area.MiniGameHelpStringID2, 1);
+            yield return new WaitForSeconds(Mathf.Max(1f, randomGameInterval));
         }
-        for (int i = 0; i < GuideTexts.Length; i++)
-        {
-            GuideTexts[i].gameObject.SetActive(false);
-        }
-
-        MiniGameInfo miniGameInfo;
-
-        int rand = UnityEngine.Random.Range(0, _randomGameList.Count);
-        miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameID1);
-        miniGameInfo.obj.SetActive(true);
-        miniGameInfo.obj.transform.position = minigamePlaceTrans[0].position;
-        GuideTexts[0].gameObject.SetActive(true);
-        GuideTexts[0].text = LoadGameData.Instance.GetString(_randomGameList[rand].MiniGameHelpStringID1);
-        GuideTexts[0].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
-
-        rand = UnityEngine.Random.Range(0, _randomGameList.Count);
-        miniGameInfo = Array.Find(miniGames, x => x.code == _randomGameList[rand].MiniGameID2);
-        miniGameInfo.obj.SetActive(true);
-        miniGameInfo.obj.transform.position = minigamePlaceTrans[1].position;
-        GuideTexts[1].gameObject.SetActive(true);
-        GuideTexts[1].text = LoadGameData.Instance.GetString(_randomGameList[rand].MiniGameHelpStringID2);
-        GuideTexts[1].transform.DOLocalMoveY(0, 1).From().SetEase(Ease.OutBack);
     }
 
     public void AddTempItem(string _item1Code, int _amount1)
     {
-        switch (_item1Code)
-        {
-            case "Item_Wood":
-                wood += _amount1;
-                break;
-            case "Item_Water":
-                water += _amount1;
-                break;
-            case "Item_Meat":
-                meat += _amount1;
-                break;
-            case "Item_Hub":
-                hub += _amount1;
-                break;
-            case "Item_Food":
-                food += _amount1;
-                break;
-        }
-
+        if (!sessionOpen)
+            return;
+        int index = Array.IndexOf(ItemCodes, _item1Code);
+        if (index < 0)
+            return;
+        rewards[index] = (int)Math.Max(0L, Math.Min(int.MaxValue, (long)rewards[index] + _amount1));
         SetItemText();
-
-/*
-        switch (_item2Code)
-        {
-            case "Item_Wood":
-                wood += _amount2;
-                break;
-            case "Item_Water":
-                water += _amount2;
-                break;
-            case "Item_Meat":
-                meat += _amount2;
-                break;
-            case "Item_Hub":
-                hub += _amount2;
-                break;
-            case "Item_Food":
-                food += _amount2;
-                break;
-        }
-        */
     }
 
     public void CloseMiniGame()
     {
-        InGameMgr.Instance.state = State.Camp;
+        if (!sessionOpen)
+            return;
+        // Consume the session before callbacks or deactivation can close it again.
+        sessionOpen = false;
+        StopRandomCycle();
+        ItemManager.Instance.AddItem(rewards[0], rewards[1], rewards[2], rewards[3], rewards[4]);
+        Array.Clear(rewards, 0, rewards.Length);
+        HideGames();
         MiniGamePanelBack.SetActive(false);
         MiniGamePanel.SetActive(false);
-
-        ItemManager.Instance.AddItem(wood, water, meat, hub, food);
-
-        if (cycleRandomGameCo != null)
-        {
-            StopCoroutine(cycleRandomGameCo);
-        }
+        if (InGameMgr.Instance.state == State.MiniGame)
+            InGameMgr.Instance.state = State.Camp;
 
         if (GatheringManager.Instance.isFirst)
         {
@@ -237,9 +166,22 @@ public class MiniGameMgr : Singleton<MiniGameMgr>
             TutorialMgr.Instance.OpenTutorial("Open_Tutorial_Camp_1");
         }
     }
+
+    void StopRandomCycle()
+    {
+        if (cycleRandomGameCo == null)
+            return;
+        StopCoroutine(cycleRandomGameCo);
+        cycleRandomGameCo = null;
+    }
+
+    void OnDisable()
+    {
+        StopRandomCycle();
+    }
 }
 
-[System.Serializable]
+[Serializable]
 public class MiniGameInfo
 {
     public string code;

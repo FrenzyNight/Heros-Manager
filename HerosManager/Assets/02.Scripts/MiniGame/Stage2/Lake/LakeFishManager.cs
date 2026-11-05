@@ -35,7 +35,8 @@ public class LakeFishManager : MiniGameSetMgr
     // Start is called before the first frame update
     void Start()
     {
-        SetUp();
+        if (!IsPrepared)
+            SetUp();
     }
 
 
@@ -104,7 +105,7 @@ public class LakeFishManager : MiniGameSetMgr
                 spawnPoint = EndPoint;
             }
 
-            obj = Instantiate(Fish, new Vector2(spawnPoint.x, spawnPoint.y), Quaternion.identity,GameObject.Find("LakeFish").transform);
+            obj = TrackSpawn(Instantiate(Fish, new Vector2(spawnPoint.x, spawnPoint.y), Quaternion.identity,GameObject.Find("LakeFish").transform));
 
             if(rnd == 0)
                 obj.GetComponent<LakeFishMove>().SetDir(1);
@@ -117,13 +118,13 @@ public class LakeFishManager : MiniGameSetMgr
 
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
     }
 
     
 
-    void OnDrawGizmos()
+    public override void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(StartPoint, 4f);

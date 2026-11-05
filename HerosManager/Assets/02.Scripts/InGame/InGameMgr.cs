@@ -14,6 +14,7 @@ public enum State
     Laundry
 }
 
+[DefaultExecutionOrder(-300)]
 public class InGameMgr : Singleton<InGameMgr>
 {
     public StageData stageData;
@@ -27,18 +28,30 @@ public class InGameMgr : Singleton<InGameMgr>
 
     public CutSceneManager cutSceneMgr;
 
-    void Awake()
+    public bool IsComplete { get; private set; }
+
+    protected override void Awake()
     {
-        //temp
+        base.Awake();
+        if (_instance != this)
+            return;
+
+        Time.timeScale = 1f;
         LoadGameData.Instance.LoadTitleDatas();
-
-        stage = SaveDataManager.Instance.saveGameData.stage;
-
+        var saves = SaveDataManager.Instance;
+        if (saves.saveGameData == null || saves.saveGameData.stage < 1 ||
+            saves.saveGameData.items == null || saves.saveGameData.items.Length != 5)
+        {
+            if (!saves.LoadGameDatas())
+                saves.NewGameData();
+        }
+        stage = saves.saveGameData.stage;
         LoadStageData();
     }
 
     void LoadStageData()
     {
+        stageData = null;
         foreach (var data in LoadGameData.Instance.stageDatas)
         {
             if (data.Value.Index == stage)
@@ -57,17 +70,23 @@ public class InGameMgr : Singleton<InGameMgr>
 
     public void NextStage()
     {
-        stage++;
+        StageData nextStage = null;
+        foreach (var entry in LoadGameData.Instance.stageDatas.Values)
+            if (entry.Index == stage + 1)
+                nextStage = entry;
 
-        //게임 End
-        if (stage > LoadGameData.Instance.stageDatas.Count)
+        if (nextStage == null)
         {
-            Debug.LogError("Game End");
+            IsComplete = true;
+            Clock.Instance.isStop = true;
+            Debug.Log("The final configured stage is complete.");
+            if (pause != null)
+                pause.PauseBtn();
             return;
         }
-
-        LoadStageData();
-        NextStageAct();
+        stage = nextStage.Index;
+        stageData = nextStage;
+        NextStageAct?.Invoke();
     }
 
     public void SaveStageData()
@@ -75,14 +94,11 @@ public class InGameMgr : Singleton<InGameMgr>
         SaveGameData savegameData = SaveDataManager.Instance.saveGameData;
         savegameData.stage = stage;
         savegameData.day = Clock.Instance.day;
-        for (int i = 0; i < ItemManager.Instance.items.Length; i++)
-        {
-            //saveData.items[i] = ItemManager.Instance.items[i].num;
-            //임시로 주석처리함
-        }
+        savegameData.items = ItemManager.Instance.CaptureItems();
+        HeroStateManager.Instance.CaptureStats(savegameData);
         savegameData.fenceLevel = FenceMgr.Instance.fenceLevel;
 
-        SaveDataManager.Instance.SaveGameDatas();
+        SaveDataManager.Instance.TrySaveGameDatas();
     }
 
     void Update()

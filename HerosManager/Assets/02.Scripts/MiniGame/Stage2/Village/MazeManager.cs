@@ -18,18 +18,19 @@ public class MazeManager : MiniGameSetMgr
     // Start is called before the first frame update
     void Start()
     {
-        maze = new GameObject[mazesize,mazesize];
-
-        SetUp();
-        MakeMaze();
+        if (!IsPrepared)
+            SetUp();
     }
 
-    void SetUp()
+    public override void SetUp()
     {
+        base.SetUp();
+        maze = new GameObject[mazesize, mazesize];
 
         mazeCharSpeed = LoadGameData.Instance.miniGameDatas["game2maze"].Velocity;
 
         realMazeCharSpeed = mazeStandardSpeed * mazeCharSpeed;
+        MakeMaze();
     
     }
 
@@ -58,7 +59,7 @@ public class MazeManager : MiniGameSetMgr
                 }
                 
                 
-                maze[i,j] = Instantiate(select, transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform);
+                maze[i,j] = TrackSpawn(Instantiate(select, transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
                 maze[i,j].GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
                 
                 
@@ -135,7 +136,7 @@ public class MazeManager : MiniGameSetMgr
                 if(mazelist[rnd] == 0) //상
                 {
                     Destroy(maze[i-1,j]);
-                    block = Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform);
+                    block = TrackSpawn(Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
                     block.GetComponent<RectTransform>().anchoredPosition = new Vector2(select.GetComponent<RectTransform>().anchoredPosition.x,select.GetComponent<RectTransform>().anchoredPosition.y+blockSize);
                     maze[i-1,j] = block;
                     i -= 2;
@@ -143,7 +144,7 @@ public class MazeManager : MiniGameSetMgr
                 else if(mazelist[rnd] == 1) //우
                 {
                     Destroy(maze[i,j+1]);
-                    block = Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform);
+                    block = TrackSpawn(Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
                     block.GetComponent<RectTransform>().anchoredPosition = new Vector2(select.GetComponent<RectTransform>().anchoredPosition.x+blockSize,select.GetComponent<RectTransform>().anchoredPosition.y);
                     maze[i,j+1] = block;
                     j += 2;
@@ -151,7 +152,7 @@ public class MazeManager : MiniGameSetMgr
                 else if(mazelist[rnd] == 2) // 하
                 {
                     Destroy(maze[i+1,j]);
-                    block = Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform);
+                    block = TrackSpawn(Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
                     block.GetComponent<RectTransform>().anchoredPosition = new Vector2(select.GetComponent<RectTransform>().anchoredPosition.x,select.GetComponent<RectTransform>().anchoredPosition.y-blockSize);
                     maze[i+1,j] = block;
                     i += 2;
@@ -159,7 +160,7 @@ public class MazeManager : MiniGameSetMgr
                 else if(mazelist[rnd] == 3) //좌
                 {
                     Destroy(maze[i,j-1]);
-                    block = Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform);
+                    block = TrackSpawn(Instantiate(Road, select.transform.position , Quaternion.identity,GameObject.Find("MazeStructure").transform));
                     block.GetComponent<RectTransform>().anchoredPosition = new Vector2(select.GetComponent<RectTransform>().anchoredPosition.x-blockSize,select.GetComponent<RectTransform>().anchoredPosition.y);
                     maze[i,j-1] = block;
                     j -= 2;
@@ -199,7 +200,7 @@ public class MazeManager : MiniGameSetMgr
         }
     }
 
-    public void StartGame()
+    public override void StartGame()
     {
     }
 
