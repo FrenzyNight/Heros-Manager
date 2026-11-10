@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('Project', 'Rules', 'Save', 'Isolation', 'IsolationPlay', 'Play', 'Meadow', 'Desert', 'Guide', 'Lighting', 'Build', 'Upgrade')]
+    [ValidateSet('Project', 'Rules', 'Save', 'Isolation', 'IsolationPlay', 'Play', 'Meadow', 'Desert', 'Guide', 'Lighting', 'Art', 'Build', 'Upgrade')]
     [string]$Check = 'Project',
     [string]$UnityPath = 'C:\Program Files\Unity\Hub\Editor\6000.4.7f1\Editor\Unity.exe'
 )
@@ -25,6 +25,7 @@ $methods = @{
     Desert = 'DesertPlayValidation.Run'
     Guide = 'GuidePlayValidation.Run'
     Lighting = 'LightingPlayValidation.Run'
+    Art = 'MiniGameArtValidation.Run'
     Build = 'MigrationValidation.BuildWindows'
     Upgrade = 'MigrationValidation.UpgradeAssets'
 }
@@ -32,7 +33,7 @@ $logDirectory = Join-Path $projectPath 'Logs'
 New-Item -ItemType Directory -Force -Path $logDirectory | Out-Null
 $logPath = Join-Path $logDirectory "validation-$($Check.ToLowerInvariant()).log"
 $unityArguments = @('-batchmode', '-projectPath', "`"$projectPath`"", '-executeMethod', $methods[$Check], '-logFile', "`"$logPath`"")
-if ($Check -notin @('Play', 'Meadow', 'Desert', 'Guide', 'Lighting', 'IsolationPlay')) { $unityArguments += '-quit' }
+if ($Check -notin @('Play', 'Meadow', 'Desert', 'Guide', 'Lighting', 'Art', 'IsolationPlay')) { $unityArguments += '-quit' }
 if ($Check -in @('Project', 'Rules', 'Save', 'Isolation')) { $unityArguments += '-nographics' }
 $process = Start-Process -FilePath $UnityPath -ArgumentList $unityArguments -WindowStyle Hidden -PassThru
 if (-not $process.WaitForExit(1200000)) {

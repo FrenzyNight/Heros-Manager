@@ -1,0 +1,1651 @@
+[
+  {
+    "name": "forest-grounds",
+    "columns": 2,
+    "rows": 2,
+    "transparent": false,
+    "files": [
+      {
+        "path": "1-1 Wood/1-1Background.png",
+        "width": 128,
+        "height": 128,
+        "guid": "d7bb01931428d6e4b8a886bf15e9348d",
+        "sha256": "5333D88B6E53A3E74C858D7A7DB3E3BBB8E1501F53BEDFA56BE584442F7C0E3C"
+      },
+      {
+        "path": "1-3 herbs/1-3 grasslandmaybe.png",
+        "width": 128,
+        "height": 128,
+        "guid": "28c64cf2e42b5b445815aeeb73e25f0d",
+        "sha256": "CA410E02961F7D27B9FD1EA58E18D9F1B5098DBA7EBAE5E4F42E398A84AF31D1"
+      },
+      {
+        "path": "1-4 Hunt/1-4 hunt.png",
+        "width": 128,
+        "height": 128,
+        "guid": "a0558d006a7468848a302b6be7b671f4",
+        "sha256": "C801A3A48EEA464D946CDBCD04344B7A0F127F0879F11A954FA5EA7C651A5060"
+      },
+      {
+        "path": "1-5 riverside/riverside.png",
+        "width": 128,
+        "height": 128,
+        "guid": "665ab538e1339944786fae9869a86a6c",
+        "sha256": "F3F1C45494F5E031AACD9BEAF3E92F91849844A70059212F2D488CFE38987867"
+      }
+    ]
+  },
+  {
+    "name": "desert-grounds",
+    "columns": 2,
+    "rows": 2,
+    "transparent": false,
+    "files": [
+      {
+        "path": "2-1 tree/treedesertbackground.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c06b4863a92e5f64794297ea904a7f91",
+        "sha256": "09EB56E8657586D840C671777A2F0E3E443FEE54209D9C7B3198FB3A3F999D10"
+      },
+      {
+        "path": "2-2 maze/desert maze.png",
+        "width": 128,
+        "height": 128,
+        "guid": "5da4ce23bdb2c9e4985b284f484ff998",
+        "sha256": "3A0B374F94C11D4ED3C8DF04558E84277CF96F2F51FE585612E09F9149957940"
+      },
+      {
+        "path": "2-3 deserthunt/hunt.png",
+        "width": 128,
+        "height": 128,
+        "guid": "9862ad74c84c25e4abed39403b55cbb1",
+        "sha256": "E2D0EF5EF69711E21B03868D7FA8C8817019C99F7685BA94E588547D605B7C4F"
+      },
+      {
+        "path": "2-4 desertherb/hunt.png",
+        "width": 128,
+        "height": 128,
+        "guid": "793cbb1c52b7c2c4f9954e6d438e06f5",
+        "sha256": "E2D0EF5EF69711E21B03868D7FA8C8817019C99F7685BA94E588547D605B7C4F"
+      }
+    ]
+  },
+  {
+    "name": "water-grounds",
+    "columns": 2,
+    "rows": 2,
+    "transparent": false,
+    "files": [
+      {
+        "path": "2-5 fish/desertfish_background 1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "9b764795923e425449a11e9a9e12c5a2",
+        "sha256": "25FF579A12AA1CD4D4F9070E1D7BA2C110F14516E9E763C108B4483B105C54AB"
+      },
+      {
+        "path": "2-5 fish/desertfish_background.png",
+        "width": 128,
+        "height": 128,
+        "guid": "18175517c7317634390dba0269ae1869",
+        "sha256": "B709CE1C151E03262A19686F5CA20FE5184AF2DB20EDB9446E84C53760D98F6D"
+      },
+      {
+        "path": "2-6 well section/wellsectionfinal.png",
+        "width": 128,
+        "height": 128,
+        "guid": "645edf7b6c29afc43aa215fd4b43b815",
+        "sha256": "AC4DF6EDC2390C3CA487840DCF6A2705345266FAECBDED1A45D2536DA169FEC0"
+      },
+      {
+        "path": "2-7 oasis/desertplanetbackground.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c09a065dbe0284f4896b8b7d9125cc2a",
+        "sha256": "47CB336EC07AE6AEC71A8C2615D85572493354A09EC7876E1642A1EE1D8602A7"
+      }
+    ]
+  },
+  {
+    "name": "river-frames",
+    "columns": 2,
+    "rows": 2,
+    "transparent": false,
+    "files": [
+      {
+        "path": "1-6 river/river(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "62de6436841caaf4e8495a238bd3a6e3",
+        "sha256": "BF733C0CDADB96F5157C8BB980C72E2B463E2F9359E8253157A931405CE7AA0F"
+      },
+      {
+        "path": "1-6 river/river(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "c9c0b9a58e882664ab3004a0cef81d17",
+        "sha256": "AF3F7D227BF33E5CD10C631BF5A41E53F6CDDEF2FE611FCE247B47D5CEE607E6"
+      },
+      {
+        "path": "1-6 river/river(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "b5affc883bb465d42bb6917d4dea9920",
+        "sha256": "32285D90686B53B268285BA2039511205E9493A967E7AF9E4DAF3B32BF5BE717"
+      },
+      {
+        "path": "1-6 river/river(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "2362a185dc6ef384cbda0eee2944970b",
+        "sha256": "0BB6EE8A0B46290018A52E4731E25BF3513E2EAEA75DBADC058A176F59DFB080"
+      }
+    ]
+  },
+  {
+    "name": "cave-layers",
+    "columns": 2,
+    "rows": 2,
+    "transparent": true,
+    "files": [
+      {
+        "path": "1-2 Cave/cavebackgroundlayer_1.png",
+        "width": 256,
+        "height": 128,
+        "guid": "a0de66ad1fb0edb49b843a64e39505bb",
+        "sha256": "9F6D792003E9E673AB30B9806C278BA4B895595A8C1719958CB697A78FF38030"
+      },
+      {
+        "path": "1-2 Cave/cavebackgroundlayer_2.png",
+        "width": 256,
+        "height": 128,
+        "guid": "8c9495bdcea802f49abb924c638d588e",
+        "sha256": "D8F5545B0739907D14AD87A7D1696B045EB92A762BA99CED64D01485DF1C5561"
+      },
+      {
+        "path": "1-2 Cave/cavebackgroundlayer_3.png",
+        "width": 256,
+        "height": 128,
+        "guid": "1695055198836a642a5d8019f405676b",
+        "sha256": "E6911B55BD17F996490B325E064458D426C555028D8674C7B0C9FBA9DBB7F796"
+      },
+      {
+        "path": "1-2 Cave/ceiling.png",
+        "width": 128,
+        "height": 128,
+        "guid": "4bc0ab511d0a11a4c9bb4f9b90f52ef0",
+        "sha256": "E82B008DB337284A4AB3AA0610B44C405518B987F1AF67CEFD376B045EC51B69"
+      }
+    ]
+  },
+  {
+    "name": "terrain-props",
+    "columns": 3,
+    "rows": 3,
+    "transparent": true,
+    "files": [
+      {
+        "path": "1-1 Wood/1-1Backgroundclouds.png",
+        "width": 128,
+        "height": 128,
+        "guid": "6f171328f53e78e40b903550615d15be",
+        "sha256": "D8FD4538DDD3784B5AE6D0FB2BEB86E3B6961079212480DF75FE816288F74D90"
+      },
+      {
+        "path": "2-5 fish/desertfish_clouds.png",
+        "width": 128,
+        "height": 128,
+        "guid": "db8b3e6f2b88c0547a47b1e1a2de49c4",
+        "sha256": "AF39B132838547883290A0427599BFF34651857D920F65B4E130EDD4078301B5"
+      },
+      {
+        "path": "2-5 fish/desertfish_clouds 1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "e68ff2fcf33ae594cb444c26434c2d41",
+        "sha256": "C2CF40A45E624AA378F831CD27D805EF4F72B558A50C825CCAC4A8395E308F3F"
+      },
+      {
+        "path": "1-2 Cave/cavebottomgroundtile.png",
+        "width": 256,
+        "height": 256,
+        "guid": "fc6c87a5309e563468302cf2c3e9b371",
+        "sha256": "160B89FFA1A5AD765B48C892DA8E3EFBCF38B4D6D549FB26B4A642DDD57A5CCB"
+      },
+      {
+        "path": "2-2 maze/mazetilefin.png",
+        "width": 128,
+        "height": 128,
+        "guid": "1684253eb0bdff34c80b5926f24176fc",
+        "sha256": "9DA19AAA80A30494DFEDA6A615C194F897D7C5B0176CF92664ECCA49C1F58C70"
+      },
+      {
+        "path": "2-7 oasis/desert planet.png",
+        "width": 128,
+        "height": 128,
+        "guid": "e260aa21de433bb4883068de6c08a286",
+        "sha256": "FEF40287DA60E5525FDD2BE2296C9EB2F7142120E585DF676BDB6798D3FF5A04"
+      },
+      {
+        "path": "1-2 Cave/cave plank long.png",
+        "width": 256,
+        "height": 128,
+        "guid": "d0d6d49320002934fbd1a6e94a1dd6c3",
+        "sha256": "045D1B5F15BFEA4F4D8BAA513BD82F29DCE9E7A99552A40B56A9525D3754DDAD"
+      },
+      {
+        "path": "1-5 riverside/log1tile.png",
+        "width": 46,
+        "height": 92,
+        "guid": "92367dfd9cf49164d86cae6b22f86b39",
+        "sha256": "581386F4EDCF3E71878F179DE703C175AFD922BFEEB9AFE3217838F5861F4F4B"
+      },
+      {
+        "path": "2-6 well section/ropelong.png",
+        "width": 128,
+        "height": 256,
+        "guid": "93d3284117482034b9c4bb88e904c632",
+        "sha256": "EDD3A04248D71246CE0D74A588ACF48A938581AE188F40770FE8DF03D71971C8"
+      }
+    ]
+  },
+  {
+    "name": "forest-animals",
+    "columns": 4,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "1-4 Hunt/bearre(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "2a57f57ccdb6d774ea469f917dce1439",
+        "sha256": "AD98D4D877D6D61634792CEF94C105368A272E390D4C26E8A4160DA91EF145C4"
+      },
+      {
+        "path": "1-4 Hunt/bearre(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "38f3404546cea8d408fc06403c4cbee8",
+        "sha256": "6A14FA3B37B9A5CFA77420F4E5E16FEE7D34575F62BB16123BB31904E98355C6"
+      },
+      {
+        "path": "1-4 Hunt/bearre(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "310792d40cb01844fa925a6b1aea05f3",
+        "sha256": "57F5313CCA9235B449C9CD94B59967272FE9CA428F1DF809464E640F683038CB"
+      },
+      {
+        "path": "1-4 Hunt/bearre(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "9b3f39e020bd4b14d873a5ed990d3289",
+        "sha256": "728CD76289643DE8A9C11F72A4D16AD7F10DBD2E80F256C64B7DE28D78369206"
+      },
+      {
+        "path": "1-4 Hunt/bearre(5).png",
+        "width": 128,
+        "height": 128,
+        "guid": "839230ecfa83b3b46ae19d042f164696",
+        "sha256": "4448C0C98866100053543564CBCD24454BD02A223CC2E5938832AEE8C7449B4D"
+      },
+      {
+        "path": "1-4 Hunt/bearreidle(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "d0ce51143404f87439f0df47e9c2916d",
+        "sha256": "2598EFA05AB69E7DEEB23E9399EB1E4E4DABBB1E705A651DB68EBC4E0E09FEE0"
+      },
+      {
+        "path": "1-4 Hunt/bearreidle(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "ef4cdf0b3efff324297c495526d6469e",
+        "sha256": "BC4E8F3490D3CA321336ED9F2B9304E8A29C990DC9B7824A4CF86B33C5550936"
+      },
+      {
+        "path": "1-4 Hunt/foxre(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "14e66c8ae61074144b9a66b0a7b5ef00",
+        "sha256": "2EF94596C0C5F89E4240449086375E73E8A41E9DB70E566400A143848F66933B"
+      },
+      {
+        "path": "1-4 Hunt/foxre(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "1371f783d2f53ee45873683bed7ef290",
+        "sha256": "FFB6143646509DC1C7E6C68BD0FA426BDFF9DA02D68F6CFBE47F5AD9E1510744"
+      },
+      {
+        "path": "1-4 Hunt/foxre(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "64020082a9fdebb4393062d196e6cb1c",
+        "sha256": "66C32802F60939A194A66D1EA2230F286645BA43AB2D529AF87BC463CB4A0A69"
+      },
+      {
+        "path": "1-4 Hunt/foxre(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "718cb1f064aef514c932450d208d990b",
+        "sha256": "5DBACDEE92063A1947A608F78550EAB6F0D9D97C47579224D51F8E63A0657120"
+      },
+      {
+        "path": "1-4 Hunt/foxre(5).png",
+        "width": 128,
+        "height": 128,
+        "guid": "06acee2a381568a4da0738f3342358d8",
+        "sha256": "0DEC43A5152B49E6D4890CE45284D5C1F16DAC7FC6F75CFC30336CE02571309B"
+      },
+      {
+        "path": "1-4 Hunt/foxre(6).png",
+        "width": 128,
+        "height": 128,
+        "guid": "8c22a2d2f8e32e34ba9e3db2311fb653",
+        "sha256": "3795839FC1D9155037393A44FB6471BDE79263E23E1618E5B74C7CF672E7325C"
+      },
+      {
+        "path": "1-4 Hunt/idlefoxre(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "e21ce14ed32b3f04f83069c35b56ee3e",
+        "sha256": "6D0D3DD0282FB9E251D6EDFA0290FAE63BAE13E86079F6EBB15295D6AF7B7850"
+      },
+      {
+        "path": "1-4 Hunt/idlefoxre(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "23537c1d50b61484dbf387d6febdc90a",
+        "sha256": "F18231BC28D3C59CDCB2688FE847071A446E39C5057D6744EE85363EC149D88E"
+      }
+    ]
+  },
+  {
+    "name": "desert-animals",
+    "columns": 5,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "2-3 deserthunt/desertfox_idle(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "52d9e8d918b70db44956a02ecccc6236",
+        "sha256": "5AD4E5F6C4EA8997CBB3F13D45895AA16B86C2FCE40E165FF62893490FA54859"
+      },
+      {
+        "path": "2-3 deserthunt/desertfox_idle(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "4269deb25b52af54a9a24a45890dfc27",
+        "sha256": "775DD0B97A4917717CB556CCD764A21E6AE595C52A343174CE6725AFC873BEA8"
+      },
+      {
+        "path": "2-3 deserthunt/desertfox_move(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "e285eaf6dfbb20e44b01b6a739b5a57a",
+        "sha256": "0A4139D21EA5CEAFB50AD759D06046F1B1DDBD0E93ACC44D984730C90180BE4F"
+      },
+      {
+        "path": "2-3 deserthunt/desertfox_move(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "da4b8e5cde942d24bb3328fb1bbbe7b4",
+        "sha256": "08B06B4F50D7DD48606F7EFAF9425D339461ACE0D37177921DF601F9673B0D7E"
+      },
+      {
+        "path": "2-3 deserthunt/desertfox_move(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "e9ada387b7586fc4f9e3c691f57523dd",
+        "sha256": "9F779C927D69B9B2F51134BB7368A5610D38D61B3A2CBB24E363824B550F6265"
+      },
+      {
+        "path": "2-3 deserthunt/desertfox_move(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "dc91c603c93825d4cb7964acf90ff941",
+        "sha256": "1A2981813D29FCA7B059F0AD5FBE7BDBF4F8B2D5EDD95DF13DEA01F6E171B05D"
+      },
+      {
+        "path": "2-3 deserthunt/desertfox_move(5).png",
+        "width": 128,
+        "height": 128,
+        "guid": "075e188a671de784b945172044b6e1a0",
+        "sha256": "AD221D8CC594D878D5FCE42020C443C00942B37BEB8C829616B511FB0292A11B"
+      },
+      {
+        "path": "2-3 deserthunt/desertfoxgold_idle(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "420a6f6ca07213349b6206aa8b5c9532",
+        "sha256": "A829FED4C31E314DD5B1EAC4716EB42A8461CD2B7D45D0DAB434B747D789E267"
+      },
+      {
+        "path": "2-3 deserthunt/desertfoxgold_idle(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "05c4436bcf43ed54ba05ceeac2320e0d",
+        "sha256": "4CAB0B71E0D4628DFAB35BC0A4D82ECF3695358E41E4AF55DCBE8CB7DE4C28F2"
+      },
+      {
+        "path": "2-3 deserthunt/desertfoxgold_move(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "c05a02210e4aafc45a1146257c61edab",
+        "sha256": "8A35C22D6A989BAA5C359D5F4E97109A291DB3FFBCDDCF860D1C4EE7B6FBDAFE"
+      },
+      {
+        "path": "2-3 deserthunt/desertfoxgold_move(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "0aef0f205154df64faf5f2a31ef0298c",
+        "sha256": "3539E9BED1C7B47B93BF9B5878A4A950568F62EF94BBD35F714E7A72508A4DCF"
+      },
+      {
+        "path": "2-3 deserthunt/desertfoxgold_move(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "dd8225105740abe43aa6c384ca1670c1",
+        "sha256": "42CBDD13F97AFDD8BE036B3EBBC2CC26C8F1645E6CBEDBAE2B48AE31BA2B3313"
+      },
+      {
+        "path": "2-3 deserthunt/desertfoxgold_move(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "52dd1470e91307d42b56b7cc95ae8160",
+        "sha256": "490D8AEA87A03D4A00D93C41BB3AF9279C709AA92B18ADF8ADBAEB53FFF01549"
+      },
+      {
+        "path": "2-3 deserthunt/desertfoxgold_move(5).png",
+        "width": 128,
+        "height": 128,
+        "guid": "2447860140a56234da9fce503cd668bf",
+        "sha256": "149AB09A7C2D7ADF8ACC860A6CB78150BFF48AE91DE15CC9C3A2270120827D86"
+      },
+      {
+        "path": "2-3 deserthunt/weasle_idle(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "186bf547085104e48a53405b7e3c21ac",
+        "sha256": "F57B3C3D33907A66B3C0778B13A866C79766AEA7692C6AF176B40A760CF504B2"
+      },
+      {
+        "path": "2-3 deserthunt/weasle_idle(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "cc410e33a0c7f074e86fa93504463cb9",
+        "sha256": "5531292077411F347A8C57FF6DC6B19A23B28E38A5F1D9101014E17198836516"
+      },
+      {
+        "path": "2-3 deserthunt/weasle_move(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "36748ca64c95ee64283c1d196dc5eb66",
+        "sha256": "E0F4401D3EF160FE2821F62811B62AAF86FEED8879D24A4388A6173DF0CAFC4B"
+      },
+      {
+        "path": "2-3 deserthunt/weasle_move(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "0e6fbe9dab8ec5e4ca8d6a9132246c49",
+        "sha256": "52E9D0A8E29EB79A2DB6D82396CA19062BCE9A9FD0E19BF6F572EEC1440A6724"
+      },
+      {
+        "path": "2-3 deserthunt/weasle_move(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "be19448d4b06eb345a7f2d31712cc71c",
+        "sha256": "FDAA3AC5FD595570BE01D6D75E598EC7BA2A35784943EB6DE1DD4DC8B8BE1408"
+      },
+      {
+        "path": "2-3 deserthunt/weasle_move(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "f45d50f5f9c50544c9b851432a5a4b04",
+        "sha256": "DD13ACEC5DA7B3A90C50ACF052A1E20D6991AE97E7AFFAA9B30476B02A828EF8"
+      }
+    ]
+  },
+  {
+    "name": "forest-flowers",
+    "columns": 4,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "1-3 herbs/flowerre(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "8785cb1f1bd253f4388dc2f4bd81fbf5",
+        "sha256": "B2BB095964A15EFF406E1589A6B0C266D60E67C98AE89D8E537B03D554FF747E"
+      },
+      {
+        "path": "1-3 herbs/flowerre(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "19a5cd70da4a4af479334a8bd5fe817e",
+        "sha256": "D2278DB4E9D2C2F83A447B074548BCEEB4320FC00CBFE263EE001DB63D658C65"
+      },
+      {
+        "path": "1-3 herbs/flowerre(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "de3f5565922f3f54780bd830593255b5",
+        "sha256": "888E35E7E6D7A3B79B2929FFBB87ACDF6917675477231CF1B09B3F67F5CFC853"
+      },
+      {
+        "path": "1-3 herbs/flowerre(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "412625ac18760764d9a84a299dd3e447",
+        "sha256": "09C709DCEAA11B31C4C6BD7BF78624B87F862FB21A93A3319B29571435E383EA"
+      },
+      {
+        "path": "1-3 herbs/flowerre(5).png",
+        "width": 128,
+        "height": 128,
+        "guid": "0b594c25a4dbf4840af077b4d070a1a1",
+        "sha256": "56AEC599B2BE53E7B492AC55E62A155529FC3D60D6A73A94260C7C52E1DDC7D4"
+      },
+      {
+        "path": "1-3 herbs/flowerre(6).png",
+        "width": 128,
+        "height": 128,
+        "guid": "ba88a87649dedd24f91ad054e8ef5879",
+        "sha256": "5E2A18505D198C83CA3146F7429778D225E23BBD0784018D333F3AE2561E0A17"
+      },
+      {
+        "path": "1-3 herbs/flowerre(7).png",
+        "width": 128,
+        "height": 128,
+        "guid": "8b8831277adceea469e29a69efd8d2db",
+        "sha256": "9CFC85E1F8F62CCDC52F20ABD1AB88CA716B39D3331171818678C3913ED23034"
+      },
+      {
+        "path": "1-3 herbs/flowerre(8).png",
+        "width": 128,
+        "height": 128,
+        "guid": "4551b384232d2fd4eb7aa36d5bed5c7c",
+        "sha256": "EECCC75C1A37B14C504BFEC17D1A1C05497515D3A7572AAC9B5E8B9968ADA17B"
+      },
+      {
+        "path": "1-3 herbs/goldflower(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "97f2e50925ba5484da68c7ad49f3d05a",
+        "sha256": "3172BA3BE5E86ABB47BB6063476959569637ECA545102C2A17DEE5F8AC84E653"
+      },
+      {
+        "path": "1-3 herbs/goldflower(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "4b551c4c044749f40a21b19e66a3542e",
+        "sha256": "635BDC72154FC27A3F04360118D3AD271FDF24448C7D68A1E99299422C6B212D"
+      },
+      {
+        "path": "1-3 herbs/goldflower(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "2fd6fc8a9fbcf88448c201b7a477b8fc",
+        "sha256": "2DD05830FA31F2C85A3876921E4DB6AF0F8A1797CEB8EA6E5F7D08955639DF4F"
+      },
+      {
+        "path": "1-3 herbs/goldflower(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "342a0e98abc2fb44cb3022912083a6f4",
+        "sha256": "3C983A1DA3AF4EFE3E9A9F9EED08D275660A53A7421FB4A623194FF1089CEF10"
+      },
+      {
+        "path": "1-3 herbs/goldflower(5).png",
+        "width": 128,
+        "height": 128,
+        "guid": "0b3ad3fa651162a4c8368b997a25966c",
+        "sha256": "73281AE549A0E1A7B6EFDC608BA6BB331678217F9162EDCC3BB917006817DD7D"
+      },
+      {
+        "path": "1-3 herbs/goldflower(6).png",
+        "width": 128,
+        "height": 128,
+        "guid": "71ffb29941ac0784e81e70b1dd0d21eb",
+        "sha256": "BE313C3E98989B86AF765388309488FEE709CACE56282852B6433F7B68A49DAE"
+      },
+      {
+        "path": "1-3 herbs/goldflower(7).png",
+        "width": 128,
+        "height": 128,
+        "guid": "7fb7f09e79cfcb0468c9309fa05c5e9f",
+        "sha256": "B52FB332FFB270A13C81AD6005282A84C08F476063CB9262396EC2B19291A74B"
+      },
+      {
+        "path": "1-3 herbs/goldflower(8).png",
+        "width": 128,
+        "height": 128,
+        "guid": "3115537d3b6d843478a884fee9ff4a85",
+        "sha256": "0AC2B22266B244869DD61FC6DFD217AC86E7325CE2113488651F95628D2FC391"
+      }
+    ]
+  },
+  {
+    "name": "desert-flowers",
+    "columns": 4,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "2-4 desertherb/desertflower(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "3396698e61e8e4d43b2b58af28c96c25",
+        "sha256": "AABEEC36A094F649E85671680262DE888E4AE02C8BD412C6F54FD65CE071B4CB"
+      },
+      {
+        "path": "2-4 desertherb/desertflower(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "91620762ce028c64381d02f41ba6fc72",
+        "sha256": "8D2D6A570453270E33CEFF3B0FCBE119A4488CBB20932A66458B918724939173"
+      },
+      {
+        "path": "2-4 desertherb/desertflower(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "833d9fd71a8b19349ac2af1034723bce",
+        "sha256": "4B0C13CFE54F4AF39149CF0135209828B97B5F80A6ED2BC85C4973A25425BA8D"
+      },
+      {
+        "path": "2-4 desertherb/desertflower(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "4810e4d58ccdb4641b0c3d9ec8142204",
+        "sha256": "4FCFF80E01D457DF17B460BEF80BE8491BC5C7EB9BD872999102FABDA2976FDC"
+      },
+      {
+        "path": "2-4 desertherb/desertflower(5).png",
+        "width": 128,
+        "height": 128,
+        "guid": "48bd2f0b9c089ce4aa4c814984819e27",
+        "sha256": "6D9C0ADBABEFE7FEE88BC1E1BC309C44815ABBF14AAB2704B80722D4FEEDCEF2"
+      },
+      {
+        "path": "2-4 desertherb/desertflower(6).png",
+        "width": 128,
+        "height": 128,
+        "guid": "a37e57d04b4cd5242b9aedd4d7337290",
+        "sha256": "99690B803EA54FBF8C1FEBEC902ED7F7DC2195C680156450E60013FBA32A4C38"
+      },
+      {
+        "path": "2-4 desertherb/desertflower_gold_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c93ce27e2794ca343b893508e79f66f7",
+        "sha256": "E12FC3A518BD00A9686C338DE462DF28D8E1B683D0318E3D061399405A0394CD"
+      },
+      {
+        "path": "2-4 desertherb/desertflower_gold_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "a8580475530681842b3ba09f54eff382",
+        "sha256": "082FABC5AE872913DC78BD8462574462FA6FAD60E5A34C6D3DECC964A610DBC8"
+      },
+      {
+        "path": "2-4 desertherb/desertflower_gold_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "9214240bde9106947b4d006d5f142fc0",
+        "sha256": "3F7E6D780A8F9A4323AD42190E11C3F9A4D1A07BB124A2276E5EEA76594C2583"
+      },
+      {
+        "path": "2-4 desertherb/desertflower_gold_4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "d0887cf91cd26984a8cc03c75a3306af",
+        "sha256": "8C24A736B1A5112F347A9B184E02439965CC9B58763AE1C55AC2D19B6C6FC742"
+      },
+      {
+        "path": "2-4 desertherb/desertflower_gold_5.png",
+        "width": 128,
+        "height": 128,
+        "guid": "901ca4eaed93f2740b1c2b61eb3ac170",
+        "sha256": "B16246A8FC15B6507FA05226E7A200A3F6A2668B93903C4BED81713B1408657F"
+      },
+      {
+        "path": "2-4 desertherb/desertflower_gold_6.png",
+        "width": 128,
+        "height": 128,
+        "guid": "8546d8e53560f5c4da526dde820bcedc",
+        "sha256": "52576F632FE8CB3E77E3812B7E9B5A14E79D88A31E77AAEE9AE1B4655D1479D3"
+      },
+      {
+        "path": "2-4 desertherb/cactustopview.png",
+        "width": 128,
+        "height": 128,
+        "guid": "b2560eaa4cb0b354e8610d903e244f4c",
+        "sha256": "8FD353315D6B95A653ECFFA0EAB1B9E08C9EB65C77EB413BD3F448CB21945228"
+      },
+      {
+        "path": "2-3 deserthunt/cactus.png",
+        "width": 128,
+        "height": 128,
+        "guid": "9ed5b251519fb22418ee9ff69bf8ef5c",
+        "sha256": "EBD30CF51E149BFC3C64624BC17B8933893C67E89F4135C87BAAA435A4A422F4"
+      }
+    ]
+  },
+  {
+    "name": "river-fish",
+    "columns": 4,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "1-5 riverside/fishswimmingre_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "304804be910623a4ba87e60def58d7a8",
+        "sha256": "1A136834744D6EED4CCBB176CD222CBF79EE8C87CBD2871FE1DFC396C3B71657"
+      },
+      {
+        "path": "1-5 riverside/fishswimmingre_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "194769484ef11694798ab81f595f0e95",
+        "sha256": "2EBB098891110DD964BEE45688800209EFE98E7605BD705B217F7E81CF5CCFFF"
+      },
+      {
+        "path": "1-5 riverside/fishswimmingre_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "0944f2539a80c8848bbf3fa95c9ca696",
+        "sha256": "45A411C19BBE244031F06B66225D6199E65604D11B43020F6FB3D5DE97CCA285"
+      },
+      {
+        "path": "1-5 riverside/fishswimmingre_4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "80712cedb22ffce44abd4c571320f577",
+        "sha256": "9A370E659847A38C5A6AD79CA5BCE3DF552AC2C70D60FA0767F52C194C9211B6"
+      },
+      {
+        "path": "1-5 riverside/fishswimmingre_5.png",
+        "width": 128,
+        "height": 128,
+        "guid": "027d2e9da65db4f4a8bc1ea219e8b773",
+        "sha256": "F6BE34BCF96CAB4A4944540C38C504D3E31A7AF32A96A0ED7D0B5653F9A8D611"
+      },
+      {
+        "path": "1-5 riverside/fishswimmingre_6.png",
+        "width": 128,
+        "height": 128,
+        "guid": "40579fdd2f0212f4a93e0275a9139c5c",
+        "sha256": "3D8EA8E2DFAF1B163C9E5171A511A376B13516476941D4893B6D0A8DB2E50EE3"
+      },
+      {
+        "path": "1-5 riverside/fishswimmingre_7.png",
+        "width": 128,
+        "height": 128,
+        "guid": "0eb7c9af198266e47945744268d2610a",
+        "sha256": "6D22AA6D9DFBF8818DEF319E425FD655DE4D6D5C1A1C73F4A6497FE3948D7F61"
+      },
+      {
+        "path": "1-5 riverside/fishswimmingre_8.png",
+        "width": 128,
+        "height": 128,
+        "guid": "8bcbaf5e6a5cef14dafc434aa5e81a77",
+        "sha256": "FAAB7E87E3BA191C6A90A5F426FA58D5BFFCD02D9DDD666DE7918F7B321A6E8F"
+      },
+      {
+        "path": "1-5 riverside/fishswimming_gold_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "6760cf10f43bc394d832df1a7cab6fa3",
+        "sha256": "0A50E6EC3BE0F0C7437E00C1B4B645992D8822377A0A0ABAD38CFFA1EBA8C420"
+      },
+      {
+        "path": "1-5 riverside/fishswimming_gold_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "be680956eb1735240a0c4c964a7a8da8",
+        "sha256": "3F88410F0C34F16916DC357140207F3CF8A4A9C381D89B1FC598DEF32816FC00"
+      },
+      {
+        "path": "1-5 riverside/fishswimming_gold_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "344a6649d0c8bd64586335a27dd4c5a8",
+        "sha256": "328E4D6BB3AC2873A301A20371DC66DD30CA6557EABA5F3DE85764545A0546A6"
+      },
+      {
+        "path": "1-5 riverside/fishswimming_gold_4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "31053d8380912514e9a9331dc64e3c66",
+        "sha256": "91897E0FF963057ED259D30894172AE55853B4FD314D5F3A880886BAD8308A9D"
+      },
+      {
+        "path": "1-5 riverside/fishswimming_gold_5.png",
+        "width": 128,
+        "height": 128,
+        "guid": "e97f43dc57dcdca45bdd8a42307a4e99",
+        "sha256": "8B7E4A64801B0AE5CD04405E7F20E0AD5B0B7EDE5215ADADC508171B32AD5577"
+      },
+      {
+        "path": "1-5 riverside/fishswimming_gold_6.png",
+        "width": 128,
+        "height": 128,
+        "guid": "424f5b026c2df5943b5b93057f7cdfda",
+        "sha256": "6306F6A4CA7941626C30E4F75A855F1450F9C84DC663FDFA195C93BC9894EC1F"
+      },
+      {
+        "path": "1-5 riverside/fishswimming_gold_7.png",
+        "width": 128,
+        "height": 128,
+        "guid": "d72294888d9769a43a5490f80d261826",
+        "sha256": "363DF17A201BC502B488FE9A0E2DE1D4E58C85EFD360266C7A6DD23BD80FC41E"
+      },
+      {
+        "path": "1-5 riverside/fishswimming_gold_8.png",
+        "width": 128,
+        "height": 128,
+        "guid": "f39be520ff5b51049a7102c704cca961",
+        "sha256": "078C0DFAC5E687F8DB3C29D91AAD636EC510862517828FDEF06B5D2719B854A5"
+      }
+    ]
+  },
+  {
+    "name": "lake-fish",
+    "columns": 5,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "2-5 fish/fishsideswimming(1).png",
+        "width": 256,
+        "height": 128,
+        "guid": "9c6ffe54af539ea49aebcf0d5fa75178",
+        "sha256": "A4169BF6918C92E063EABB1AD3C3921970E83B5E2115F3542D01B80E3A781459"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming(2).png",
+        "width": 256,
+        "height": 128,
+        "guid": "52b303dee56e8b74baa6ad7714f8e307",
+        "sha256": "CCB1F49B028E459BD14AB9E84131DC86751589AF5030665A4C704123D4D282EB"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming(3).png",
+        "width": 256,
+        "height": 128,
+        "guid": "abe924af6280c74488db00a99a40b306",
+        "sha256": "3B518FAA2A16349104AB8470FE7A18A8FF6B7E2C46CA1E7ED5442D881C60243E"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming(4).png",
+        "width": 256,
+        "height": 128,
+        "guid": "c5745171d5caa324d9ee311eb336166e",
+        "sha256": "760F769441CF598BC4F836765D76FA97F1C46482E9192D95E2C2A916EDCAE10E"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming(5).png",
+        "width": 256,
+        "height": 128,
+        "guid": "2f424d8ff759879489c2c6f4b1fbcb97",
+        "sha256": "4A0E79E4669ED23218BF19F2C035A4792D0D88BEFC36135B1BD9B88DFFE6F3BF"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming(6).png",
+        "width": 256,
+        "height": 128,
+        "guid": "e61ece23c1f60904782863fe5eae6e0e",
+        "sha256": "B33FD24632D61057E4A9F2BD8D1719C9922309A103D7A6DAA834090D501BC2BF"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming(7).png",
+        "width": 256,
+        "height": 128,
+        "guid": "75d402aa17413a941ab725a7b767f719",
+        "sha256": "555755DE685435F1BF344AFE17601EE9D011065BF902A1F636ECD4452799306B"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming(8).png",
+        "width": 256,
+        "height": 128,
+        "guid": "18ba8c0b8c7d9ec44ab5342b004d1631",
+        "sha256": "7426FCCC70592AEAC84307E8C573A628CC5F95699D4C54B6D6AA13D7068A435A"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(1).png",
+        "width": 128,
+        "height": 128,
+        "guid": "887c6dd9450a88b4c92716251e476f0f",
+        "sha256": "F1A88BE2CB2BE53A9B10F0F71DBE6DF0CA182F9F189FF702A4BA161002AE3EA1"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(2).png",
+        "width": 128,
+        "height": 128,
+        "guid": "7b55ba91b76d0424a8776d35639f510a",
+        "sha256": "EADC65148B3C9C74579BD50CDBC29D32991396549F8293167C23395EB9EBF8A1"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(3).png",
+        "width": 128,
+        "height": 128,
+        "guid": "0409443d506ee1a408db5163b08de629",
+        "sha256": "00972EDBF0EB41A80048F27DE02E34B676E75B5FD1805913ABEAA5799B8F8904"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(4).png",
+        "width": 128,
+        "height": 128,
+        "guid": "0654bb24fdc2e754681e076753fb58dc",
+        "sha256": "8C484E633C7897C641DECD90762C15DF833C7E5BB63E27FE209BE8F18FC423FC"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(5).png",
+        "width": 128,
+        "height": 128,
+        "guid": "035e8a3856666d74e81ded5ed3a98f3a",
+        "sha256": "390A4E13E3A2C8799021A22561282DFC47E5472036F57CE5E0D49DB26E6F455B"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(6).png",
+        "width": 128,
+        "height": 128,
+        "guid": "8a944592f03ef394395b15b15c63d17b",
+        "sha256": "449292E4D79A52FE92DC6B67E93AB943BFD318319B5155818974264D25A9C9AD"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(7).png",
+        "width": 128,
+        "height": 128,
+        "guid": "c5d335a287bb90a41acce0667c7b4fae",
+        "sha256": "E87F40D74876E499A1941A144AAE3DAA264AAF32B8F344C4F0D6F8340D889ABC"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(8).png",
+        "width": 128,
+        "height": 128,
+        "guid": "d8f12b8c550396f4b9776c6d443b9d8c",
+        "sha256": "EBAF07BC46251E36E2B5C899C4C7A74840AB5230ACE8AE409E87072D005AF273"
+      },
+      {
+        "path": "2-5 fish/fishsideswimming_gold(9).png",
+        "width": 128,
+        "height": 128,
+        "guid": "b92fed8541eaa6940bfe2c510a494ec5",
+        "sha256": "A9D9E12CFC1E86AF3FAE8EE691BA011FC999941FC43432F613FE07D944027894"
+      }
+    ]
+  },
+  {
+    "name": "hero-side",
+    "columns": 4,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "Char/Run/cave_run_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "7dea6f312c3730e4298e25170bf1c487",
+        "sha256": "768F6E0CBE354B85CBFEB327E0C99D08B443A7F23FD57D14626F1A8C2678334C"
+      },
+      {
+        "path": "Char/Run/cave_run_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "7d02cee3ee3ea574ca234dceabfce124",
+        "sha256": "0553CFCEB351D4105FAA38779E77218F5AB6E2EB2192889E3ECE5BACF594D355"
+      },
+      {
+        "path": "Char/Run/cave_run_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "2575cc247ca491c488bc022007f577a3",
+        "sha256": "F5CE52BF051C2E055A3745430DBA12B693285C2F7BDF55EAC957075BD5248E5F"
+      },
+      {
+        "path": "Char/Run/cave_run_4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "505430ca90c18b942b5d892705b84e76",
+        "sha256": "D0BA96A0021BBD5D1A89D58B4A8DD6EFAD78748C0E7BAA8B3A71E467F4B50CAC"
+      },
+      {
+        "path": "Char/Run/cave_run_5.png",
+        "width": 128,
+        "height": 128,
+        "guid": "2747286f072305c42a80e68af0d307ae",
+        "sha256": "E8A75A9F189737455CFE74D17FD4AD52BB13E5EA76B6E8F6C3C2D8E2B20E8CA2"
+      },
+      {
+        "path": "Char/Run/cave_run_6.png",
+        "width": 128,
+        "height": 128,
+        "guid": "075828e25a57dfe43a327568a6169a1b",
+        "sha256": "0455B08D4F918A05704742A1386B5E65E73B52481F30FDEAB51815D3767587B2"
+      },
+      {
+        "path": "Char/Run/cave_run_7.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c6846bcd01adc4f48a399c582c940051",
+        "sha256": "F6CAA23662F081C02DE6CF51518BD2BA553F7EBA3ED9EC5BFA6F35401117E5BD"
+      },
+      {
+        "path": "Char/Run/cave_run_8.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c06dde5c3df40ad44914d154bd66ac92",
+        "sha256": "DA54B87FEAA2911CF88308DB14FF9C556937466F20E12B20F56A13C674BDCBCE"
+      },
+      {
+        "path": "Char/Walk/side_walk_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "3793c8992858fdf4eaeee2b48a181528",
+        "sha256": "26ADFB6277C6C10D29DF082B2ADA9B1A294362AD4225A916CBD4204E2908187F"
+      },
+      {
+        "path": "Char/Walk/side_walk_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "7ba02a26b1d126a499980b2a0d705035",
+        "sha256": "7F31082FF9981BC3C3614001DE0C7C4AE6B467B46D86AB6AD116F27C7CF6AE5F"
+      },
+      {
+        "path": "Char/Walk/side_walk_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "b9390e91e5594e040bf2fac221f0ac97",
+        "sha256": "48334E40792B5EAE88CD97DBD9E01FF1548D2B4B3D99CAE894DB14247E8AACB3"
+      },
+      {
+        "path": "Char/Walk/side_walk_4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "13b29d3e67bcc0845b1b35e00d54a9af",
+        "sha256": "7F31082FF9981BC3C3614001DE0C7C4AE6B467B46D86AB6AD116F27C7CF6AE5F"
+      },
+      {
+        "path": "Char/Walk/side_walk_5.png",
+        "width": 128,
+        "height": 128,
+        "guid": "0ae304e992a302f49a10c54ec53b8c53",
+        "sha256": "26ADFB6277C6C10D29DF082B2ADA9B1A294362AD4225A916CBD4204E2908187F"
+      },
+      {
+        "path": "Char/Walk/side_walk_6.png",
+        "width": 128,
+        "height": 128,
+        "guid": "bda70713578f6794f8a77410abdd9ea3",
+        "sha256": "7853A738562FFA9896197CD516CC44055AE6F124C811176B479FC8D05EC3D14A"
+      },
+      {
+        "path": "Char/Walk/side_walk_7.png",
+        "width": 128,
+        "height": 128,
+        "guid": "a7f213aaec771f246b295f5e632a3e0c",
+        "sha256": "C1C57E0C5B82ABFEC64F56D9FDA627E4D15C32F8EA05799347B89939FE97638A"
+      }
+    ]
+  },
+  {
+    "name": "hero-top",
+    "columns": 5,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "Char/Bow/arrow_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "6af7bd2459efdfd449f58d8ad27629c9",
+        "sha256": "1D2F768352B2E8AEB3700B9CB942CD88F4636A3B633B659B907CCFB7C880E15D"
+      },
+      {
+        "path": "Char/Bow/arrow_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "62402a972969d734e89cebdc28bfd74c",
+        "sha256": "DED810E2622BDBD80C7C37B97E7E9734C306512F598F8991CAB2555E96F20058"
+      },
+      {
+        "path": "Char/Bow/arrow_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "1e8b77b5aa5a9a14b9246d6fc0ccd627",
+        "sha256": "4FC65CB2013AD0F16F9194FA71BE015F08F0CD7C2D298160868E5D5D75549058"
+      },
+      {
+        "path": "Char/Bow/arrow_4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "7f1289125d579fe4198c7c2d575148c7",
+        "sha256": "258C955AD9C44B00A0ABAD69CEF1139C9B453206E6D34E8D255D202A85A3AF4E"
+      },
+      {
+        "path": "Char/Bow/arrow_5.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c17aaa4ba30d63744821afab0a5236fd",
+        "sha256": "354A0536C89CF1FB895FE1224AFF20C1BCD6A152ECA4CC068A02EE32C1F88657"
+      },
+      {
+        "path": "Char/Bow/arrow_6.png",
+        "width": 128,
+        "height": 128,
+        "guid": "bf34dcbed96a72c43a62fed92aacbae9",
+        "sha256": "258C955AD9C44B00A0ABAD69CEF1139C9B453206E6D34E8D255D202A85A3AF4E"
+      },
+      {
+        "path": "Char/Bow/arrow_7.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c11efa0bd21f2f34d80cd7911bd325c8",
+        "sha256": "354A0536C89CF1FB895FE1224AFF20C1BCD6A152ECA4CC068A02EE32C1F88657"
+      },
+      {
+        "path": "Char/Bow/arrow_8.png",
+        "width": 128,
+        "height": 128,
+        "guid": "2e6fa042519244842933e70edd7b6fe9",
+        "sha256": "258C955AD9C44B00A0ABAD69CEF1139C9B453206E6D34E8D255D202A85A3AF4E"
+      },
+      {
+        "path": "Char/Bow/arrow_9.png",
+        "width": 128,
+        "height": 128,
+        "guid": "8f0a371ca644f6548ab3931b34cd4bb8",
+        "sha256": "D78D783CFAD80FF16A107EB125B671B6E299B5872710F660720DEF4AC06A5B1A"
+      },
+      {
+        "path": "Char/Bow/arrow_10.png",
+        "width": 128,
+        "height": 128,
+        "guid": "eb219e6d83ffe5047be71ef89454272b",
+        "sha256": "1D2F768352B2E8AEB3700B9CB942CD88F4636A3B633B659B907CCFB7C880E15D"
+      },
+      {
+        "path": "Char/Top/top-1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "020c025adf498534fa9c07893d2422cf",
+        "sha256": "ED851B87862B9D3DE6F6EBCB01EA907A6D4735B79A55F13C627F2B539EA0CE70"
+      },
+      {
+        "path": "Char/Top/top-2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "628db91d73dffb142bbc30ca7152d68c",
+        "sha256": "3F49CDA54BF79DA1A11FDEB274A4106083C79D9E4687F045244990E9002D8549"
+      },
+      {
+        "path": "Char/Top/top-3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "fc3de00bcd1e7634d8c2d681648bd7cb",
+        "sha256": "A880B216A628E7E008B5E003F755B4F2DC94D484F90966B6F0A1870FAD2FF4C5"
+      },
+      {
+        "path": "Char/Top/top-4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "67c974d24d4b63443b44a0fdc5243806",
+        "sha256": "09C4E010D55E8230311A7299222C5D7E8B455BDC8CB36C1EE0CF4599D779E8A6"
+      },
+      {
+        "path": "Char/Tree/rope_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "f5f5d8593b3933544a62bafb23e16bfd",
+        "sha256": "17425A2782F46CDF3EE5E98127D049D9D62D993092FDDE084B3F655A2BEC2EA4"
+      },
+      {
+        "path": "Char/Tree/rope_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "cb4bcf6191fbb094e815168f6f3af819",
+        "sha256": "94B9B4AF4A4B4DB404149EEB67E31B760A67A8FD504599F67FE80FC017B949BE"
+      },
+      {
+        "path": "Char/Tree/rope_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c9f04dc6c961332438a3e2d09d3345f5",
+        "sha256": "D69BA7C41B81F7903429B9CE284C93DC1E30C48C6FDDE1C8AAC820DE538133EE"
+      },
+      {
+        "path": "Char/Tree/rope_4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "4dc553d3179dd6a4fb41b8d028fea4d7",
+        "sha256": "94B9B4AF4A4B4DB404149EEB67E31B760A67A8FD504599F67FE80FC017B949BE"
+      }
+    ]
+  },
+  {
+    "name": "hero-actions",
+    "columns": 4,
+    "rows": 5,
+    "transparent": true,
+    "files": [
+      {
+        "path": "Char/FishFront/front_idle_1.png",
+        "width": 179,
+        "height": 189,
+        "guid": "4c2cf44cc57abec4aa87c0afc0976a16",
+        "sha256": "CEEBC22270A6A4A55DA71BADAC8A76D709DC9F7CBC3D21501E676DEC7D39CBE5"
+      },
+      {
+        "path": "Char/FishFront/front_idle_2.png",
+        "width": 179,
+        "height": 189,
+        "guid": "f55e8bcc4725eb24c9907963a012931f",
+        "sha256": "11809C3BA7869B28BFB6F25B58D2EABF1CC7CBEB230791C4DC26F29509C586A2"
+      },
+      {
+        "path": "Char/FishFront/front_sigh_1.png",
+        "width": 179,
+        "height": 189,
+        "guid": "ae400d67067752048a9fb2db1bbc81e4",
+        "sha256": "3CA1FC7B2A5A939F70023891DD664AFC1DC132DD5A201274C05A3D2249B520C4"
+      },
+      {
+        "path": "Char/FishFront/front_sigh_2.png",
+        "width": 179,
+        "height": 189,
+        "guid": "0941f108f5cf82a47967e5fe30989c40",
+        "sha256": "035A5EE1379A5FE9DCCF3EFFFEDD01C058D645227001CA94AB1902E47BD2BB1E"
+      },
+      {
+        "path": "Char/FishFront/front_throw_1.png",
+        "width": 179,
+        "height": 189,
+        "guid": "8075030fc18c3ac4f984769d9f412ad8",
+        "sha256": "9D7F95A7AB0F8FD352E8CBFB0804F8F1B16E5F53D02FFEC09A84AAB0274ED460"
+      },
+      {
+        "path": "Char/FishFront/front_throw_2.png",
+        "width": 179,
+        "height": 189,
+        "guid": "e7304cf6cd6e3fc4b800824faa02ca3d",
+        "sha256": "A8197A5C98A35A58BEC2666F7D7DE1BAA284790685B8D0ED8ADAD08D4686490A"
+      },
+      {
+        "path": "Char/FishFront/front_throw_3.png",
+        "width": 179,
+        "height": 189,
+        "guid": "400e8080678a9fa40bb4fce2fabd6a49",
+        "sha256": "B98217BDAB70C171D0A160779F37CCA2F2E9451AA9326EC6E702D5E36C87500F"
+      },
+      {
+        "path": "Char/FishSide/side_1.png",
+        "width": 150,
+        "height": 128,
+        "guid": "5ed2cb54b502ff440a9a7c4b45ac4400",
+        "sha256": "F8E55CC9D59EB960EEB6183722DA1E847EB6B8058A588FACF73DC9E6C67F6936"
+      },
+      {
+        "path": "Char/FishSide/side_2.png",
+        "width": 150,
+        "height": 128,
+        "guid": "32c7be060eac3214b8d53fe2d495e670",
+        "sha256": "840C73D0FF1C2A8E1EAC5CA6D43D15A966821FFA23B3C6142C8E41FD56FE8FAF"
+      },
+      {
+        "path": "1-2 Cave/fall_1.png",
+        "width": 200,
+        "height": 128,
+        "guid": "bde602d39f044fb4fb167e9c118e099a",
+        "sha256": "2E2DA92B8D027076DDFA2E78C3990569EBC977FE5B3EAA297DCFE40456A6511B"
+      },
+      {
+        "path": "1-2 Cave/fall_2.png",
+        "width": 200,
+        "height": 128,
+        "guid": "57ba41d2feea068469fd36380772de7f",
+        "sha256": "2146001775AE08E75C16C88E453248953C813E3C5866EBDDA3BBAE5676640701"
+      },
+      {
+        "path": "1-2 Cave/slide_1.png",
+        "width": 200,
+        "height": 128,
+        "guid": "cdb5567b563e7274eb9aba547f504ad8",
+        "sha256": "BD719958FEB6B4DEF5A8AD161640187DF52AE855DBD8ECF16AE98A6901440C85"
+      },
+      {
+        "path": "1-2 Cave/slide_2.png",
+        "width": 200,
+        "height": 128,
+        "guid": "97694f0cfde8f5e4c87c7fb8fa866e22",
+        "sha256": "B1ECAE7218C1C29BEF247AA0B362F513378811720FF84EFA79C274ECBE53B2DB"
+      },
+      {
+        "path": "1-2 Cave/slide_3.png",
+        "width": 200,
+        "height": 128,
+        "guid": "5dc88c3b39a387d469304c0baf34fec7",
+        "sha256": "6F3D3B4FA78961503A5E17E212BAE6F3216BA108FF4F1123CA653D3E9EC988C2"
+      },
+      {
+        "path": "1-1 Wood/2.png",
+        "width": 109,
+        "height": 114,
+        "guid": "8411c30666ece3f4088ec04bc88ad1a8",
+        "sha256": "0E17723C4409090A914CCAF1245837A36A71CD74E9CFED217AF9C69C8DCBC57F"
+      },
+      {
+        "path": "1-1 Wood/3.png",
+        "width": 109,
+        "height": 114,
+        "guid": "52f6cf14d95cecc4780225734b41a27a",
+        "sha256": "22B0927D4DE0FB9C85F4A56D9D222607ECB7A1F181F5C6FDB69A335E3EBFCAB0"
+      },
+      {
+        "path": "1-1 Wood/대지 1.png",
+        "width": 128,
+        "height": 183,
+        "guid": "93f4d443da7aadc4b9e55a45d08ff623",
+        "sha256": "D769AF7A0146C50055F530416BC2B203F905B733F820E38CC82779851777920C"
+      },
+      {
+        "path": "1-6 river/pail.png",
+        "width": 200,
+        "height": 128,
+        "guid": "c8e18f096111d2c4ab7b7694d05aefb0",
+        "sha256": "B898CDE80340A8C6FFDF0C6E6A61FE8C48A5A15E543C897D9D3F9BE7DA96AE8F"
+      }
+    ]
+  },
+  {
+    "name": "gems",
+    "columns": 5,
+    "rows": 2,
+    "transparent": true,
+    "files": [
+      {
+        "path": "1-2 Cave/RubyAnimation_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "499acff99e0df984c9b3d49d38bc3112",
+        "sha256": "C2FAF9820A557DC9918E3A02F8FCF9E3CD6BF92758352A8BA756B94905B3C488"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "5a0a8627c88f7fa498279069e1117b45",
+        "sha256": "70A3AAE66C771ACF8645BB049982A07E3C981C6D563C58CA4C2B4DC68BB9F187"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c3d9ce33da092ea41b674032e3067d83",
+        "sha256": "72E6D8EE3D6D890D295E325F0A1D3FFC9C9C4D4D6FCFBB4B3C48965C9DA8A67F"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_4.png",
+        "width": 128,
+        "height": 128,
+        "guid": "d49c2952c4cf242448e0994faf90d173",
+        "sha256": "B9DF433401C4534C2B63185D7E1DB863E685B3A981E8C621980FB31A47C1CBE3"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_5.png",
+        "width": 128,
+        "height": 128,
+        "guid": "29a1e967f97082042863ab077692a3b5",
+        "sha256": "AA94025DF1D1BB55C74DFCFA39E3D7B5B53C3596519C08C466C0F297B67E51BC"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_6.png",
+        "width": 128,
+        "height": 128,
+        "guid": "ed1ea81c0eafe144b8ae6eca2246f9bd",
+        "sha256": "41E2623CAFE88D52B84EBE5ADCE540C1BE7E9F456C926CAF851D75BE117C251C"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_7.png",
+        "width": 128,
+        "height": 128,
+        "guid": "3ac27ff5f8953e94e8ed5ae1b1a4736a",
+        "sha256": "6A28B74F2218AC2DB178D0920DB2269F5F9D21922E7CD5814799C4E1445C259B"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_8.png",
+        "width": 128,
+        "height": 128,
+        "guid": "0ee3a75f357d86a4eb3bc2c26263051e",
+        "sha256": "77DD87DC48335A68C2E669FE1F0739AC680035700BACF5A55C0073A668BFD8D7"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_9.png",
+        "width": 128,
+        "height": 128,
+        "guid": "406c799eacad4db41b9020fd9666c45c",
+        "sha256": "BFE1DF293E42F5284B4EE18640140857EA535DDFC3B98E1A6A0CEF030C6BFF53"
+      },
+      {
+        "path": "1-2 Cave/RubyAnimation_10.png",
+        "width": 128,
+        "height": 128,
+        "guid": "9f594db0ee9c6ca468971e495c07a405",
+        "sha256": "55A3986082F43FAD8C36AB75816A4D3F7573B104C75851B46A4AA9966CD57659"
+      }
+    ]
+  },
+  {
+    "name": "wood-stone-props",
+    "columns": 4,
+    "rows": 4,
+    "transparent": true,
+    "files": [
+      {
+        "path": "1-1 Wood/1-1treechoped.png",
+        "width": 128,
+        "height": 128,
+        "guid": "85bc755801f67b344ae229497354a1a5",
+        "sha256": "F2023F0083761D9A41501181A69199D332F2C1A7B5E21485168658B99D945F15"
+      },
+      {
+        "path": "1-1 Wood/1-1treechoped_gold.png",
+        "width": 128,
+        "height": 128,
+        "guid": "78ff02b65fc53c540b2b7f8bab8569be",
+        "sha256": "A70A8A0025EFBCADAABE55B5D7E7EF252F03BD7D9B0677A8DE597B35E6370DCA"
+      },
+      {
+        "path": "2-1 tree/normallog.png",
+        "width": 128,
+        "height": 128,
+        "guid": "489f45c1cba1eb744a88ee5b1943c992",
+        "sha256": "CE283E61D442EB9C9839E18BF579FD49275CB014F5265CDF036562229858E38D"
+      },
+      {
+        "path": "2-1 tree/goldlog.png",
+        "width": 128,
+        "height": 128,
+        "guid": "ed5051cecd3c23145961f62044d3f3b4",
+        "sha256": "A87C8DF4F2DC73547CC3A206ADFE1D260E3B8B44B5F1D9138026963FBBDB6135"
+      },
+      {
+        "path": "2-1 tree/holelog_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "a2390d8a01840fa4185f4189a9a311cf",
+        "sha256": "BD744910E5951C2BA63AD7683339A2E5E539BA4920E0F6105E01298B14523C28"
+      },
+      {
+        "path": "1-2 Cave/caverock.png",
+        "width": 128,
+        "height": 128,
+        "guid": "4f21ca77a75d6034985cc7ca53434a8f",
+        "sha256": "0CA9DEDD51F0806B394AFD9D582E71B4119840FF00C989A07B7F6B5E36D9B26C"
+      },
+      {
+        "path": "1-2 Cave/cavestalactite.png",
+        "width": 128,
+        "height": 128,
+        "guid": "5c3a3b41f7cd1a141b7daa4856259d92",
+        "sha256": "1B1E80BC4B41F6EF102C9211E12404084D8CBB08D25D45A7D128FD6379AF5AD9"
+      },
+      {
+        "path": "1-2 Cave/cavestalactite_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "95ef5bc7f5648964c8ab0727bacdfada",
+        "sha256": "35B168760E965E3D0068FCD67E6E3F85598384BDC656211D6D7707E64FD34878"
+      },
+      {
+        "path": "2-6 well section/stone.png",
+        "width": 128,
+        "height": 128,
+        "guid": "91cb07e2d15584e489e5cc966dd2217a",
+        "sha256": "801E91BC5DB76077F14F0473C794296E39AE378EA2279DD3E1E0F20B92C4D19F"
+      },
+      {
+        "path": "2-2 maze/map.png",
+        "width": 128,
+        "height": 128,
+        "guid": "0739bc2c105ab914b893dc8e7c204383",
+        "sha256": "C7584A2D33ED1F66B287EA8369BD47C90DCE098F8261E9C72364AE081F95E56D"
+      },
+      {
+        "path": "2-7 oasis/cartoonmeat.png",
+        "width": 128,
+        "height": 128,
+        "guid": "25c273ad7cedce742a0888b79d0576b8",
+        "sha256": "43A548CAA5E3DF32FF274A4C1298F5DC9F6915B0504CF66F7FAE07DC81F75FEC"
+      },
+      {
+        "path": "2-7 oasis/treelogs.png",
+        "width": 128,
+        "height": 128,
+        "guid": "11dbba026d3d64e49afe346c03961fb6",
+        "sha256": "804DF86B5F34E9D153C50B26404E5B474A52379549476553AC7FF5F2816B3BD6"
+      },
+      {
+        "path": "2-7 oasis/waterjug.png",
+        "width": 128,
+        "height": 128,
+        "guid": "f0adec88120cd4a4ca6ad71eef1b2b54",
+        "sha256": "4186B2E10222D94A8C4D72C324E00A578FEB6D1D9A9B4C1C44D2D3390A9CCE48"
+      },
+      {
+        "path": "2-7 oasis/fishingnet.png",
+        "width": 128,
+        "height": 128,
+        "guid": "06823f27874c4244982cc8418158218a",
+        "sha256": "FA9E29DD84C0F851A9FC934DF64EE45167040AF0F8BD9644C01D500B51259765"
+      },
+      {
+        "path": "1-4 Hunt/arrow.png",
+        "width": 128,
+        "height": 128,
+        "guid": "7bca5cad88e02ac469954e36df53db78",
+        "sha256": "A4FF24D16C9C1F9ACF49BF96BF9B91EC75DA6A5AB8BE5EB2851E807D0A98A7F4"
+      },
+      {
+        "path": "2-5 fish/fishhook.png",
+        "width": 128,
+        "height": 128,
+        "guid": "c4697b397f45f36479bbf7f33deaca5e",
+        "sha256": "02A376647AB9B8321322F6C09237A966D2E200D3D77EAB5CB30B08A666A29218"
+      }
+    ]
+  },
+  {
+    "name": "water-props",
+    "columns": 4,
+    "rows": 3,
+    "transparent": true,
+    "files": [
+      {
+        "path": "1-6 river/bucket_1.png",
+        "width": 94,
+        "height": 98,
+        "guid": "9664dcd2c87827a43b4258549e9495ec",
+        "sha256": "55BA98BD6F840F32F5AE36548F33E5C24EFEDE050EC6566A9F9143BCFC86D890"
+      },
+      {
+        "path": "1-6 river/bucket_2.png",
+        "width": 94,
+        "height": 98,
+        "guid": "4483850510aed4540a40ae1f8374a492",
+        "sha256": "52F2C380C9BB7D7444059D3827978ADBADCC28B0BDC5E5D06E7E922F969BCD80"
+      },
+      {
+        "path": "1-6 river/bucket_3.png",
+        "width": 94,
+        "height": 98,
+        "guid": "32d9e54939577384e9ee7686d00bae2f",
+        "sha256": "51507954F13B4A746BD4EB5F8FDA5DC32BCD39C6E521F12E5F694F73C33CCEB1"
+      },
+      {
+        "path": "1-6 river/bucket_4.png",
+        "width": 94,
+        "height": 98,
+        "guid": "c2b3faeddfbed0e48b0f93c402295985",
+        "sha256": "DA4C4931AC364C29B4A54E25635464127AAFE9F1DC43963A03FD772E2186BE9A"
+      },
+      {
+        "path": "2-6 well section/bucket_withrope_1.png",
+        "width": 128,
+        "height": 128,
+        "guid": "3cd055bf244b82645990e3af15907dd3",
+        "sha256": "0F94F12F2ABBF41802C97C0F2BE275B76868DA2CB875EFB1A464D1BB518D7EBD"
+      },
+      {
+        "path": "2-6 well section/bucket_withrope_2.png",
+        "width": 128,
+        "height": 128,
+        "guid": "55825bca03eb6174599e4224f4ff2911",
+        "sha256": "5E93C28833AAF0CE1889BFDA38FFE0483514B6AE874B7B62B693AF6E81D72FC0"
+      },
+      {
+        "path": "2-6 well section/bucket_withrope_3.png",
+        "width": 128,
+        "height": 128,
+        "guid": "ad095406979c9da4182a5b028bf27723",
+        "sha256": "FF445A39B9AFD38DEFF78C3BE50A4F20C7AD1EB9A615876A3F27BA2D5D96FED1"
+      },
+      {
+        "path": "2-6 well section/bucket_withrope_empty.png",
+        "width": 128,
+        "height": 128,
+        "guid": "7dc89c20e2fa8c84da968f51e86baa3f",
+        "sha256": "C820A1107FA2591FFDFAA9EA94D3F0D424246C53825D13B6D337B02A3C17AB2C"
+      },
+      {
+        "path": "1-6 river/boots.png",
+        "width": 104,
+        "height": 98,
+        "guid": "4c86bcb19522c2b49a4170cdc375fb6a",
+        "sha256": "C5817863D01C541949162C3E4AE02784AB00ABDC59F1A14EC90AD6262E40683C"
+      },
+      {
+        "path": "1-6 river/deadfish.png",
+        "width": 111,
+        "height": 54,
+        "guid": "f3028ee0d20004a4a81d0f24a8d35055",
+        "sha256": "19AFDDACA9329AA7A88160898179095A624534F90A1B511CB129E9C1296D7806"
+      },
+      {
+        "path": "1-6 river/eaten apple.png",
+        "width": 79,
+        "height": 106,
+        "guid": "f3c6fc8903a912c429907163009129b8",
+        "sha256": "889CEAFF413F302622C8503686458C3153CCA0AD700C12700D1216E861FCA641"
+      }
+    ]
+  }
+]

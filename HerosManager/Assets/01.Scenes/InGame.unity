@@ -20336,7 +20336,7 @@ MonoBehaviour:
   mouse: {x: 0, y: 0}
   angle: 0
   img1: {fileID: 309355230775926716, guid: c8e18f096111d2c4ab7b7694d05aefb0, type: 3}
-  img2: {fileID: 5789660533739163302, guid: 60c4f4e1fa604e24789048377ece5d24, type: 3}
+  img2: {fileID: 309355230775926716, guid: c8e18f096111d2c4ab7b7694d05aefb0, type: 3}
   moveVar: 175
 --- !u!82 &449946454
 AudioSource:
@@ -29819,7 +29819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -4104589130341422896, guid: 60c4f4e1fa604e24789048377ece5d24,
+  m_Sprite: {fileID: 21300000, guid: 3793c8992858fdf4eaeee2b48a181528,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -66951,7 +66951,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -7527047851404228102, guid: 60c4f4e1fa604e24789048377ece5d24,
+  m_Sprite: {fileID: 21300000, guid: 020c025adf498534fa9c07893d2422cf,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
